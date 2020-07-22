@@ -20,6 +20,7 @@
         <option value="$PROJECT_DIR$/commons/commons-dto/pom.xml" />
         <option value="$PROJECT_DIR$/commons/commons-provider/pom.xml" />
         <option value="$PROJECT_DIR$/commons/commons-utils/pom.xml" />
+        <option value="$PROJECT_DIR$/business/business-oauth2/pom.xml" />
       </list>
     </option>
   </component>
