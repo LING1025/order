@@ -17,6 +17,9 @@
         <option value="$PROJECT_DIR$/provider/provider-order-service/pom.xml" />
         <option value="$PROJECT_DIR$/provider/provider-user-api/pom.xml" />
         <option value="$PROJECT_DIR$/provider/provider-user-service/pom.xml" />
+        <option value="$PROJECT_DIR$/commons/commons-dto/pom.xml" />
+        <option value="$PROJECT_DIR$/commons/commons-provider/pom.xml" />
+        <option value="$PROJECT_DIR$/commons/commons-utils/pom.xml" />
       </list>
     </option>
   </component>
