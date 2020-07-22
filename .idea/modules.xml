@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/business/business.iml" filepath="$PROJECT_DIR$/business/business.iml" />
+      <module fileurl="file://$PROJECT_DIR$/commons/commons.iml" filepath="$PROJECT_DIR$/commons/commons.iml" />
+      <module fileurl="file://$PROJECT_DIR$/configuration/configuration.iml" filepath="$PROJECT_DIR$/configuration/configuration.iml" />
+      <module fileurl="file://$PROJECT_DIR$/dependencies/dependencies.iml" filepath="$PROJECT_DIR$/dependencies/dependencies.iml" />
+      <module fileurl="file://$PROJECT_DIR$/gateway/gateway.iml" filepath="$PROJECT_DIR$/gateway/gateway.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/order.iml" filepath="$PROJECT_DIR$/.idea/order.iml" />
+      <module fileurl="file://$PROJECT_DIR$/provider/provider.iml" filepath="$PROJECT_DIR$/provider/provider.iml" />
+      <module fileurl="file://$PROJECT_DIR$/provider/provider-order-api/provider-order-api.iml" filepath="$PROJECT_DIR$/provider/provider-order-api/provider-order-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/provider/provider-order-service/provider-order-service.iml" filepath="$PROJECT_DIR$/provider/provider-order-service/provider-order-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/provider/provider-user-api/provider-user-api.iml" filepath="$PROJECT_DIR$/provider/provider-user-api/provider-user-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/provider/provider-user-service/provider-user-service.iml" filepath="$PROJECT_DIR$/provider/provider-user-service/provider-user-service.iml" />
+    </modules>
+  </component>
+</project>
