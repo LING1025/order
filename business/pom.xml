@@ -30,8 +30,6 @@
 
     <modules>
         <module>business-oauth2</module>
-        <!--<module>business-user/business-user-feign</module>
-        <module>business-user/business-user-service</module>
-        <module>business-order</module>-->
+        <module>business-order</module>
     </modules>
 </project>

@@ -1,8 +1,6 @@
 package com.funtl.myshop.plus.business.service;
 
-import com.funtl.myshop.plus.provider.api.AspnetMembershipService;
 import com.funtl.myshop.plus.provider.api.AspnetUsersService;
-import com.funtl.myshop.plus.provider.domain.AspnetMembership;
 import com.funtl.myshop.plus.provider.domain.AspnetUsers;
 import com.google.common.collect.Lists;
 import org.apache.dubbo.config.annotation.Reference;
@@ -25,8 +23,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Reference(version = "1.0.0")
     private AspnetUsersService aspnetUsersService;
 
-    @Reference(version = "1.0.0")
-    private AspnetMembershipService aspnetMembershipService;
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
@@ -36,16 +32,13 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             return null;
         }
 
-        //查询用户密码
-        AspnetMembership aspnetMembership = aspnetMembershipService.selectByUserId(aspnetUsers.getUserId());
-
         // 默认所有用户拥有 USER 权限
         List<GrantedAuthority> grantedAuthorities = Lists.newArrayList();
         GrantedAuthority grantedAuthority = new SimpleGrantedAuthority("USER");
         grantedAuthorities.add(grantedAuthority);
         // 用户存在
         if (aspnetUsers != null) {
-            return new User(aspnetUsers.getUsername(), aspnetMembership.getPasswordCode(), grantedAuthorities);
+            return new User(aspnetUsers.getUsername(),"$2a$10$/GjKa/yU7Y8SjZ6YGSa0ye7Zk118PNrVcpH32HcXaHrKBHTN2/qay", grantedAuthorities);
         }
 
         // 用户不存在
@@ -53,23 +46,4 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             return null;
         }
     }
-
-    /*@Override
-    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        //查询用户
-        AspnetUsers aspnetUsers = aspnetUsersService.get(s);
-        // 默认所有用户拥有 USER 权限
-        List<GrantedAuthority> grantedAuthorities = Lists.newArrayList();
-        GrantedAuthority grantedAuthority = new SimpleGrantedAuthority("USER");
-        grantedAuthorities.add(grantedAuthority);
-        // 用户存在
-        if (aspnetUsers != null) {
-            return new User(aspnetUsers.getUsername(), aspnetUsers.getPassword(), grantedAuthorities);
-        }
-
-        // 用户不存在
-        else {
-            return null;
-        }
-    }*/
 }
