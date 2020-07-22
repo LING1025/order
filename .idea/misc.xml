@@ -21,6 +21,7 @@
         <option value="$PROJECT_DIR$/commons/commons-provider/pom.xml" />
         <option value="$PROJECT_DIR$/commons/commons-utils/pom.xml" />
         <option value="$PROJECT_DIR$/business/business-oauth2/pom.xml" />
+        <option value="$PROJECT_DIR$/configuration/configuration-feign/pom.xml" />
       </list>
     </option>
   </component>
