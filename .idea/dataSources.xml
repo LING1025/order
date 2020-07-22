@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
+    <data-source source="LOCAL" name="AspNet" uuid="1603a0dd-af97-48e0-9e44-a772bb18e228">
+      <driver-ref>sqlserver.ms</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.microsoft.sqlserver.jdbc.SQLServerDriver</jdbc-driver>
+      <jdbc-url>jdbc:sqlserver://192.168.1.215;database=AspNet</jdbc-url>
+    </data-source>
+    <data-source source="LOCAL" name="Rental" uuid="2b25b6d4-745d-4c7a-b9e7-91f5b0e68eca">
+      <driver-ref>sqlserver.ms</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.microsoft.sqlserver.jdbc.SQLServerDriver</jdbc-driver>
+      <jdbc-url>jdbc:sqlserver://192.168.1.215;database=Rental</jdbc-url>
+    </data-source>
+  </component>
+</project>
