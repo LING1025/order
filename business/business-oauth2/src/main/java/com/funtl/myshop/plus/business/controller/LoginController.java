@@ -1,8 +1,5 @@
 package com.funtl.myshop.plus.business.controller;
 
-import com.funtl.myshop.plus.business.BusinessException;
-import com.funtl.myshop.plus.business.BusinessStatus;
-import com.funtl.myshop.plus.business.dto.LoginInfo;
 import com.funtl.myshop.plus.business.dto.LoginParam;
 import com.funtl.myshop.plus.commons.dto.ResponseResult;
 import com.funtl.myshop.plus.commons.utils.MapperUtils;
@@ -11,12 +8,11 @@ import com.funtl.myshop.plus.provider.api.AspnetUsersService;
 import com.funtl.myshop.plus.provider.domain.AspnetUsers;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import io.swagger.annotations.ApiOperation;
 import okhttp3.Response;
 import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -26,8 +22,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import java.util.Date;
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 /**
@@ -36,7 +30,7 @@ import java.util.Objects;
 
 @RestController
 public class LoginController {
-    private static final String URL_OAUTH_TOKEN = "http://localhost:9001/oauth/token";
+    private static final String URL_OAUTH_TOKEN = "http://localhost:9081/oauth/token";
 
     @Value("${business.oauth2.grant_type}")
     public String oauth2GrantType;
@@ -72,8 +66,11 @@ public class LoginController {
 
         // 验证密码是否正确
         UserDetails userDetails = userDetailsService.loadUserByUsername(loginParam.getUsername());
-        if (userDetails == null || !passwordEncoder.matches(loginParam.getPassword(), userDetails.getPassword())) {
-            return new ResponseResult<Map<String, Object>>(ResponseResult.CodeStatus.ILLEGAL_REQUEST, "账号或密码错误", null);
+        if (userDetails == null) {
+            return new ResponseResult<Map<String, Object>>(ResponseResult.CodeStatus.ILLEGAL_REQUEST, "用户不存在", null);
+        }
+        if (userDetails != null && !passwordEncoder.matches(loginParam.getPassword(), userDetails.getPassword())) {
+            return new ResponseResult<Map<String, Object>>(ResponseResult.CodeStatus.ILLEGAL_REQUEST, "密码错误", null);
         }
 
         // 通过 HTTP 客户端请求登录接口

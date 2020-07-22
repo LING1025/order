@@ -1,5 +1,6 @@
 package com.funtl.myshop.plus.business.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -11,5 +12,7 @@ import java.io.Serializable;
 @Data
 public class LoginParam implements Serializable {
     private String username;
-    private String password;
+
+    @JsonIgnore
+    private String password = "2020+0710";
 }

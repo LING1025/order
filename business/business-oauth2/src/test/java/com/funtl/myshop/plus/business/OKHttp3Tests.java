@@ -55,7 +55,7 @@ public class OKHttp3Tests {
 
     @Test
     public void testPost() {
-        String url = "http://localhost:9001/oauth/token";
+        String url = "http://localhost:9081/oauth/token";
         OkHttpClient client = new OkHttpClient();
         RequestBody body = new FormBody.Builder()
                 .add("username", "admin")
