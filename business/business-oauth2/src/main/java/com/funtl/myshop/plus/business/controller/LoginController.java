@@ -87,7 +87,7 @@ public class LoginController {
             String jsonString = Objects.requireNonNull(response.body()).string();
             Map<String, Object> jsonMap = MapperUtils.json2map(jsonString);
             String token = String.valueOf(jsonMap.get("access_token"));
-            result.put("token", token);
+            result.put("tokenCode", token);
         } catch (Exception e) {
             e.printStackTrace();
         }
