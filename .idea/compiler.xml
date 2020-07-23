@@ -9,13 +9,10 @@
         <module name="provider-user-api" />
         <module name="gateway" />
         <module name="provider-user-service" />
-        <module name="provider-order-service" />
         <module name="business-user-feign" />
         <module name="commons-dto" />
         <module name="business-user-service" />
         <module name="commons-provider" />
-        <module name="provider-order-api" />
-        <module name="business-order" />
         <module name="commons-utils" />
         <module name="business-oauth2" />
         <module name="configuration-feign" />
