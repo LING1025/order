@@ -136,6 +136,12 @@
             <version>${project.parent.version}</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>com.funtl.myshop.plus</groupId>
+            <artifactId>business-user-feign</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 
     <build>

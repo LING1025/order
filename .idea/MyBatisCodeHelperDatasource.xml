@@ -34,6 +34,18 @@
         </option>
         <option name="tableGenerateConfigs">
           <map>
+            <entry key="dbo:aspnet_Roles">
+              <value>
+                <TableGenerateConfig>
+                  <option name="generatedKey" value="" />
+                  <option name="javaModelName" value="AspnetRoles" />
+                  <option name="moduleName" value="provider-user-api" />
+                  <option name="sequenceColumn" value="" />
+                  <option name="sequenceId" value="" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
             <entry key="dbo:aspnet_Users">
               <value>
                 <TableGenerateConfig>
