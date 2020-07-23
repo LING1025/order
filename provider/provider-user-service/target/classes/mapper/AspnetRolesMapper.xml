@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.funtl.myshop.plus.provider.mapper.AspnetRolesMapper">
+  <resultMap id="BaseResultMap" type="com.funtl.myshop.plus.provider.domain.AspnetRoles">
+    <!--@mbg.generated-->
+    <!--@Table aspnet_Roles-->
+    <id column="RoleId" jdbcType="OTHER" property="roleId" />
+    <result column="ApplicationId" jdbcType="OTHER" property="applicationId" />
+    <result column="RoleName" jdbcType="VARCHAR" property="roleName" />
+    <result column="LoweredRoleName" jdbcType="VARCHAR" property="loweredRoleName" />
+    <result column="Description" jdbcType="VARCHAR" property="description" />
+    <result column="Roles_Auto" jdbcType="BIGINT" property="rolesAuto" />
+    <result column="TitleLevel" jdbcType="INTEGER" property="titleLevel" />
+    <result column="Org_Auto" jdbcType="INTEGER" property="orgAuto" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    RoleId, ApplicationId, RoleName, LoweredRoleName, Description, Roles_Auto, TitleLevel,
+    Org_Auto
+  </sql>
+</mapper>
