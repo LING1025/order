@@ -8,14 +8,16 @@
         <outputRelativeToContentRoot value="true" />
         <module name="provider-user-api" />
         <module name="gateway" />
-        <module name="provider-order-service" />
-        <module name="business-oauth2" />
         <module name="provider-user-service" />
+        <module name="provider-order-service" />
+        <module name="business-user-feign" />
         <module name="commons-dto" />
+        <module name="business-user-service" />
         <module name="commons-provider" />
+        <module name="provider-order-api" />
         <module name="business-order" />
         <module name="commons-utils" />
-        <module name="provider-order-api" />
+        <module name="business-oauth2" />
         <module name="configuration-feign" />
       </profile>
     </annotationProcessing>
@@ -23,6 +25,9 @@
       <module name="business" target="1.8" />
       <module name="business-oauth2" target="1.8" />
       <module name="business-order" target="1.8" />
+      <module name="business-user" target="1.8" />
+      <module name="business-user-feign" target="1.8" />
+      <module name="business-user-service" target="1.8" />
       <module name="commons" target="1.8" />
       <module name="commons-dto" target="1.8" />
       <module name="commons-provider" target="1.8" />
@@ -43,6 +48,8 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="business-oauth2" options="-parameters" />
       <module name="business-order" options="-parameters" />
+      <module name="business-user-feign" options="-parameters" />
+      <module name="business-user-service" options="-parameters" />
       <module name="commons-dto" options="-parameters" />
       <module name="commons-provider" options="-parameters" />
       <module name="commons-utils" options="-parameters" />

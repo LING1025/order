@@ -1,6 +1,6 @@
 spring:
   application:
-    name: business-order
+    name: business-user
   main:
     allow-bean-definition-overriding: true
   jackson:
@@ -35,7 +35,7 @@ dubbo:
     timeout: 2500
 
 server:
-  port: 9083
+  port: 9082
 
 management:
   endpoints:

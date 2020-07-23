@@ -23,6 +23,9 @@
         <option value="$PROJECT_DIR$/business/business-oauth2/pom.xml" />
         <option value="$PROJECT_DIR$/configuration/configuration-feign/pom.xml" />
         <option value="$PROJECT_DIR$/business/business-order/pom.xml" />
+        <option value="$PROJECT_DIR$/business/business-user/pom.xml" />
+        <option value="$PROJECT_DIR$/business/business-user/business-user-feign/pom.xml" />
+        <option value="$PROJECT_DIR$/business/business-user/business-user-service/pom.xml" />
       </list>
     </option>
   </component>
