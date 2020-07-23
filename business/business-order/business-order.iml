@@ -187,6 +187,7 @@
     <orderEntry type="library" name="Maven: io.github.openfeign.form:feign-form-spring:3.8.0" level="project" />
     <orderEntry type="library" name="Maven: io.github.openfeign.form:feign-form:3.8.0" level="project" />
     <orderEntry type="library" name="Maven: commons-fileupload:commons-fileupload:1.4" level="project" />
+    <orderEntry type="module" module-name="provider-order-api" />
     <orderEntry type="library" name="Maven: com.squareup.okhttp3:okhttp:4.0.1" level="project" />
     <orderEntry type="library" name="Maven: com.squareup.okio:okio:2.2.2" level="project" />
     <orderEntry type="library" name="Maven: org.jetbrains.kotlin:kotlin-stdlib:1.2.71" level="project" />
