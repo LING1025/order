@@ -9,4 +9,10 @@ public interface AspnetUsersService{
      */
     AspnetUsers get(String username);
 
+    /**
+     * 根据userAuto获取用户数据
+     * @param userAuto
+     * @return
+     */
+    AspnetUsers selectById(Long userAuto);
 }
