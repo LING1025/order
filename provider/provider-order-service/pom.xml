@@ -128,6 +128,18 @@
         </dependency>
 
         <!-- Projects Begin -->
+        <dependency>
+            <groupId>com.funtl.myshop.plus</groupId>
+            <artifactId>provider-order-api</artifactId>
+            <version>${project.parent.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.funtl.myshop.plus</groupId>
+            <artifactId>commons-provider</artifactId>
+            <version>${project.parent.version}</version>
+            <scope>compile</scope>
+        </dependency>
         <!-- Projects End -->
     </dependencies>
 
