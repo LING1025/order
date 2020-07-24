@@ -3,8 +3,10 @@ package com.funtl.myshop.plus.business.controller;
 import com.funtl.myshop.plus.commons.dto.ResponseResult;
 import com.funtl.myshop.plus.provider.api.AspnetRolesService;
 import com.funtl.myshop.plus.provider.api.CreditAgentService;
+import com.funtl.myshop.plus.provider.api.OrdersService;
 import com.funtl.myshop.plus.provider.api.VEmpService;
 import com.funtl.myshop.plus.provider.domain.AspnetRoles;
+import com.funtl.myshop.plus.provider.domain.MasterList;
 import com.funtl.myshop.plus.provider.domain.SelfAgentList;
 import com.funtl.myshop.plus.provider.domain.VEmp;
 import com.github.pagehelper.PageInfo;
@@ -33,6 +35,9 @@ public class OrderController {
 
     @Reference(version = "1.0.0")
     private AspnetRolesService aspnetRolesService;
+
+    @Reference(version = "1.0.0")
+    private OrdersService ordersService;
 
     @ApiOperation(value = " 根据本人id获取代理数据")
     @ApiImplicitParams({
@@ -118,6 +123,19 @@ public class OrderController {
             }
         }
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", pageInfo);
+    }
+
+    @ApiOperation(value = " 根据角色id集合获取主档信息待签核信息")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "roleIds", value = "角色id集合", required = false, dataType = "long", paramType = "path")
+    })
+    @GetMapping(value = "queryMasterList")
+    public ResponseResult<List<MasterList>> queryMasterList(@RequestParam(name = "roleIds",required = false) List<Long> roleIds){
+        if (roleIds == null){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "参数异常", null);
+        }
+        List<MasterList> lists = ordersService.selectByRoleIds(roleIds);
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", lists);
     }
 
 }

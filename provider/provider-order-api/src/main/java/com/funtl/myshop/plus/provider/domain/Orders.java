@@ -17,7 +17,8 @@ public class Orders implements Serializable {
     @Column(name = "Orders_Auto")
     private Long ordersAuto;
 
-    /**
+    /**+
+     * .
     * 公司别代码::Inc.Inc_Auto
     */
     @Column(name = "Inc_Auto")
