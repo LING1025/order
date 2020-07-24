@@ -5,6 +5,7 @@ import lombok.Data;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 @Data
 public class SelfAgentListDto implements Serializable {
@@ -40,11 +41,22 @@ public class SelfAgentListDto implements Serializable {
     /**
      * 是否有效 0 停用  1正常 2删除
      */
-    private Byte isOn;
+//    private Byte isOn;
 
     /**
      * 代理截止日期
      */
-    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
-    private Date agentCDate;
+//    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
+//    private Date agentCDate;
+
+    /**
+     * 本人角色id\角色名
+     */
+    private List<Long> selfRoleIds;
+    private List<String> selfRoleNames;
+    /**
+     * 代理人角色id\角色名
+     */
+    private List<Long> agentRoleIds;
+    private List<String> agentRoleNames;
 }

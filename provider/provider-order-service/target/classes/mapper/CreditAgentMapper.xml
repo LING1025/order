@@ -28,9 +28,9 @@
     SelfUser,
     SelfUSerDept,
     AgentUser,
-    AgentUserDept,
-    IsOn,
-    AgentCDate
+    AgentUserDept
+    <!--IsOn,
+    AgentCDate-->
     FROM
     CreditAgent
     WHERE
@@ -47,9 +47,9 @@
     SelfUser,
     SelfUSerDept,
     AgentUser,
-    AgentUserDept,
-    IsOn,
-    AgentCDate
+    AgentUserDept
+    <!--IsOn,
+    AgentCDate-->
     FROM
     CreditAgent
     WHERE
