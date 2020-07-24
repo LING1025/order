@@ -62,6 +62,386 @@
                 </TableGenerateConfig>
               </value>
             </entry>
+            <entry key="dbo:Orders">
+              <value>
+                <TableGenerateConfig>
+                  <option name="columnOverrideList">
+                    <list>
+                      <MyColumnOverride>
+                        <option name="columnName" value="TradeItem_Auto" />
+                        <option name="javaProperty" value="tradeItemAuto" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="CarBase_Auto" />
+                        <option name="javaProperty" value="carBaseAuto" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="CustSource" />
+                        <option name="javaProperty" value="custSource" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="CustMemo" />
+                        <option name="javaProperty" value="custMemo" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="CarSource" />
+                        <option name="javaProperty" value="carSource" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="FactoryBrand_Auto" />
+                        <option name="javaProperty" value="factoryBrandAuto" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="ClasenCode" />
+                        <option name="javaProperty" value="clasenCode" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="CarColor" />
+                        <option name="javaProperty" value="carColor" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="MakNo" />
+                        <option name="javaProperty" value="makNo" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="ListPrice" />
+                        <option name="javaProperty" value="listPrice" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="DisPrice" />
+                        <option name="javaProperty" value="disPrice" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="GetPrice" />
+                        <option name="javaProperty" value="getPrice" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="PushMoney" />
+                        <option name="javaProperty" value="pushMoney" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="PushMan" />
+                        <option name="javaProperty" value="pushMan" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="PushMan_Auto" />
+                        <option name="javaProperty" value="pushManAuto" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="CarTax" />
+                        <option name="javaProperty" value="carTax" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="CarCost" />
+                        <option name="javaProperty" value="carCost" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="OverAmt" />
+                        <option name="javaProperty" value="overAmt" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="DptAmt" />
+                        <option name="javaProperty" value="dptAmt" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="MakNoType" />
+                        <option name="javaProperty" value="makNoType" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="MakNoCost" />
+                        <option name="javaProperty" value="makNoCost" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="OrderType" />
+                        <option name="javaProperty" value="orderType" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="RentAmt" />
+                        <option name="javaProperty" value="rentAmt" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="RentType" />
+                        <option name="javaProperty" value="rentType" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="StampTax" />
+                        <option name="javaProperty" value="stampTax" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="SellCarTax" />
+                        <option name="javaProperty" value="sellCarTax" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="TrnsFee" />
+                        <option name="javaProperty" value="trnsFee" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="PayMode" />
+                        <option name="javaProperty" value="payMode" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="PayDay" />
+                        <option name="javaProperty" value="payDay" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="InsureType" />
+                        <option name="javaProperty" value="insureType" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="InsurePercnt" />
+                        <option name="javaProperty" value="insurePercnt" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="CarPlace" />
+                        <option name="javaProperty" value="carPlace" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="RateRate" />
+                        <option name="javaProperty" value="rateRate" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="FinalRate" />
+                        <option name="javaProperty" value="finalRate" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="RateMCost" />
+                        <option name="javaProperty" value="rateMCost" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="RateYCost" />
+                        <option name="javaProperty" value="rateYCost" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="RateTCost" />
+                        <option name="javaProperty" value="rateTCost" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="RateCost" />
+                        <option name="javaProperty" value="rateCost" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="RateDPN" />
+                        <option name="javaProperty" value="rateDpn" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="RateTax" />
+                        <option name="javaProperty" value="rateTax" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="RateAmt" />
+                        <option name="javaProperty" value="rateAmt" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="FinalMCost" />
+                        <option name="javaProperty" value="finalMCost" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="FinalYCost" />
+                        <option name="javaProperty" value="finalYCost" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="FinalTCost" />
+                        <option name="javaProperty" value="finalTCost" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="FinalCost" />
+                        <option name="javaProperty" value="finalCost" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="FinalDPN" />
+                        <option name="javaProperty" value="finalDpn" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="FinalTax" />
+                        <option name="javaProperty" value="finalTax" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="FinalAmt" />
+                        <option name="javaProperty" value="finalAmt" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="MAmt" />
+                        <option name="javaProperty" value="mAmt" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="RentAmtT" />
+                        <option name="javaProperty" value="rentAmtt" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="RentRate" />
+                        <option name="javaProperty" value="rentRate" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="GrossMargin" />
+                        <option name="javaProperty" value="grossMargin" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="GrossMarginT" />
+                        <option name="javaProperty" value="grossMargint" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="OrderStatus" />
+                        <option name="javaProperty" value="orderStatus" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="TaxMode" />
+                        <option name="javaProperty" value="taxMode" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="TaxRate" />
+                        <option name="javaProperty" value="taxRate" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="chkListPrice" />
+                        <option name="javaProperty" value="chkListPrice" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="LinceKM" />
+                        <option name="javaProperty" value="linceKm" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="AppDate" />
+                        <option name="javaProperty" value="appDate" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="PostType" />
+                        <option name="javaProperty" value="postType" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="ISContractLock" />
+                        <option name="javaProperty" value="isContractLock" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="LockUser" />
+                        <option name="javaProperty" value="lockUser" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="LockDT" />
+                        <option name="javaProperty" value="lockDt" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="ISThirdParty" />
+                        <option name="javaProperty" value="isThirdParty" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="BsType" />
+                        <option name="javaProperty" value="bsType" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="NoInsure" />
+                        <option name="javaProperty" value="noInsure" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="IsCredit" />
+                        <option name="javaProperty" value="isCredit" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="IsCreditUser" />
+                        <option name="javaProperty" value="isCredituser" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="DptType" />
+                        <option name="javaProperty" value="dptType" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="RepurchaseAmt" />
+                        <option name="javaProperty" value="repurchaseAmt" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="ISInsureOffer" />
+                        <option name="javaProperty" value="isInsureOffer" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="CostAdjustment" />
+                        <option name="javaProperty" value="costAdjustment" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="DptTaxPay" />
+                        <option name="javaProperty" value="dptTaxPay" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="DptTax" />
+                        <option name="javaProperty" value="dptTax" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="IsCustomerCare" />
+                        <option name="javaProperty" value="isCustomerCare" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="ReletMakno" />
+                        <option name="javaProperty" value="reletMakno" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="IsRelet" />
+                        <option name="javaProperty" value="isRelet" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="OnetimeTransfer" />
+                        <option name="javaProperty" value="onetimeTransfer" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="OnetimePoundage" />
+                        <option name="javaProperty" value="onetimePoundage" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="CarTransfer" />
+                        <option name="javaProperty" value="carTransfer" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="MakNo_INC" />
+                        <option name="javaProperty" value="makNoInc" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="ServiceAmt" />
+                        <option name="javaProperty" value="serviceAmt" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="OutFee" />
+                        <option name="javaProperty" value="outFee" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="FinanceFee" />
+                        <option name="javaProperty" value="financeFee" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="UrgentFee" />
+                        <option name="javaProperty" value="urgentFee" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="MortgageAddr" />
+                        <option name="javaProperty" value="mortgageAddr" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="CommissionRate" />
+                        <option name="javaProperty" value="commissionRate" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="RateTaxY" />
+                        <option name="javaProperty" value="rateTaxy" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="InsureAnomalyType" />
+                        <option name="javaProperty" value="insureAnomalyType" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="CarPriceRef" />
+                        <option name="javaProperty" value="carPriceRef" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="IsBigTradeItem" />
+                        <option name="javaProperty" value="isBigTradeItem" />
+                      </MyColumnOverride>
+                    </list>
+                  </option>
+                  <option name="generatedKey" value="Orders_Auto" />
+                  <option name="javaModelName" value="Orders" />
+                  <option name="moduleName" value="provider-order-api" />
+                  <option name="sequenceColumn" value="" />
+                  <option name="sequenceId" value="" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
             <entry key="dbo:aspnet_Roles">
               <value>
                 <TableGenerateConfig>
