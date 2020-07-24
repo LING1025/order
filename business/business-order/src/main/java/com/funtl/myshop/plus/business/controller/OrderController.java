@@ -5,8 +5,8 @@ import com.funtl.myshop.plus.provider.api.AspnetRolesService;
 import com.funtl.myshop.plus.provider.api.CreditAgentService;
 import com.funtl.myshop.plus.provider.api.VEmpService;
 import com.funtl.myshop.plus.provider.domain.AspnetRoles;
+import com.funtl.myshop.plus.provider.domain.SelfAgentList;
 import com.funtl.myshop.plus.provider.domain.VEmp;
-import com.funtl.myshop.plus.provider.dto.SelfAgentListDto;
 import com.github.pagehelper.PageInfo;
 import com.google.common.collect.Lists;
 import io.swagger.annotations.Api;
@@ -36,17 +36,13 @@ public class OrderController {
 
     @ApiOperation(value = " 根据本人id获取代理数据")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "userAuto", value = "本人id", required = false, dataType = "long", paramType = "path"),
-            @ApiImplicitParam(name = "pageNum", value = "页码", required = false, dataType = "int", paramType = "path"),
-            @ApiImplicitParam(name = "pageSize", value = "笔数", required = false, dataType = "int", paramType = "path")
+            @ApiImplicitParam(name = "userAuto", value = "本人id", required = false, dataType = "long", paramType = "path")
     })
     @GetMapping(value = "queryBySelf")
-    public ResponseResult<PageInfo<SelfAgentListDto>> queryBySelf(@RequestParam(name = "userAuto",required = false) Long userAuto,
-                                                                  @RequestParam(name = "pageNum", defaultValue = "0") Integer pageNum,
-                                                                  @RequestParam(name = "pageSize", defaultValue = "20") Integer pageSize){
+    public ResponseResult<List<SelfAgentList>> queryBySelf(@RequestParam(name = "userAuto",required = false) Long userAuto){
         //本人姓名查询
-        PageInfo<SelfAgentListDto> pageInfo = creditAgentService.selectSelf(userAuto, pageNum, pageSize);
-        for(SelfAgentListDto dto : pageInfo.getList()){
+        List<SelfAgentList> pageInfo = creditAgentService.selectSelf(userAuto);
+        for(SelfAgentList dto : pageInfo){
             VEmp vEmp = vEmpService.selectByUserAuto(dto.getSelfUser());
             if (vEmp != null){
                 dto.setSelfName(vEmp.getFName());
@@ -83,17 +79,13 @@ public class OrderController {
 
     @ApiOperation(value = " 根据代理人id获取代理数据")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "userAuto", value = "代理人id", required = false, dataType = "long", paramType = "path"),
-            @ApiImplicitParam(name = "pageNum", value = "页码", required = false, dataType = "int", paramType = "path"),
-            @ApiImplicitParam(name = "pageSize", value = "笔数", required = false, dataType = "int", paramType = "path")
+            @ApiImplicitParam(name = "userAuto", value = "代理人id", required = false, dataType = "long", paramType = "path")
     })
     @GetMapping(value = "queryByAgent")
-    public ResponseResult<PageInfo<SelfAgentListDto>> queryByAgent(@RequestParam(name = "userAuto",required = false) Long userAuto,
-                                                                   @RequestParam(name = "pageNum", defaultValue = "0") Integer pageNum,
-                                                                   @RequestParam(name = "pageSize", defaultValue = "20") Integer pageSize){
+    public ResponseResult<List<SelfAgentList>> queryByAgent(@RequestParam(name = "userAuto",required = false) Long userAuto){
         //代理人姓名查询
-        PageInfo<SelfAgentListDto> pageInfo = creditAgentService.selectAgent(userAuto, pageNum, pageSize);
-        for(SelfAgentListDto dto : pageInfo.getList()){
+        List<SelfAgentList> pageInfo = creditAgentService.selectAgent(userAuto);
+        for(SelfAgentList dto : pageInfo){
             VEmp vEmp = vEmpService.selectByUserAuto(dto.getAgentUser());
             if (vEmp != null){
                 dto.setAgentName(vEmp.getFName());
