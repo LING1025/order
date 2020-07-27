@@ -204,17 +204,21 @@
     <result column="custSourceName" jdbcType="VARCHAR" property="custSourceName" />
     <result column="carSourceName" jdbcType="VARCHAR" property="carSourceName" />
     <result column="oilName" jdbcType="VARCHAR" property="oilName" />
+    <result column="FactoryBrandName" jdbcType="VARCHAR" property="factoryBrandName" />
+    <result column="BrandName" jdbcType="VARCHAR" property="brandName" />
+    <result column="ClasenName" jdbcType="VARCHAR" property="clasenName" />
+    <result column="supplierBuyName" jdbcType="VARCHAR" property="supplierBuyName" />
   </resultMap>
   <select id="selectByOrdersAuto" resultMap="queryByOrdersAuto">
     select
     a.Orders_Auto,a.Orders_Old,a.PostType,a.OrderStatus,a.MM,
-    a.RentType,a.OrderType,
     e.ItemName AS rentTypeName,f.ItemName AS orderTypeName,
     a.TradeItem_Auto,c.FName AS fName,b.FName AS salesname,
-    a.CustSource,g.ItemName AS custSourceName,
-    a.PushMan,a.Supplier_Buy,a.FactoryBrand_Auto,a.CarDT,
-    a.CarColor,a.CarSource,h.ItemName AS carSourceName,
-    a.ClasenCode,a.CC,a.oil,i.ItemName AS oilName,
+    g.ItemName AS custSourceName,
+    a.PushMan,c.FName AS supplierBuyName,a.CarDT,
+    l.FactoryBrandName,j.BrandName,k.ClasenName,
+    a.CarColor,h.ItemName AS carSourceName,
+    a.ClasenCode,a.CC,i.ItemName AS oilName,
     a.BsType,a.MakNo,a.ReletMakno,d.FName AS carIncName,a.MakNoType,
     a.MakNoCost,a.ListPrice,a.DisPrice,a.GetPrice,a.CarPriceRef,
     a.Accessary,a.CarTax,a.CarCost,a.PushMoney,a.OverAmt_Y,
@@ -227,11 +231,14 @@
     left join v_Emp b on a.Sales_Auto = b.User_Auto
     left join TradeItem(nolock) c On a.TradeItem_Auto = c.TradeItem_Auto
     left join Inc d on a.Inc_Auto = d.Inc_Auto
-    left join itemcode e on a.RentType = e.Num and e.ItemType = 314
-    left join itemcode f on a.OrderType = f.Num and f.ItemType = 326
-    left join itemcode g on a.CustSource = g.Num and g.ItemType = 313
-    left join itemcode h on a.CarSource = h.Num and h.ItemType = 503
-    left join itemcode i on a.oil = i.Num and i.ItemType = 231
+    left join Itemcode e on a.RentType = e.Num and e.ItemType = 314
+    left join Itemcode f on a.OrderType = f.Num and f.ItemType = 326
+    left join Itemcode g on a.CustSource = g.Num and g.ItemType = 313
+    left join Itemcode h on a.CarSource = h.Num and h.ItemType = 503
+    left join Itemcode i on a.oil = i.Num and i.ItemType = 231
+    inner join FactoryBrand l on a.FactoryBrand_Auto = l.FactoryBrand_Auto
+    inner join Brand j on a.Brand_Auto = j.Brand_Auto
+    inner join Clasen k on a.Clasen_Auto = k.Clasen_Auto
     where
     a.Orders_Auto = #{params}
   </select>

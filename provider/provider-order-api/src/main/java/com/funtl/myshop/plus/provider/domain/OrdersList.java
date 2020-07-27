@@ -1,5 +1,6 @@
 package com.funtl.myshop.plus.provider.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -31,14 +32,12 @@ public class OrdersList implements Serializable {
      */
     @ApiModelProperty(value = "租赁性质")
     private String rentTypeName;
-    private Integer rentType;
 
     /**
      * 业务类别::ItemCode.ItemType=326
      */
     @ApiModelProperty(value = "业务类别")
     private String orderTypeName;
-    private Integer orderType;
 
     /**
      * 客户资料
@@ -58,7 +57,6 @@ public class OrdersList implements Serializable {
      */
     @ApiModelProperty(value = "客户来源")
     private String custSourceName;
-    private Integer custSource;
 
     @ApiModelProperty(value = "介绍人")
     private String pushMan;
@@ -68,12 +66,19 @@ public class OrdersList implements Serializable {
      */
 
     @ApiModelProperty(value = "报价车商")
-    private Integer supplierBuy;
+    private String supplierBuyName;
 
     @ApiModelProperty(value = "厂牌车型")
-    private Integer factoryBrandAuto;
+    private String factoryBrandName;
+
+    @ApiModelProperty(value = "厂牌")
+    private String brandName;
+
+    @ApiModelProperty(value = "车型")
+    private String clasenName;
 
     @ApiModelProperty(value = "出厂年月")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     private Date cardt;
 
     @ApiModelProperty(value = "车色")
@@ -84,7 +89,6 @@ public class OrdersList implements Serializable {
      */
     @ApiModelProperty(value = "车辆来源")
     private String carSourceName;
-    private Integer carSource;
 
     @ApiModelProperty(value = "车型代码")
     private String clasenCode;
@@ -97,7 +101,6 @@ public class OrdersList implements Serializable {
      */
     @ApiModelProperty(value = "燃油种类")
     private String oilName;
-    private Integer oil;
 
     @ApiModelProperty(value = "排挡")
     private Integer bsType;
