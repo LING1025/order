@@ -5,10 +5,7 @@ import com.funtl.myshop.plus.provider.api.AspnetRolesService;
 import com.funtl.myshop.plus.provider.api.CreditAgentService;
 import com.funtl.myshop.plus.provider.api.OrdersService;
 import com.funtl.myshop.plus.provider.api.VEmpService;
-import com.funtl.myshop.plus.provider.domain.AspnetRoles;
-import com.funtl.myshop.plus.provider.domain.MasterList;
-import com.funtl.myshop.plus.provider.domain.SelfAgentList;
-import com.funtl.myshop.plus.provider.domain.VEmp;
+import com.funtl.myshop.plus.provider.domain.*;
 import com.github.pagehelper.PageInfo;
 import com.google.common.collect.Lists;
 import io.swagger.annotations.Api;
@@ -127,7 +124,7 @@ public class OrderController {
 
     @ApiOperation(value = " 根据角色id集合获取主档信息待签核信息")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "roleIds", value = "角色id集合", required = false, dataType = "long", paramType = "path")
+            @ApiImplicitParam(name = "roleIds", value = "角色id集合", required = false, dataType = "List<Long>", paramType = "path")
     })
     @GetMapping(value = "queryMasterList")
     public ResponseResult<List<MasterList>> queryMasterList(@RequestParam(name = "roleIds",required = false) List<Long> roleIds){
@@ -136,6 +133,16 @@ public class OrderController {
         }
         List<MasterList> lists = ordersService.selectByRoleIds(roleIds);
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", lists);
+    }
+
+    @ApiOperation(value = " 根据试算单号获取试算签核信息")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "ordersAuto", value = "试算单号", required = false, dataType = "long", paramType = "path")
+    })
+    @GetMapping(value = "queryOrdersList")
+    public ResponseResult<OrdersList> queryOrdersList(@RequestParam(name = "ordersAuto",required = false) Long ordersAuto){
+        OrdersList ordersList = ordersService.selectByOrdersAuto(ordersAuto);
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", ordersList);
     }
 
 }

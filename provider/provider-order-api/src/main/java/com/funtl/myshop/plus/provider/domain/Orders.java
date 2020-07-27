@@ -337,7 +337,7 @@ public class Orders implements Serializable {
     private BigDecimal mAmt;
 
     @Column(name = "RentAmtT")
-    private BigDecimal rentAmtt;
+    private BigDecimal rentAmtT;
 
     @Column(name = "RentRate")
     private BigDecimal rentRate;
@@ -452,7 +452,7 @@ public class Orders implements Serializable {
     private Integer isCredit;
 
     @Column(name = "IsCreditUser")
-    private Integer isCredituser;
+    private Integer isCreditUser;
 
     @Column(name = "DptType")
     private Integer dptType;
@@ -500,7 +500,7 @@ public class Orders implements Serializable {
     * 续租新车旧车号
     */
     @Column(name = "ReletMakno")
-    private String reletMakno;
+    private String reletMakNo;
 
     /**
     * 续租新车否
@@ -515,7 +515,7 @@ public class Orders implements Serializable {
     private BigDecimal onetimePoundage;
 
     @Column(name = "OverAmt_Y")
-    private BigDecimal overamtY;
+    private BigDecimal overAmtY;
 
     @Column(name = "Budget01_Y")
     private BigDecimal budget01Y;
@@ -587,7 +587,7 @@ public class Orders implements Serializable {
     private Integer isBigTradeItem;
 
     @Column(name = "CarExtensionAmt")
-    private BigDecimal carextensionamt;
+    private BigDecimal carExtensionAmt;
 
     @Column(name = "Discount")
     private BigDecimal discount;

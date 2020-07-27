@@ -3,6 +3,7 @@ package com.funtl.myshop.plus.provider.service;
 import javax.annotation.Resource;
 
 import com.funtl.myshop.plus.provider.domain.MasterList;
+import com.funtl.myshop.plus.provider.domain.OrdersList;
 import com.funtl.myshop.plus.provider.mapper.OrdersMapper;
 import com.funtl.myshop.plus.provider.domain.Orders;
 import com.funtl.myshop.plus.provider.api.OrdersService;
@@ -19,5 +20,10 @@ public class OrdersServiceImpl implements OrdersService{
     @Override
     public List<MasterList> selectByRoleIds(List<Long> roleIds) {
         return ordersMapper.selectByRoleIds(roleIds);
+    }
+
+    @Override
+    public OrdersList selectByOrdersAuto(Long ordersAuto) {
+        return ordersMapper.selectByOrdersAuto(ordersAuto);
     }
 }

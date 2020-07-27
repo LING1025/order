@@ -26,10 +26,18 @@ public class OrdersList implements Serializable {
     @ApiModelProperty(value = "租赁期数")
     private Integer mm;
 
-    @ApiModelProperty(value = "租赁性质::ItemCode.ItemType=314")
+    /**
+     * 租赁性质::ItemCode.ItemType=314
+     */
+    @ApiModelProperty(value = "租赁性质")
+    private String rentTypeName;
     private Integer rentType;
 
-    @ApiModelProperty(value = "业务类别::ItemCode.ItemType=326")
+    /**
+     * 业务类别::ItemCode.ItemType=326
+     */
+    @ApiModelProperty(value = "业务类别")
+    private String orderTypeName;
     private Integer orderType;
 
     /**
@@ -39,10 +47,17 @@ public class OrdersList implements Serializable {
     @ApiModelProperty(value = "客户全称")
     private String fName;
 
+    @ApiModelProperty(value = "客户代码")
+    private Long tradeItemAuto;
+
     @ApiModelProperty(value = "承办业代")
     private String salesName;
 
-    @ApiModelProperty(value = "客户来源::ItemCode.ItemType=313")
+    /**
+     * 客户来源::ItemCode.ItemType=313
+     */
+    @ApiModelProperty(value = "客户来源")
+    private String custSourceName;
     private Integer custSource;
 
     @ApiModelProperty(value = "介绍人")
@@ -64,7 +79,11 @@ public class OrdersList implements Serializable {
     @ApiModelProperty(value = "车色")
     private String carColor;
 
-    @ApiModelProperty(value = "车辆来源::ItemCode.ItemType=503")
+    /**
+     * 车辆来源::ItemCode.ItemType=503
+     */
+    @ApiModelProperty(value = "车辆来源")
+    private String carSourceName;
     private Integer carSource;
 
     @ApiModelProperty(value = "车型代码")
@@ -73,7 +92,11 @@ public class OrdersList implements Serializable {
     @ApiModelProperty(value = "排气量")
     private Integer cc;
 
-    @ApiModelProperty(value = "燃油种类::ItemCode.ItemType=231")
+    /**
+     * 燃油种类::ItemCode.ItemType=231
+     */
+    @ApiModelProperty(value = "燃油种类")
+    private String oilName;
     private Integer oil;
 
     @ApiModelProperty(value = "排挡")
@@ -83,7 +106,7 @@ public class OrdersList implements Serializable {
     private String makNo;
 
     @ApiModelProperty(value = "续租新车旧车号")
-    private String reletMakno;
+    private String reletMakNo;
 
     /**
      * 牌照资料 可以看carBase表 Inc表
@@ -100,6 +123,134 @@ public class OrdersList implements Serializable {
     @ApiModelProperty(value = "使用牌费")
     private BigDecimal makNoCost;//在orders表
 
+    /**
+     * 车辆成本
+     */
+
+    @ApiModelProperty(value = "牌价")
+    private BigDecimal listPrice;
+
+    @ApiModelProperty(value = "折价")
+    private BigDecimal disPrice;
+
+    @ApiModelProperty(value = "车辆进价")
+    private BigDecimal getPrice;
+
+    @ApiModelProperty(value = "网上参考价")
+    private Long carPriceRef;
+
+    @ApiModelProperty(value = "配件金额")
+    private BigDecimal accessary;
+
+    @ApiModelProperty(value = "购置税")
+    private BigDecimal carTax;
+
+    @ApiModelProperty(value = "车辆成本")
+    private BigDecimal carCost;
+
+    @ApiModelProperty(value = "佣金")
+    private BigDecimal pushMoney;
+
+    @ApiModelProperty(value = "残值")
+    private BigDecimal overAmtY;
+
+    @ApiModelProperty(value = "保证金")
+    private BigDecimal dptAmt;
+
+    @ApiModelProperty(value = "调整")
+    private BigDecimal overAmt;
+
+    @ApiModelProperty(value = "承租车价")
+    private BigDecimal rentAmt;
+
+    @ApiModelProperty(value = "成本调整")
+    private BigDecimal costAdjustment;
+
+    @ApiModelProperty(value = "承购")
+    private BigDecimal repurchaseAmt;
+
+    @ApiModelProperty(value = "代垫利息成本")
+    private BigDecimal dptTax;
+
+    @ApiModelProperty(value = "延保费")
+    private BigDecimal carExtensionAmt;
+
+    @ApiModelProperty(value = "出库费")
+    private BigDecimal outFee;
+
+    @ApiModelProperty(value = "金融费")
+    private BigDecimal financeFee;
+
+    @ApiModelProperty(value = "加急费")
+    private BigDecimal urgentFee;
+
+    /**
+     * 税费资料
+     */
+
+    @ApiModelProperty(value = "印花税")
+    private BigDecimal stampTax;
+
+    @ApiModelProperty(value = "售车税")
+    private BigDecimal sellCarTax;
+
+    @ApiModelProperty(value = "过户费")
+    private BigDecimal trnsFee;
 
 
+    /**
+     * 付款条件
+     */
+
+    /**
+     * 付款周期::ItemCode.ItemType=316
+     */
+    @ApiModelProperty(value = "付款周期")
+    private Integer payMode;
+
+    @ApiModelProperty(value = "付款天数")
+    private Integer payDay;
+
+    /**
+     * 费用明细
+     */
+
+    /**
+     * 佣金人
+     */
+
+    /**
+     * 保险内容
+     */
+
+    /**
+     * 配件明细
+     */
+
+    /**
+     * 实际成交概况
+     */
+
+    @ApiModelProperty(value = "租金总额")
+    private BigDecimal rentAmtT;
+    @ApiModelProperty(value = "内部报酬率")
+    private BigDecimal irr;
+//    @ApiModelProperty(value = "毛利总额")
+//    private BigDecimal gm;
+//    @ApiModelProperty(value = "毛利率")
+//    private BigDecimal gmt;
+
+    /**
+     * 备注
+     */
+    @ApiModelProperty(value = "备注")
+    private String memo;
+
+    /**
+     * 附件
+     */
+
+    /**
+     * 签核明细
+     */
 }
