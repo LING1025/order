@@ -73,7 +73,7 @@
     <result column="RentAmtT" jdbcType="DECIMAL" property="rentAmtT" />
     <result column="RentRate" jdbcType="DECIMAL" property="rentRate" />
     <result column="GrossMargin" jdbcType="DECIMAL" property="grossMargin" />
-    <result column="GrossMarginT" jdbcType="DECIMAL" property="grossMargint" />
+    <result column="GrossMarginT" jdbcType="DECIMAL" property="grossMarginT" />
     <result column="OrderStatus" jdbcType="INTEGER" property="orderStatus" />
     <result column="Memo" jdbcType="VARCHAR" property="memo" />
     <result column="TaxMode" jdbcType="INTEGER" property="taxMode" />
@@ -208,10 +208,13 @@
     <result column="BrandName" jdbcType="VARCHAR" property="brandName" />
     <result column="ClasenName" jdbcType="VARCHAR" property="clasenName" />
     <result column="supplierBuyName" jdbcType="VARCHAR" property="supplierBuyName" />
+    <result column="postTypeName" jdbcType="VARCHAR" property="postTypeName" />
+    <result column="orderStatusName" jdbcType="VARCHAR" property="orderStatusName" />
   </resultMap>
   <select id="selectByOrdersAuto" resultMap="queryByOrdersAuto">
     select
-    a.Orders_Auto,a.Orders_Old,a.PostType,a.OrderStatus,a.MM,
+    a.Orders_Auto,a.Orders_Old,a.MM,
+    m.ItemName AS postTypeName,n.ItemName AS orderStatusName,
     e.ItemName AS rentTypeName,f.ItemName AS orderTypeName,
     a.TradeItem_Auto,c.FName AS fName,b.FName AS salesname,
     g.ItemName AS custSourceName,
@@ -225,7 +228,7 @@
     a.DptAmt,a.OverAmt,a.RentAmt,a.CostAdjustment,a.RepurchaseAmt,
     a.DptTax,a.CarExtensionAmt,a.OutFee,a.FinanceFee,a.UrgentFee,
     a.StampTax,a.SellCarTax,a.TrnsFee,a.PayMode,a.PayDay,
-    a.RentAmtT,a.IRR,a.Memo
+    a.RentAmtT,a.IRR,a.GrossMargin,a.GrossMarginT,a.Memo
     from
     Orders a
     left join v_Emp b on a.Sales_Auto = b.User_Auto
@@ -239,6 +242,8 @@
     inner join FactoryBrand l on a.FactoryBrand_Auto = l.FactoryBrand_Auto
     inner join Brand j on a.Brand_Auto = j.Brand_Auto
     inner join Clasen k on a.Clasen_Auto = k.Clasen_Auto
+    left join Itemcode m on a.PostType = m.Num and m.ItemType = 413
+    left join Itemcode n on a.OrderStatus = n.Num and n.ItemType = 327
     where
     a.Orders_Auto = #{params}
   </select>

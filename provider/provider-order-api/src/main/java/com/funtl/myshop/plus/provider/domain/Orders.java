@@ -346,7 +346,7 @@ public class Orders implements Serializable {
     private BigDecimal grossMargin;
 
     @Column(name = "GrossMarginT")
-    private BigDecimal grossMargint;
+    private BigDecimal grossMarginT;
 
     @Column(name = "OrderStatus")
     private Integer orderStatus;

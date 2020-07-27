@@ -19,10 +19,10 @@ public class OrdersList implements Serializable {
     private Long ordersOld;
 
     @ApiModelProperty(value = "案件类别")
-    private Integer postType;
+    private String postTypeName;
 
     @ApiModelProperty(value = "目前状态")
-    private Integer orderStatus;
+    private String orderStatusName;
 
     @ApiModelProperty(value = "租赁期数")
     private Integer mm;
@@ -238,10 +238,10 @@ public class OrdersList implements Serializable {
     private BigDecimal rentAmtT;
     @ApiModelProperty(value = "内部报酬率")
     private BigDecimal irr;
-//    @ApiModelProperty(value = "毛利总额")
-//    private BigDecimal gm;
-//    @ApiModelProperty(value = "毛利率")
-//    private BigDecimal gmt;
+    @ApiModelProperty(value = "毛利总额")
+    private BigDecimal grossMargin;
+    @ApiModelProperty(value = "毛利率")
+    private BigDecimal grossMarginT;
 
     /**
      * 备注
