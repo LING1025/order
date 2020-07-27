@@ -1,10 +1,7 @@
 package com.funtl.myshop.plus.business.controller;
 
 import com.funtl.myshop.plus.commons.dto.ResponseResult;
-import com.funtl.myshop.plus.provider.api.AspnetRolesService;
-import com.funtl.myshop.plus.provider.api.CreditAgentService;
-import com.funtl.myshop.plus.provider.api.OrdersService;
-import com.funtl.myshop.plus.provider.api.VEmpService;
+import com.funtl.myshop.plus.provider.api.*;
 import com.funtl.myshop.plus.provider.domain.*;
 import com.github.pagehelper.PageInfo;
 import com.google.common.collect.Lists;
@@ -35,6 +32,9 @@ public class OrderController {
 
     @Reference(version = "1.0.0")
     private OrdersService ordersService;
+
+    @Reference(version = "1.0.0")
+    private OrdersInsureListService ordersInsureListService;
 
     @ApiOperation(value = " 根据本人id获取代理数据")
     @ApiImplicitParams({
@@ -141,8 +141,24 @@ public class OrderController {
     })
     @GetMapping(value = "queryOrdersList")
     public ResponseResult<OrdersList> queryOrdersList(@RequestParam(name = "ordersAuto",required = false) Long ordersAuto){
+        if (ordersAuto == null){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "参数异常", null);
+        }
         OrdersList ordersList = ordersService.selectByOrdersAuto(ordersAuto);
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", ordersList);
+    }
+
+    @ApiOperation(value = " 根据试算单号获取保险内容")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "ordersAuto", value = "试算单号", required = false, dataType = "long", paramType = "path")
+    })
+    @GetMapping(value = "queryInsuranceContentList")
+    public ResponseResult<List<InsuranceContentList>> queryInsuranceContentList(@RequestParam(name = "ordersAuto",required = false) Long ordersAuto){
+        if (ordersAuto == null){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "参数异常", null);
+        }
+        List<InsuranceContentList> lists = ordersInsureListService.selectInsuranceContentList(ordersAuto);
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", lists);
     }
 
 }

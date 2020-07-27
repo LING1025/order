@@ -442,6 +442,50 @@
                 </TableGenerateConfig>
               </value>
             </entry>
+            <entry key="dbo:OrdersInsureList">
+              <value>
+                <TableGenerateConfig>
+                  <option name="columnOverrideList">
+                    <list>
+                      <MyColumnOverride>
+                        <option name="columnName" value="OrdersInsureList_Auto" />
+                        <option name="javaProperty" value="ordersInsureListAuto" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="InsureYear" />
+                        <option name="javaProperty" value="insureYear" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="InsureType" />
+                        <option name="javaProperty" value="insureType" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="InsureRealAmt" />
+                        <option name="javaProperty" value="insureRealAmt" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="InsureAmt" />
+                        <option name="javaProperty" value="insureAmt" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="InsureDiscount" />
+                        <option name="javaProperty" value="insureDiscount" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="InsureMemo" />
+                        <option name="javaProperty" value="insureMemo" />
+                      </MyColumnOverride>
+                    </list>
+                  </option>
+                  <option name="generatedKey" value="OrdersInsureList_Auto" />
+                  <option name="javaModelName" value="OrdersInsureList" />
+                  <option name="moduleName" value="provider-order-api" />
+                  <option name="sequenceColumn" value="" />
+                  <option name="sequenceId" value="" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
             <entry key="dbo:aspnet_Roles">
               <value>
                 <TableGenerateConfig>

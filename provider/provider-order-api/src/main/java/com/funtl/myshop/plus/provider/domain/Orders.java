@@ -6,6 +6,7 @@ import java.util.Date;
 import lombok.Data;
 
 import javax.persistence.Column;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Data
@@ -14,6 +15,7 @@ public class Orders implements Serializable {
     /**
     * 试算单号
     */
+    @Id
     @Column(name = "Orders_Auto")
     private Long ordersAuto;
 
