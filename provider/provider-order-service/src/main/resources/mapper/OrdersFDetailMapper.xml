@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.funtl.myshop.plus.provider.mapper.OrdersFDetailMapper">
+  <resultMap id="BaseResultMap" type="com.funtl.myshop.plus.provider.domain.OrdersFDetail">
+    <!--@mbg.generated-->
+    <!--@Table OrdersFDetail-->
+    <id column="OrdersFDetail_Auto" jdbcType="BIGINT" property="ordersFDetailAuto" />
+    <result column="Orders_Auto" jdbcType="INTEGER" property="ordersAuto" />
+    <result column="Memo" jdbcType="VARCHAR" property="memo" />
+    <result column="CreditPerson" jdbcType="INTEGER" property="creditPerson" />
+    <result column="Orders_Status" jdbcType="INTEGER" property="ordersStatus" />
+    <result column="CDT" jdbcType="TIMESTAMP" property="cdt" />
+    <result column="MDT" jdbcType="TIMESTAMP" property="mdt" />
+    <result column="IsAgent" jdbcType="INTEGER" property="isAgent" />
+    <result column="AgentPerson" jdbcType="INTEGER" property="agentPerson" />
+    <result column="RoleID" jdbcType="INTEGER" property="roleId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    OrdersFDetail_Auto, Orders_Auto, Memo, CreditPerson, Orders_Status, CDT, MDT, IsAgent,
+    AgentPerson, RoleID
+  </sql>
+</mapper>
