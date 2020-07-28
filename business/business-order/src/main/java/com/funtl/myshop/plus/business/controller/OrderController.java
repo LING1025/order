@@ -54,14 +54,14 @@ public class OrderController {
                 dto.setSelfDept(vEmp.getDepName());
                 //获取本人角色权限
                 List<AspnetRoles> list = aspnetRolesService.selectByUserId(vEmp.getUserId());
-                List<Long> ids = Lists.newArrayList();
-                List<String> names = Lists.newArrayList();
+                List<SelfRoles> selfRolesList = Lists.newArrayList();
                 for(AspnetRoles aspnetRoles : list){
-                    ids.add(aspnetRoles.getRolesAuto());
-                    names.add(aspnetRoles.getRoleName());
+                    SelfRoles selfRoles = new SelfRoles();
+                    selfRoles.setSelfRoleIds(aspnetRoles.getRolesAuto());
+                    selfRoles.setSelfRoleNames(aspnetRoles.getRoleName());
+                    selfRolesList.add(selfRoles);
                 }
-                dto.setSelfRoleIds(ids);
-                dto.setSelfRoleNames(names);
+                dto.setSelfRolesList(selfRolesList);
             }
             VEmp vEmp2 = vEmpService.selectByUserAuto(dto.getAgentUser());
             if (vEmp2 != null){
@@ -69,14 +69,14 @@ public class OrderController {
                 dto.setAgentDept(vEmp2.getDepName());
                 //获取代理人角色权限
                 List<AspnetRoles> list = aspnetRolesService.selectByUserId(vEmp2.getUserId());
-                List<Long> ids = Lists.newArrayList();
-                List<String> names = Lists.newArrayList();
+                List<AgentRoles> agentRolesList = Lists.newArrayList();
                 for(AspnetRoles aspnetRoles : list){
-                    ids.add(aspnetRoles.getRolesAuto());
-                    names.add(aspnetRoles.getRoleName());
+                    AgentRoles agentRoles = new AgentRoles();
+                    agentRoles.setAgentRoleIds(aspnetRoles.getRolesAuto());
+                    agentRoles.setAgentRoleNames(aspnetRoles.getRoleName());
+                    agentRolesList.add(agentRoles);
                 }
-                dto.setAgentRoleIds(ids);
-                dto.setAgentRoleNames(names);
+                dto.setAgentRolesList(agentRolesList);
             }
         }
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", pageInfo);
@@ -95,31 +95,31 @@ public class OrderController {
             if (vEmp != null){
                 dto.setAgentName(vEmp.getFName());
                 dto.setAgentDept(vEmp.getDepName());
-                //获取本人角色权限
+                //获取代理人角色权限
                 List<AspnetRoles> list = aspnetRolesService.selectByUserId(vEmp.getUserId());
-                List<Long> ids = Lists.newArrayList();
-                List<String> names = Lists.newArrayList();
+                List<AgentRoles> agentRolesList = Lists.newArrayList();
                 for(AspnetRoles aspnetRoles : list){
-                    ids.add(aspnetRoles.getRolesAuto());
-                    names.add(aspnetRoles.getRoleName());
+                    AgentRoles agentRoles = new AgentRoles();
+                    agentRoles.setAgentRoleIds(aspnetRoles.getRolesAuto());
+                    agentRoles.setAgentRoleNames(aspnetRoles.getRoleName());
+                    agentRolesList.add(agentRoles);
                 }
-                dto.setSelfRoleIds(ids);
-                dto.setSelfRoleNames(names);
+                dto.setAgentRolesList(agentRolesList);
             }
             VEmp vEmp2 = vEmpService.selectByUserAuto(dto.getSelfUser());
             if (vEmp2 != null){
                 dto.setSelfName(vEmp2.getFName());
                 dto.setSelfDept(vEmp2.getDepName());
-                //获取代理人角色权限
+                //获取本人角色权限
                 List<AspnetRoles> list = aspnetRolesService.selectByUserId(vEmp2.getUserId());
-                List<Long> ids = Lists.newArrayList();
-                List<String> names = Lists.newArrayList();
+                List<SelfRoles> selfRolesList = Lists.newArrayList();
                 for(AspnetRoles aspnetRoles : list){
-                    ids.add(aspnetRoles.getRolesAuto());
-                    names.add(aspnetRoles.getRoleName());
+                    SelfRoles selfRoles = new SelfRoles();
+                    selfRoles.setSelfRoleIds(aspnetRoles.getRolesAuto());
+                    selfRoles.setSelfRoleNames(aspnetRoles.getRoleName());
+                    selfRolesList.add(selfRoles);
                 }
-                dto.setAgentRoleIds(ids);
-                dto.setAgentRoleNames(names);
+                dto.setSelfRolesList(selfRolesList);
             }
         }
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", pageInfo);

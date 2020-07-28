@@ -20,7 +20,7 @@
   </sql>
   <select id="selectByUserId" resultMap="BaseResultMap">
     SELECT
-    Roles_Auto,RoleName
+    ar.Roles_Auto,ar.RoleName
     FROM
     aspnet_Roles AS ar
     INNER JOIN aspnet_UsersInRoles AS au ON au.RoleId = ar.RoleId

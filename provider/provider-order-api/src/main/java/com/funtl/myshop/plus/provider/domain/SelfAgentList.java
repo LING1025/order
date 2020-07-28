@@ -48,16 +48,9 @@ public class SelfAgentList implements Serializable {
      */
 //    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
 //    private Date agentCDate;
+    @ApiModelProperty(value = "本人角色集合")
+    private List<SelfRoles> selfRolesList;
 
-    @ApiModelProperty(value = "本人角色id集合")
-    private List<Long> selfRoleIds;
-
-    @ApiModelProperty(value = "本人角色名集合")
-    private List<String> selfRoleNames;
-
-    @ApiModelProperty(value = "代理人角色id集合")
-    private List<Long> agentRoleIds;
-
-    @ApiModelProperty(value = "代理人角色名集合")
-    private List<String> agentRoleNames;
+    @ApiModelProperty(value = "代理人角色集合")
+    private List<AgentRoles> agentRolesList;
 }
