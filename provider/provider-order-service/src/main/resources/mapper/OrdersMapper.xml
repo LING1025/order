@@ -164,12 +164,13 @@
     <result column="DepName" jdbcType="VARCHAR" property="depName" />
     <result column="nowPlace" jdbcType="VARCHAR" property="nowPlace" />
     <result column="onetimeName" jdbcType="VARCHAR" property="onetimeName" />
+    <result column="orderStatusName" jdbcType="VARCHAR" property="orderStatusName" />
   </resultMap>
   <select id="selectByRoleIds" resultMap="queryByRoleIds">
     select
     distinct a.Orders_Auto,
     a.Sales_Auto,
-    a.OrderStatus,
+    n.ItemName AS orderStatusName,
     b.FName AS salesname,
     c.SName,
     b.DepName,
@@ -182,6 +183,7 @@
     left join WorkFlowDoc(nolock) k0 on a.Orders_Auto=k0.DocPostID And k0.Memo='999' and k0.Status = 0 and k0.AppSeq &lt;= 0 and k0.LevNow = k0.AppSeq
     inner Join WorkFlowDoc(nolock) k on a.Orders_Auto=k.DocPostID And k.Memo='999' and k.Status = 0 and ((k0.AppSeq is not null and k0.AppSeq = k.AppSeq) or (k0.AppSeq is null and k.AppSeq = k.LevNow +1)) -- and (k.levnow = k.AppSeq or k.AppSeq = k.LevNow +1)
     left join ItemCode p on k.RoleID=p.Num And p.ItemType=1062
+    left join Itemcode n on a.OrderStatus = n.Num and n.ItemType = 327
     where
     1 = 1
     AND

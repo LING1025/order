@@ -25,7 +25,7 @@ public class MasterList implements Serializable {
     private String sName;
 
     @ApiModelProperty(value = "状态")
-    private Integer orderStatus;
+    private String orderStatusName;
 
     @ApiModelProperty(value = "当前流程位置")
     private String nowPlace;
