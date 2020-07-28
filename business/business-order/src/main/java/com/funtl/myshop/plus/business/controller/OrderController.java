@@ -39,6 +39,9 @@ public class OrderController {
     @Reference(version = "1.0.0")
     private OrdersInsureYearsService ordersInsureYearsService;
 
+    @Reference(version = "1.0.0")
+    private OrdersFDetailService ordersFDetailService;
+
     @ApiOperation(value = " 根据本人id获取代理数据")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "userAuto", value = "本人id", required = false, dataType = "long", paramType = "path")
@@ -189,6 +192,25 @@ public class OrderController {
             return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "参数异常", null);
         }
         List<InsuranceTableList> lists = ordersInsureYearsService.selectByOrdersAutoAndYear(ordersAuto,insureYear);
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", lists);
+    }
+
+    @ApiOperation(value = " 根据试算单号获取签核明细数据")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "ordersAuto", value = "试算单号", required = false, dataType = "long", paramType = "path")
+    })
+    @GetMapping(value = "querySignOffList")
+    public ResponseResult<List<SignOffList>> querySignOffList(@RequestParam(name = "ordersAuto",required = false) Long ordersAuto){
+        if (ordersAuto == null){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "参数异常", null);
+        }
+        List<SignOffList> lists = ordersFDetailService.selectSignOffList(ordersAuto);
+        for(SignOffList signOffList : lists){
+            if (signOffList.getRoleId() != null){
+                AspnetRoles aspnetRoles = aspnetRolesService.selectByRoleAuto(signOffList.getRoleId());
+                signOffList.setRoleName(aspnetRoles.getRoleName());
+            }
+        }
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", lists);
     }
 

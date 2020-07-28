@@ -12,4 +12,6 @@ public interface AspnetRolesService{
      */
     List<AspnetRoles> selectByUserId(Object userId);
 
+    AspnetRoles selectByRoleAuto(Integer rolesAuto);
+
 }

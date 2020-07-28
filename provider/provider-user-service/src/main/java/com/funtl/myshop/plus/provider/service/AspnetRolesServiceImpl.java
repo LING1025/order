@@ -6,6 +6,7 @@ import com.funtl.myshop.plus.provider.mapper.AspnetRolesMapper;
 import com.funtl.myshop.plus.provider.domain.AspnetRoles;
 import com.funtl.myshop.plus.provider.api.AspnetRolesService;
 import org.apache.dubbo.config.annotation.Service;
+import tk.mybatis.mapper.entity.Example;
 
 import java.util.List;
 
@@ -19,6 +20,13 @@ public class AspnetRolesServiceImpl implements AspnetRolesService{
     @Override
     public List<AspnetRoles> selectByUserId(Object userId) {
         return aspnetRolesMapper.selectByUserId(userId);
+    }
+
+    @Override
+    public AspnetRoles selectByRoleAuto(Integer rolesAuto) {
+        Example example = new Example(AspnetRoles.class);
+        example.createCriteria().andEqualTo("rolesAuto",rolesAuto);
+        return aspnetRolesMapper.selectOneByExample(example);
     }
 
 
