@@ -1,6 +1,8 @@
 package com.funtl.myshop.plus.provider.service;
 
 import javax.annotation.Resource;
+
+import com.funtl.myshop.plus.provider.domain.InsuranceList;
 import com.funtl.myshop.plus.provider.mapper.OrdersInsureYearsMapper;
 import com.funtl.myshop.plus.provider.domain.OrdersInsureYears;
 import com.funtl.myshop.plus.provider.api.OrdersInsureYearsService;
@@ -13,4 +15,8 @@ public class OrdersInsureYearsServiceImpl implements OrdersInsureYearsService{
     private OrdersInsureYearsMapper ordersInsureYearsMapper;
 
 
+    @Override
+    public InsuranceList selectInsuranceList(Long ordersAuto) {
+        return ordersInsureYearsMapper.selectInsuranceList(ordersAuto);
+    }
 }

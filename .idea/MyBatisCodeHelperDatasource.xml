@@ -486,6 +486,74 @@
                 </TableGenerateConfig>
               </value>
             </entry>
+            <entry key="dbo:OrdersInsure_Years">
+              <value>
+                <TableGenerateConfig>
+                  <option name="columnOverrideList">
+                    <list>
+                      <MyColumnOverride>
+                        <option name="columnName" value="OrdersInsure_Years_Auto" />
+                        <option name="javaProperty" value="ordersInsureYearsAuto" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="InsureType" />
+                        <option name="javaProperty" value="insureType" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="InsureLimit" />
+                        <option name="javaProperty" value="insureLimit" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="InsurePercnt" />
+                        <option name="javaProperty" value="insurePercnt" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="DetailAmt" />
+                        <option name="javaProperty" value="detailAmt" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="OrgAmt" />
+                        <option name="javaProperty" value="orgAmt" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="RateAmt" />
+                        <option name="javaProperty" value="rateAmt" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="OfferAmt" />
+                        <option name="javaProperty" value="offerAmt" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="InsureYear" />
+                        <option name="javaProperty" value="insureYear" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="InsureMode" />
+                        <option name="javaProperty" value="insureMode" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="InsurePrice" />
+                        <option name="javaProperty" value="insurePrice" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="CarPlace" />
+                        <option name="javaProperty" value="carPlace" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="CustomerCare" />
+                        <option name="javaProperty" value="customerCare" />
+                      </MyColumnOverride>
+                    </list>
+                  </option>
+                  <option name="generatedKey" value="OrdersInsure_Years_Auto" />
+                  <option name="javaModelName" value="OrdersInsureYears" />
+                  <option name="moduleName" value="provider-order-api" />
+                  <option name="sequenceColumn" value="" />
+                  <option name="sequenceId" value="" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
             <entry key="dbo:aspnet_Roles">
               <value>
                 <TableGenerateConfig>

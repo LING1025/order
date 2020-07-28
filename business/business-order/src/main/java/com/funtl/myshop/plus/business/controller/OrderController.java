@@ -36,6 +36,9 @@ public class OrderController {
     @Reference(version = "1.0.0")
     private OrdersInsureListService ordersInsureListService;
 
+    @Reference(version = "1.0.0")
+    private OrdersInsureYearsService ordersInsureYearsService;
+
     @ApiOperation(value = " 根据本人id获取代理数据")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "userAuto", value = "本人id", required = false, dataType = "long", paramType = "path")
@@ -148,7 +151,7 @@ public class OrderController {
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", ordersList);
     }
 
-    @ApiOperation(value = " 根据试算单号获取保险内容")
+    @ApiOperation(value = " 根据试算单号获取保险内容(未点开时显示的)")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "ordersAuto", value = "试算单号", required = false, dataType = "long", paramType = "path")
     })
@@ -159,6 +162,19 @@ public class OrderController {
         }
         List<InsuranceContentList> lists = ordersInsureListService.selectInsuranceContentList(ordersAuto);
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", lists);
+    }
+
+    @ApiOperation(value = " 根据试算单号获取保险明细上部分信息")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "ordersAuto", value = "试算单号", required = false, dataType = "long", paramType = "path")
+    })
+    @GetMapping(value = "queryInsuranceList")
+    public ResponseResult<InsuranceList> queryInsuranceList(@RequestParam(name = "ordersAuto",required = false) Long ordersAuto){
+        if (ordersAuto == null){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "参数异常", null);
+        }
+        InsuranceList insuranceList = ordersInsureYearsService.selectInsuranceList(ordersAuto);
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", insuranceList);
     }
 
 }
