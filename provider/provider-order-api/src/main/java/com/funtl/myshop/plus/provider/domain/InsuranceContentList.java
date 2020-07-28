@@ -12,8 +12,8 @@ import java.math.BigDecimal;
 @ApiModel(value = "保险内容数据")
 public class InsuranceContentList implements Serializable {
 
-    /*@ApiModelProperty(value = "试算单号")
-    private Long ordersAuto;*/
+    @ApiModelProperty(value = "年度数字")
+    private Integer insureYear;
 
     @ApiModelProperty(value = "年度")
     private String insureYearName;

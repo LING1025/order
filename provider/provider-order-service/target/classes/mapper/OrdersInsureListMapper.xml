@@ -27,7 +27,8 @@
   </resultMap>
   <select id="selectInsuranceContentList" resultMap="queryInsuranceContentList">
     select
-    '第'+Convert(varchar(1),InsureYear)+ '年' insureYearName,b.ItemName insureTypeName,
+    a.InsureYear,
+    '第'+Convert(varchar(1),a.InsureYear)+ '年' insureYearName,b.ItemName insureTypeName,
     a.InsureRealAmt,a.InsureAmt,a.InsureDiscount,a.InsureDpt,a.InsureMemo
     from
     OrdersInsureList a

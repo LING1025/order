@@ -47,4 +47,19 @@
     where a.Orders_Auto = #{param} and b.Num = 1
     Order by a.InsureType
     </select>
+  <resultMap id="queryByOrdersAutoAndYear" extends="BaseResultMap" type="com.funtl.myshop.plus.provider.domain.InsuranceTableList">
+    <result column="InsureName" jdbcType="VARCHAR" property="insureName" />
+    <result column="detailAmtName" jdbcType="VARCHAR" property="detailAmtName" />
+  </resultMap>
+  <select id="selectByOrdersAutoAndYear" resultMap="queryByOrdersAutoAndYear">
+    select
+    e.InsureName,a.InsureLimit,
+    case when a.DetailAmt = 1 then '是' else '' end detailAmtName,
+    a.OrgAmt,a.RateAmt,a.OfferAmt,a.Memo
+    from OrdersInsure_Years a
+    inner join InsureSetup e on a.InsureType = e.InsureSetup_Auto
+    where
+    a.Orders_Auto = #{ordersAuto} and a.InsureYear = #{insureYear}
+    Order by a.InsureType
+  </select>
 </mapper>
