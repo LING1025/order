@@ -131,15 +131,6 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-openfeign-core</artifactId>
         </dependency>
-        <!-- Swagger2 Begin -->
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger2</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger-ui</artifactId>
-        </dependency>
         <dependency>
             <groupId>com.funtl.myshop.plus</groupId>
             <artifactId>provider-user-api</artifactId>
@@ -152,7 +143,6 @@
             <version>0.0.1-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
-        <!-- Swagger2 End -->
     </dependencies>
 
     <build>
