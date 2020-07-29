@@ -442,6 +442,38 @@
                 </TableGenerateConfig>
               </value>
             </entry>
+            <entry key="dbo:OrdersBudget">
+              <value>
+                <TableGenerateConfig>
+                  <option name="columnOverrideList">
+                    <list>
+                      <MyColumnOverride>
+                        <option name="columnName" value="RateAmt" />
+                        <option name="javaProperty" value="rateAmt" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="RateMAmt" />
+                        <option name="javaProperty" value="ratemAmt" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="FinalAmt" />
+                        <option name="javaProperty" value="finalAmt" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="FinalMAmt" />
+                        <option name="javaProperty" value="finalmAmt" />
+                      </MyColumnOverride>
+                    </list>
+                  </option>
+                  <option name="generatedKey" value="" />
+                  <option name="javaModelName" value="OrdersBudget" />
+                  <option name="moduleName" value="provider-order-api" />
+                  <option name="sequenceColumn" value="" />
+                  <option name="sequenceId" value="" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
             <entry key="dbo:OrdersFDetail">
               <value>
                 <TableGenerateConfig>
