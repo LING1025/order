@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.funtl.myshop.plus.provider.mapper.OrdersFeeMapper">
+  <resultMap id="BaseResultMap" type="com.funtl.myshop.plus.provider.domain.OrdersFee">
+    <!--@mbg.generated-->
+    <!--@Table OrdersFee-->
+    <id column="OrdersFee_Auto" jdbcType="BIGINT" property="ordersFeeAuto" />
+    <result column="Orders_Auto" jdbcType="BIGINT" property="ordersAuto" />
+    <result column="Inc_Auto" jdbcType="BIGINT" property="incAuto" />
+    <result column="FeeType_Auto" jdbcType="INTEGER" property="feeTypeAuto" />
+    <result column="FeeAmt" jdbcType="DECIMAL" property="feeAmt" />
+    <result column="Status" jdbcType="INTEGER" property="status" />
+    <result column="Cuser" jdbcType="BIGINT" property="cuser" />
+    <result column="CDT" jdbcType="TIMESTAMP" property="cdt" />
+    <result column="Muser" jdbcType="BIGINT" property="muser" />
+    <result column="MDT" jdbcType="TIMESTAMP" property="mdt" />
+    <result column="Memo" jdbcType="VARCHAR" property="memo" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    OrdersFee_Auto, Orders_Auto, Inc_Auto, FeeType_Auto, FeeAmt, [Status], Cuser, CDT,
+    Muser, MDT, Memo
+  </sql>
+</mapper>

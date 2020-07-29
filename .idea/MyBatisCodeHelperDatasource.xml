@@ -486,6 +486,34 @@
                 </TableGenerateConfig>
               </value>
             </entry>
+            <entry key="dbo:OrdersFee">
+              <value>
+                <TableGenerateConfig>
+                  <option name="columnOverrideList">
+                    <list>
+                      <MyColumnOverride>
+                        <option name="columnName" value="OrdersFee_Auto" />
+                        <option name="javaProperty" value="ordersFeeAuto" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="FeeType_Auto" />
+                        <option name="javaProperty" value="feeTypeAuto" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="FeeAmt" />
+                        <option name="javaProperty" value="feeAmt" />
+                      </MyColumnOverride>
+                    </list>
+                  </option>
+                  <option name="generatedKey" value="OrdersFee_Auto" />
+                  <option name="javaModelName" value="OrdersFee" />
+                  <option name="moduleName" value="provider-order-api" />
+                  <option name="sequenceColumn" value="" />
+                  <option name="sequenceId" value="" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
             <entry key="dbo:OrdersInsureList">
               <value>
                 <TableGenerateConfig>
