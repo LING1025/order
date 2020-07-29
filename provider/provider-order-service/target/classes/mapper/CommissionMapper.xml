@@ -37,7 +37,7 @@
     from Commission  t1
     left join ItemCode t2 on t2.ItemType = 2039 and t2.Num = t1.PushRelation
     where
-    t1.Orders_Auto=230941
+    t1.Orders_Auto = #{param}
     order by
     t1.Commission_Auto
   </select>
