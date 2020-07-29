@@ -48,6 +48,9 @@ public class OrderController {
     @Reference(version = "1.0.0")
     private OrdersFeeService ordersFeeService;
 
+    @Reference(version = "1.0.0")
+    private OrdersAccessaryService ordersAccessaryService;
+
     @ApiOperation(value = " 根据本人id获取代理数据")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "userAuto", value = "本人id", required = false, dataType = "long", paramType = "path")
@@ -243,6 +246,19 @@ public class OrderController {
             return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "参数异常", null);
         }
         List<FeeList> lists = ordersFeeService.selectFeeList(ordersAuto);
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", lists);
+    }
+
+    @ApiOperation(value = " 根据试算单号获取配件明细数据")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "ordersAuto", value = "试算单号", required = false, dataType = "long", paramType = "path")
+    })
+    @GetMapping(value = "queryAccessoryList")
+    public ResponseResult<List<AccessoryList>> queryAccessoryList(@RequestParam(name = "ordersAuto",required = false) Long ordersAuto){
+        if (ordersAuto == null){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "参数异常", null);
+        }
+        List<AccessoryList> lists = ordersAccessaryService.selectAccessoryList(ordersAuto);
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", lists);
     }
 
