@@ -442,6 +442,42 @@
                 </TableGenerateConfig>
               </value>
             </entry>
+            <entry key="dbo:OrdersAccessary">
+              <value>
+                <TableGenerateConfig>
+                  <option name="columnOverrideList">
+                    <list>
+                      <MyColumnOverride>
+                        <option name="columnName" value="OrdersAccessary_Auto" />
+                        <option name="javaProperty" value="ordersAccessaryAuto" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="ItemName" />
+                        <option name="javaProperty" value="itemName" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="ItemMemo" />
+                        <option name="javaProperty" value="itemMemo" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="AccessoriesType_Auto" />
+                        <option name="javaProperty" value="accessoriesTypeAuto" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="SellingAmt" />
+                        <option name="javaProperty" value="sellingAmt" />
+                      </MyColumnOverride>
+                    </list>
+                  </option>
+                  <option name="generatedKey" value="OrdersAccessary_Auto" />
+                  <option name="javaModelName" value="OrdersAccessary" />
+                  <option name="moduleName" value="provider-order-api" />
+                  <option name="sequenceColumn" value="" />
+                  <option name="sequenceId" value="" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
             <entry key="dbo:OrdersBudget">
               <value>
                 <TableGenerateConfig>

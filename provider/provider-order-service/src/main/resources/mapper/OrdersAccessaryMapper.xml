@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.funtl.myshop.plus.provider.mapper.OrdersAccessaryMapper">
+  <resultMap id="BaseResultMap" type="com.funtl.myshop.plus.provider.domain.OrdersAccessary">
+    <!--@mbg.generated-->
+    <!--@Table OrdersAccessary-->
+    <id column="OrdersAccessary_Auto" jdbcType="BIGINT" property="ordersAccessaryAuto" />
+    <result column="Orders_auto" jdbcType="BIGINT" property="ordersAuto" />
+    <result column="ItemName" jdbcType="VARCHAR" property="itemName" />
+    <result column="ItemMemo" jdbcType="VARCHAR" property="itemMemo" />
+    <result column="Amt" jdbcType="DECIMAL" property="amt" />
+    <result column="Status" jdbcType="INTEGER" property="status" />
+    <result column="CUser" jdbcType="INTEGER" property="cuser" />
+    <result column="CDT" jdbcType="TIMESTAMP" property="cdt" />
+    <result column="MUser" jdbcType="INTEGER" property="muser" />
+    <result column="MDT" jdbcType="TIMESTAMP" property="mdt" />
+    <result column="Location" jdbcType="VARCHAR" property="location" />
+    <result column="Seat" jdbcType="VARCHAR" property="seat" />
+    <result column="Remark" jdbcType="VARCHAR" property="remark" />
+    <result column="Accessories_TS_Auto" jdbcType="BIGINT" property="accessoriesTsAuto" />
+    <result column="AccessoriesType_Auto" jdbcType="BIGINT" property="accessoriesTypeAuto" />
+    <result column="Supplier" jdbcType="BIGINT" property="supplier" />
+    <result column="SellingAmt" jdbcType="INTEGER" property="sellingAmt" />
+    <result column="PurchaseAmt" jdbcType="INTEGER" property="purchaseAmt" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    OrdersAccessary_Auto, Orders_auto, ItemName, ItemMemo, Amt, [Status], CUser, CDT,
+    MUser, MDT, [Location], Seat, Remark, Accessories_TS_Auto, AccessoriesType_Auto,
+    Supplier, SellingAmt, PurchaseAmt
+  </sql>
+</mapper>
