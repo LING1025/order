@@ -21,17 +21,15 @@
     AgentPerson, RoleID
   </sql>
   <resultMap id="querySignOffList" extends="BaseResultMap" type="com.funtl.myshop.plus.provider.domain.SignOffList">
-    <result column="orderStatusName" jdbcType="VARCHAR" property="orderStatusName" />
     <result column="creditPerson" jdbcType="VARCHAR" property="creditPerson" />
   </resultMap>
   <select id="selectSignOffList" resultMap="querySignOffList">
     select
-    a.RoleID,b.ItemName AS orderStatusName,
+    a.RoleID,a.Orders_Status,
     c.FName AS creditPerson,a.Memo,a.CDT,
     a.IsAgent
     from
     OrdersFDetail a
-    left join ItemCode b on b.itemtype = 1019 and b.num = a.Orders_Status
     left join v_Emp c on a.CreditPerson = c.User_Auto
     where
     a.Orders_Auto = #{param}

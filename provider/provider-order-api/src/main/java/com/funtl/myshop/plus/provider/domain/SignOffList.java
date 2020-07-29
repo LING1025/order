@@ -21,6 +21,19 @@ public class SignOffList implements Serializable {
     @ApiModelProperty(value = "审核角色")
     private String roleName;
 
+    /**
+     * 审核状态
+     * 23已审核 审核人：系统自动审核
+     * 22核准
+     * 21已审核(跨签)
+     * 1作废
+     * 5驳回
+     * 20已审核
+     * 0未审核
+     */
+    @JsonIgnore
+    private Integer ordersStatus;
+
     @ApiModelProperty(value = "审核状态")
     private String orderStatusName;
 
