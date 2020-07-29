@@ -42,25 +42,25 @@ public class OrdersBudget implements Serializable {
     private BigDecimal pb;
 
     /**
-    * 計價金額
+    * 成本费用
     */
     @Column(name = "RateAmt")
     private BigDecimal rateAmt;
 
     /**
-    * 計價月費用
+    * 成本月租金
     */
     @Column(name = "RateMAmt")
     private BigDecimal rateMAmt;
 
     /**
-    * 成交金額
+    * 计价费用
     */
     @Column(name = "FinalAmt")
     private BigDecimal finalAmt;
 
     /**
-    * 成交月費用
+    * 计价月租金
     */
     @Column(name = "FinalMAmt")
     private BigDecimal finalMAmt;

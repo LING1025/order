@@ -42,6 +42,9 @@ public class OrderController {
     @Reference(version = "1.0.0")
     private OrdersFDetailService ordersFDetailService;
 
+    @Reference(version = "1.0.0")
+    private OrdersBudgetService ordersBudgetService;
+
     @ApiOperation(value = " 根据本人id获取代理数据")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "userAuto", value = "本人id", required = false, dataType = "long", paramType = "path")
@@ -211,6 +214,19 @@ public class OrderController {
                 signOffList.setRoleName(aspnetRoles.getRoleName());
             }
         }
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", lists);
+    }
+
+    @ApiOperation(value = " 根据试算单号获取其他费用明细数据")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "ordersAuto", value = "试算单号", required = false, dataType = "long", paramType = "path")
+    })
+    @GetMapping(value = "queryBudgetList")
+    public ResponseResult<List<BudgetList>> queryBudgetList(@RequestParam(name = "ordersAuto",required = false) Long ordersAuto){
+        if (ordersAuto == null){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "参数异常", null);
+        }
+        List<BudgetList> lists = ordersBudgetService.selectBudgetList(ordersAuto);
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", lists);
     }
 
