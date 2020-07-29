@@ -34,5 +34,6 @@
     inner join v_Emp c on a.CreditPerson = c.User_Auto
     where
     a.Orders_Auto = #{param}
+    order by a.OrdersFDetail_Auto
   </select>
 </mapper>
