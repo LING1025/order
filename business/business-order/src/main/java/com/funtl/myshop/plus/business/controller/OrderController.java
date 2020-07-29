@@ -51,6 +51,9 @@ public class OrderController {
     @Reference(version = "1.0.0")
     private OrdersAccessaryService ordersAccessaryService;
 
+    @Reference(version = "1.0.0")
+    private CommissionService commissionService;
+
     @ApiOperation(value = " 根据本人id获取代理数据")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "userAuto", value = "本人id", required = false, dataType = "long", paramType = "path")
@@ -259,6 +262,19 @@ public class OrderController {
             return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "参数异常", null);
         }
         List<AccessoryList> lists = ordersAccessaryService.selectAccessoryList(ordersAuto);
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", lists);
+    }
+
+    @ApiOperation(value = " 根据试算单号获取佣金明细")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "ordersAuto", value = "试算单号", required = false, dataType = "long", paramType = "path")
+    })
+    @GetMapping(value = "queryCommissionList")
+    public ResponseResult<List<CommissionList>> queryCommissionList(@RequestParam(name = "ordersAuto",required = false) Long ordersAuto){
+        if (ordersAuto == null){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "参数异常", null);
+        }
+        List<CommissionList> lists = commissionService.selectCommissionList(ordersAuto);
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", lists);
     }
 
