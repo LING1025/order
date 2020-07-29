@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.funtl.myshop.plus.provider.mapper.CommissionMapper">
+  <resultMap id="BaseResultMap" type="com.funtl.myshop.plus.provider.domain.Commission">
+    <!--@mbg.generated-->
+    <!--@Table Commission-->
+    <id column="Commission_Auto" jdbcType="BIGINT" property="commissionAuto" />
+    <result column="Orders_Auto" jdbcType="BIGINT" property="ordersAuto" />
+    <result column="PushMan" jdbcType="VARCHAR" property="pushMan" />
+    <result column="PushTEL" jdbcType="VARCHAR" property="pushTel" />
+    <result column="PushAmt" jdbcType="NUMERIC" property="pushAmt" />
+    <result column="PushMemo" jdbcType="VARCHAR" property="pushMemo" />
+    <result column="CUser" jdbcType="BIGINT" property="cuser" />
+    <result column="CDT" jdbcType="TIMESTAMP" property="cdt" />
+    <result column="MUser" jdbcType="BIGINT" property="muser" />
+    <result column="MDT" jdbcType="TIMESTAMP" property="mdt" />
+    <result column="PushStatus" jdbcType="INTEGER" property="pushStatus" />
+    <result column="CommPush_Auto" jdbcType="BIGINT" property="commPushAuto" />
+    <result column="PushAmtDT" jdbcType="TIMESTAMP" property="pushAmtDt" />
+    <result column="PushRelation" jdbcType="INTEGER" property="pushRelation" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    Commission_Auto, Orders_Auto, PushMan, PushTEL, PushAmt, PushMemo, CUser, CDT, MUser,
+    MDT, PushStatus, CommPush_Auto, PushAmtDT, PushRelation
+  </sql>
+</mapper>

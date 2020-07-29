@@ -50,6 +50,50 @@
         </option>
         <option name="tableGenerateConfigs">
           <map>
+            <entry key="dbo:Commission">
+              <value>
+                <TableGenerateConfig>
+                  <option name="columnOverrideList">
+                    <list>
+                      <MyColumnOverride>
+                        <option name="columnName" value="PushMan" />
+                        <option name="javaProperty" value="pushMan" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="PushTEL" />
+                        <option name="javaProperty" value="pushTel" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="PushAmt" />
+                        <option name="javaProperty" value="pushAmt" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="PushMemo" />
+                        <option name="javaProperty" value="pushMemo" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="PushStatus" />
+                        <option name="javaProperty" value="pushStatus" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="CommPush_Auto" />
+                        <option name="javaProperty" value="commPushAuto" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="PushAmtDT" />
+                        <option name="javaProperty" value="pushAmtDt" />
+                      </MyColumnOverride>
+                    </list>
+                  </option>
+                  <option name="generatedKey" value="Commission_Auto" />
+                  <option name="javaModelName" value="Commission" />
+                  <option name="moduleName" value="provider-order-api" />
+                  <option name="sequenceColumn" value="" />
+                  <option name="sequenceId" value="" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
             <entry key="dbo:CreditAgent">
               <value>
                 <TableGenerateConfig>
