@@ -218,6 +218,9 @@ public class OrderController {
         }
         List<SignOffList> lists = ordersFDetailService.selectSignOffList(ordersAuto);
         for(SignOffList signOffList : lists){
+            if (signOffList.getIsAgent() == 1){
+                signOffList.setOrderStatusName(signOffList.getOrderStatusName() + "(代理)");
+            }
             if (signOffList.getRoleId() != null){
                 AspnetRoles aspnetRoles = aspnetRolesService.selectByRoleAuto(signOffList.getRoleId());
                 signOffList.setRoleName(aspnetRoles.getRoleName());
