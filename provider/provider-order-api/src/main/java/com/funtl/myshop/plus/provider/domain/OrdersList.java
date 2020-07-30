@@ -1,6 +1,7 @@
 package com.funtl.myshop.plus.provider.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -46,7 +47,10 @@ public class OrdersList implements Serializable {
     @ApiModelProperty(value = "客户全称")
     private String fName;
 
-    @ApiModelProperty(value = "客户代码")
+    /**
+     * 客户代码
+     */
+    @JsonIgnore
     private Long tradeItemAuto;
 
     @ApiModelProperty(value = "承办业代")
@@ -71,10 +75,16 @@ public class OrdersList implements Serializable {
     @ApiModelProperty(value = "厂牌车型")
     private String factoryBrandName;
 
-    @ApiModelProperty(value = "厂牌")
+    /**
+     * 厂牌
+     */
+    @JsonIgnore
     private String brandName;
 
-    @ApiModelProperty(value = "车型")
+    /**
+     * 车型
+     */
+    @JsonIgnore
     private String clasenName;
 
     @ApiModelProperty(value = "出厂年月")

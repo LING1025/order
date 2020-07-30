@@ -149,7 +149,7 @@ public class OrderController {
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", lists);
     }
 
-    @ApiOperation(value = " 根据试算单号获取试算签核信息")
+    @ApiOperation(value = " 根据试算单号获取试算签核外部所有信息")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "ordersAuto", value = "试算单号", required = false, dataType = "long", paramType = "path")
     })
@@ -159,6 +159,8 @@ public class OrderController {
             return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "参数异常", null);
         }
         OrdersList ordersList = ordersService.selectByOrdersAuto(ordersAuto);
+        ordersList.setFName(ordersList.getFName() + " " + ordersList.getTradeItemAuto());
+        ordersList.setFactoryBrandName(ordersList.getFactoryBrandName() + " " + ordersList.getBrandName() + " " + ordersList.getClasenName());
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", ordersList);
     }
 

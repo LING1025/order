@@ -220,7 +220,8 @@
     e.ItemName AS rentTypeName,f.ItemName AS orderTypeName,
     a.TradeItem_Auto,c.FName AS fName,b.FName AS salesname,
     g.ItemName AS custSourceName,
-    a.PushMan,c.FName AS supplierBuyName,a.CarDT,
+    a.PushMan,supplierBuyName = Supplier_Buy.FName,
+    a.CarDT,
     l.FactoryBrandName,j.BrandName,k.ClasenName,
     a.CarColor,h.ItemName AS carSourceName,
     a.ClasenCode,a.CC,i.ItemName AS oilName,
@@ -246,6 +247,7 @@
     inner join Clasen k on a.Clasen_Auto = k.Clasen_Auto
     left join Itemcode m on a.PostType = m.Num and m.ItemType = 413
     left join Itemcode n on a.OrderStatus = n.Num and n.ItemType = 327
+    left join TradeItem Supplier_Buy (nolock) on a.Supplier_Buy=Supplier_Buy.TradeItem_Auto
     where
     a.Orders_Auto = #{params}
   </select>
