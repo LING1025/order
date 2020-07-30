@@ -12,11 +12,10 @@ import java.util.Date;
 @Data
 @ApiModel(value = "签核明细数据")
 public class SignOffList implements Serializable {
-    /**
-     * 审核角色id
-     */
     @JsonIgnore
-    private Integer roleId;
+    private Long ordersFDetailAuto;
+    @JsonIgnore
+    private Integer ordersAuto;
 
     @ApiModelProperty(value = "审核角色")
     private String roleName;
@@ -35,7 +34,7 @@ public class SignOffList implements Serializable {
     private Integer ordersStatus;
 
     @ApiModelProperty(value = "审核状态")
-    private String orderStatusName;
+    private String ordersStatusName;
 
     @ApiModelProperty(value = "审核人")
     private String creditPerson;

@@ -22,17 +22,22 @@
   </sql>
   <resultMap id="querySignOffList" extends="BaseResultMap" type="com.funtl.myshop.plus.provider.domain.SignOffList">
     <result column="creditPerson" jdbcType="VARCHAR" property="creditPerson" />
+    <result column="roleName" jdbcType="VARCHAR" property="roleName" />
   </resultMap>
   <select id="selectSignOffList" resultMap="querySignOffList">
     select
-    a.RoleID,a.Orders_Status,
-    c.FName AS creditPerson,a.Memo,a.CDT,
-    a.IsAgent
-    from
-    OrdersFDetail a
-    left join v_Emp c on a.CreditPerson = c.User_Auto
-    where
-    a.Orders_Auto = #{param}
-    order by a.OrdersFDetail_Auto
+    a.OrdersFDetail_Auto,a.Orders_Auto,a.Memo,a.Orders_Status,a.CDT,a.IsAgent,b.FName creditPerson,d.Memo roleName
+    from OrdersFDetail(nolock) a
+    left join v_Emp b on a.CreditPerson=b.User_Auto
+    inner join Orders c On c.Orders_Auto=a.Orders_Auto
+    left join ItemCode d on d.ItemType = 1062 and d.Num = a.RoleID
+    where a.Orders_Auto=#{param}
+    union all
+    select 0 OrdersFDetail_Auto,a.DocPostID Orders_Auto,'' Memo,0 Orders_Status,null CDT,0 IsAgent,'' FName,c.Memo roleName
+    from  WorkFlowDoc(nolock) a
+    left join Orders b On b.Orders_Auto=a.DocPostID
+    left join ItemCode c on c.ItemType = 1062 and c.Num = a.RoleID
+    where a.DocPostID=#{param} And a.[status]=0 And a.Memo='999'
+    order by a.OrdersFDetail_Auto desc
   </select>
 </mapper>

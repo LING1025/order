@@ -220,37 +220,33 @@ public class OrderController {
         for(SignOffList signOffList : lists){
             switch (signOffList.getOrdersStatus()){
                 case 23:
-                    signOffList.setOrderStatusName("已审核");
+                    signOffList.setOrdersStatusName("已审核");
                     signOffList.setCreditPerson("系统自动审核");
                     break;
                 case 22:
-                    signOffList.setOrderStatusName("核准");
+                    signOffList.setOrdersStatusName("核准");
                     break;
                 case 21:
-                    signOffList.setOrderStatusName("已审核(跨签)");
+                    signOffList.setOrdersStatusName("已审核(跨签)");
                     break;
                 case 1:
-                    signOffList.setOrderStatusName("作废");
+                    signOffList.setOrdersStatusName("作废");
                     break;
                 case 5:
-                    signOffList.setOrderStatusName("驳回");
+                    signOffList.setOrdersStatusName("驳回");
                     break;
                 case 20:
-                    signOffList.setOrderStatusName("已审核");
+                    signOffList.setOrdersStatusName("已审核");
                     break;
                 case 0:
-                    signOffList.setOrderStatusName("未审核");
+                    signOffList.setOrdersStatusName("未审核");
                     break;
                 default:
-                    signOffList.setOrderStatusName("");
+                    signOffList.setOrdersStatusName("");
                     break;
             }
             if (signOffList.getIsAgent() == 1){
                 signOffList.setCreditPerson(signOffList.getCreditPerson() + "(代理)");
-            }
-            if (signOffList.getRoleId() != null){
-                AspnetRoles aspnetRoles = aspnetRolesService.selectByRoleAuto(signOffList.getRoleId());
-                signOffList.setRoleName(aspnetRoles.getRoleName());
             }
         }
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", lists);
