@@ -1,5 +1,6 @@
 package com.funtl.myshop.plus.provider.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -11,32 +12,38 @@ import java.util.List;
 @ApiModel(value = "代理数据")
 public class SelfAgentList implements Serializable {
 
-    @ApiModelProperty(value = "代理人绑定表id")
-    private Long creditAgentAuto;
+    /*@ApiModelProperty(value = "代理人绑定表id")
+    private Long creditAgentAuto;*/
 
-    @ApiModelProperty(value = "本人id")
+    /**
+     * 本人id
+     */
+    @JsonIgnore
     private Long selfUser;
 
     @ApiModelProperty(value = "本人姓名")
     private String selfName;
 
-    @ApiModelProperty(value = "本人单位id")
+    /*@ApiModelProperty(value = "本人单位id")
     private Long selfUSerDept;
 
     @ApiModelProperty(value = "本人单位")
-    private String selfDept;
+    private String selfDept;*/
 
-    @ApiModelProperty(value = "代理人id")
+    /**
+     * 代理人id
+     */
+    @JsonIgnore
     private Long agentUser;
 
     @ApiModelProperty(value = "代理人姓名")
     private String agentName;
 
-    @ApiModelProperty(value = "代理人部门id")
+    /*@ApiModelProperty(value = "代理人部门id")
     private Long agentUserDept;
 
     @ApiModelProperty(value = "代理人部门")
-    private String agentDept;
+    private String agentDept;*/
 
     /**
      * 是否有效 0 停用  1正常 2删除

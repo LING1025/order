@@ -65,8 +65,7 @@ public class OrderController {
         for(SelfAgentList dto : pageInfo){
             VEmp vEmp = vEmpService.selectByUserAuto(dto.getSelfUser());
             if (vEmp != null){
-                dto.setSelfName(vEmp.getFName());
-                dto.setSelfDept(vEmp.getDepName());
+                dto.setSelfName(vEmp.getFName() + "_" + vEmp.getDepName());
                 //获取本人角色权限
                 List<AspnetRoles> list = aspnetRolesService.selectByUserId(vEmp.getUserId());
                 List<SelfRoles> selfRolesList = Lists.newArrayList();
@@ -80,8 +79,7 @@ public class OrderController {
             }
             VEmp vEmp2 = vEmpService.selectByUserAuto(dto.getAgentUser());
             if (vEmp2 != null){
-                dto.setAgentName(vEmp2.getFName());
-                dto.setAgentDept(vEmp2.getDepName());
+                dto.setAgentName(vEmp2.getFName() + "_" + vEmp2.getDepName());
                 //获取代理人角色权限
                 List<AspnetRoles> list = aspnetRolesService.selectByUserId(vEmp2.getUserId());
                 List<AgentRoles> agentRolesList = Lists.newArrayList();
@@ -108,8 +106,7 @@ public class OrderController {
         for(SelfAgentList dto : pageInfo){
             VEmp vEmp = vEmpService.selectByUserAuto(dto.getAgentUser());
             if (vEmp != null){
-                dto.setAgentName(vEmp.getFName());
-                dto.setAgentDept(vEmp.getDepName());
+                dto.setAgentName(vEmp.getFName() + "_" + vEmp.getDepName());
                 //获取代理人角色权限
                 List<AspnetRoles> list = aspnetRolesService.selectByUserId(vEmp.getUserId());
                 List<AgentRoles> agentRolesList = Lists.newArrayList();
@@ -123,8 +120,7 @@ public class OrderController {
             }
             VEmp vEmp2 = vEmpService.selectByUserAuto(dto.getSelfUser());
             if (vEmp2 != null){
-                dto.setSelfName(vEmp2.getFName());
-                dto.setSelfDept(vEmp2.getDepName());
+                dto.setSelfName(vEmp2.getFName() + "_" + vEmp2.getDepName());
                 //获取本人角色权限
                 List<AspnetRoles> list = aspnetRolesService.selectByUserId(vEmp2.getUserId());
                 List<SelfRoles> selfRolesList = Lists.newArrayList();

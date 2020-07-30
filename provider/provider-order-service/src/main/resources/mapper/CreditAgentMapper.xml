@@ -24,11 +24,11 @@
   <resultMap id="querySelfAgent" extends="BaseResultMap" type="com.funtl.myshop.plus.provider.domain.SelfAgentList"/>
   <select id="selectSelf" resultMap="querySelfAgent">
     SELECT
-    CreditAgent_Auto,
+<!--    CreditAgent_Auto,-->
     SelfUser,
-    SelfUSerDept,
-    AgentUser,
-    AgentUserDept
+<!--    SelfUSerDept,-->
+    AgentUser
+<!--    AgentUserDept-->
     <!--IsOn,
     AgentCDate-->
     FROM
@@ -43,11 +43,11 @@
   </select>
   <select id="selectAgent" resultMap="querySelfAgent">
     SELECT
-    CreditAgent_Auto,
+<!--    CreditAgent_Auto,-->
     SelfUser,
-    SelfUSerDept,
-    AgentUser,
-    AgentUserDept
+<!--    SelfUSerDept,-->
+    AgentUser
+<!--    AgentUserDept-->
     <!--IsOn,
     AgentCDate-->
     FROM
