@@ -246,7 +246,7 @@ public class OrderController {
                     break;
             }
             if (signOffList.getIsAgent() == 1){
-                signOffList.setOrderStatusName(signOffList.getOrderStatusName() + "(代理)");
+                signOffList.setCreditPerson(signOffList.getCreditPerson() + "(代理)");
             }
             if (signOffList.getRoleId() != null){
                 AspnetRoles aspnetRoles = aspnetRolesService.selectByRoleAuto(signOffList.getRoleId());
