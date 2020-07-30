@@ -106,6 +106,18 @@
                 </TableGenerateConfig>
               </value>
             </entry>
+            <entry key="dbo:Order">
+              <value>
+                <TableGenerateConfig>
+                  <option name="generatedKey" value="Order_Auto" />
+                  <option name="javaModelName" value="Order" />
+                  <option name="moduleName" value="provider-order-api" />
+                  <option name="sequenceColumn" value="" />
+                  <option name="sequenceId" value="" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
             <entry key="dbo:Orders">
               <value>
                 <TableGenerateConfig>
