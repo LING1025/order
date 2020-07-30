@@ -251,4 +251,29 @@
     where
     a.Orders_Auto = #{params}
   </select>
+    <resultMap id="querySupplierList" extends="BaseResultMap" type="com.funtl.myshop.plus.provider.domain.SupplierList">
+      <result column="Order_Auto" jdbcType="BIGINT" property="orderAuto" />
+      <result column="brandName" jdbcType="VARCHAR" property="brandName" />
+      <result column="ClasenName" jdbcType="VARCHAR" property="clasenName" />
+      <result column="supplierName" jdbcType="VARCHAR" property="supplierName" />
+      <result column="bookDT" jdbcType="TIMESTAMP" property="bookDT" />
+      <result column="salesName" jdbcType="VARCHAR" property="salesName" />
+      <result column="endDt" jdbcType="TIMESTAMP" property="endDt" />
+    </resultMap>
+    <select id="selectSupplierList" resultMap="querySupplierList">
+      select distinct a.Order_Auto,b.Orders_Auto,c.FactoryBrandName+'-'+e.BrandName brandName,g.ClasenName,b.ListPrice,f.fname supplierName,h.enddt bookDT
+      ,d.fname salesName,isnull(h.enddt,a.CDT) endDt
+      from orders b
+      left join [order] a on a.Orders_Auto = b.Orders_Auto
+      left join v_emp d on a.Sales_Auto=d.User_Auto
+      left Join TradeItem f on b.Supplier_Buy = f.TradeItem_Auto
+      left join FactoryBrand c on c.FactoryBrand_Auto = b.FactoryBrand_Auto
+      left join Brand e on e.Brand_Auto = b.Brand_Auto
+      left join Clasen g on g.Clasen_Auto = b.Clasen_Auto
+      left join Credit_Order i on i.Orders_Auto = b.Orders_Auto
+      left join BookCar h on h.CreditMain_Auto = i.CreditMain_Auto
+      where b.Supplier_Buy=(select Supplier_Buy from orders where Orders_Auto=#{params}  )
+      and (datediff(m,h.EndDT,getdate())&lt;=6 or datediff(m,a.CDT,getdate())&lt;=6)
+      order By isnull(h.enddt,a.CDT) desc
+    </select>
 </mapper>

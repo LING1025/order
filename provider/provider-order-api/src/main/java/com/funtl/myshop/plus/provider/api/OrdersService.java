@@ -3,6 +3,7 @@ package com.funtl.myshop.plus.provider.api;
 import com.funtl.myshop.plus.provider.domain.MasterList;
 import com.funtl.myshop.plus.provider.domain.Orders;
 import com.funtl.myshop.plus.provider.domain.OrdersList;
+import com.funtl.myshop.plus.provider.domain.SupplierList;
 
 import java.util.List;
 
@@ -21,5 +22,12 @@ public interface OrdersService{
      * @return
      */
     OrdersList selectByOrdersAuto(Long ordersAuto);
+
+    /**
+     * 根据试算单号获取报价车商历史成交记录
+     * @param ordersAuto
+     * @return
+     */
+    List<SupplierList> selectSupplierList(Long ordersAuto);
 
 }

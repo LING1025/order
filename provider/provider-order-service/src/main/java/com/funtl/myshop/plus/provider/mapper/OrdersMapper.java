@@ -3,6 +3,7 @@ package com.funtl.myshop.plus.provider.mapper;
 import com.funtl.myshop.plus.provider.domain.MasterList;
 import com.funtl.myshop.plus.provider.domain.Orders;
 import com.funtl.myshop.plus.provider.domain.OrdersList;
+import com.funtl.myshop.plus.provider.domain.SupplierList;
 import org.apache.ibatis.annotations.Param;
 import tk.mybatis.mapper.MyMapper;
 
@@ -12,4 +13,6 @@ public interface OrdersMapper extends MyMapper<Orders> {
     List<MasterList> selectByRoleIds(@Param("roleIds") List<Long> roleIds);
 
     OrdersList selectByOrdersAuto(@Param("params") Long ordersAuto);
+
+    List<SupplierList> selectSupplierList(@Param("params") Long ordersAuto);
 }
