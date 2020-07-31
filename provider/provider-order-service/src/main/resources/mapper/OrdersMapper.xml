@@ -212,10 +212,20 @@
     <result column="supplierBuyName" jdbcType="VARCHAR" property="supplierBuyName" />
     <result column="postTypeName" jdbcType="VARCHAR" property="postTypeName" />
     <result column="orderStatusName" jdbcType="VARCHAR" property="orderStatusName" />
+    <result column="dptTypeName" jdbcType="VARCHAR" property="dptTypeName" />
+    <result column="dptTaxPayN" jdbcType="VARCHAR" property="dptTaxPayN" />
+    <result column="dptP" jdbcType="VARCHAR" property="dptP" />
+    <result column="overP" jdbcType="VARCHAR" property="overP" />
+    <result column="irr" jdbcType="VARCHAR" property="irr" />
+    <result column="grossMarginT" jdbcType="VARCHAR" property="grossMarginT" />
   </resultMap>
   <select id="selectByOrdersAuto" resultMap="queryByOrdersAuto">
     select
     a.Orders_Auto,a.Orders_Old,a.MM,
+    o.ItemName AS dptTypeName,
+    convert(varchar(10),convert(decimal(18,2),((cast(a.DptAmt as decimal) *100/cast(a.CarCost as decimal)))))+'%' as dptP,
+    convert(varchar(10),convert(decimal(18,2),((cast(a.OverAmt as decimal) *100/cast(a.ListPrice as decimal)))))+'%' as overP,
+    case when p.ItemName is null then '' else ' :    ' + p.ItemName end dptTaxPayN,
     m.ItemName AS postTypeName,n.ItemName AS orderStatusName,
     e.ItemName AS rentTypeName,f.ItemName AS orderTypeName,
     a.TradeItem_Auto,c.FName AS fName,b.FName AS salesname,
@@ -231,7 +241,9 @@
     a.DptAmt,a.OverAmt,a.RentAmt,a.CostAdjustment,a.RepurchaseAmt,
     a.DptTax,a.CarExtensionAmt,a.OutFee,a.FinanceFee,a.UrgentFee,
     a.StampTax,a.SellCarTax,a.TrnsFee,a.PayMode,a.PayDay,
-    a.RentAmtT,a.IRR,a.GrossMargin,a.GrossMarginT,a.Memo
+    a.RentAmtT,a.GrossMargin,a.Memo,
+    convert(varchar(10),convert(decimal(18,2),(a.IRR)))+'%' as irr,
+    convert(varchar(10),convert(decimal(18,2),(a.GrossMarginT)))+'%' as grossMarginT
     from
     Orders a
     left join v_Emp b on a.Sales_Auto = b.User_Auto
@@ -248,6 +260,8 @@
     left join Itemcode m on a.PostType = m.Num and m.ItemType = 413
     left join Itemcode n on a.OrderStatus = n.Num and n.ItemType = 327
     left join TradeItem Supplier_Buy (nolock) on a.Supplier_Buy=Supplier_Buy.TradeItem_Auto
+    left join Itemcode o on a.DptType = o.Num and o.ItemType = 332
+    left join ItemCode p on p.ItemType = 333 and p.Num = a.DptTaxPay
     where
     a.Orders_Auto = #{params}
   </select>

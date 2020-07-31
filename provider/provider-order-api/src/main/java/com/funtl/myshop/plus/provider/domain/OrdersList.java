@@ -165,13 +165,49 @@ public class OrdersList implements Serializable {
     private BigDecimal pushMoney;
 
     @ApiModelProperty(value = "残值")
-    private BigDecimal overAmtY;
+    private String overAmtName;
+
+    /**
+     * 残值
+     */
+    @JsonIgnore
+    private BigDecimal overAmt;
+
+    /**
+     * 残值后面的利率
+     */
+    @JsonIgnore
+    private String overP;
 
     @ApiModelProperty(value = "保证金")
+    private String dptAmtName;
+
+    /**
+     * 保证金
+     */
+    @JsonIgnore
     private BigDecimal dptAmt;
 
+    /**
+     * 保证金后面的第一个参数
+     */
+    @JsonIgnore
+    private String dptTypeName;
+
+    /**
+     * 保证金后面的第二个参数
+     */
+    @JsonIgnore
+    private String dptTaxPayN;
+
+    /**
+     * 保证金后面的第三个参数
+     */
+    @JsonIgnore
+    private String dptP;
+
     @ApiModelProperty(value = "调整")
-    private BigDecimal overAmt;
+    private BigDecimal overAmtY;
 
     @ApiModelProperty(value = "承租车价")
     private BigDecimal rentAmt;
@@ -247,11 +283,11 @@ public class OrdersList implements Serializable {
     @ApiModelProperty(value = "租金总额")
     private BigDecimal rentAmtT;
     @ApiModelProperty(value = "内部报酬率")
-    private BigDecimal irr;
+    private String irr;
     @ApiModelProperty(value = "毛利总额")
     private BigDecimal grossMargin;
     @ApiModelProperty(value = "毛利率")
-    private BigDecimal grossMarginT;
+    private String grossMarginT;
 
     /**
      * 备注

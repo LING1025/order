@@ -165,6 +165,8 @@ public class OrderController {
         OrdersList ordersList = ordersService.selectByOrdersAuto(ordersAuto);
         ordersList.setFName(ordersList.getFName() + " " + ordersList.getTradeItemAuto());
         ordersList.setFactoryBrandName(ordersList.getFactoryBrandName() + " " + ordersList.getBrandName() + " " + ordersList.getClasenName());
+        ordersList.setOverAmtName(ordersList.getOverAmt() + " " + ordersList.getOverP());
+        ordersList.setDptAmtName(ordersList.getDptAmt() + "(" + ordersList.getDptTypeName() + ")" + ordersList.getDptP());
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", ordersList);
     }
 
