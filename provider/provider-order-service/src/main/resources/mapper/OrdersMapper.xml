@@ -243,7 +243,8 @@
     a.StampTax,a.SellCarTax,a.TrnsFee,a.PayMode,a.PayDay,
     a.RentAmtT,a.GrossMargin,a.Memo,
     convert(varchar(10),convert(decimal(18,2),(a.IRR)))+'%' as irr,
-    convert(varchar(10),convert(decimal(18,2),(a.GrossMarginT)))+'%' as grossMarginT
+    convert(varchar(10),convert(decimal(18,2),(a.GrossMarginT)))+'%' as grossMarginT,
+    a.A1,a.A2,a.A3,a.A4,a.A5
     from
     Orders a
     left join v_Emp b on a.Sales_Auto = b.User_Auto

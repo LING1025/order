@@ -298,6 +298,20 @@ public class OrdersList implements Serializable {
     /**
      * 附件
      */
+    @ApiModelProperty(value = "附件1")
+    private String a1;
+
+    @ApiModelProperty(value = "附件2")
+    private String a2;
+
+    @ApiModelProperty(value = "附件3")
+    private String a3;
+
+    @ApiModelProperty(value = "附件4")
+    private String a4;
+
+    @ApiModelProperty(value = "附件5")
+    private String a5;
 
     /**
      * 签核明细
