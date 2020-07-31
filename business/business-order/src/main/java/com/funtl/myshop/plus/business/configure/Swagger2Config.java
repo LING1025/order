@@ -61,7 +61,7 @@ public class Swagger2Config {
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 .title("移动端格上租赁 API文档")
-                .description("移动端格上租赁 api网关接口，http://192.168.168.62:9999/api")
+                .description("移动端格上租赁 api网关接口，http://192.168.168.93:9999/api")
                 .version("1.0")
                 .build();
     }
