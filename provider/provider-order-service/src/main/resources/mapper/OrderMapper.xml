@@ -184,4 +184,27 @@
     BonusStatus, BonusYY, BonusMM, BonusAmt, IsLawEnd, ReletMakno, IsRelet, DptAmtTrnDT,
     BonusRate, BonusCarCost, IsBlack, BlackDT, OutFee, FinanceFee, UrgentFee, QJRemark
   </sql>
+  <resultMap id="queryClasenList" extends="BaseResultMap" type="com.funtl.myshop.plus.provider.domain.ClasenList">
+    <result column="salesName" jdbcType="VARCHAR" property="salesName" />
+    <result column="supplierName" jdbcType="VARCHAR" property="supplierName" />
+    <result column="MakDT" jdbcType="TIMESTAMP" property="makeDT" />
+    <result column="realRate" jdbcType="VARCHAR" property="realRate" />
+    <result column="StartDT" jdbcType="TIMESTAMP" property="startDT" />
+  </resultMap>
+  <select id="selectClasenList" resultMap="queryClasenList">
+    select
+    distinct a.Order_Auto,a.StartDT, a.ListPrice,a.GetPrice,a.DisPrice,
+    isnull(d.FName,17) as salesName,f.SName as supplierName,c.MakDT,
+    convert(varchar(10),convert(decimal(18,2),((1-cast(a.GetPrice as int) *1.0/cast(a.ListPrice as int)) * 100)))+'%' as realRate
+    from [Order] a
+    inner join OrderRent b on a.Order_Auto=b.Order_Auto
+    inner join CarBase c on a.CarBase_Auto=c.CarBase_Auto
+    inner join v_Emp d on a.Sales_Auto=d.User_Auto
+    left join TradeItem f on c.Supplier = f.TradeItem_Auto
+    where
+    c.Clasen_Auto=(select Clasen_Auto from orders where Orders_Auto=230990  )
+    and
+    datediff(m,a.StartDT,getdate())&lt;=6
+    order By a.ListPrice desc,a.StartDT desc
+  </select>
 </mapper>

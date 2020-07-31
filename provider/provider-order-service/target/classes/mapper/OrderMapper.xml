@@ -158,42 +158,10 @@
     <result column="BonusCarCost" jdbcType="DECIMAL" property="bonusCarCost" />
     <result column="IsBlack" jdbcType="INTEGER" property="isBlack" />
     <result column="BlackDT" jdbcType="TIMESTAMP" property="blackDT" />
-    <result column="car_tax" property="carTax"/>
-    <result column="rate_amt" property="rateAmt"/>
-    <result column="rent_rate" property="rentRate"/>
-    <result column="real_dpt_amt" property="realDptAmt"/>
-    <result column="real_dpt_d_t" property="realDptDT"/>
-    <result column="real_dpt_i_sprinter" property="realDptISprinter"/>
-    <result column="dpt_printer_d_t" property="dptPrinterDT"/>
-    <result column="dpt_remark" property="dptRemark"/>
-    <result column="order_memo" property="orderMemo"/>
-    <result column="tax_mode" property="taxMode"/>
-    <result column="tax_rate" property="taxRate"/>
-    <result column="chk_list_price" property="chkListPrice"/>
-    <result column="bound_d_t" property="boundDT"/>
-    <result column="bound_status" property="boundStatus"/>
-    <result column="jc_d_t" property="jcDT"/>
-    <result column="is_merit" property="isMerit"/>
-    <result column="run_d_t" property="runDT"/>
-    <result column="yjc_d_t" property="yjcDT"/>
-    <result column="yj_sales" property="yjSales"/>
-    <result column="yj_org" property="yjOrg"/>
-    <result column="dis_type" property="disType"/>
-    <result column="inv_stopend_d_t" property="invStopendDT"/>
-    <result column="is_bonus" property="isBonus"/>
-    <result column="is_remove_overdue" property="isRemoveOverdue"/>
-    <result column="bonus_status" property="bonusStatus"/>
-    <result column="bonus_y_y" property="bonusYY"/>
-    <result column="bonus_m_m" property="bonusMM"/>
-    <result column="bonus_amt" property="bonusAmt"/>
-    <result column="is_law_end" property="isLawEnd"/>
-    <result column="relet_mak_no" property="reletMakNo"/>
-    <result column="is_relet" property="isRelet"/>
-    <result column="dpt_amt_trn_d_t" property="dptAmtTrnDT"/>
-    <result column="bonus_rate" property="bonusRate"/>
-    <result column="bonus_car_cost" property="bonusCarCost"/>
-    <result column="is_black" property="isBlack"/>
-    <result column="black_d_t" property="blackDT"/>
+    <result column="OutFee" jdbcType="DECIMAL" property="outFee" />
+    <result column="FinanceFee" jdbcType="DECIMAL" property="financeFee" />
+    <result column="UrgentFee" jdbcType="DECIMAL" property="urgentFee" />
+    <result column="QJRemark" jdbcType="VARCHAR" property="qJRemark" />
   </resultMap>
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
@@ -216,4 +184,27 @@
     BonusStatus, BonusYY, BonusMM, BonusAmt, IsLawEnd, ReletMakno, IsRelet, DptAmtTrnDT,
     BonusRate, BonusCarCost, IsBlack, BlackDT, OutFee, FinanceFee, UrgentFee, QJRemark
   </sql>
+  <resultMap id="queryClasenList" extends="BaseResultMap" type="com.funtl.myshop.plus.provider.domain.ClasenList">
+    <result column="salesName" jdbcType="VARCHAR" property="salesName" />
+    <result column="supplierName" jdbcType="VARCHAR" property="supplierName" />
+    <result column="MakDT" jdbcType="TIMESTAMP" property="makeDT" />
+    <result column="realRate" jdbcType="VARCHAR" property="realRate" />
+    <result column="StartDT" jdbcType="TIMESTAMP" property="startDT" />
+  </resultMap>
+  <select id="selectClasenList" resultMap="queryClasenList">
+    select
+    distinct a.Order_Auto,a.StartDT, a.ListPrice,a.GetPrice,a.DisPrice,
+    isnull(d.FName,17) as salesName,f.SName as supplierName,c.MakDT,
+    convert(varchar(10),convert(decimal(18,2),((1-cast(a.GetPrice as int) *1.0/cast(a.ListPrice as int)) * 100)))+'%' as realRate
+    from [Order] a
+    inner join OrderRent b on a.Order_Auto=b.Order_Auto
+    inner join CarBase c on a.CarBase_Auto=c.CarBase_Auto
+    inner join v_Emp d on a.Sales_Auto=d.User_Auto
+    left join TradeItem f on c.Supplier = f.TradeItem_Auto
+    where
+    c.Clasen_Auto=(select Clasen_Auto from orders where Orders_Auto=230990  )
+    and
+    datediff(m,a.StartDT,getdate())&lt;=6
+    order By a.ListPrice desc,a.StartDT desc
+  </select>
 </mapper>

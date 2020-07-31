@@ -54,6 +54,9 @@ public class OrderController {
     @Reference(version = "1.0.0")
     private CommissionService commissionService;
 
+    @Reference(version = "1.0.0")
+    private OrderService orderService;
+
 
     @ApiOperation(value = " 根据本人id获取代理数据")
     @ApiImplicitParams({
@@ -313,6 +316,19 @@ public class OrderController {
             return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "参数异常", null);
         }
         List<SupplierList> lists = ordersService.selectSupplierList(ordersAuto);
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", lists);
+    }
+
+    @ApiOperation(value = " 根据试算单号获取报价车型历史成交记录")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "ordersAuto", value = "试算单号", required = false, dataType = "long", paramType = "path")
+    })
+    @GetMapping(value = "queryClasenList")
+    public ResponseResult<List<ClasenList>> queryClasenList(@RequestParam(name = "ordersAuto",required = false) Long ordersAuto){
+        if (ordersAuto == null){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "参数异常", null);
+        }
+        List<ClasenList> lists = orderService.selectClasenList(ordersAuto);
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", lists);
     }
 
