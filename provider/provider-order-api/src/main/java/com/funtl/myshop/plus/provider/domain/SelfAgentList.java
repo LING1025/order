@@ -45,16 +45,6 @@ public class SelfAgentList implements Serializable {
     @ApiModelProperty(value = "代理人部门")
     private String agentDept;*/
 
-    /**
-     * 是否有效 0 停用  1正常 2删除
-     */
-//    private Byte isOn;
-
-    /**
-     * 代理截止日期
-     */
-//    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
-//    private Date agentCDate;
     @ApiModelProperty(value = "本人角色集合")
     private List<SelfRoles> selfRolesList;
 

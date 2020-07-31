@@ -60,4 +60,36 @@
     AND IsOn = 1
     ORDER BY CreditAgent_Auto DESC
   </select>
+  <resultMap id="queryAgentList" extends="BaseResultMap" type="com.funtl.myshop.plus.provider.domain.AgentList">
+    <result column="SelfUser" jdbcType="INTEGER" property="selfUser" />
+  </resultMap>
+  <select id="selectAgentList" resultMap="queryAgentList">
+    SELECT
+    SelfUser
+    FROM
+    CreditAgent
+    WHERE
+    1 = 1
+    <if test="agentUser != null and agentUser != ''">
+      AND AgentUser = #{agentUser}
+    </if>
+    AND IsOn = 1
+    ORDER BY CreditAgent_Auto DESC
+  </select>
+  <resultMap id="querySelfList" extends="BaseResultMap" type="com.funtl.myshop.plus.provider.domain.SelfList">
+    <result column="SelfUser" jdbcType="INTEGER" property="selfUser" />
+  </resultMap>
+  <select id="selectSelfList" resultMap="querySelfList">
+    SELECT
+    selfUser
+    FROM
+    CreditAgent
+    WHERE
+    1 = 1
+    <if test="selfUser != null and selfUser != ''">
+      AND SelfUser = #{selfUser}
+    </if>
+    AND IsOn = 1
+    ORDER BY CreditAgent_Auto DESC
+  </select>
 </mapper>

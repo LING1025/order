@@ -7,9 +7,9 @@ import java.io.Serializable;
 
 @Data
 public class SelfRoles implements Serializable {
-    @ApiModelProperty(value = "本人角色id")
+    @ApiModelProperty(value = "角色id")
     private Long selfRoleIds;
 
-    @ApiModelProperty(value = "本人角色名")
+    @ApiModelProperty(value = "角色名")
     private String selfRoleNames;
 }

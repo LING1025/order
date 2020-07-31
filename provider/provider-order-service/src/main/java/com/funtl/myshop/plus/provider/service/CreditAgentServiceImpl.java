@@ -2,7 +2,9 @@ package com.funtl.myshop.plus.provider.service;
 
 import javax.annotation.Resource;
 
+import com.funtl.myshop.plus.provider.domain.AgentList;
 import com.funtl.myshop.plus.provider.domain.SelfAgentList;
+import com.funtl.myshop.plus.provider.domain.SelfList;
 import com.funtl.myshop.plus.provider.mapper.CreditAgentMapper;
 import com.funtl.myshop.plus.provider.api.CreditAgentService;
 import org.apache.dubbo.config.annotation.Service;
@@ -23,5 +25,15 @@ public class CreditAgentServiceImpl implements CreditAgentService{
     @Override
     public List<SelfAgentList> selectAgent(Long agentUser) {
         return creditAgentMapper.selectAgent(agentUser);
+    }
+
+    @Override
+    public List<SelfList> selectSelfList(Long selfUser) {
+        return creditAgentMapper.selectSelfList(selfUser);
+    }
+
+    @Override
+    public List<AgentList> selectAgentList(Long agentUser) {
+        return creditAgentMapper.selectAgentList(agentUser);
     }
 }
