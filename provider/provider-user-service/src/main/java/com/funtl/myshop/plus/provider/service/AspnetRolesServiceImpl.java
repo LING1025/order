@@ -22,12 +22,4 @@ public class AspnetRolesServiceImpl implements AspnetRolesService{
         return aspnetRolesMapper.selectByUserId(userId);
     }
 
-    @Override
-    public AspnetRoles selectByRoleAuto(Integer rolesAuto) {
-        Example example = new Example(AspnetRoles.class);
-        example.createCriteria().andEqualTo("rolesAuto",rolesAuto);
-        return aspnetRolesMapper.selectOneByExample(example);
-    }
-
-
 }
