@@ -165,13 +165,13 @@ public class OrdersList implements Serializable {
     private BigDecimal pushMoney;
 
     @ApiModelProperty(value = "残值")
-    private String overAmtName;
+    private String overAmtYName;
 
     /**
      * 残值
      */
     @JsonIgnore
-    private BigDecimal overAmt;
+    private BigDecimal overAmtY;
 
     /**
      * 残值后面的利率
@@ -207,7 +207,7 @@ public class OrdersList implements Serializable {
     private String dptP;
 
     @ApiModelProperty(value = "调整")
-    private BigDecimal overAmtY;
+    private BigDecimal overAmt;
 
     @ApiModelProperty(value = "承租车价")
     private BigDecimal rentAmt;
