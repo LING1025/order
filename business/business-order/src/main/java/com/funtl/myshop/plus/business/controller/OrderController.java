@@ -376,12 +376,15 @@ public class OrderController {
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", lists);
     }
 
-    @ApiOperation(value = "新增签核信息")
+    @ApiOperation(value = "签核")
     @PostMapping(value = "insertSignOff")
     public ResponseResult<String> insertSignOff(@ApiParam(value = "签核数据") @Valid @RequestBody SignOffParamDto signOffParamDto){
+        if(signOffParamDto.getOrdersFDetailAuto() != 0){
+            throw new BusinessException(BusinessStatus.PARAM_ERROR);
+        }
         SignOffList signOffList = workFlowDocService.selectByDocPostIDAndRoleId(signOffParamDto.getOrdersAuto(),signOffParamDto.getRoleId());
         if(signOffList == null){
-            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "没有未审核的明细", null);
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "查无信息", null);
         }
         OrdersFDetail ordersFDetail = new OrdersFDetail();
         BeanUtils.copyProperties(signOffParamDto,ordersFDetail);
@@ -393,6 +396,39 @@ public class OrderController {
             ordersFDetail.setIsAgent(1);
         }
         ordersFDetail.setOrdersStatus(20);
+        Long i = ordersFDetailService.insert(ordersFDetail);
+        if(i == 0){
+            throw new BusinessException(BusinessStatus.SAVE_FAILURE);
+        }
+
+        Integer j = workFlowDocService.deleteById(signOffList.getWorkFlowDocAuto());
+        if (j == 0){
+            ordersFDetailService.deleteById(i);
+            throw new BusinessException(BusinessStatus.SAVE_FAILURE);
+        }
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK, "保存成功", null);
+    }
+
+    @ApiOperation(value = "驳回")
+    @PostMapping(value = "insertTurnDown")
+    public ResponseResult<String> insertTurnDown(@ApiParam(value = "驳回数据") @Valid @RequestBody SignOffParamDto signOffParamDto){
+        if(signOffParamDto.getOrdersFDetailAuto() != 0){
+            throw new BusinessException(BusinessStatus.PARAM_ERROR);
+        }
+        SignOffList signOffList = workFlowDocService.selectByDocPostIDAndRoleId(signOffParamDto.getOrdersAuto(),signOffParamDto.getRoleId());
+        if(signOffList == null){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "查无信息", null);
+        }
+        OrdersFDetail ordersFDetail = new OrdersFDetail();
+        BeanUtils.copyProperties(signOffParamDto,ordersFDetail);
+        ordersFDetail.setCdt(new Date());
+        ordersFDetail.setMdt(new Date());
+        if(signOffParamDto.getCreditPerson().equals(signOffParamDto.getAgentPerson())){
+            ordersFDetail.setIsAgent(0);
+        }else{
+            ordersFDetail.setIsAgent(1);
+        }
+        ordersFDetail.setOrdersStatus(5);
         Long i = ordersFDetailService.insert(ordersFDetail);
         if(i == 0){
             throw new BusinessException(BusinessStatus.SAVE_FAILURE);

@@ -9,7 +9,6 @@ import javax.persistence.Column;
 import java.io.Serializable;
 
 @Data
-@ApiModel(value = "签核数据")
 public class SignOffParamDto implements Serializable {
     @ApiModelProperty(value = "签核明细id")
     private Long ordersFDetailAuto = 0L;
