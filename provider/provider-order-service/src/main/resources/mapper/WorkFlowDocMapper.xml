@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.funtl.myshop.plus.provider.mapper.WorkFlowDocMapper">
+  <resultMap id="BaseResultMap" type="com.funtl.myshop.plus.provider.domain.WorkFlowDoc">
+    <!--@mbg.generated-->
+    <!--@Table WorkFlowDoc-->
+    <id column="WorkFlowDoc_Auto" jdbcType="BIGINT" property="workFlowDocAuto" />
+    <result column="WorkFlow_Auto" jdbcType="BIGINT" property="workFlowAuto" />
+    <result column="WorkFlowD_Auto" jdbcType="BIGINT" property="workFlowDAuto" />
+    <result column="DocPostID" jdbcType="BIGINT" property="docPostID" />
+    <result column="AppSeq" jdbcType="INTEGER" property="appSeq" />
+    <result column="RoleID" jdbcType="INTEGER" property="roleId" />
+    <result column="MaxLevel" jdbcType="INTEGER" property="maxLevel" />
+    <result column="LevNow" jdbcType="INTEGER" property="levNow" />
+    <result column="Status" jdbcType="INTEGER" property="status" />
+    <result column="IsOver" jdbcType="INTEGER" property="isOver" />
+    <result column="Rights" jdbcType="INTEGER" property="rights" />
+    <result column="DefaultStatus" jdbcType="INTEGER" property="defaultStatus" />
+    <result column="InActiveList" jdbcType="INTEGER" property="inActiveList" />
+    <result column="LimitDept" jdbcType="INTEGER" property="limitDept" />
+    <result column="IsAgent" jdbcType="INTEGER" property="isAgent" />
+    <result column="Memo" jdbcType="VARCHAR" property="memo" />
+    <result column="CUser" jdbcType="INTEGER" property="cuser" />
+    <result column="MUser" jdbcType="INTEGER" property="muser" />
+    <result column="CDT" jdbcType="TIMESTAMP" property="cdt" />
+    <result column="MDT" jdbcType="TIMESTAMP" property="mdt" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    WorkFlowDoc_Auto, WorkFlow_Auto, WorkFlowD_Auto, DocPostID, AppSeq, RoleID, MaxLevel,
+    LevNow, [Status], IsOver, Rights, DefaultStatus, InActiveList, LimitDept, IsAgent,
+    Memo, CUser, MUser, CDT, MDT
+  </sql>
+</mapper>
