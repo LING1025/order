@@ -373,9 +373,9 @@ public class OrderController {
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", lists);
     }
 
-    @ApiOperation(value = "新增签核/驳回信息")
+    @ApiOperation(value = "新增签核、驳回信息")
     @PostMapping(value = "insert")
-    public ResponseResult<String> insert(@ApiParam(value = "签核/驳回数据") @Valid @RequestBody SignOffParamDto signOffParamDto){
+    public ResponseResult<String> insert(@ApiParam(value = "签核、驳回数据") @Valid @RequestBody SignOffParamDto signOffParamDto){
         if(signOffParamDto.getOrdersFDetailAuto() != 0){
             throw new BusinessException(BusinessStatus.PARAM_ERROR);
         }
