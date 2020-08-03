@@ -379,6 +379,10 @@ public class OrderController {
         if(signOffParamDto.getOrdersFDetailAuto() != 0){
             throw new BusinessException(BusinessStatus.PARAM_ERROR);
         }
+        Orders orders = ordersService.selectById(signOffParamDto.getOrdersAuto());
+        if(orders == null){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "试算单号不存在", null);
+        }
         OrdersFDetail ordersFDetail = new OrdersFDetail();
         BeanUtils.copyProperties(signOffParamDto,ordersFDetail);
         if(signOffParamDto.getOrdersStatus() == 23){
