@@ -2,6 +2,7 @@ package com.funtl.myshop.plus.provider.service;
 
 import javax.annotation.Resource;
 
+import com.funtl.myshop.plus.provider.domain.OrdersFDetail;
 import com.funtl.myshop.plus.provider.domain.SignOffList;
 import com.funtl.myshop.plus.provider.mapper.OrdersFDetailMapper;
 import com.funtl.myshop.plus.provider.api.OrdersFDetailService;
@@ -18,5 +19,10 @@ public class OrdersFDetailServiceImpl implements OrdersFDetailService{
     @Override
     public List<SignOffList> selectSignOffList(Long ordersAuto) {
         return ordersFDetailMapper.selectSignOffList(ordersAuto);
+    }
+
+    @Override
+    public Integer insert(OrdersFDetail ordersFDetail) {
+        return ordersFDetailMapper.insertSelective(ordersFDetail);
     }
 }

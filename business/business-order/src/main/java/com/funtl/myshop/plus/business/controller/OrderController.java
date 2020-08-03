@@ -1,20 +1,19 @@
 package com.funtl.myshop.plus.business.controller;
 
+import com.funtl.myshop.plus.business.BusinessException;
+import com.funtl.myshop.plus.business.BusinessStatus;
+import com.funtl.myshop.plus.business.dto.SignOffParamDto;
 import com.funtl.myshop.plus.commons.dto.ResponseResult;
 import com.funtl.myshop.plus.provider.api.*;
 import com.funtl.myshop.plus.provider.domain.*;
 import com.github.pagehelper.PageInfo;
 import com.google.common.collect.Lists;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.*;
 import org.apache.dubbo.config.annotation.Reference;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.BeanUtils;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Api(tags = "签核试算相关操作")
@@ -195,8 +194,7 @@ public class OrderController {
     @GetMapping(value = "queryMasterList")
     public ResponseResult<List<MasterList>> queryMasterList(@RequestParam(name = "roleIds",required = false) List<Long> roleIds){
         if (roleIds == null){
-            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "参数异常", null);
-        }
+            throw new BusinessException(BusinessStatus.PARAM_ERROR);        }
         List<MasterList> lists = ordersService.selectByRoleIds(roleIds);
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", lists);
     }
@@ -208,8 +206,7 @@ public class OrderController {
     @GetMapping(value = "queryOrdersList")
     public ResponseResult<OrdersList> queryOrdersList(@RequestParam(name = "ordersAuto",required = false) Long ordersAuto){
         if (ordersAuto == null){
-            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "参数异常", null);
-        }
+            throw new BusinessException(BusinessStatus.PARAM_ERROR);        }
         OrdersList ordersList = ordersService.selectByOrdersAuto(ordersAuto);
         ordersList.setFName(ordersList.getFName() + " " + ordersList.getTradeItemAuto());
         ordersList.setFactoryBrandName(ordersList.getFactoryBrandName() + " " + ordersList.getBrandName() + " " + ordersList.getClasenName());
@@ -225,8 +222,7 @@ public class OrderController {
     @GetMapping(value = "queryInsuranceContentList")
     public ResponseResult<List<InsuranceContentList>> queryInsuranceContentList(@RequestParam(name = "ordersAuto",required = false) Long ordersAuto){
         if (ordersAuto == null){
-            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "参数异常", null);
-        }
+            throw new BusinessException(BusinessStatus.PARAM_ERROR);        }
         List<InsuranceContentList> lists = ordersInsureListService.selectInsuranceContentList(ordersAuto);
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", lists);
     }
@@ -238,8 +234,7 @@ public class OrderController {
     @GetMapping(value = "queryInsuranceList")
     public ResponseResult<InsuranceList> queryInsuranceList(@RequestParam(name = "ordersAuto",required = false) Long ordersAuto){
         if (ordersAuto == null){
-            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "参数异常", null);
-        }
+            throw new BusinessException(BusinessStatus.PARAM_ERROR);        }
         InsuranceList insuranceList = ordersInsureYearsService.selectInsuranceList(ordersAuto);
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", insuranceList);
     }
@@ -253,8 +248,7 @@ public class OrderController {
     public ResponseResult<List<InsuranceTableList>> queryInsuranceTableList(@RequestParam(name = "ordersAuto",required = false) Long ordersAuto,
                                                                        @RequestParam(name = "insureYear",required = false) Integer insureYear){
         if (ordersAuto == null || insureYear == null){
-            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "参数异常", null);
-        }
+            throw new BusinessException(BusinessStatus.PARAM_ERROR);        }
         List<InsuranceTableList> lists = ordersInsureYearsService.selectByOrdersAutoAndYear(ordersAuto,insureYear);
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", lists);
     }
@@ -266,8 +260,7 @@ public class OrderController {
     @GetMapping(value = "querySignOffList")
     public ResponseResult<List<SignOffList>> querySignOffList(@RequestParam(name = "ordersAuto",required = false) Long ordersAuto){
         if (ordersAuto == null){
-            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "参数异常", null);
-        }
+            throw new BusinessException(BusinessStatus.PARAM_ERROR);        }
         List<SignOffList> lists = ordersFDetailService.selectSignOffList(ordersAuto);
         for(SignOffList signOffList : lists){
             switch (signOffList.getOrdersStatus()){
@@ -311,8 +304,7 @@ public class OrderController {
     @GetMapping(value = "queryBudgetList")
     public ResponseResult<List<BudgetList>> queryBudgetList(@RequestParam(name = "ordersAuto",required = false) Long ordersAuto){
         if (ordersAuto == null){
-            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "参数异常", null);
-        }
+            throw new BusinessException(BusinessStatus.PARAM_ERROR);        }
         List<BudgetList> lists = ordersBudgetService.selectBudgetList(ordersAuto);
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", lists);
     }
@@ -324,8 +316,7 @@ public class OrderController {
     @GetMapping(value = "queryFeeList")
     public ResponseResult<List<FeeList>> queryFeeList(@RequestParam(name = "ordersAuto",required = false) Long ordersAuto){
         if (ordersAuto == null){
-            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "参数异常", null);
-        }
+            throw new BusinessException(BusinessStatus.PARAM_ERROR);        }
         List<FeeList> lists = ordersFeeService.selectFeeList(ordersAuto);
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", lists);
     }
@@ -337,8 +328,7 @@ public class OrderController {
     @GetMapping(value = "queryAccessoryList")
     public ResponseResult<List<AccessoryList>> queryAccessoryList(@RequestParam(name = "ordersAuto",required = false) Long ordersAuto){
         if (ordersAuto == null){
-            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "参数异常", null);
-        }
+            throw new BusinessException(BusinessStatus.PARAM_ERROR);        }
         List<AccessoryList> lists = ordersAccessaryService.selectAccessoryList(ordersAuto);
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", lists);
     }
@@ -350,8 +340,7 @@ public class OrderController {
     @GetMapping(value = "queryCommissionList")
     public ResponseResult<List<CommissionList>> queryCommissionList(@RequestParam(name = "ordersAuto",required = false) Long ordersAuto){
         if (ordersAuto == null){
-            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "参数异常", null);
-        }
+            throw new BusinessException(BusinessStatus.PARAM_ERROR);        }
         List<CommissionList> lists = commissionService.selectCommissionList(ordersAuto);
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", lists);
     }
@@ -363,8 +352,7 @@ public class OrderController {
     @GetMapping(value = "querySupplierList")
     public ResponseResult<List<SupplierList>> querySupplierList(@RequestParam(name = "ordersAuto",required = false) Long ordersAuto){
         if (ordersAuto == null){
-            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "参数异常", null);
-        }
+            throw new BusinessException(BusinessStatus.PARAM_ERROR);        }
         List<SupplierList> lists = ordersService.selectSupplierList(ordersAuto);
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", lists);
     }
@@ -376,10 +364,29 @@ public class OrderController {
     @GetMapping(value = "queryClasenList")
     public ResponseResult<List<ClasenList>> queryClasenList(@RequestParam(name = "ordersAuto",required = false) Long ordersAuto){
         if (ordersAuto == null){
-            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "参数异常", null);
-        }
+            throw new BusinessException(BusinessStatus.PARAM_ERROR);        }
         List<ClasenList> lists = orderService.selectClasenList(ordersAuto);
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", lists);
+    }
+
+    @ApiOperation(value = "新增签核信息")
+    @PostMapping(value = "insert")
+    public ResponseResult<String> insert(@ApiParam(value = "签核数据") @Valid @RequestBody SignOffParamDto signOffParamDto){
+        if(signOffParamDto.getOrdersFDetailAuto() != 0){
+            throw new BusinessException(BusinessStatus.PARAM_ERROR);
+        }
+        OrdersFDetail ordersFDetail = new OrdersFDetail();
+        BeanUtils.copyProperties(signOffParamDto,ordersFDetail);
+        if(signOffParamDto.getCreditPerson() == signOffParamDto.getAgentPerson()){
+            signOffParamDto.setIsAgent(0);
+        }else{
+            signOffParamDto.setIsAgent(1);
+        }
+        Integer i = ordersFDetailService.insert(ordersFDetail);
+        if(i == 0){
+            throw new BusinessException(BusinessStatus.SAVE_FAILURE);
+        }
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK, "保存成功", null);
     }
 
 }

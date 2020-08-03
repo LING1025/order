@@ -10,9 +10,9 @@ import java.util.List;
 @Data
 public class SelfList implements Serializable {
     /**
-     * 代理人id
+     * 本人id（被代理）
      */
-    @JsonIgnore
+    @ApiModelProperty(value = "本人id")
     private Long selfUser;
 
     /*@ApiModelProperty(value = "选择代理人")

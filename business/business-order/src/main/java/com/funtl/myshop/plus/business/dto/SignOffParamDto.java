@@ -1,5 +1,6 @@
 package com.funtl.myshop.plus.business.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -8,7 +9,7 @@ import javax.persistence.Column;
 import java.io.Serializable;
 
 @Data
-@ApiModel(value = "新增签核数据")
+@ApiModel(value = "签核数据")
 public class SignOffParamDto implements Serializable {
     @ApiModelProperty(value = "签核明细id")
     private Long ordersFDetailAuto = 0L;
@@ -19,16 +20,19 @@ public class SignOffParamDto implements Serializable {
     @ApiModelProperty(value = "签核意见")
     private String memo;
 
-    @ApiModelProperty(value = "签核人id")
+    @ApiModelProperty(value = "签核人id(获取用户信息api返回的userAuto)")
     private Integer creditPerson;
 
     @ApiModelProperty(value = "审核状态")
     private Integer ordersStatus;
 
-    @ApiModelProperty(value = "是否代签 0否 1是")
+    /**
+     * 是否代签 0否 1是
+     */
+    @JsonIgnore
     private Integer isAgent;
 
-    @ApiModelProperty(value = "被代签人id")
+    @ApiModelProperty(value = "被代签人id(选择操作人：本人/代理人 api返回的selfUser)")
     private Integer agentPerson;
 
     @ApiModelProperty(value = "角色id")

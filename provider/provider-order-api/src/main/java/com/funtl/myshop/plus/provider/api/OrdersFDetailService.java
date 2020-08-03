@@ -14,4 +14,11 @@ public interface OrdersFDetailService{
      */
     List<SignOffList> selectSignOffList(Long ordersAuto);
 
+    /**
+     * 新增签核信息
+     * @param ordersFDetail
+     * @return
+     */
+    Integer insert(OrdersFDetail ordersFDetail);
+
 }
