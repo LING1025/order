@@ -33,8 +33,4 @@ public class OrdersServiceImpl implements OrdersService{
         return ordersMapper.selectSupplierList(ordersAuto);
     }
 
-    @Override
-    public Orders selectById(Integer ordersAuto) {
-        return ordersMapper.selectByPrimaryKey(ordersAuto);
-    }
 }

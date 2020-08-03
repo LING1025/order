@@ -57,6 +57,9 @@ public class OrderController {
     @Reference(version = "1.0.0")
     private OrderService orderService;
 
+    @Reference(version = "1.0.0")
+    private WorkFlowDocService workFlowDocService;
+
     @ApiOperation(value = "选择操作人：本人")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "userAuto", value = "本人id", required = false, dataType = "long", paramType = "path")
@@ -373,32 +376,31 @@ public class OrderController {
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", lists);
     }
 
-    @ApiOperation(value = "新增签核、驳回信息")
-    @PostMapping(value = "insert")
-    public ResponseResult<String> insert(@ApiParam(value = "签核、驳回数据") @Valid @RequestBody SignOffParamDto signOffParamDto){
-        if(signOffParamDto.getOrdersFDetailAuto() != 0){
-            throw new BusinessException(BusinessStatus.PARAM_ERROR);
-        }
-        Orders orders = ordersService.selectById(signOffParamDto.getOrdersAuto());
-        if(orders == null){
-            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "试算单号不存在", null);
+    @ApiOperation(value = "新增签核信息")
+    @PostMapping(value = "insertSignOff")
+    public ResponseResult<String> insertSignOff(@ApiParam(value = "签核数据") @Valid @RequestBody SignOffParamDto signOffParamDto){
+        SignOffList signOffList = workFlowDocService.selectByDocPostIDAndRoleId(signOffParamDto.getOrdersAuto(),signOffParamDto.getRoleId());
+        if(signOffList == null){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "没有未审核的明细", null);
         }
         OrdersFDetail ordersFDetail = new OrdersFDetail();
         BeanUtils.copyProperties(signOffParamDto,ordersFDetail);
-        if(signOffParamDto.getOrdersStatus() == 23){
-            ordersFDetail.setCreditPerson(0);
-            ordersFDetail.setAgentPerson(0);
-            ordersFDetail.setIsAgent(0);
-            ordersFDetail.setMemo("OK");
-        }
-        if(signOffParamDto.getCreditPerson() == signOffParamDto.getAgentPerson()){
+        ordersFDetail.setCdt(new Date());
+        ordersFDetail.setMdt(new Date());
+        if(signOffParamDto.getCreditPerson().equals(signOffParamDto.getAgentPerson())){
             ordersFDetail.setIsAgent(0);
         }else{
             ordersFDetail.setIsAgent(1);
         }
-        ordersFDetail.setCdt(new Date());
-        Integer i = ordersFDetailService.insert(ordersFDetail);
+        ordersFDetail.setOrdersStatus(20);
+        Long i = ordersFDetailService.insert(ordersFDetail);
         if(i == 0){
+            throw new BusinessException(BusinessStatus.SAVE_FAILURE);
+        }
+
+        Integer j = workFlowDocService.deleteById(signOffList.getWorkFlowDocAuto());
+        if (j == 0){
+            ordersFDetailService.deleteById(i);
             throw new BusinessException(BusinessStatus.SAVE_FAILURE);
         }
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "保存成功", null);

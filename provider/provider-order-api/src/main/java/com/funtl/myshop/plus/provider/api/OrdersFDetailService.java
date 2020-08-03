@@ -19,6 +19,7 @@ public interface OrdersFDetailService{
      * @param ordersFDetail
      * @return
      */
-    Integer insert(OrdersFDetail ordersFDetail);
+    Long insert(OrdersFDetail ordersFDetail);
 
+    Integer deleteById(Long ordersFDetailAuto);
 }

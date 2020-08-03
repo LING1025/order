@@ -51,4 +51,7 @@ public class SignOffList implements Serializable {
      */
     @JsonIgnore
     private Integer isAgent;
+
+    @JsonIgnore
+    private Long workFlowDocAuto;
 }

@@ -1,6 +1,8 @@
 package com.funtl.myshop.plus.provider.service;
 
 import javax.annotation.Resource;
+
+import com.funtl.myshop.plus.provider.domain.SignOffList;
 import com.funtl.myshop.plus.provider.domain.WorkFlowDoc;
 import com.funtl.myshop.plus.provider.mapper.WorkFlowDocMapper;
 import com.funtl.myshop.plus.provider.api.WorkFlowDocService;
@@ -12,4 +14,18 @@ public class WorkFlowDocServiceImpl implements WorkFlowDocService{
     @Resource
     private WorkFlowDocMapper workFlowDocMapper;
 
+    @Override
+    public Integer update(WorkFlowDoc workFlowDoc) {
+        return workFlowDocMapper.updateByPrimaryKeySelective(workFlowDoc);
+    }
+
+    @Override
+    public SignOffList selectByDocPostIDAndRoleId(Integer docPostID, Integer roleId) {
+        return workFlowDocMapper.selectSignOffList(docPostID,roleId);
+    }
+
+    @Override
+    public Integer deleteById(Long workFlowDocAuto) {
+        return workFlowDocMapper.deleteByPrimaryKey(workFlowDocAuto);
+    }
 }

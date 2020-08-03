@@ -30,6 +30,4 @@ public interface OrdersService{
      */
     List<SupplierList> selectSupplierList(Long ordersAuto);
 
-    Orders selectById(Integer ordersAuto);
-
 }
