@@ -21,6 +21,7 @@ public interface CreditAgentService{
      */
     List<SelfAgentList> selectAgent(Long agentUser);
 
+    List<SelfList> selectSelfList(Long selfUser);
     List<AgentList> selectAgentList(Long agentUser);
 
 }

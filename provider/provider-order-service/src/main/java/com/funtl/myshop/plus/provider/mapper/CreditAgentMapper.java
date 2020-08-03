@@ -17,4 +17,5 @@ public interface CreditAgentMapper extends MyMapper<CreditAgent> {
 
     List<AgentList> selectAgentList(@Param("agentUser") Long agentUser);
 
+    List<SelfList> selectSelfList(@Param("selfUser") Long selfUser);
 }

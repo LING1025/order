@@ -61,21 +61,24 @@ public class OrderController {
             @ApiImplicitParam(name = "userAuto", value = "本人id", required = false, dataType = "long", paramType = "path")
     })
     @GetMapping(value = "querySelfList")
-    public ResponseResult<List<SelfRoles>> querySelfList(@RequestParam(name = "userAuto",required = false) Long userAuto) {
-        VEmp vEmp = vEmpService.selectByUserAuto(userAuto);
-        if (vEmp != null) {
-            //获取被代理人角色权限
-            List<AspnetRoles> list = aspnetRolesService.selectByUserId(vEmp.getUserId());
-            List<SelfRoles> selfRolesList = Lists.newArrayList();
-            for (AspnetRoles aspnetRoles : list) {
-                SelfRoles selfRoles = new SelfRoles();
-                selfRoles.setSelfRoleIds(aspnetRoles.getRolesAuto());
-                selfRoles.setSelfRoleNames(aspnetRoles.getRoleName());
-                selfRolesList.add(selfRoles);
+    public ResponseResult<List<SelfList>> querySelfList(@RequestParam(name = "userAuto",required = false) Long userAuto) {
+        List<SelfList> lists = creditAgentService.selectSelfList(userAuto);
+        for(SelfList selfList : lists){
+            VEmp vEmp = vEmpService.selectByUserAuto(selfList.getSelfUser());
+            if (vEmp != null) {
+                //获取被代理人角色权限
+                List<AspnetRoles> list = aspnetRolesService.selectByUserId(vEmp.getUserId());
+                List<SelfRoles> selfRolesList = Lists.newArrayList();
+                for (AspnetRoles aspnetRoles : list) {
+                    SelfRoles selfRoles = new SelfRoles();
+                    selfRoles.setSelfRoleIds(aspnetRoles.getRolesAuto());
+                    selfRoles.setSelfRoleNames(aspnetRoles.getRoleName());
+                    selfRolesList.add(selfRoles);
+                }
+                selfList.setSelfRolesList(selfRolesList);
             }
-            return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", selfRolesList);
         }
-        return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "此用户不存在", null);
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", lists);
     }
 
     /*@ApiOperation(value = " 根据本人id获取代理数据")
