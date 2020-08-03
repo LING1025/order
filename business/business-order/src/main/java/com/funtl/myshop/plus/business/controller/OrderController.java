@@ -373,14 +373,20 @@ public class OrderController {
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", lists);
     }
 
-    @ApiOperation(value = "新增签核信息")
+    @ApiOperation(value = "新增签核/驳回信息")
     @PostMapping(value = "insert")
-    public ResponseResult<String> insert(@ApiParam(value = "签核数据") @Valid @RequestBody SignOffParamDto signOffParamDto){
+    public ResponseResult<String> insert(@ApiParam(value = "签核/驳回数据") @Valid @RequestBody SignOffParamDto signOffParamDto){
         if(signOffParamDto.getOrdersFDetailAuto() != 0){
             throw new BusinessException(BusinessStatus.PARAM_ERROR);
         }
         OrdersFDetail ordersFDetail = new OrdersFDetail();
         BeanUtils.copyProperties(signOffParamDto,ordersFDetail);
+        if(signOffParamDto.getOrdersStatus() == 23){
+            ordersFDetail.setCreditPerson(0);
+            ordersFDetail.setAgentPerson(0);
+            ordersFDetail.setIsAgent(0);
+            ordersFDetail.setMemo("OK");
+        }
         if(signOffParamDto.getCreditPerson() == signOffParamDto.getAgentPerson()){
             ordersFDetail.setIsAgent(0);
         }else{
