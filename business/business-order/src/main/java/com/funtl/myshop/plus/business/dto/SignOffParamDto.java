@@ -29,8 +29,7 @@ public class SignOffParamDto implements Serializable {
     /**
      * 是否代签 0否 1是
      */
-    @JsonIgnore
-    private Integer isAgent;
+//    private Integer isAgent;
 
     @ApiModelProperty(value = "被代签人id(选择操作人：本人/代理人 api返回的selfUser)")
     private Integer agentPerson;

@@ -14,6 +14,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Date;
 import java.util.List;
 
 @Api(tags = "签核试算相关操作")
@@ -381,10 +382,11 @@ public class OrderController {
         OrdersFDetail ordersFDetail = new OrdersFDetail();
         BeanUtils.copyProperties(signOffParamDto,ordersFDetail);
         if(signOffParamDto.getCreditPerson() == signOffParamDto.getAgentPerson()){
-            signOffParamDto.setIsAgent(0);
+            ordersFDetail.setIsAgent(0);
         }else{
-            signOffParamDto.setIsAgent(1);
+            ordersFDetail.setIsAgent(1);
         }
+        ordersFDetail.setCdt(new Date());
         Integer i = ordersFDetailService.insert(ordersFDetail);
         if(i == 0){
             throw new BusinessException(BusinessStatus.SAVE_FAILURE);
