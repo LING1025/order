@@ -202,7 +202,7 @@
     inner join v_Emp d on a.Sales_Auto=d.User_Auto
     left join TradeItem f on c.Supplier = f.TradeItem_Auto
     where
-    c.Clasen_Auto=(select Clasen_Auto from orders where Orders_Auto=230990  )
+    c.Clasen_Auto=(select Clasen_Auto from orders where Orders_Auto=#{param}  )
     and
     datediff(m,a.StartDT,getdate())&lt;=6
     order By a.ListPrice desc,a.StartDT desc

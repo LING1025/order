@@ -75,23 +75,6 @@ public class OrderController {
                 selfRolesList.add(selfRoles);
             }
             return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", selfRolesList);
-            /*List<SelfList> lists = creditAgentService.selectSelfList(userAuto);
-            for (SelfList selfList : lists) {
-                VEmp vEmp = vEmpService.selectByUserAuto(selfList.getSelfUser());
-                if (vEmp != null) {
-//                selfList.setSelfName(vEmp.getFName() + "_" + vEmp.getDepName());
-                    //获取被代理人角色权限
-                    List<AspnetRoles> list = aspnetRolesService.selectByUserId(vEmp.getUserId());
-                    List<SelfRoles> selfRolesList = Lists.newArrayList();
-                    for (AspnetRoles aspnetRoles : list) {
-                        SelfRoles selfRoles = new SelfRoles();
-                        selfRoles.setSelfRoleIds(aspnetRoles.getRolesAuto());
-                        selfRoles.setSelfRoleNames(aspnetRoles.getRoleName());
-                        selfRolesList.add(selfRoles);
-                    }
-                    selfList.setSelfRolesList(selfRolesList);
-                }
-            }*/
         }
         return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "此用户不存在", null);
     }
