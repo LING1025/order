@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Api(tags = "用户信息管理相关操作")
 @RestController
+@RequestMapping(value = "user")
 public class UserController {
     @Reference(version = "1.0.0")
     private AspnetUsersService aspnetUsersService;

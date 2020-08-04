@@ -36,6 +36,7 @@ import java.util.Objects;
  */
 
 @RestController
+@RequestMapping(value = "oauth2")
 public class LoginController {
     private static final String URL_OAUTH_TOKEN = "http://localhost:9081/oauth/token";
 
@@ -72,7 +73,7 @@ public class LoginController {
      * @param loginParam 登录参数
      * @return {@link ResponseResult}
      */
-    @PostMapping(value = "/user/login")
+    @PostMapping(value = "login")
     public ResponseResult<Map<String, Object>> login(@RequestBody LoginParam loginParam) {
         // 封装返回的结果集
         Map<String, Object> result = Maps.newHashMap();
@@ -113,7 +114,7 @@ public class LoginController {
      *
      * @return {@link ResponseResult}
      */
-    @GetMapping(value = "/user/info")
+    @GetMapping(value = "info")
     public ResponseResult<LoginInfo> info(HttpServletRequest request) throws Exception {
         // 获取认证信息
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -148,7 +149,7 @@ public class LoginController {
      *
      * @return {@link ResponseResult}
      */
-    @PostMapping(value = "/user/logout")
+    @PostMapping(value = "logout")
     public ResponseResult<Void> logout(HttpServletRequest request) {
         // 获取 token
         String token = request.getParameter("access_token");
