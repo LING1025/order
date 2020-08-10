@@ -1,0 +1,8 @@
+provider/provider-user-service/target/classes/
+provider/provider-order-service/target/
+provider/provider-order-api/target/
+provider/provider-user-service/target/
+commons/commons-utils/target/
+commons/commons-dto/target/
+commons/commons-provider/target/
+configuration/configuration-feign/target/
