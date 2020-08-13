@@ -130,8 +130,8 @@ public class OrdersList implements Serializable {
     /**
      * 上海牌
      */
-    @ApiModelProperty(value = "牌照类别(上海牌)")
-    private Integer makNoType;//在orders表
+    @ApiModelProperty(value = "牌照类别")
+    private String makNoTypeName;
 
     @ApiModelProperty(value = "使用牌费")
     private BigDecimal makNoCost;//在orders表

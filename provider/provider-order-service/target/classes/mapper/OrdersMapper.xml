@@ -218,6 +218,13 @@
     <result column="overP" jdbcType="VARCHAR" property="overP" />
     <result column="irr" jdbcType="VARCHAR" property="irr" />
     <result column="grossMarginT" jdbcType="VARCHAR" property="grossMarginT" />
+    <result column="a1" jdbcType="VARCHAR" property="a1" />
+    <result column="a2" jdbcType="VARCHAR" property="a2" />
+    <result column="a3" jdbcType="VARCHAR" property="a3" />
+    <result column="a4" jdbcType="VARCHAR" property="a4" />
+    <result column="a5" jdbcType="VARCHAR" property="a5" />
+    <result column="repurchaseAmt" jdbcType="DECIMAL" property="repurchaseAmt" />
+
   </resultMap>
   <select id="selectByOrdersAuto" resultMap="queryByOrdersAuto">
     select
@@ -235,16 +242,16 @@
     l.FactoryBrandName,j.BrandName,k.ClasenName,
     a.CarColor,h.ItemName AS carSourceName,
     a.ClasenCode,a.CC,i.ItemName AS oilName,
-    a.BsType,a.MakNo,a.ReletMakno,d.FName AS carIncName,a.MakNoType,
+    a.BsType,a.MakNo,a.ReletMakno,d.FName AS carIncName,q.ItemName AS makNoTypeName,
     a.MakNoCost,a.ListPrice,a.DisPrice,a.GetPrice,a.CarPriceRef,
     a.Accessary,a.CarTax,a.CarCost,a.PushMoney,a.OverAmt_Y,
-    a.DptAmt,a.OverAmt,a.RentAmt,a.CostAdjustment,a.RepurchaseAmt,
+    a.DptAmt,a.OverAmt,a.RentAmt,a.CostAdjustment,isnull(a.RepurchaseAmt,0) AS repurchaseAmt,
     a.DptTax,a.CarExtensionAmt,a.OutFee,a.FinanceFee,a.UrgentFee,
     a.StampTax,a.SellCarTax,a.TrnsFee,a.PayMode,a.PayDay,
     a.RentAmtT,a.GrossMargin,a.Memo,
     convert(varchar(10),convert(decimal(18,2),(a.IRR)))+'%' as irr,
     convert(varchar(10),convert(decimal(18,2),(a.GrossMarginT)))+'%' as grossMarginT,
-    a.A1,a.A2,a.A3,a.A4,a.A5
+    isnull(a.A1,'') AS a1,isnull(a.A2,'') AS a2,isnull(a.A3,'') AS a3,isnull(a.A4,'') AS a4,isnull(a.A5,'') AS a5
     from
     Orders a
     left join v_Emp b on a.Sales_Auto = b.User_Auto
@@ -263,6 +270,7 @@
     left join TradeItem Supplier_Buy (nolock) on a.Supplier_Buy=Supplier_Buy.TradeItem_Auto
     left join Itemcode o on a.DptType = o.Num and o.ItemType = 332
     left join ItemCode p on p.ItemType = 333 and p.Num = a.DptTaxPay
+    left join ItemCode q on q.ItemType = 412 and q.Num = a.MakNoType
     where
     a.Orders_Auto = #{params}
   </select>
