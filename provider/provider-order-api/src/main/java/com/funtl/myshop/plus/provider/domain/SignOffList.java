@@ -43,7 +43,10 @@ public class SignOffList implements Serializable {
     private String memo;
 
     @ApiModelProperty(value = "审核时间")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:dd",timezone = "GMT+8")
+    private String cdtTime;
+
+//    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:dd",timezone = "GMT+8")
+    @JsonIgnore
     private Date cdt;
 
     /**

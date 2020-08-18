@@ -14,6 +14,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -299,6 +300,14 @@ public class OrderController {
             }
             if (signOffList.getIsAgent() == 1){
                 signOffList.setCreditPerson(signOffList.getCreditPerson() + "(代理)");
+            }
+            if(signOffList.getCdt() == null){
+                signOffList.setCdtTime("");
+            }
+            if(signOffList.getCdt() != null){
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                String dateString = formatter.format(signOffList.getCdt());
+                signOffList.setCdtTime(dateString);
             }
         }
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", lists);
