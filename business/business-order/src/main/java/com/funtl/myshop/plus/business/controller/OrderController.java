@@ -370,6 +370,16 @@ public class OrderController {
         if (ordersAuto == null){
             throw new BusinessException(BusinessStatus.PARAM_ERROR);        }
         List<SupplierList> lists = ordersService.selectSupplierList(ordersAuto);
+        for(SupplierList supplierList : lists){
+            if(supplierList.getBookDT() == null){
+                supplierList.setBookTime("");
+            }
+            if(supplierList.getBookDT() !=null ){
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                String dataString = simpleDateFormat.format(supplierList.getBookDT());
+                supplierList.setBookTime(dataString);
+            }
+        }
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", lists);
     }
 

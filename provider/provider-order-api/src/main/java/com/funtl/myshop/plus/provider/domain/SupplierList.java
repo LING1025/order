@@ -32,7 +32,9 @@ public class SupplierList implements Serializable {
     private String supplierName;
 
     @ApiModelProperty(value = "拨款日期")
-    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
+    private String bookTime;
+
+    @JsonIgnore
     private Date bookDT;
 
     @ApiModelProperty(value = "业代")
