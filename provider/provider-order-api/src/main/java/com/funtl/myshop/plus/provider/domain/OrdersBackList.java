@@ -109,9 +109,6 @@ public class OrdersBackList implements Serializable {
     @ApiModelProperty(value = "排气量")
     private Integer cc;
 
-    @JsonIgnore
-    private Integer bsType;
-
     @ApiModelProperty(value = "排挡方式")
     private String bsTypeName;
 

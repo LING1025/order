@@ -112,8 +112,8 @@ public class OrdersList implements Serializable {
     @ApiModelProperty(value = "燃油种类")
     private String oilName;
 
-    @ApiModelProperty(value = "排挡")
-    private Integer bsType;
+    @ApiModelProperty(value = "排挡方式")
+    private String bsTypeName;
 
     @ApiModelProperty(value = "车号")
     private String makNo;

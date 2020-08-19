@@ -224,6 +224,7 @@
     <result column="a4" jdbcType="VARCHAR" property="a4" />
     <result column="a5" jdbcType="VARCHAR" property="a5" />
     <result column="repurchaseAmt" jdbcType="DECIMAL" property="repurchaseAmt" />
+    <result column="bsTypeName" jdbcType="VARCHAR" property="bsTypeName" />
 
   </resultMap>
   <select id="selectByOrdersAuto" resultMap="queryByOrdersAuto">
@@ -242,7 +243,7 @@
     l.FactoryBrandName,j.BrandName,k.ClasenName,
     a.CarColor,h.ItemName AS carSourceName,
     a.ClasenCode,a.CC,i.ItemName AS oilName,
-    a.BsType,a.MakNo,a.ReletMakno,d.FName AS carIncName,q.ItemName AS makNoTypeName,
+    r.ItemName AS bsTypeName,a.MakNo,a.ReletMakno,d.FName AS carIncName,q.ItemName AS makNoTypeName,
     a.MakNoCost,a.ListPrice,a.DisPrice,a.GetPrice,a.CarPriceRef,
     a.Accessary,a.CarTax,a.CarCost,a.PushMoney,a.OverAmt_Y,
     a.DptAmt,a.OverAmt,a.RentAmt,a.CostAdjustment,isnull(a.RepurchaseAmt,0) AS repurchaseAmt,
@@ -271,6 +272,7 @@
     left join Itemcode o on a.DptType = o.Num and o.ItemType = 332
     left join ItemCode p on p.ItemType = 333 and p.Num = a.DptTaxPay
     left join ItemCode q on q.ItemType = 412 and q.Num = a.MakNoType
+    left join ItemCode r on r.ItemType = 841 and r.Num = a.BsType
     where
     a.Orders_Auto = #{params}
   </select>
