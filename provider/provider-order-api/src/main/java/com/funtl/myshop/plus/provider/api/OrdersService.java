@@ -1,9 +1,6 @@
 package com.funtl.myshop.plus.provider.api;
 
-import com.funtl.myshop.plus.provider.domain.MasterList;
-import com.funtl.myshop.plus.provider.domain.Orders;
-import com.funtl.myshop.plus.provider.domain.OrdersList;
-import com.funtl.myshop.plus.provider.domain.SupplierList;
+import com.funtl.myshop.plus.provider.domain.*;
 
 import java.util.List;
 
@@ -17,7 +14,7 @@ public interface OrdersService{
     List<MasterList> selectByRoleIds(List<Long> roleIds);
 
     /**
-     * 根据试算单号获取试算签核信息
+     * 根据试算单号获取直租试算签核信息
      * @param ordersAuto
      * @return
      */
@@ -29,5 +26,12 @@ public interface OrdersService{
      * @return
      */
     List<SupplierList> selectSupplierList(Long ordersAuto);
+
+    /**
+     * 根据试算单号获取回租试算签核信息
+     * @param ordersAuto
+     * @return
+     */
+    OrdersBackList selectOrdersBackList(Long ordersAuto);
 
 }

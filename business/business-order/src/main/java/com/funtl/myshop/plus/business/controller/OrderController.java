@@ -18,7 +18,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-@Api(tags = "签核试算相关操作")
+@Api(tags = "直租、回租试算签核相关操作")
 @RestController
 @RequestMapping(value = "order")
 public class OrderController {
@@ -207,7 +207,7 @@ public class OrderController {
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", lists);
     }
 
-    @ApiOperation(value = " 根据试算单号获取试算签核外部所有信息")
+    @ApiOperation(value = " 获取试算直租签核外部所有信息")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "ordersAuto", value = "试算单号", required = false, dataType = "long", paramType = "path")
     })
@@ -221,6 +221,18 @@ public class OrderController {
         ordersList.setOverAmtYName(ordersList.getOverAmtY() + " " + ordersList.getOverP());
         ordersList.setDptAmtName(ordersList.getDptAmt() + "(" + ordersList.getDptTypeName() + ")" + ordersList.getDptP());
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", ordersList);
+    }
+
+    @ApiOperation(value = " 获取回租试算签核外部所有信息")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "ordersAuto", value = "试算单号", required = false, dataType = "long", paramType = "path")
+    })
+    @GetMapping(value = "queryOrdersBackList")
+    public ResponseResult<OrdersBackList> queryOrdersBackList(@RequestParam(name = "ordersAuto",required = false) Long ordersAuto){
+        if (ordersAuto == null){
+            throw new BusinessException(BusinessStatus.PARAM_ERROR);        }
+        OrdersBackList ordersBackList = ordersService.selectOrdersBackList(ordersAuto);
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", ordersBackList);
     }
 
     @ApiOperation(value = " 根据试算单号获取保险内容(未点开时显示的)")

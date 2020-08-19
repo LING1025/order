@@ -6,6 +6,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import javax.persistence.Table;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -249,7 +250,7 @@ public class OrdersBackList implements Serializable {
     private String rentRate;
 
     @ApiModelProperty(value = "增税值 %总和")
-    private String taxMode;
+    private Integer taxMode;
 
     @ApiModelProperty(value = "增税值总和")
     private BigDecimal salesTax;
@@ -264,7 +265,7 @@ public class OrdersBackList implements Serializable {
     private String commissionRate;
 
     @ApiModelProperty(value = "税额")
-    private BigDecimal fTax;
+    private BigDecimal finalTax;
 
     @ApiModelProperty(value = "内部报酬率（IRR）")
     private String irr;

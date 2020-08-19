@@ -301,4 +301,86 @@
       and (datediff(m,h.EndDT,getdate())&lt;=6 or datediff(m,a.CDT,getdate())&lt;=6)
       order By isnull(h.enddt,a.CDT) desc
     </select>
+
+  <resultMap id="queryOrdersBackList" extends="BaseResultMap" type="com.funtl.myshop.plus.provider.domain.OrdersBackList">
+    <result column="fName" jdbcType="VARCHAR" property="fName" />
+    <result column="salesName" jdbcType="VARCHAR" property="salesName" />
+    <result column="carIncName" jdbcType="VARCHAR" property="carIncName" />
+    <result column="orderTypeName" jdbcType="VARCHAR" property="orderTypeName" />
+    <result column="custSourceName" jdbcType="VARCHAR" property="custSourceName" />
+    <result column="carSourceName" jdbcType="VARCHAR" property="carSourceName" />
+    <result column="oilName" jdbcType="VARCHAR" property="oilName" />
+    <result column="FactoryBrandName" jdbcType="VARCHAR" property="factoryBrandName" />
+    <result column="BrandName" jdbcType="VARCHAR" property="brandName" />
+    <result column="ClasenName" jdbcType="VARCHAR" property="clasenName" />
+    <result column="supplierBuyName" jdbcType="VARCHAR" property="supplierBuyName" />
+    <result column="irr" jdbcType="VARCHAR" property="irr" />
+    <result column="grossMarginT" jdbcType="VARCHAR" property="grossMarginT" />
+    <result column="a1" jdbcType="VARCHAR" property="a1" />
+    <result column="a2" jdbcType="VARCHAR" property="a2" />
+    <result column="a3" jdbcType="VARCHAR" property="a3" />
+    <result column="a4" jdbcType="VARCHAR" property="a4" />
+    <result column="a5" jdbcType="VARCHAR" property="a5" />
+    <result column="bsTypeName" jdbcType="VARCHAR" property="bsTypeName" />
+    <result column="irr" jdbcType="VARCHAR" property="irr" />
+<!--    <result column="rentRateY" jdbcType="VARCHAR" property="rentRateY" />-->
+    <result column="irr" jdbcType="VARCHAR" property="irr" />
+    <result column="rateRate" jdbcType="VARCHAR" property="rateRate" />
+    <result column="rentRate" jdbcType="VARCHAR" property="rentRate" />
+    <result column="carPlace" jdbcType="VARCHAR" property="carPlace" />
+    <result column="rateTaxy" jdbcType="VARCHAR" property="rateTaxy" />
+    <result column="salesTax" jdbcType="DECIMAL" property="salesTax" />
+    <result column="isBigTra" jdbcType="BIGINT" property="isBigTra" />
+  </resultMap>
+  <select id="selectOrdersBackList" resultMap="queryOrdersBackList">
+    select
+    distinct a.Orders_Auto,a.Orders_Old,a.MM,
+    convert(varchar(10),convert(decimal(18,2),((cast(a.DptAmt as decimal) *100/cast(a.CarCost as decimal)))))+'%' as dptP,
+    a.TradeItem_Auto,c.FName AS fName,b.FName AS salesname,
+    g.ItemName AS custSourceName,
+    a.PushMan,supplierBuyName = Supplier_Buy.FName,
+    a.CarDT,
+    l.FactoryBrandName,j.BrandName,k.ClasenName,
+    a.CarColor,h.ItemName AS carSourceName,
+    a.ClasenCode,a.CC,i.ItemName AS oilName,
+    r.ItemName AS bsTypeName,a.MakNo,d.FName AS carIncName,
+    a.ListPrice,a.DisPrice,a.CarPriceRef,
+    a.Accessary,a.CarTax,a.PushMoney,
+    a.DptAmt,a.RentAmt,
+    a.CarExtensionAmt,a.OutFee,a.FinanceFee,a.UrgentFee,
+    a.StampTax,a.PayMode,a.PayDay,
+    a.RentAmtT,a.GrossMargin,a.Memo,
+    convert(varchar(10),convert(decimal(18,2),(a.IRR)))+'%' as irr,
+    convert(varchar(10),convert(decimal(18,2),(a.GrossMarginT)))+'%' as grossMarginT,
+    isnull(a.A1,'') AS a1,isnull(a.A2,'') AS a2,isnull(a.A3,'') AS a3,isnull(a.A4,'') AS a4,isnull(a.A5,'') AS a5,
+    o.ItemName AS mortgageAddrN,
+	a.MM2,a.UseKM,a.Weight, m.ItemName AS insureTypeName,n.ItemName As insurePercntName,
+	a.Percnt,a.CarPlace,a.Discount,s.InsureAmt,isnull(t.FeeAmt,0) as feeAmt,
+	convert(varchar(10),convert(decimal(18,2),(a.RateTaxY)))+'%' as rateTaxY,
+	a.TaxMode,
+	convert(varchar(10),convert(decimal(18,2),(a.RateRate)))+'%' as rateRate,
+    a.TaxRate AS salesTax,
+	convert(varchar(10),convert(decimal(18,2),(a.rentRate)))+'%' as rentRate,
+	a.IsBigTradeItem AS isBigTra,a.FinalTax
+	from
+    Orders a
+    left join v_Emp b on a.Sales_Auto = b.User_Auto
+    left join TradeItem(nolock) c On a.TradeItem_Auto = c.TradeItem_Auto
+    left join Inc d on a.Inc_Auto = d.Inc_Auto
+    inner join Itemcode g on a.CustSource = g.Num and g.ItemType = 313
+    inner join Itemcode h on a.CarSource = h.Num and h.ItemType = 503
+    inner join Itemcode i on a.oil = i.Num and i.ItemType = 231
+    inner join FactoryBrand l on a.FactoryBrand_Auto = l.FactoryBrand_Auto
+    inner join Brand j on a.Brand_Auto = j.Brand_Auto
+    inner join Clasen k on a.Clasen_Auto = k.Clasen_Auto
+    left join TradeItem Supplier_Buy (nolock) on a.Supplier_Buy=Supplier_Buy.TradeItem_Auto
+	inner join ItemCode r on r.ItemType = 841 and r.Num = a.BsType
+	inner join OrdersInsureList s on s.Orders_Auto = a.Orders_Auto
+	left join OrdersFee t on t.FeeType_Auto not in(2,16) and t.Orders_Auto = a.Orders_Auto
+	inner join Itemcode m on a.InsureType = m.Num and m.ItemType = 411
+    inner join Itemcode n on a.InsurePercnt = n.Num and n.ItemType = 410
+	inner join ItemCode o on o.itemtype = 135 and o.num = a.MortgageAddr
+    where
+    a.Orders_Auto =  #{params}
+  </select>
 </mapper>
