@@ -1,5 +1,6 @@
 package com.funtl.myshop.plus.provider.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -10,7 +11,7 @@ import java.io.Serializable;
 @ApiModel(value = "保险明细上部分数据")
 public class InsuranceList implements Serializable {
 
-    @ApiModelProperty(value = "承保险类别")
+    @JsonIgnore
     private Integer insureType;
 
     @ApiModelProperty(value = "性质类别")
