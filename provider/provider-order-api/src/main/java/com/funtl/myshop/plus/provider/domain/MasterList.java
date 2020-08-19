@@ -32,4 +32,7 @@ public class MasterList implements Serializable {
 
     @ApiModelProperty(value = "一次性租赁")
     private String onetimeName;
+
+    @ApiModelProperty(value = "判断直租与回租，当orderType=8时调用回租接口")
+    private Integer orderType;
 }

@@ -175,7 +175,7 @@
     c.SName,
     b.DepName,
     p.Memo AS nowplace,
-    case when a.Onetime = 1 then '是' else '' end onetimeName
+    case when a.Onetime = 1 then '是' else '' end onetimeName,a.OrderType
     from
     Orders(nolock) a
     left join v_Emp b on a.Sales_Auto=b.User_Auto
