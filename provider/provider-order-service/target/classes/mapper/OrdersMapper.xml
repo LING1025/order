@@ -335,6 +335,7 @@
     <result column="pushTel" jdbcType="VARCHAR" property="pushTel" />
     <result column="commissionRate" jdbcType="VARCHAR" property="commissionRate" />
     <result column="rentMAmt" jdbcType="DECIMAL" property="rentMAmt" />
+    <result column="gpsAmt" jdbcType="DECIMAL" property="gpsAmt" />
 
   </resultMap>
   <select id="selectOrdersBackList" resultMap="queryOrdersBackList">
@@ -368,7 +369,7 @@
 	convert(varchar(10),convert(decimal(18,2),(a.rentRate)))+'%' as rentRate,
 	a.IsBigTradeItem AS isBigTra,a.FinalTax,f.ItemName AS orderTypeName,
     convert(varchar(10),convert(decimal(18,2),(a.commissionRate)))+'%' as commissionRate,
-    a.MAmt AS rentMAmt
+    a.MAmt AS rentMAmt,q.FeeAmt AS gpsAmt
 	from
     Orders a
     left join v_Emp b on a.Sales_Auto = b.User_Auto
@@ -388,6 +389,7 @@
     inner join Itemcode n on a.InsurePercnt = n.Num and n.ItemType = 410
 	inner join ItemCode o on o.itemtype = 135 and o.num = a.MortgageAddr
     left join Itemcode f on a.OrderType = f.Num and f.ItemType = 326
+    left join OrdersFee q on q.FeeType_Auto in(2) and q.Orders_Auto = a.Orders_Auto
     where
     a.Orders_Auto =  #{params}
   </select>

@@ -134,8 +134,8 @@ public class OrdersBackList implements Serializable {
     /**
      * 车险性质别::ItemCode.ItemType=411
      */
-    @JsonIgnore
-    private Integer insureType;
+    /*@JsonIgnore
+    private Integer insureType;*/
 
     @ApiModelProperty(value = "车险性质别")
     private String insureTypeName;
@@ -166,7 +166,7 @@ public class OrdersBackList implements Serializable {
     private BigDecimal discount;
 
     @ApiModelProperty(value = "贷款成数(%)")
-    private Integer amtP;
+    private String amtP;
 
     @ApiModelProperty(value = "首付金额")
     private BigDecimal dptAmt;

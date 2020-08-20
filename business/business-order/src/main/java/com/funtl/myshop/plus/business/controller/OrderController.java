@@ -14,6 +14,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -232,6 +233,21 @@ public class OrderController {
         if (ordersAuto == null){
             throw new BusinessException(BusinessStatus.PARAM_ERROR);        }
         OrdersBackList ordersBackList = ordersService.selectOrdersBackList(ordersAuto);
+        if(ordersBackList.getGpsAmt().compareTo(BigDecimal.valueOf(0)) == 1){
+            ordersBackList.setGps(1);
+        }else{
+            ordersBackList.setGps(0);
+        }
+        //贷款金额与贷款成数的计算公式
+        Double dFee = (ordersBackList.getInsureAmt().add(ordersBackList.getAccessary().add(ordersBackList.getFeeAmt()
+                        .add(ordersBackList.getCarTax().add(ordersBackList.getFinanceFee().add(ordersBackList.getUrgentFee()
+                        .add(ordersBackList.getOutFee().add(ordersBackList.getCarExtensionAmt())))))))).doubleValue();
+        System.out.println(dFee);
+        Double p = ((ordersBackList.getRentAmt().subtract(ordersBackList.getStampTax())).doubleValue())*1.0/
+                ((ordersBackList.getListPrice().subtract(ordersBackList.getDisPrice())).doubleValue() + dFee);
+        System.out.println(p);
+        ordersBackList.setAmtP(ordersBackList.getRentAmt().subtract(ordersBackList.getStampTax()).toString()
+                                + "(" + Math.round(p*100) + "%)");
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", ordersBackList);
     }
 
