@@ -13,5 +13,11 @@
       <jdbc-driver>com.microsoft.sqlserver.jdbc.SQLServerDriver</jdbc-driver>
       <jdbc-url>jdbc:sqlserver://192.168.1.215;database=Rental</jdbc-url>
     </data-source>
+    <data-source source="LOCAL" name="WxApplet" uuid="9f74d93f-0af5-4816-bb0b-ef6cc7f80f96">
+      <driver-ref>sqlserver.ms</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.microsoft.sqlserver.jdbc.SQLServerDriver</jdbc-driver>
+      <jdbc-url>jdbc:sqlserver://192.168.1.161;database=WxApplet</jdbc-url>
+    </data-source>
   </component>
 </project>

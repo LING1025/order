@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.funtl.myshop.plus.provider.mapper.WxEncryptedDataMapper">
+  <resultMap id="BaseResultMap" type="com.funtl.myshop.plus.provider.domain.WxEncryptedData">
+    <!--@mbg.generated-->
+    <!--@Table WxEncryptedData-->
+    <id column="Id" jdbcType="BIGINT" property="id" />
+    <result column="OpenId" jdbcType="VARCHAR" property="openId" />
+    <result column="NickName" jdbcType="VARCHAR" property="nickName" />
+    <result column="Gender" jdbcType="VARCHAR" property="gender" />
+    <result column="Language" jdbcType="VARCHAR" property="language" />
+    <result column="City" jdbcType="VARCHAR" property="city" />
+    <result column="Province" jdbcType="VARCHAR" property="province" />
+    <result column="Country" jdbcType="VARCHAR" property="country" />
+    <result column="AvatarUrl" jdbcType="VARCHAR" property="avatarUrl" />
+    <result column="UnionId" jdbcType="VARCHAR" property="unionId" />
+    <result column="Timestamp" jdbcType="VARCHAR" property="timestamp" />
+    <result column="Appid" jdbcType="VARCHAR" property="appId" />
+    <result column="CDT" jdbcType="TIMESTAMP" property="cdt" />
+    <result column="MDT" jdbcType="TIMESTAMP" property="mdt" />
+    <result column="UserName" jdbcType="VARCHAR" property="username" />
+    <result column="User_Auto" jdbcType="BIGINT" property="userAuto" />
+    <result column="Token" jdbcType="VARCHAR" property="token" />
+    <result column="TokenTime" jdbcType="TIMESTAMP" property="tokenTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    Id, OpenId, NickName, Gender, [Language], City, Province, Country, AvatarUrl, UnionId,
+    [Timestamp], Appid, CDT, MDT, UserName, User_Auto, Token, TokenTime
+  </sql>
+</mapper>

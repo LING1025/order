@@ -7,10 +7,10 @@
         <option name="generateService" value="true" />
         <option name="generateServiceInterface" value="true" />
         <option name="javaMapperPackage" value="com.funtl.myshop.plus.provider.mapper" />
-        <option name="javaMapperPath" value="D:\twoWork\order\provider\provider-order-service\src\main\java" />
+        <option name="javaMapperPath" value="D:\twoWork\order\provider\provider-user-service\src\main\java" />
         <option name="javaModelPackage" value="com.funtl.myshop.plus.provider.domain" />
-        <option name="javaModelPath" value="$PROJECT_DIR$/provider/provider-order-api/src/main/java" />
-        <option name="lastDatabaseCrudChooseModuleName" value="provider-order-api" />
+        <option name="javaModelPath" value="D:\twoWork\order\provider\provider-user-api\src\main\java" />
+        <option name="lastDatabaseCrudChooseModuleName" value="provider-user-api" />
         <option name="lombokDataAnnotation" value="true" />
         <option name="moduleNameToPackageAndPathMap">
           <map>
@@ -37,7 +37,7 @@
                   <option name="javaMapperPath" value="D:\twoWork\order\provider\provider-user-service\src\main\java" />
                   <option name="javaModelPacakge" value="com.funtl.myshop.plus.provider.domain" />
                   <option name="javaModelPath" value="D:\twoWork\order\provider\provider-user-api\src\main\java" />
-                  <option name="javaServiceInterfacePackage" value="com.funtl.myshop.plus.provider.api" />
+                  <option name="javaServiceInterfacePackage" value="com.funtl.myshop.plus.provider.service" />
                   <option name="javaServiceInterfacePath" value="D:\twoWork\order\provider\provider-user-api\src\main\java" />
                   <option name="javaServicePackage" value="com.funtl.myshop.plus.provider.service" />
                   <option name="javaServicePath" value="D:\twoWork\order\provider\provider-user-service\src\main\java" />
@@ -786,6 +786,46 @@
                 </TableGenerateConfig>
               </value>
             </entry>
+            <entry key="dbo:WxEncryptedData">
+              <value>
+                <TableGenerateConfig>
+                  <option name="columnOverrideList">
+                    <list>
+                      <MyColumnOverride>
+                        <option name="columnName" value="OpenId" />
+                        <option name="javaProperty" value="openId" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="NickName" />
+                        <option name="javaProperty" value="nickName" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="AvatarUrl" />
+                        <option name="javaProperty" value="avatarUrl" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="UnionId" />
+                        <option name="javaProperty" value="unionId" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="Appid" />
+                        <option name="javaProperty" value="appId" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="TokenTime" />
+                        <option name="javaProperty" value="tokenTime" />
+                      </MyColumnOverride>
+                    </list>
+                  </option>
+                  <option name="generatedKey" value="Id" />
+                  <option name="javaModelName" value="WxEncryptedData" />
+                  <option name="moduleName" value="provider-user-api" />
+                  <option name="sequenceColumn" value="" />
+                  <option name="sequenceId" value="" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
             <entry key="dbo:aspnet_Roles">
               <value>
                 <TableGenerateConfig>
@@ -825,7 +865,7 @@
           </map>
         </option>
         <option name="xmlMapperPackage" value="mapper" />
-        <option name="xmlMapperPath" value="D:\twoWork\order\provider\provider-order-service\src\main\resources" />
+        <option name="xmlMapperPath" value="D:\twoWork\order\provider\provider-user-service\src\main\resources" />
       </ProjectProfile>
     </option>
   </component>
