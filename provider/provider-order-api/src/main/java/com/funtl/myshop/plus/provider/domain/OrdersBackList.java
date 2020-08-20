@@ -182,7 +182,7 @@ public class OrdersBackList implements Serializable {
      */
 
     @ApiModelProperty(value = "保险金额")
-    private BigDecimal insureAmt;
+    private BigDecimal insureRealAmt;
 
     @ApiModelProperty(value = "配件金额")
     private BigDecimal accessary;

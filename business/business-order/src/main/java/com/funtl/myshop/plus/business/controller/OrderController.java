@@ -239,7 +239,7 @@ public class OrderController {
             ordersBackList.setGps(0);
         }
         //贷款金额与贷款成数的计算公式
-        Double dFee = (ordersBackList.getInsureAmt().add(ordersBackList.getAccessary().add(ordersBackList.getFeeAmt()
+        Double dFee = (ordersBackList.getInsureRealAmt().add(ordersBackList.getAccessary().add(ordersBackList.getFeeAmt()
                         .add(ordersBackList.getCarTax().add(ordersBackList.getFinanceFee().add(ordersBackList.getUrgentFee()
                         .add(ordersBackList.getOutFee().add(ordersBackList.getCarExtensionAmt())))))))).doubleValue();
         System.out.println(dFee);

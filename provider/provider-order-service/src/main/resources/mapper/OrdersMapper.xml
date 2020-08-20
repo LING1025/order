@@ -336,11 +336,15 @@
     <result column="commissionRate" jdbcType="VARCHAR" property="commissionRate" />
     <result column="rentMAmt" jdbcType="DECIMAL" property="rentMAmt" />
     <result column="gpsAmt" jdbcType="DECIMAL" property="gpsAmt" />
+    <result column="insureRealAmt" jdbcType="DECIMAL" property="insureRealAmt" />
 
   </resultMap>
   <select id="selectOrdersBackList" resultMap="queryOrdersBackList">
     select
-    distinct a.Orders_Auto,a.Orders_Old,a.MM,
+    (select isnull(sum(FeeAmt),0) from OrdersFee where Orders_Auto=#{params} and FeeType_Auto not in(2,16)) feeAmt,
+    (select isnull(sum(FeeAmt),0) from OrdersFee where Orders_Auto=#{params} and FeeType_Auto in(2)) gpsAmt,
+    (select sum(InsureRealAmt) from OrdersInsureList where Orders_Auto = #{params}) insureRealAmt,
+    a.Orders_Auto,a.Orders_Old,a.MM,
     convert(varchar(10),convert(decimal(18,2),((cast(a.DptAmt as decimal) *100/cast(a.CarCost as decimal)))))+'%' as dptP,
     a.TradeItem_Auto,c.FName AS fName,b.FName AS salesname,
     g.ItemName AS custSourceName,
@@ -361,7 +365,7 @@
     isnull(a.A1,'') AS a1,isnull(a.A2,'') AS a2,isnull(a.A3,'') AS a3,isnull(a.A4,'') AS a4,isnull(a.A5,'') AS a5,
     o.ItemName AS mortgageAddrN,
 	a.MM2,a.UseKM,a.Weight, m.ItemName AS insureTypeName,n.ItemName As insurePercntName,
-	a.Percnt,a.CarPlace,a.Discount,s.InsureAmt,isnull(t.FeeAmt,0) as feeAmt,
+	a.Percnt,a.CarPlace,a.Discount,
 	convert(varchar(10),convert(decimal(18,2),(a.RateTaxY)))+'%' as rateTaxY,
 	a.TaxMode,
 	convert(varchar(10),convert(decimal(18,2),(a.RateRate)))+'%' as rateRate,
@@ -369,7 +373,7 @@
 	convert(varchar(10),convert(decimal(18,2),(a.rentRate)))+'%' as rentRate,
 	a.IsBigTradeItem AS isBigTra,a.FinalTax,f.ItemName AS orderTypeName,
     convert(varchar(10),convert(decimal(18,2),(a.commissionRate)))+'%' as commissionRate,
-    a.MAmt AS rentMAmt,q.FeeAmt AS gpsAmt
+    a.MAmt AS rentMAmt
 	from
     Orders a
     left join v_Emp b on a.Sales_Auto = b.User_Auto
@@ -383,13 +387,10 @@
     inner join Clasen k on a.Clasen_Auto = k.Clasen_Auto
     left join TradeItem Supplier_Buy (nolock) on a.Supplier_Buy=Supplier_Buy.TradeItem_Auto
 	inner join ItemCode r on r.ItemType = 841 and r.Num = a.BsType
-	inner join OrdersInsureList s on s.Orders_Auto = a.Orders_Auto
-	left join OrdersFee t on t.FeeType_Auto not in(2,16) and t.Orders_Auto = a.Orders_Auto
 	inner join Itemcode m on a.InsureType = m.Num and m.ItemType = 411
     inner join Itemcode n on a.InsurePercnt = n.Num and n.ItemType = 410
 	inner join ItemCode o on o.itemtype = 135 and o.num = a.MortgageAddr
     left join Itemcode f on a.OrderType = f.Num and f.ItemType = 326
-    left join OrdersFee q on q.FeeType_Auto in(2) and q.Orders_Auto = a.Orders_Auto
     where
     a.Orders_Auto =  #{params}
   </select>
