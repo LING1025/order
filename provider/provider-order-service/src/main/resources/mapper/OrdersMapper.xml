@@ -27,7 +27,7 @@
     <result column="PushMoney" jdbcType="DECIMAL" property="pushMoney" />
     <result column="PushMan" jdbcType="VARCHAR" property="pushMan" />
     <result column="PushMan_Auto" jdbcType="INTEGER" property="pushManAuto" />
-    <result column="PushTEL" jdbcType="VARCHAR" property="pushtel" />
+    <result column="PushTEL" jdbcType="VARCHAR" property="pushTel" />
     <result column="CarTax" jdbcType="DECIMAL" property="carTax" />
     <result column="CarCost" jdbcType="DECIMAL" property="carCost" />
     <result column="OverAmt" jdbcType="DECIMAL" property="overAmt" />
@@ -331,6 +331,11 @@
     <result column="rateTaxy" jdbcType="VARCHAR" property="rateTaxy" />
     <result column="salesTax" jdbcType="DECIMAL" property="salesTax" />
     <result column="isBigTra" jdbcType="BIGINT" property="isBigTra" />
+    <result column="mortgageAddrN" jdbcType="VARCHAR" property="mortgageAddrN" />
+    <result column="pushTel" jdbcType="VARCHAR" property="pushTel" />
+    <result column="commissionRate" jdbcType="VARCHAR" property="commissionRate" />
+    <result column="rentMAmt" jdbcType="DECIMAL" property="rentMAmt" />
+
   </resultMap>
   <select id="selectOrdersBackList" resultMap="queryOrdersBackList">
     select
@@ -338,7 +343,7 @@
     convert(varchar(10),convert(decimal(18,2),((cast(a.DptAmt as decimal) *100/cast(a.CarCost as decimal)))))+'%' as dptP,
     a.TradeItem_Auto,c.FName AS fName,b.FName AS salesname,
     g.ItemName AS custSourceName,
-    a.PushMan,supplierBuyName = Supplier_Buy.FName,
+    a.PushMan,isnull(a.PushTEL,'') AS pushTel,supplierBuyName = Supplier_Buy.FName,
     a.CarDT,
     l.FactoryBrandName,j.BrandName,k.ClasenName,
     a.CarColor,h.ItemName AS carSourceName,
@@ -361,7 +366,9 @@
 	convert(varchar(10),convert(decimal(18,2),(a.RateRate)))+'%' as rateRate,
     a.TaxRate AS salesTax,
 	convert(varchar(10),convert(decimal(18,2),(a.rentRate)))+'%' as rentRate,
-	a.IsBigTradeItem AS isBigTra,a.FinalTax
+	a.IsBigTradeItem AS isBigTra,a.FinalTax,f.ItemName AS orderTypeName,
+    convert(varchar(10),convert(decimal(18,2),(a.commissionRate)))+'%' as commissionRate,
+    a.MAmt AS rentMAmt
 	from
     Orders a
     left join v_Emp b on a.Sales_Auto = b.User_Auto
@@ -380,6 +387,7 @@
 	inner join Itemcode m on a.InsureType = m.Num and m.ItemType = 411
     inner join Itemcode n on a.InsurePercnt = n.Num and n.ItemType = 410
 	inner join ItemCode o on o.itemtype = 135 and o.num = a.MortgageAddr
+    left join Itemcode f on a.OrderType = f.Num and f.ItemType = 326
     where
     a.Orders_Auto =  #{params}
   </select>

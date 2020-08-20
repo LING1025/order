@@ -101,7 +101,7 @@ public class OrdersBackList implements Serializable {
     private String clasenCode;
 
     @ApiModelProperty(value = "抵押地")
-    private String mortgageAddr;
+    private String mortgageAddrN;
 
     @ApiModelProperty(value = "出厂年月")
     @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")

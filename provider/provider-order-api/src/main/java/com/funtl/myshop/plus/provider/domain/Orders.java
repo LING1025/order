@@ -144,7 +144,7 @@ public class Orders implements Serializable {
     private Integer pushManAuto;
 
     @Column(name = "PushTEL")
-    private String pushtel;
+    private String pushTel;
 
     /**
     * 购置税
