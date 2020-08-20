@@ -354,7 +354,7 @@
     a.CarColor,h.ItemName AS carSourceName,
     a.ClasenCode,a.CC,i.ItemName AS oilName,
     r.ItemName AS bsTypeName,a.MakNo,d.FName AS carIncName,
-    a.ListPrice,a.DisPrice,a.CarPriceRef,
+    a.ListPrice,a.DisPrice,a.CarPriceRef,a.GetPrice,
     a.Accessary,a.CarTax,a.PushMoney,
     a.DptAmt,a.RentAmt,
     a.CarExtensionAmt,a.OutFee,a.FinanceFee,a.UrgentFee,

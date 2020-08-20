@@ -157,7 +157,19 @@ public class OrdersBackList implements Serializable {
     private BigDecimal listPrice;
 
     @ApiModelProperty(value = "折价金额")
+    private String disPriceN;
+
+    /**
+     * 折价金额
+     */
+    @JsonIgnore
     private BigDecimal disPrice;
+
+    /**
+     * 车辆进价
+     */
+    @JsonIgnore
+    private BigDecimal getPrice;
 
     @ApiModelProperty(value = "网上参考价")
     private Long carPriceRef;

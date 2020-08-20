@@ -233,6 +233,7 @@ public class OrderController {
         if (ordersAuto == null){
             throw new BusinessException(BusinessStatus.PARAM_ERROR);        }
         OrdersBackList ordersBackList = ordersService.selectOrdersBackList(ordersAuto);
+        //GPS安装
         if(ordersBackList.getGpsAmt().compareTo(BigDecimal.valueOf(0)) == 1){
             ordersBackList.setGps(1);
         }else{
@@ -242,12 +243,12 @@ public class OrderController {
         Double dFee = (ordersBackList.getInsureRealAmt().add(ordersBackList.getAccessary().add(ordersBackList.getFeeAmt()
                         .add(ordersBackList.getCarTax().add(ordersBackList.getFinanceFee().add(ordersBackList.getUrgentFee()
                         .add(ordersBackList.getOutFee().add(ordersBackList.getCarExtensionAmt())))))))).doubleValue();
-        System.out.println(dFee);
         Double p = ((ordersBackList.getRentAmt().subtract(ordersBackList.getStampTax())).doubleValue())*1.0/
                 ((ordersBackList.getListPrice().subtract(ordersBackList.getDisPrice())).doubleValue() + dFee);
-        System.out.println(p);
         ordersBackList.setAmtP(ordersBackList.getRentAmt().subtract(ordersBackList.getStampTax()).toString()
                                 + "(" + Math.round(p*100) + "%)");
+        //折价金额
+        ordersBackList.setDisPriceN(ordersBackList.getDisPrice()+"  "+ordersBackList.getGetPrice());
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", ordersBackList);
     }
 
