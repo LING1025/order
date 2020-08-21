@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.funtl.myshop.plus.provider.mapper.AspnetUsersMapper">
+  <resultMap id="BaseResultMap" type="com.funtl.myshop.plus.provider.domain.AspnetUsers">
+    <!--@mbg.generated-->
+    <!--@Table aspnet_Users-->
+    <id column="User_Auto" jdbcType="BIGINT" property="userAuto" />
+    <result column="UserId" jdbcType="OTHER" property="userId" />
+    <result column="ApplicationId" jdbcType="OTHER" property="applicationId" />
+    <result column="UserName" jdbcType="VARCHAR" property="username" />
+    <result column="LoweredUserName" jdbcType="VARCHAR" property="loweredUserName" />
+    <result column="MobileAlias" jdbcType="VARCHAR" property="mobileAlias" />
+    <result column="IsAnonymous" jdbcType="BIT" property="isAnonymous" />
+    <result column="LastActivityDate" jdbcType="TIMESTAMP" property="lastActivityDate" />
+    <result column="EXTN" jdbcType="VARCHAR" property="extn" />
+    <result column="IsEas" jdbcType="INTEGER" property="isEas" />
+    <result column="MDT" jdbcType="TIMESTAMP" property="mDT" />
+    <result column="CDT" jdbcType="TIMESTAMP" property="cDT" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    UserId, ApplicationId, UserName, LoweredUserName, MobileAlias, IsAnonymous, LastActivityDate,
+    User_Auto, EXTN, IsEas, MDT, CDT
+  </sql>
+</mapper>
