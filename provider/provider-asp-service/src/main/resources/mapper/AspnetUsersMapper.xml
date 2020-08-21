@@ -37,7 +37,7 @@
     join AspNet.dbo.aspnet_Roles c  on b.RoleId=c.RoleId
     where
     a.ApplicationId='73663109-dda2-4c2d-8311-337946b5c373'
-    and c.Roles_Auto in (7,11,12,16,22,30,83,145)
+    --and c.Roles_Auto in (7,11,12,16,22,30,83,145)
     and a.User_Auto= #{param}
   </select>
 </mapper>

@@ -6,6 +6,7 @@ import com.funtl.myshop.plus.business.dto.SignOffParamDto;
 import com.funtl.myshop.plus.commons.dto.ResponseResult;
 import com.funtl.myshop.plus.provider.api.*;
 import com.funtl.myshop.plus.provider.domain.*;
+import com.funtl.myshop.plus.provider.dto.RolesList;
 import com.github.pagehelper.PageInfo;
 import com.google.common.collect.Lists;
 import io.swagger.annotations.*;
@@ -66,16 +67,57 @@ public class OrderController {
     @Reference(version = "1.0.0")
     private AspnetUsersService aspnetUsersService;
 
+    @Reference(version = "1.0.0")
+    private ItemCodeService itemCodeService;
+
     @ApiOperation(value = "根据用户id获取选择权限数据")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "userAuto", value = "用户id", required = false, dataType = "long", paramType = "path")
     })
     @GetMapping(value = "queryRoleList")
-    public ResponseResult<List<RoleList>> queryRoleList(@RequestParam(name = "userAuto",required = false) Long userAuto) {
-        List<RoleList> lists = aspnetUsersService.selectByUserAuto(userAuto);
+    public ResponseResult<List<RolesList>> queryRoleList(@RequestParam(name = "userAuto",required = false) Long userAuto) {
+        List<RoleList> lists1 = itemCodeService.selectByType(1062);
+        List<RoleList> lists2 = aspnetUsersService.selectByUserAuto(userAuto);
+        List<RolesList> lists = Lists.newArrayList();
+        for (RoleList roleList1 : lists1){
+            for (RoleList roleList2 : lists2){
+                if (roleList2.getRolesAuto() == roleList1.getNum()){
+                    RolesList rolesList = new RolesList();
+                    rolesList.setRolesAuto(roleList2.getRolesAuto());
+                    rolesList.setRoleName(roleList2.getRoleName());
+                    lists.add(rolesList);
+                }
+            }
+        }
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", lists);
     }
 
+    @ApiOperation(value = " 选择操作人：代理人")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userAuto", value = "代理人id", required = false, dataType = "long", paramType = "path")
+    })
+    @GetMapping(value = "queryAgentList")
+    public ResponseResult<List<AgentList>> queryAgentList(@RequestParam(name = "userAuto",required = false) Long userAuto){
+        //代理人id查询
+        List<AgentList> lists = creditAgentService.selectAgentList(userAuto);
+        for(AgentList agentList : lists){
+            VEmp vEmp = vEmpService.selectByUserAuto(agentList.getSelfUser());
+            if (vEmp != null){
+                agentList.setSelfName(vEmp.getFName() + "_" + vEmp.getDepName());
+                //获取被代理人角色权限
+                List<AspnetRoles> list = aspnetRolesService.selectByUserId(vEmp.getUserId());
+                List<SelfRoles> selfRolesList = Lists.newArrayList();
+                for(AspnetRoles aspnetRoles : list){
+                    SelfRoles selfRoles = new SelfRoles();
+                    selfRoles.setSelfRoleIds(aspnetRoles.getRolesAuto());
+                    selfRoles.setSelfRoleNames(aspnetRoles.getRoleName());
+                    selfRolesList.add(selfRoles);
+                }
+                agentList.setSelfRolesList(selfRolesList);
+            }
+        }
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", lists);
+    }
 /*    @ApiOperation(value = "选择操作人：本人")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "userAuto", value = "本人id", required = false, dataType = "long", paramType = "path")

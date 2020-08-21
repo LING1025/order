@@ -7,10 +7,10 @@
         <option name="generateService" value="true" />
         <option name="generateServiceInterface" value="true" />
         <option name="javaMapperPackage" value="com.funtl.myshop.plus.provider.mapper" />
-        <option name="javaMapperPath" value="$PROJECT_DIR$/provider/provider-asp-api/src/main/java" />
+        <option name="javaMapperPath" value="D:\twoWork\order\provider\provider-order-service\src\main\java" />
         <option name="javaModelPackage" value="com.funtl.myshop.plus.provider.domain" />
-        <option name="javaModelPath" value="$PROJECT_DIR$/provider/provider-asp-api/src/main/java" />
-        <option name="lastDatabaseCrudChooseModuleName" value="provider-asp-api" />
+        <option name="javaModelPath" value="$PROJECT_DIR$/provider/provider-order-api/src/main/java" />
+        <option name="lastDatabaseCrudChooseModuleName" value="provider-order-api" />
         <option name="lombokDataAnnotation" value="true" />
         <option name="moduleNameToPackageAndPathMap">
           <map>
@@ -115,6 +115,34 @@
                 <TableGenerateConfig>
                   <option name="generatedKey" value="CreditAgent_Auto" />
                   <option name="javaModelName" value="CreditAgent" />
+                  <option name="moduleName" value="provider-order-api" />
+                  <option name="sequenceColumn" value="" />
+                  <option name="sequenceId" value="" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
+            <entry key="dbo:ItemCode">
+              <value>
+                <TableGenerateConfig>
+                  <option name="columnOverrideList">
+                    <list>
+                      <MyColumnOverride>
+                        <option name="columnName" value="ItemCode_Auto" />
+                        <option name="javaProperty" value="itemCodeAuto" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="ItemType" />
+                        <option name="javaProperty" value="itemType" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="ItemName" />
+                        <option name="javaProperty" value="itemName" />
+                      </MyColumnOverride>
+                    </list>
+                  </option>
+                  <option name="generatedKey" value="ItemCode_Auto" />
+                  <option name="javaModelName" value="ItemCode" />
                   <option name="moduleName" value="provider-order-api" />
                   <option name="sequenceColumn" value="" />
                   <option name="sequenceId" value="" />
@@ -881,7 +909,7 @@
           </map>
         </option>
         <option name="xmlMapperPackage" value="mapper" />
-        <option name="xmlMapperPath" value="D:\twoWork\order\provider\provider-asp-service\src\main\resources" />
+        <option name="xmlMapperPath" value="D:\twoWork\order\provider\provider-order-service\src\main\resources" />
       </ProjectProfile>
     </option>
   </component>

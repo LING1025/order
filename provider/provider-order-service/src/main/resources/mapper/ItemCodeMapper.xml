@@ -19,4 +19,8 @@
     <!--@mbg.generated-->
     ItemCode_Auto, ItemType, Num, ItemName, Memo, IsActive, Seq, V1, V2, A1
   </sql>
+  <resultMap id="queryByType" extends="BaseResultMap" type="com.funtl.myshop.plus.provider.dto.RoleList"/>
+  <select id="selectByType" resultMap="queryByType">
+    select Num from ItemCode where ItemType=#{itemType} and Num in (7,11,12,16,22,30,83,145) order by Seq desc
+  </select>
 </mapper>
