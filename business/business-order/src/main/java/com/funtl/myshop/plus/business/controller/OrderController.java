@@ -13,6 +13,7 @@ import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
 
+import com.funtl.myshop.plus.provider.dto.RoleList;;
 import javax.validation.Valid;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
@@ -62,7 +63,20 @@ public class OrderController {
     @Reference(version = "1.0.0")
     private WorkFlowDocService workFlowDocService;
 
-    @ApiOperation(value = "选择操作人：本人")
+    @Reference(version = "1.0.0")
+    private AspnetUsersService aspnetUsersService;
+
+    @ApiOperation(value = "根据用户id获取选择权限数据")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userAuto", value = "用户id", required = false, dataType = "long", paramType = "path")
+    })
+    @GetMapping(value = "queryRoleList")
+    public ResponseResult<List<RoleList>> queryRoleList(@RequestParam(name = "userAuto",required = false) Long userAuto) {
+        List<RoleList> lists = aspnetUsersService.selectByUserAuto(userAuto);
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", lists);
+    }
+
+/*    @ApiOperation(value = "选择操作人：本人")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "userAuto", value = "本人id", required = false, dataType = "long", paramType = "path")
     })
@@ -87,46 +101,6 @@ public class OrderController {
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", lists);
     }
 
-    /*@ApiOperation(value = " 根据本人id获取代理数据")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "userAuto", value = "本人id", required = false, dataType = "long", paramType = "path")
-    })
-    @GetMapping(value = "queryBySelf")
-    public ResponseResult<List<SelfAgentList>> queryBySelf(@RequestParam(name = "userAuto",required = false) Long userAuto){
-        //本人姓名查询
-        List<SelfAgentList> pageInfo = creditAgentService.selectSelf(userAuto);
-        for(SelfAgentList dto : pageInfo){
-            VEmp vEmp = vEmpService.selectByUserAuto(dto.getSelfUser());
-            if (vEmp != null){
-                dto.setSelfName(vEmp.getFName() + "_" + vEmp.getDepName());
-                //获取本人角色权限
-                List<AspnetRoles> list = aspnetRolesService.selectByUserId(vEmp.getUserId());
-                List<SelfRoles> selfRolesList = Lists.newArrayList();
-                for(AspnetRoles aspnetRoles : list){
-                    SelfRoles selfRoles = new SelfRoles();
-                    selfRoles.setSelfRoleIds(aspnetRoles.getRolesAuto());
-                    selfRoles.setSelfRoleNames(aspnetRoles.getRoleName());
-                    selfRolesList.add(selfRoles);
-                }
-                dto.setSelfRolesList(selfRolesList);
-            }
-            VEmp vEmp2 = vEmpService.selectByUserAuto(dto.getAgentUser());
-            if (vEmp2 != null){
-                dto.setAgentName(vEmp2.getFName() + "_" + vEmp2.getDepName());
-                //获取代理人角色权限
-                List<AspnetRoles> list = aspnetRolesService.selectByUserId(vEmp2.getUserId());
-                List<AgentRoles> agentRolesList = Lists.newArrayList();
-                for(AspnetRoles aspnetRoles : list){
-                    AgentRoles agentRoles = new AgentRoles();
-                    agentRoles.setAgentRoleIds(aspnetRoles.getRolesAuto());
-                    agentRoles.setAgentRoleNames(aspnetRoles.getRoleName());
-                    agentRolesList.add(agentRoles);
-                }
-                dto.setAgentRolesList(agentRolesList);
-            }
-        }
-        return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", pageInfo);
-    }*/
 
     @ApiOperation(value = " 选择操作人：代理人")
     @ApiImplicitParams({
@@ -153,47 +127,6 @@ public class OrderController {
             }
         }
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", lists);
-    }
-
-    /*@ApiOperation(value = " 根据代理人id获取代理数据")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "userAuto", value = "代理人id", required = false, dataType = "long", paramType = "path")
-    })
-    @GetMapping(value = "queryByAgent")
-    public ResponseResult<List<SelfAgentList>> queryByAgent(@RequestParam(name = "userAuto",required = false) Long userAuto){
-        //代理人姓名查询
-        List<SelfAgentList> pageInfo = creditAgentService.selectAgent(userAuto);
-        for(SelfAgentList dto : pageInfo){
-            VEmp vEmp = vEmpService.selectByUserAuto(dto.getAgentUser());
-            if (vEmp != null){
-                dto.setAgentName(vEmp.getFName() + "_" + vEmp.getDepName());
-                //获取代理人角色权限
-                List<AspnetRoles> list = aspnetRolesService.selectByUserId(vEmp.getUserId());
-                List<AgentRoles> agentRolesList = Lists.newArrayList();
-                for(AspnetRoles aspnetRoles : list){
-                    AgentRoles agentRoles = new AgentRoles();
-                    agentRoles.setAgentRoleIds(aspnetRoles.getRolesAuto());
-                    agentRoles.setAgentRoleNames(aspnetRoles.getRoleName());
-                    agentRolesList.add(agentRoles);
-                }
-                dto.setAgentRolesList(agentRolesList);
-            }
-            VEmp vEmp2 = vEmpService.selectByUserAuto(dto.getSelfUser());
-            if (vEmp2 != null){
-                dto.setSelfName(vEmp2.getFName() + "_" + vEmp2.getDepName());
-                //获取本人角色权限
-                List<AspnetRoles> list = aspnetRolesService.selectByUserId(vEmp2.getUserId());
-                List<SelfRoles> selfRolesList = Lists.newArrayList();
-                for(AspnetRoles aspnetRoles : list){
-                    SelfRoles selfRoles = new SelfRoles();
-                    selfRoles.setSelfRoleIds(aspnetRoles.getRolesAuto());
-                    selfRoles.setSelfRoleNames(aspnetRoles.getRoleName());
-                    selfRolesList.add(selfRoles);
-                }
-                dto.setSelfRolesList(selfRolesList);
-            }
-        }
-        return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", pageInfo);
     }*/
 
     @ApiOperation(value = " 根据角色id集合获取主档信息待签核信息")

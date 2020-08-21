@@ -8,7 +8,7 @@ spring:
     driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
     url: jdbc:sqlserver://192.168.1.215;database=AspNet
     username: sa
-    password: SYSLTJ
+    password: 1234abcd.
     hikari:
       minimum-idle: 5
       idle-timeout: 600000

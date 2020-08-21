@@ -118,7 +118,7 @@
         </dependency>
         <dependency>
             <groupId>com.funtl.myshop.plus</groupId>
-            <artifactId>provider-user-api</artifactId>
+            <artifactId>provider-asp-api</artifactId>
             <version>${project.parent.version}</version>
             <scope>compile</scope>
         </dependency>
@@ -141,6 +141,12 @@
         <dependency>
             <groupId>com.funtl.myshop.plus</groupId>
             <artifactId>provider-order-api</artifactId>
+            <version>${project.parent.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.funtl.myshop.plus</groupId>
+            <artifactId>provider-user-api</artifactId>
             <version>${project.parent.version}</version>
             <scope>compile</scope>
         </dependency>

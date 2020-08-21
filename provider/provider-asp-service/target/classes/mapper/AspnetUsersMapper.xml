@@ -30,7 +30,7 @@
   </resultMap>
   <select id="selectByUserAuto" resultMap="queryByUserAuto">
     select distinct
-    c.Roles_Auto AS rolesAuto,c.RoleName AS roleName
+    c.Roles_Auto,c.RoleName
     from
     AspNet.dbo.aspnet_Users a
     join AspNet.dbo.aspnet_UsersInRoles b  on a.UserId=b.UserId
