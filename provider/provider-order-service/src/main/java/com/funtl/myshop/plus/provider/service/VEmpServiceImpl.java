@@ -16,7 +16,8 @@ public class VEmpServiceImpl implements VEmpService{
     @Override
     public VEmp selectByUserAuto(Long userAuto) {
         Example example = new Example(VEmp.class);
-        example.createCriteria().andEqualTo("userAuto",userAuto);
+        example.createCriteria().andEqualTo("userAuto",userAuto)
+        .andEqualTo("isOn",1);
         return vEmpMapper.selectOneByExample(example);
     }
 }

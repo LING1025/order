@@ -6,6 +6,7 @@ import com.funtl.myshop.plus.provider.dto.RoleList;
 import com.funtl.myshop.plus.provider.mapper.AspnetUsersMapper;
 import com.funtl.myshop.plus.provider.api.AspnetUsersService;
 import org.apache.dubbo.config.annotation.Service;
+import tk.mybatis.mapper.entity.Example;
 
 import java.util.List;
 
@@ -19,5 +20,13 @@ public class AspnetUsersServiceImpl implements AspnetUsersService{
     @Override
     public List<RoleList> selectByUserAuto(Long userAuto) {
         return aspnetUsersMapper.selectByUserAuto(userAuto);
+    }
+
+    @Override
+    public AspnetUsers selectByAppId(Object applicationId, Object userId) {
+        Example example = new Example(AspnetUsers.class);
+        example.createCriteria().andEqualTo("applicationId",applicationId)
+                .andEqualTo("userId",userId);
+        return aspnetUsersMapper.selectOneByExample(example);
     }
 }

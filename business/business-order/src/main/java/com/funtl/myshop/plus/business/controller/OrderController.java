@@ -100,23 +100,20 @@ public class OrderController {
     public ResponseResult<List<AgentList>> queryAgentList(@RequestParam(name = "userAuto",required = false) Long userAuto){
         //代理人id查询
         List<AgentList> lists = creditAgentService.selectAgentList(userAuto);
+        List<AgentList> agentLists = Lists.newArrayList();
         for(AgentList agentList : lists){
             VEmp vEmp = vEmpService.selectByUserAuto(agentList.getSelfUser());
-            if (vEmp != null){
-                agentList.setSelfName(vEmp.getFName() + "_" + vEmp.getDepName());
-                //获取被代理人角色权限
-                List<AspnetRoles> list = aspnetRolesService.selectByUserId(vEmp.getUserId());
-                List<SelfRoles> selfRolesList = Lists.newArrayList();
-                for(AspnetRoles aspnetRoles : list){
-                    SelfRoles selfRoles = new SelfRoles();
-                    selfRoles.setSelfRoleIds(aspnetRoles.getRolesAuto());
-                    selfRoles.setSelfRoleNames(aspnetRoles.getRoleName());
-                    selfRolesList.add(selfRoles);
+            if(vEmp != null){
+                AspnetUsers aspnetUsers = aspnetUsersService.selectByAppId("73663109-dda2-4c2d-8311-337946b5c373",vEmp.getUserId());
+                if(aspnetUsers != null) {
+                    AgentList agentList1 = new AgentList();
+                    agentList1.setSelfUser(agentList.getSelfUser());
+                    agentList1.setSelfName(vEmp.getFName() + "_" + vEmp.getDepName());
+                    agentLists.add(agentList1);
                 }
-                agentList.setSelfRolesList(selfRolesList);
             }
         }
-        return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", lists);
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", agentLists);
     }
 /*    @ApiOperation(value = "选择操作人：本人")
     @ApiImplicitParams({

@@ -20,6 +20,6 @@ public class AgentList implements Serializable {
     @ApiModelProperty(value = "选择代理人")
     private String selfName;
 
-    @ApiModelProperty(value = "选择权限")
-    private List<SelfRoles> selfRolesList;
+    /*@ApiModelProperty(value = "选择权限")
+    private List<SelfRoles> selfRolesList;*/
 }
