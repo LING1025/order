@@ -7,9 +7,9 @@ spring:
     type: com.zaxxer.hikari.HikariDataSource
     driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
     #    url: jdbc:sqlserver://192.168.168.208;database=AspNet
-    url: jdbc:sqlserver://192.168.1.215;database=AspNet
+    url: jdbc:sqlserver://192.168.1.161;database=WxApplet
     username: sa
-    password: 1234abcd.
+    password: SYSLTJ
     hikari:
       minimum-idle: 5
       idle-timeout: 600000

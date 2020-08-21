@@ -11,7 +11,7 @@ import java.io.Serializable;
 
 @Data
 public class LoginParam implements Serializable {
-    private String username;
+    private String openId;
 
     @JsonIgnore
     private String password = "2020+0710";

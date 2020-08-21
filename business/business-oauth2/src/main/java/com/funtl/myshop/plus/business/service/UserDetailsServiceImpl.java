@@ -1,7 +1,10 @@
 package com.funtl.myshop.plus.business.service;
 
+import com.funtl.myshop.plus.commons.dto.ResponseResult;
 import com.funtl.myshop.plus.provider.api.AspnetUsersService;
+import com.funtl.myshop.plus.provider.api.WxEncryptedDataService;
 import com.funtl.myshop.plus.provider.domain.AspnetUsers;
+import com.funtl.myshop.plus.provider.domain.WxEncryptedData;
 import com.google.common.collect.Lists;
 import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.security.core.GrantedAuthority;
@@ -23,12 +26,21 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Reference(version = "1.0.0")
     private AspnetUsersService aspnetUsersService;
 
+    @Reference(version = "1.0.0")
+    private WxEncryptedDataService wxEncryptedDataService;
+
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         //查询用户
-        AspnetUsers aspnetUsers = aspnetUsersService.get(s);
+        /*AspnetUsers aspnetUsers = aspnetUsersService.get(s);
         if(aspnetUsers == null){
+            return null;
+        }*/
+
+        //根据openId查询用户
+        WxEncryptedData wxEncryptedData = wxEncryptedDataService.getOpenId(s);
+        if(wxEncryptedData == null || wxEncryptedData.getUserAuto() == null || wxEncryptedData.getUsername() == null){
             return null;
         }
 
@@ -37,8 +49,13 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         GrantedAuthority grantedAuthority = new SimpleGrantedAuthority("USER");
         grantedAuthorities.add(grantedAuthority);
         // 用户存在
-        if (aspnetUsers != null) {
+        /*if (aspnetUsers != null) {
             return new User(aspnetUsers.getUsername(),"$2a$10$/GjKa/yU7Y8SjZ6YGSa0ye7Zk118PNrVcpH32HcXaHrKBHTN2/qay", grantedAuthorities);
+        }*/
+
+        // 用户存在
+        if (wxEncryptedData != null && wxEncryptedData.getUserAuto() != null && wxEncryptedData.getUsername() != null) {
+            return new User(wxEncryptedData.getOpenId(),"$2a$10$/GjKa/yU7Y8SjZ6YGSa0ye7Zk118PNrVcpH32HcXaHrKBHTN2/qay", grantedAuthorities);
         }
 
         // 用户不存在
@@ -46,4 +63,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             return null;
         }
     }
+
+
 }

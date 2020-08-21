@@ -12,6 +12,14 @@ public interface UserFeign {
      * @param username
      * @return
      */
-    @GetMapping(value = "info/{username}")
-    String info(@PathVariable String username);
+//    @GetMapping(value = "info/{username}")
+//    String info(@PathVariable String username);
+
+    /**
+     * 获取微信个人信息
+     * @param openId
+     * @return
+     */
+    @GetMapping(value = "wxInfo/{openId}")
+    String wxInfo(@PathVariable String openId);
 }

@@ -2,6 +2,7 @@ package com.funtl.myshop.plus.business.controller;
 
 import com.funtl.myshop.plus.business.dto.LoginInfo;
 import com.funtl.myshop.plus.business.dto.LoginParam;
+import com.funtl.myshop.plus.business.dto.WxLoginInfo;
 import com.funtl.myshop.plus.business.feign.UserFeign;
 import com.funtl.myshop.plus.commons.dto.ResponseResult;
 import com.funtl.myshop.plus.commons.utils.MapperUtils;
@@ -10,6 +11,7 @@ import com.funtl.myshop.plus.provider.api.AspnetRolesService;
 import com.funtl.myshop.plus.provider.api.AspnetUsersService;
 import com.funtl.myshop.plus.provider.domain.AspnetRoles;
 import com.funtl.myshop.plus.provider.domain.AspnetUsers;
+import com.funtl.myshop.plus.provider.domain.WxEncryptedData;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import okhttp3.Response;
@@ -79,17 +81,17 @@ public class LoginController {
         Map<String, Object> result = Maps.newHashMap();
 
         // 验证密码是否正确
-        UserDetails userDetails = userDetailsService.loadUserByUsername(loginParam.getUsername());
+        UserDetails userDetails = userDetailsService.loadUserByUsername(loginParam.getOpenId());
         if (userDetails == null) {
-            return new ResponseResult<Map<String, Object>>(ResponseResult.CodeStatus.ILLEGAL_REQUEST, "用户不存在", null);
+            return new ResponseResult<Map<String, Object>>(ResponseResult.CodeStatus.ILLEGAL_REQUEST, "该用户没有使用权限", null);
         }
-        if (userDetails != null && !passwordEncoder.matches(loginParam.getPassword(), userDetails.getPassword())) {
+        /*if (userDetails != null && !passwordEncoder.matches(loginParam.getPassword(), userDetails.getPassword())) {
             return new ResponseResult<Map<String, Object>>(ResponseResult.CodeStatus.ILLEGAL_REQUEST, "密码错误", null);
-        }
+        }*/
 
         // 通过 HTTP 客户端请求登录接口
         Map<String, String> params = Maps.newHashMap();
-        params.put("username", loginParam.getUsername());
+        params.put("username", loginParam.getOpenId());
         params.put("password", loginParam.getPassword());
         params.put("grant_type", oauth2GrantType);
         params.put("client_id", oauth2ClientId);
@@ -114,7 +116,7 @@ public class LoginController {
      *
      * @return {@link ResponseResult}
      */
-    @GetMapping(value = "info")
+    /*@GetMapping(value = "info")
     public ResponseResult<LoginInfo> info(HttpServletRequest request) throws Exception {
         // 获取认证信息
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -141,6 +143,31 @@ public class LoginController {
         loginInfo.setUserAuto(aspnetUsers.getUserAuto());
         loginInfo.setRoleAutos(ids);
         return new ResponseResult<LoginInfo>(ResponseResult.CodeStatus.OK, "获取用户信息", loginInfo);
+    }*/
+
+    /**
+     * 获取微信用户信息
+     * @param request
+     * @return
+     * @throws Exception
+     */
+    @GetMapping(value = "wxInfo")
+    public ResponseResult<WxLoginInfo> wxInfo(HttpServletRequest request) throws Exception {
+        // 获取认证信息
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        // 获取微信个人信息
+        String jsonString = userFeign.wxInfo(authentication.getName());
+        WxEncryptedData wxEncryptedData = MapperUtils.json2pojoByTree(jsonString,"data",WxEncryptedData.class);
+        if(wxEncryptedData == null){
+            return MapperUtils.json2pojo(jsonString, ResponseResult.class);
+        }
+
+        // 封装并返回结果
+        WxLoginInfo wxLoginInfo = new WxLoginInfo();
+        wxLoginInfo.setUsername(wxEncryptedData.getUsername());
+        wxLoginInfo.setUserAuto(wxEncryptedData.getUserAuto());
+        return new ResponseResult<WxLoginInfo>(ResponseResult.CodeStatus.OK, "获取用户信息", wxLoginInfo);
     }
 
 
