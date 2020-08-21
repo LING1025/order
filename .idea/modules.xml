@@ -18,10 +18,14 @@
       <module fileurl="file://$PROJECT_DIR$/gateway/gateway.iml" filepath="$PROJECT_DIR$/gateway/gateway.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/order.iml" filepath="$PROJECT_DIR$/.idea/order.iml" />
       <module fileurl="file://$PROJECT_DIR$/provider/provider.iml" filepath="$PROJECT_DIR$/provider/provider.iml" />
+      <module fileurl="file://$PROJECT_DIR$/provider/provider-asp-api/provider-asp-api.iml" filepath="$PROJECT_DIR$/provider/provider-asp-api/provider-asp-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/provider/provider-asp-service/provider-asp-service.iml" filepath="$PROJECT_DIR$/provider/provider-asp-service/provider-asp-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/provider/provider-order-api/provider-order-api.iml" filepath="$PROJECT_DIR$/provider/provider-order-api/provider-order-api.iml" />
       <module fileurl="file://$PROJECT_DIR$/provider/provider-order-service/provider-order-service.iml" filepath="$PROJECT_DIR$/provider/provider-order-service/provider-order-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/provider/provider-user-api/provider-user-api.iml" filepath="$PROJECT_DIR$/provider/provider-user-api/provider-user-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/provider/provider-asp-api/provider-user-api (1).iml" filepath="$PROJECT_DIR$/provider/provider-asp-api/provider-user-api (1).iml" />
       <module fileurl="file://$PROJECT_DIR$/provider/provider-user-service/provider-user-service.iml" filepath="$PROJECT_DIR$/provider/provider-user-service/provider-user-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/provider/provider-asp-service/provider-user-service (1).iml" filepath="$PROJECT_DIR$/provider/provider-asp-service/provider-user-service (1).iml" />
     </modules>
   </component>
 </project>

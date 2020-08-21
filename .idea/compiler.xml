@@ -6,19 +6,23 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="provider-user-api" />
-        <module name="gateway" />
-        <module name="provider-user-service" />
         <module name="provider-order-service" />
+        <module name="provider-user-api" />
         <module name="business-user-feign" />
-        <module name="commons-dto" />
-        <module name="business-user-service" />
         <module name="commons-provider" />
-        <module name="provider-order-api" />
+        <module name="gateway" />
+        <module name="commons-dto" />
         <module name="business-order" />
-        <module name="commons-utils" />
-        <module name="business-oauth2" />
+        <module name="provider-asp-service" />
         <module name="configuration-feign" />
+        <module name="provider-order-api" />
+        <module name="provider-user-service" />
+        <module name="commons-utils" />
+        <module name="provider-user-service (1)" />
+        <module name="provider-asp-api" />
+        <module name="business-oauth2" />
+        <module name="provider-user-api (1)" />
+        <module name="business-user-service" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -38,10 +42,14 @@
       <module name="gateway" target="1.8" />
       <module name="order" target="1.8" />
       <module name="provider" target="1.8" />
+      <module name="provider-asp-api" target="1.8" />
+      <module name="provider-asp-service" target="1.8" />
       <module name="provider-order-api" target="1.8" />
       <module name="provider-order-service" target="1.8" />
       <module name="provider-user-api" target="1.8" />
+      <module name="provider-user-api (1)" target="1.8" />
       <module name="provider-user-service" target="1.8" />
+      <module name="provider-user-service (1)" target="1.8" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
@@ -55,10 +63,14 @@
       <module name="commons-utils" options="-parameters" />
       <module name="configuration-feign" options="-parameters" />
       <module name="gateway" options="-parameters" />
+      <module name="provider-asp-api" options="-parameters" />
+      <module name="provider-asp-service" options="-parameters" />
       <module name="provider-order-api" options="-parameters" />
       <module name="provider-order-service" options="-parameters" />
       <module name="provider-user-api" options="-parameters" />
+      <module name="provider-user-api (1)" options="-parameters" />
       <module name="provider-user-service" options="-parameters" />
+      <module name="provider-user-service (1)" options="-parameters" />
     </option>
   </component>
 </project>
