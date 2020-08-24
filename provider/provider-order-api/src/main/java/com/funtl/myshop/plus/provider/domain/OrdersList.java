@@ -62,6 +62,7 @@ public class OrdersList implements Serializable {
     /**
      * 客户来源::ItemCode.ItemType=313
      */
+
     @ApiModelProperty(value = "客户来源")
     private String custSourceName;
 
@@ -100,6 +101,9 @@ public class OrdersList implements Serializable {
     /**
      * 车辆来源::ItemCode.ItemType=503
      */
+    @JsonIgnore
+    private Integer carSource;
+
     @ApiModelProperty(value = "车辆来源")
     private String carSourceName;
 

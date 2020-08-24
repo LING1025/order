@@ -144,6 +144,12 @@ public class OrderController {
         }else {
             ordersList.setOverAmtY(ordersList.getOverAmt());
         }
+        //残值比例计算
+        if (ordersList.getCarSource() == 1 || ordersList.getCarSource() == 4){
+            ordersList.setOverP(Math.round(ordersList.getOverAmt().doubleValue()/ordersList.getGetPrice().doubleValue()*100) + "%");
+        }else {
+            ordersList.setOverP(Math.round(ordersList.getOverAmt().doubleValue()/ordersList.getListPrice().doubleValue()*100) + "%");
+        }
         ordersList.setOverAmtYName(ordersList.getOverAmtY() + " " + ordersList.getOverP());
         ordersList.setDptAmtName(ordersList.getDptAmt() + "(" + ordersList.getDptTypeName() + ")" + ordersList.getDptP());
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", ordersList);
