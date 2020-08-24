@@ -10,6 +10,7 @@ import javax.persistence.Table;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @ApiModel(value = "回租报价数据")
@@ -20,6 +21,15 @@ public class OrdersBackList implements Serializable {
 
     @ApiModelProperty(value = "试算单号")
     private Long ordersAuto;
+
+    /**
+     * 案件类别
+     */
+    @JsonIgnore
+    private Integer postType;
+
+    @ApiModelProperty(value = "回租报价")
+    private List<String> postTypeName;
 
     @ApiModelProperty(value = "原单号")
     private Long ordersOld;

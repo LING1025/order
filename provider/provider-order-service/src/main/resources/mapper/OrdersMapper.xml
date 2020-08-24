@@ -341,6 +341,7 @@
   </resultMap>
   <select id="selectOrdersBackList" resultMap="queryOrdersBackList">
     select
+    a.PostType,
     (select isnull(sum(FeeAmt),0) from OrdersFee where Orders_Auto=#{params} and FeeType_Auto not in(2,16)) feeAmt,
     (select isnull(sum(FeeAmt),0) from OrdersFee where Orders_Auto=#{params} and FeeType_Auto in(2)) gpsAmt,
     (select sum(InsureRealAmt) from OrdersInsureList where Orders_Auto = #{params}) insureRealAmt,

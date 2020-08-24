@@ -23,4 +23,18 @@
   <select id="selectByType" resultMap="queryByType">
     select Num from ItemCode where ItemType=#{itemType} and Num in (7,11,12,16,22,30,83,145) order by Seq desc
   </select>
+
+  <resultMap id="queryItemName1" extends="BaseResultMap" type="com.funtl.myshop.plus.provider.domain.ItemNameList"/>
+  <select id="selectItemName1" resultMap="queryItemName1">
+    Select ItemName
+    From ItemCode
+    Where ItemType = #{itemType} and Num=1
+    Order By  Seq,Num
+  </select>
+  <select id="selectItemName2" resultMap="queryItemName1">
+    Select ItemName
+    From ItemCode
+    Where ItemType = #{itemType} and Num<>1
+    Order By  Seq,Num
+  </select>
 </mapper>

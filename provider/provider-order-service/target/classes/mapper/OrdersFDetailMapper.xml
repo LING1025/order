@@ -38,6 +38,5 @@
     left join Orders b On b.Orders_Auto=a.DocPostID
     left join ItemCode c on c.ItemType = 1062 and c.Num = a.RoleID
     where a.DocPostID=#{param} And a.[status]=0 And a.Memo='999'
-    order by a.OrdersFDetail_Auto desc
   </select>
 </mapper>
