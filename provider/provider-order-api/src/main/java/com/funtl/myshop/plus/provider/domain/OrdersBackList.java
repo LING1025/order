@@ -25,11 +25,13 @@ public class OrdersBackList implements Serializable {
     /**
      * 案件类别
      */
-    @JsonIgnore
+    /*@JsonIgnore
     private Integer postType;
 
     @ApiModelProperty(value = "回租报价")
-    private List<ItemNameList> postTypeName;
+    private List<ItemNameList> postTypeName;*/
+    @ApiModelProperty(value = "回租报价")
+    private String postTypeName;
 
     @ApiModelProperty(value = "原单号")
     private Long ordersOld;

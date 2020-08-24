@@ -221,15 +221,17 @@ public class OrderController {
                                 + "(" + Math.round(p*100) + "%)");
         //折价金额
         ordersBackList.setDisPriceN(ordersBackList.getDisPrice()+"  "+ordersBackList.getGetPrice());
+        //厂牌车型
+        ordersBackList.setFactoryBrandName(ordersBackList.getFactoryBrandName() + " " + ordersBackList.getBrandName() + " " + ordersBackList.getClasenName());
 
-        if(ordersBackList.getPostType() == 1){
+        /*if(ordersBackList.getPostType() == 1){
             List<ItemNameList> itemNameLists = itemCodeService.selectItemName1(413);
             ordersBackList.setPostTypeName(itemNameLists);
         }
         if(ordersBackList.getPostType() != 1){
             List<ItemNameList> itemNameLists = itemCodeService.selectItemName2(413);
             ordersBackList.setPostTypeName(itemNameLists);
-        }
+        }*/
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", ordersBackList);
     }
 

@@ -337,11 +337,12 @@
     <result column="rentMAmt" jdbcType="DECIMAL" property="rentMAmt" />
     <result column="gpsAmt" jdbcType="DECIMAL" property="gpsAmt" />
     <result column="insureRealAmt" jdbcType="DECIMAL" property="insureRealAmt" />
+    <result column="postTypeName" jdbcType="VARCHAR" property="postTypeName" />
 
   </resultMap>
   <select id="selectOrdersBackList" resultMap="queryOrdersBackList">
     select
-    a.PostType,
+    p.ItemName AS postTypeName,
     (select isnull(sum(FeeAmt),0) from OrdersFee where Orders_Auto=#{params} and FeeType_Auto not in(2,16)) feeAmt,
     (select isnull(sum(FeeAmt),0) from OrdersFee where Orders_Auto=#{params} and FeeType_Auto in(2)) gpsAmt,
     (select sum(InsureRealAmt) from OrdersInsureList where Orders_Auto = #{params}) insureRealAmt,
@@ -392,6 +393,7 @@
     inner join Itemcode n on a.InsurePercnt = n.Num and n.ItemType = 410
 	inner join ItemCode o on o.itemtype = 135 and o.num = a.MortgageAddr
     left join Itemcode f on a.OrderType = f.Num and f.ItemType = 326
+    left join Itemcode p on a.PostType = p.Num and p.ItemType = 413
     where
     a.Orders_Auto =  #{params}
   </select>
