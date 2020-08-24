@@ -31,6 +31,9 @@ public class OrdersList implements Serializable {
     /**
      * 租赁性质::ItemCode.ItemType=314
      */
+    @JsonIgnore
+    private Integer rentType;
+
     @ApiModelProperty(value = "租赁性质")
     private String rentTypeName;
 

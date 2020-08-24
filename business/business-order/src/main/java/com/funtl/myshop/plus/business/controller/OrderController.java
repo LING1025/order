@@ -192,6 +192,15 @@ public class OrderController {
         OrdersList ordersList = ordersService.selectByOrdersAuto(ordersAuto);
         ordersList.setFName(ordersList.getFName() + " " + ordersList.getTradeItemAuto());
         ordersList.setFactoryBrandName(ordersList.getFactoryBrandName() + " " + ordersList.getBrandName() + " " + ordersList.getClasenName());
+        if (ordersList.getRentType() == 2){
+            if (ordersList.getOverAmtY().toString() == "" || ordersList.getOverAmtY() == BigDecimal.valueOf(0)) {
+                ordersList.setOverAmtY(ordersList.getOverAmt());
+            }else {
+                ordersList.setOverAmtY(ordersList.getOverAmtY());
+            }
+        }else {
+            ordersList.setOverAmtY(ordersList.getOverAmt());
+        }
         ordersList.setOverAmtYName(ordersList.getOverAmtY() + " " + ordersList.getOverP());
         ordersList.setDptAmtName(ordersList.getDptAmt() + "(" + ordersList.getDptTypeName() + ")" + ordersList.getDptP());
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", ordersList);
