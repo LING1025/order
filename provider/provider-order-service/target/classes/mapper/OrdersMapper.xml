@@ -326,7 +326,7 @@
 <!--    <result column="rentRateY" jdbcType="VARCHAR" property="rentRateY" />-->
     <result column="irr" jdbcType="VARCHAR" property="irr" />
     <result column="rateRate" jdbcType="VARCHAR" property="rateRate" />
-    <result column="rentRate" jdbcType="VARCHAR" property="rentRate" />
+    <result column="rentRateN" jdbcType="VARCHAR" property="rentRateN" />
     <result column="carPlace" jdbcType="VARCHAR" property="carPlace" />
     <result column="rateTaxy" jdbcType="VARCHAR" property="rateTaxy" />
     <result column="salesTax" jdbcType="DECIMAL" property="salesTax" />
@@ -372,7 +372,8 @@
 	a.TaxMode,
 	convert(varchar(10),convert(decimal(18,2),(a.RateRate)))+'%' as rateRate,
     a.TaxRate AS salesTax,
-	convert(varchar(10),convert(decimal(18,2),(a.rentRate)))+'%' as rentRate,
+    a.rentRate,
+	convert(varchar(10),convert(decimal(18,2),(a.rentRate)))+'%' as rentRateN,
 	a.IsBigTradeItem AS isBigTra,a.FinalTax,f.ItemName AS orderTypeName,
     convert(varchar(10),convert(decimal(18,2),(a.commissionRate)))+'%' as commissionRate,
     a.MAmt AS rentMAmt

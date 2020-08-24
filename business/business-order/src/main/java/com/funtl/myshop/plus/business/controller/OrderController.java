@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import com.funtl.myshop.plus.provider.dto.RoleList;;
 import javax.validation.Valid;
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -196,6 +197,13 @@ public class OrderController {
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", ordersList);
     }
 
+    public static double calculatePMT(double rate, double nper, double pv) {
+        double v = (1 + (rate /100 / 12));
+        double t = (-(nper / 12) * 12);
+        double result = (pv * (rate /100 / 12)) / (1 - Math.pow(v, t));
+        return result;
+    }
+
     @ApiOperation(value = " 获取回租试算签核外部所有信息")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "ordersAuto", value = "试算单号", required = false, dataType = "long", paramType = "path")
@@ -205,6 +213,12 @@ public class OrderController {
         if (ordersAuto == null){
             throw new BusinessException(BusinessStatus.PARAM_ERROR);        }
         OrdersBackList ordersBackList = ordersService.selectOrdersBackList(ordersAuto);
+        //退税年化利率计算
+        double rentRateY = (calculatePMT(ordersBackList.getRentRate().doubleValue(), ordersBackList.getMm(), 1) * ordersBackList.getMm()-1)*100*12/ordersBackList.getMm();
+        //四舍五入保留两位小数
+        BigDecimal bg = new BigDecimal(rentRateY);
+        double f1 = bg.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+        ordersBackList.setRentRateY(f1+"%");
         //GPS安装
         if(ordersBackList.getGpsAmt().compareTo(BigDecimal.valueOf(0)) == 1){
             ordersBackList.setGps(1);

@@ -270,8 +270,11 @@ public class OrdersBackList implements Serializable {
     @ApiModelProperty(value = "年利率(含税)")
     private String rateRate;
 
+    @JsonIgnore
+    private BigDecimal rentRate;
+
     @ApiModelProperty(value = "退税年利率")
-    private String rentRate;
+    private String rentRateN;
 
     @ApiModelProperty(value = "增税值 %总和")
     private Integer taxMode;
