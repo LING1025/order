@@ -34,7 +34,7 @@
   <select id="selectItemName2" resultMap="queryItemName1">
     Select ItemName
     From ItemCode
-    Where ItemType = #{itemType} and Num<>1
+    Where ItemType = #{itemType} and Num!=1
     Order By  Seq,Num
   </select>
 </mapper>

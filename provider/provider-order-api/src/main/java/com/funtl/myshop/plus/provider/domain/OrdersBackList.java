@@ -29,7 +29,7 @@ public class OrdersBackList implements Serializable {
     private Integer postType;
 
     @ApiModelProperty(value = "回租报价")
-    private List<String> postTypeName;
+    private List<ItemNameList> postTypeName;
 
     @ApiModelProperty(value = "原单号")
     private Long ordersOld;
