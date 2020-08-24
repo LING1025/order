@@ -1,25 +1,16 @@
 package com.funtl.myshop.plus.business.controller;
 
-import com.funtl.myshop.plus.business.dto.LoginInfo;
 import com.funtl.myshop.plus.business.dto.LoginParam;
 import com.funtl.myshop.plus.business.dto.WxLoginInfo;
 import com.funtl.myshop.plus.business.feign.UserFeign;
 import com.funtl.myshop.plus.commons.dto.ResponseResult;
 import com.funtl.myshop.plus.commons.utils.MapperUtils;
 import com.funtl.myshop.plus.commons.utils.OkHttpClientUtil;
-import com.funtl.myshop.plus.provider.api.AspnetRolesService;
-import com.funtl.myshop.plus.provider.api.AspnetUsersService;
-import com.funtl.myshop.plus.provider.domain.AspnetRoles;
-import com.funtl.myshop.plus.provider.domain.AspnetUsers;
 import com.funtl.myshop.plus.provider.domain.WxEncryptedData;
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import okhttp3.Response;
-import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -30,7 +21,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 /**
@@ -60,12 +50,6 @@ public class LoginController {
     @Resource
     public TokenStore tokenStore;
 
-    @Reference(version = "1.0.0")
-    private AspnetUsersService aspnetUsersService;
-
-    @Reference(version = "1.0.0")
-    private AspnetRolesService aspnetRolesService;
-
     @Resource
     private UserFeign userFeign;
 
@@ -85,9 +69,6 @@ public class LoginController {
         if (userDetails == null) {
             return new ResponseResult<Map<String, Object>>(ResponseResult.CodeStatus.ILLEGAL_REQUEST, "该用户没有使用权限", null);
         }
-        /*if (userDetails != null && !passwordEncoder.matches(loginParam.getPassword(), userDetails.getPassword())) {
-            return new ResponseResult<Map<String, Object>>(ResponseResult.CodeStatus.ILLEGAL_REQUEST, "密码错误", null);
-        }*/
 
         // 通过 HTTP 客户端请求登录接口
         Map<String, String> params = Maps.newHashMap();
@@ -111,39 +92,6 @@ public class LoginController {
         return new ResponseResult<Map<String, Object>>(ResponseResult.CodeStatus.OK, "登录成功", result);
     }
 
-    /**
-     * 获取用户信息
-     *
-     * @return {@link ResponseResult}
-     */
-    /*@GetMapping(value = "info")
-    public ResponseResult<LoginInfo> info(HttpServletRequest request) throws Exception {
-        // 获取认证信息
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
-        // 获取个人信息
-        String jsonString = userFeign.info(authentication.getName());
-        AspnetUsers aspnetUsers = MapperUtils.json2pojoByTree(jsonString,"data",AspnetUsers.class);
-        if(aspnetUsers == null){
-            return MapperUtils.json2pojo(jsonString, ResponseResult.class);
-        }
-
-        AspnetUsers au = aspnetUsersService.selectById(aspnetUsers.getUserAuto());
-
-        //获取角色
-        List<AspnetRoles> list = aspnetRolesService.selectByUserId(au.getUserId());
-        List<Long> ids = Lists.newArrayList();
-        for(AspnetRoles aspnetRoles : list){
-            ids.add(aspnetRoles.getRolesAuto());
-        }
-
-        // 封装并返回结果
-        LoginInfo loginInfo = new LoginInfo();
-        loginInfo.setName(aspnetUsers.getUsername());
-        loginInfo.setUserAuto(aspnetUsers.getUserAuto());
-        loginInfo.setRoleAutos(ids);
-        return new ResponseResult<LoginInfo>(ResponseResult.CodeStatus.OK, "获取用户信息", loginInfo);
-    }*/
 
     /**
      * 获取微信用户信息
