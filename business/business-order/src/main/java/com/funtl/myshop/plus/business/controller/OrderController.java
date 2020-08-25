@@ -171,6 +171,9 @@ public class OrderController {
         if (ordersAuto == null){
             throw new BusinessException(BusinessStatus.PARAM_ERROR);        }
         OrdersBackList ordersBackList = ordersService.selectOrdersBackList(ordersAuto);
+        if (ordersBackList.getTaxMode() == 5){
+            ordersBackList.setTaxMode(6);
+        }
         //已用里程
         ordersBackList.setUseKmN(ordersBackList.getUsekm()+"公里");
         //退税年化利率计算
@@ -191,7 +194,7 @@ public class OrderController {
                         .add(ordersBackList.getOutFee().add(ordersBackList.getCarExtensionAmt())))))))).doubleValue();
         double p = ((ordersBackList.getRentAmt().subtract(ordersBackList.getStampTax())).doubleValue())*1.0/
                 ((ordersBackList.getListPrice().subtract(ordersBackList.getDisPrice())).doubleValue() + dFee);
-        double amtP = Math.round(ordersBackList.getRentAmt().subtract(ordersBackList.getStampTax()).doubleValue());
+        Integer amtP = Math.round(ordersBackList.getRentAmt().subtract(ordersBackList.getStampTax()).intValue());
         ordersBackList.setAmtP(amtP + "(" + Math.round(p*100) + "%)");
         //折价金额
         ordersBackList.setDisPriceN(ordersBackList.getDisPrice()+"  "+ordersBackList.getGetPrice());
