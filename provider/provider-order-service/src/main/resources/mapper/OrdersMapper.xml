@@ -224,12 +224,16 @@
     <result column="a5" jdbcType="VARCHAR" property="a5" />
     <result column="repurchaseAmt" jdbcType="DECIMAL" property="repurchaseAmt" />
     <result column="bsTypeName" jdbcType="VARCHAR" property="bsTypeName" />
-
+    <result column="insureTypeName" jdbcType="VARCHAR" property="insureTypeName" />
+    <result column="insurePercntName" jdbcType="VARCHAR" property="insurePercntName" />
+    <result column="carPlace" jdbcType="VARCHAR" property="carPlace" />
+<!--    <result column="insureRealAmt" jdbcType="DECIMAL" property="insureRealAmt" />-->
   </resultMap>
   <select id="selectByOrdersAuto" resultMap="queryByOrdersAuto">
     select
-    a.Orders_Auto,a.Orders_Old,a.MM,
+    a.Orders_Auto,a.Orders_Old,a.MM,a.isRelet,
     o.ItemName AS dptTypeName,
+<!--    (select CONVERT(decimal(18,2),sum(InsureRealAmt)/count(*)) from OrdersInsureList where Orders_Auto = #{params}) insureRealAmt,-->
     convert(varchar(10),convert(decimal(18,2),((cast(a.DptAmt as decimal) *100/cast(a.CarCost as decimal)))))+'%' as dptP,
     case when p.ItemName is null then '' else ' :    ' + p.ItemName end dptTaxPayN,
     m.ItemName AS postTypeName,n.ItemName AS orderStatusName,
@@ -251,7 +255,9 @@
     a.RentAmtT,a.GrossMargin,a.Memo,
     convert(varchar(10),convert(decimal(18,2),(a.IRR)))+'%' as irr,
     convert(varchar(10),convert(decimal(18,2),(a.GrossMarginT)))+'%' as grossMarginT,
-    isnull(a.A1,'') AS a1,isnull(a.A2,'') AS a2,isnull(a.A3,'') AS a3,isnull(a.A4,'') AS a4,isnull(a.A5,'') AS a5
+    isnull(a.A1,'') AS a1,isnull(a.A2,'') AS a2,isnull(a.A3,'') AS a3,isnull(a.A4,'') AS a4,isnull(a.A5,'') AS a5,
+    s.ItemName AS insureTypeName,t.ItemName As insurePercntName,
+    a.Percnt,u.ItemName as carPlace
     from
     Orders a
     left join v_Emp b on a.Sales_Auto = b.User_Auto
@@ -272,6 +278,9 @@
     left join ItemCode p on p.ItemType = 333 and p.Num = a.DptTaxPay
     left join ItemCode q on q.ItemType = 412 and q.Num = a.MakNoType
     left join ItemCode r on r.ItemType = 841 and r.Num = a.BsType
+    inner join Itemcode s on a.InsureType = s.Num and s.ItemType = 411
+    inner join Itemcode t on a.InsurePercnt = t.Num and t.ItemType = 410
+    inner join ItemCode u on u.itemtype = 227 and u.num = a.CarPlace
     where
     a.Orders_Auto = #{params}
   </select>
@@ -321,12 +330,8 @@
     <result column="a4" jdbcType="VARCHAR" property="a4" />
     <result column="a5" jdbcType="VARCHAR" property="a5" />
     <result column="bsTypeName" jdbcType="VARCHAR" property="bsTypeName" />
-    <result column="irr" jdbcType="VARCHAR" property="irr" />
-<!--    <result column="rentRateY" jdbcType="VARCHAR" property="rentRateY" />-->
-    <result column="irr" jdbcType="VARCHAR" property="irr" />
     <result column="rateRate" jdbcType="VARCHAR" property="rateRate" />
     <result column="rentRateN" jdbcType="VARCHAR" property="rentRateN" />
-    <result column="carPlace" jdbcType="VARCHAR" property="carPlace" />
     <result column="rateTaxy" jdbcType="VARCHAR" property="rateTaxy" />
     <result column="salesTax" jdbcType="DECIMAL" property="salesTax" />
     <result column="isBigTra" jdbcType="BIGINT" property="isBigTra" />
@@ -338,6 +343,9 @@
     <result column="insureRealAmt" jdbcType="DECIMAL" property="insureRealAmt" />
     <result column="postTypeName" jdbcType="VARCHAR" property="postTypeName" />
     <result column="finalTax" jdbcType="DECIMAL" property="finalTax" />
+    <result column="insureTypeName" jdbcType="VARCHAR" property="insureTypeName" />
+    <result column="insurePercntName" jdbcType="VARCHAR" property="insurePercntName" />
+    <result column="carPlace" jdbcType="VARCHAR" property="carPlace" />
   </resultMap>
   <select id="selectOrdersBackList" resultMap="queryOrdersBackList">
     select

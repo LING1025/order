@@ -128,6 +128,9 @@ public class OrdersList implements Serializable {
     @ApiModelProperty(value = "续租新车旧车号")
     private String reletMakNo;
 
+    @ApiModelProperty(value = "续租新车 0 false 1 true")
+    private Integer isRelet;
+
     /**
      * 牌照资料 可以看carBase表 Inc表
      */
@@ -278,6 +281,23 @@ public class OrdersList implements Serializable {
     /**
      * 保险内容
      */
+    @ApiModelProperty(value = "性质类别")
+    private String insureTypeName;
+
+    @ApiModelProperty(value = "座位类别")
+    private String insurePercntName;
+
+    @ApiModelProperty(value = "座位数")
+    private Integer percnt;
+
+    @ApiModelProperty(value = "产地")
+    private String carPlace;
+
+    /*@JsonIgnore
+    private BigDecimal insureRealAmt;
+
+    @ApiModelProperty(value = "保险成本(年)")
+    private String InsureYG;*/
 
     /**
      * 配件明细

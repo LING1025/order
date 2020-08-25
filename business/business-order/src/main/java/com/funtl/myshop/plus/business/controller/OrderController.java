@@ -133,8 +133,13 @@ public class OrderController {
         if (ordersAuto == null){
             throw new BusinessException(BusinessStatus.PARAM_ERROR);        }
         OrdersList ordersList = ordersService.selectByOrdersAuto(ordersAuto);
+        //保险成本(年)
+//        ordersList.setInsureYG("保险成本(年) : "+ordersList.getInsureRealAmt());
+        //客户全称
         ordersList.setFName(ordersList.getFName() + " " + ordersList.getTradeItemAuto());
+        //厂牌车型
         ordersList.setFactoryBrandName(ordersList.getFactoryBrandName() + " " + ordersList.getBrandName() + " " + ordersList.getClasenName());
+        //残值判断
         if (ordersList.getRentType() == 2){
             if (ordersList.getOverAmtY().toString() == "" || ordersList.getOverAmtY() == BigDecimal.valueOf(0)) {
                 ordersList.setOverAmtY(ordersList.getOverAmt());
@@ -150,7 +155,9 @@ public class OrderController {
         }else {
             ordersList.setOverP(Math.round(ordersList.getOverAmt().doubleValue()/ordersList.getListPrice().doubleValue()*100) + "%");
         }
+        //残值
         ordersList.setOverAmtYName(Math.round(ordersList.getOverAmtY().intValue()) + " " + ordersList.getOverP());
+        //保证金
         ordersList.setDptAmtName(Math.round(ordersList.getDptAmt().intValue()) + "(" + ordersList.getDptTypeName() + ")" + ordersList.getDptP());
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", ordersList);
     }
@@ -224,7 +231,7 @@ public class OrderController {
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", lists);
     }
 
-    @ApiOperation(value = " 根据试算单号获取保险明细上部分信息")
+    /*@ApiOperation(value = " 根据试算单号获取保险明细上部分信息")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "ordersAuto", value = "试算单号", required = false, dataType = "long", paramType = "path")
     })
@@ -234,7 +241,7 @@ public class OrderController {
             throw new BusinessException(BusinessStatus.PARAM_ERROR);        }
         InsuranceList insuranceList = ordersInsureYearsService.selectInsuranceList(ordersAuto);
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", insuranceList);
-    }
+    }*/
 
     @ApiOperation(value = " 根据试算单号和年份获取保单明细(点开后的表格)")
     @ApiImplicitParams({
