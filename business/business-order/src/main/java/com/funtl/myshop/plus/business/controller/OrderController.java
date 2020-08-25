@@ -171,6 +171,8 @@ public class OrderController {
         if (ordersAuto == null){
             throw new BusinessException(BusinessStatus.PARAM_ERROR);        }
         OrdersBackList ordersBackList = ordersService.selectOrdersBackList(ordersAuto);
+        //已用里程
+        ordersBackList.setUseKmN(ordersBackList.getUsekm()+"公里");
         //退税年化利率计算
         double rentRateY = (calculatePMT(ordersBackList.getRentRate().doubleValue(), ordersBackList.getMm(), 1) * ordersBackList.getMm()-1)*100*12/ordersBackList.getMm();
         //四舍五入保留两位小数
@@ -184,13 +186,13 @@ public class OrderController {
             ordersBackList.setGps(0);
         }
         //贷款金额与贷款成数的计算公式
-        Double dFee = (ordersBackList.getInsureRealAmt().add(ordersBackList.getAccessary().add(ordersBackList.getFeeAmt()
+        double dFee = (ordersBackList.getInsureRealAmt().add(ordersBackList.getAccessary().add(ordersBackList.getFeeAmt()
                         .add(ordersBackList.getCarTax().add(ordersBackList.getFinanceFee().add(ordersBackList.getUrgentFee()
                         .add(ordersBackList.getOutFee().add(ordersBackList.getCarExtensionAmt())))))))).doubleValue();
-        Double p = ((ordersBackList.getRentAmt().subtract(ordersBackList.getStampTax())).doubleValue())*1.0/
+        double p = ((ordersBackList.getRentAmt().subtract(ordersBackList.getStampTax())).doubleValue())*1.0/
                 ((ordersBackList.getListPrice().subtract(ordersBackList.getDisPrice())).doubleValue() + dFee);
-        ordersBackList.setAmtP(ordersBackList.getRentAmt().subtract(ordersBackList.getStampTax()).toString()
-                                + "(" + Math.round(p*100) + "%)");
+        double amtP = Math.round(ordersBackList.getRentAmt().subtract(ordersBackList.getStampTax()).doubleValue());
+        ordersBackList.setAmtP(amtP + "(" + Math.round(p*100) + "%)");
         //折价金额
         ordersBackList.setDisPriceN(ordersBackList.getDisPrice()+"  "+ordersBackList.getGetPrice());
         //厂牌车型

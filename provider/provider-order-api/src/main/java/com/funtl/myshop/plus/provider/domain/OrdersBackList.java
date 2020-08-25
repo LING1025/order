@@ -132,6 +132,9 @@ public class OrdersBackList implements Serializable {
     private Integer mm2;
 
     @ApiModelProperty(value = "已用里程")
+    private String useKmN;
+
+    @JsonIgnore
     private Integer usekm;
 
     /**

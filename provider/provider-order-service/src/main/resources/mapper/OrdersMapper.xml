@@ -337,16 +337,15 @@
     <result column="gpsAmt" jdbcType="DECIMAL" property="gpsAmt" />
     <result column="insureRealAmt" jdbcType="DECIMAL" property="insureRealAmt" />
     <result column="postTypeName" jdbcType="VARCHAR" property="postTypeName" />
-
+    <result column="finalTax" jdbcType="DECIMAL" property="finalTax" />
   </resultMap>
   <select id="selectOrdersBackList" resultMap="queryOrdersBackList">
     select
     p.ItemName AS postTypeName,
-    (select isnull(sum(FeeAmt),0) from OrdersFee where Orders_Auto=#{params} and FeeType_Auto not in(2,16)) feeAmt,
-    (select isnull(sum(FeeAmt),0) from OrdersFee where Orders_Auto=#{params} and FeeType_Auto in(2)) gpsAmt,
+    (select isnull(convert(decimal(18,0),(sum(FeeAmt))),0) from OrdersFee where Orders_Auto=#{params} and FeeType_Auto not in(2,16)) feeAmt,
+    (select isnull(convert(decimal(18,0),(sum(FeeAmt))),0) from OrdersFee where Orders_Auto=#{params} and FeeType_Auto in(2)) gpsAmt,
     (select sum(InsureRealAmt) from OrdersInsureList where Orders_Auto = #{params}) insureRealAmt,
     a.Orders_Auto,a.Orders_Old,a.MM,
-    convert(varchar(10),convert(decimal(18,2),((cast(a.DptAmt as decimal) *100/cast(a.CarCost as decimal)))))+'%' as dptP,
     a.TradeItem_Auto,c.FName AS fName,b.FName AS salesname,
     g.ItemName AS custSourceName,
     a.PushMan,isnull(a.PushTEL,'') AS pushTel,supplierBuyName = Supplier_Buy.FName,
@@ -355,9 +354,13 @@
     a.CarColor,h.ItemName AS carSourceName,
     a.ClasenCode,a.CC,i.ItemName AS oilName,
     r.ItemName AS bsTypeName,a.MakNo,d.FName AS carIncName,
-    a.ListPrice,a.DisPrice,a.CarPriceRef,a.GetPrice,
-    a.Accessary,a.CarTax,a.PushMoney,
-    a.DptAmt,a.RentAmt,
+    convert(decimal(18,0),(a.ListPrice)) as ListPrice,
+    convert(decimal(18,0),(a.DisPrice)) as DisPrice,
+    convert(decimal(18,0),(a.GetPrice)) as GetPrice,
+    a.CarPriceRef,
+    convert(decimal(18,0),(a.Accessary)) as Accessary,
+    a.CarTax,a.PushMoney,
+    convert(decimal(18,0),(a.DptAmt)) as DptAmt,a.RentAmt,
     a.CarExtensionAmt,a.OutFee,a.FinanceFee,a.UrgentFee,
     a.StampTax,a.PayMode,a.PayDay,
     a.RentAmtT,a.GrossMargin,a.Memo,
@@ -366,14 +369,16 @@
     isnull(a.A1,'') AS a1,isnull(a.A2,'') AS a2,isnull(a.A3,'') AS a3,isnull(a.A4,'') AS a4,isnull(a.A5,'') AS a5,
     o.ItemName AS mortgageAddrN,
 	a.MM2,a.UseKM,a.Weight, m.ItemName AS insureTypeName,n.ItemName As insurePercntName,
-	a.Percnt,a.CarPlace,a.Discount,
+	a.Percnt,a.Discount,
+    q.ItemName as carPlace,
 	convert(varchar(10),convert(decimal(18,2),(a.RateTaxY)))+'%' as rateTaxY,
 	a.TaxMode,
 	convert(varchar(10),convert(decimal(18,2),(a.RateRate)))+'%' as rateRate,
     a.TaxRate AS salesTax,
     a.rentRate,
 	convert(varchar(10),convert(decimal(18,2),(a.rentRate)))+'%' as rentRateN,
-	a.IsBigTradeItem AS isBigTra,a.FinalTax,f.ItemName AS orderTypeName,
+    convert(decimal(18,2),(a.FinalTax)) as finalTax,
+	a.IsBigTradeItem AS isBigTra,f.ItemName AS orderTypeName,
     convert(varchar(10),convert(decimal(18,2),(a.commissionRate)))+'%' as commissionRate,
     a.MAmt AS rentMAmt
 	from
@@ -394,6 +399,7 @@
 	inner join ItemCode o on o.itemtype = 135 and o.num = a.MortgageAddr
     left join Itemcode f on a.OrderType = f.Num and f.ItemType = 326
     left join Itemcode p on a.PostType = p.Num and p.ItemType = 413
+    inner join ItemCode q on q.itemtype = 227 and q.num = a.CarPlace
     where
     a.Orders_Auto =  #{params}
   </select>
