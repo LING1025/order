@@ -150,8 +150,8 @@ public class OrderController {
         }else {
             ordersList.setOverP(Math.round(ordersList.getOverAmt().doubleValue()/ordersList.getListPrice().doubleValue()*100) + "%");
         }
-        ordersList.setOverAmtYName(ordersList.getOverAmtY() + " " + ordersList.getOverP());
-        ordersList.setDptAmtName(ordersList.getDptAmt() + "(" + ordersList.getDptTypeName() + ")" + ordersList.getDptP());
+        ordersList.setOverAmtYName(Math.round(ordersList.getOverAmtY().intValue()) + " " + ordersList.getOverP());
+        ordersList.setDptAmtName(Math.round(ordersList.getDptAmt().intValue()) + "(" + ordersList.getDptTypeName() + ")" + ordersList.getDptP());
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", ordersList);
     }
 
