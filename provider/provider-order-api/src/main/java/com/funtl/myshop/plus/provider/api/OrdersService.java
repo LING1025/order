@@ -34,4 +34,11 @@ public interface OrdersService{
      */
     OrdersBackList selectOrdersBackList(Long ordersAuto);
 
+    /**
+     * 根据试算单号判断试算单号框外面显示的值
+     * @param ordersAuto
+     * @return
+     */
+    MsgDto selectMsg(Long ordersAuto);
+
 }

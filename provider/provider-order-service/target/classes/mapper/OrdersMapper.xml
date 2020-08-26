@@ -416,4 +416,88 @@
     where
     a.Orders_Auto =  #{params}
   </select>
+  <resultMap id="queryMsg" extends="BaseResultMap" type="com.funtl.myshop.plus.provider.domain.MsgDto">
+    <result column="msg" jdbcType="VARCHAR" property="msg" />
+  </resultMap>
+  <select id="selectMsg" resultMap="queryMsg">
+    declare @Orders_Auto int
+    set @Orders_Auto = 221014
+    Declare @ServiceCost_ int,@ServiceCost int,@CarTax_ Decimal(10,2),@CarTax Decimal(10,2)
+    Declare @ListPrice Decimal(10,2),@OverAmt Decimal(10,2),@MM int,@TaxMode int,@chkListPrice int,@MSG NVARCHAR(500),
+    @PushMoney_ Decimal(10,2),@PushMoney Decimal(10,2),@OverP_ Decimal(10,2),@OverP Decimal(10,2),@Orders_Old bigint,@OrderStatus int,
+    @CC int,@CDT datetime,@Tax Decimal(16,2)
+
+    Select @MSG=''
+
+    select @ListPrice =ListPrice,@OverAmt=OverAmt,@MM=MM,@CarTax=CarTax,@TaxMode =TaxMode,@chkListPrice =chkListPrice,@Orders_Old=Orders_Old,@CC = CC,@CDT=CDT,@Tax = b.V1
+    from [Orders] a (nolock)
+    left join ItemCode b on b.ItemType = 2014 and b.num =a.TaxMode
+    where orders_auto=@Orders_Auto
+
+    if (@CC &lt;= 1600 and year(@CDT) &lt; 2017)
+    BEGIN
+    SELECT @MSG=@MSG+'从2015年10月1日到2016年12月31日,对购买1.6升及以下排量乘用车实施减半征收车辆购置税的优惠政策！'
+    END
+
+    if @Orders_Old  &gt; 0
+    BEGIN
+    select @OrderStatus=isnull(OrderStatus,0)
+    from [Orders] (nolock)
+    where orders_auto=@Orders_Old
+
+    SELECT @MSG=CASE When @OrderStatus=30 then '原单授信已核准 ' When @OrderStatus=50 then '原单已转申购 ' ELSE '' End
+    END
+
+
+    if @chkListPrice=0 And @TaxMode=3
+    BEGIN
+    SELECT @MSG=@MSG+'购车发票不能抵扣 '
+    END
+
+
+    if ((@CC &gt; 1600 and @CarTax &lt; Round(@ListPrice/11.3,0)) or (@CC &lt;= 1600 and year(@CDT) &lt; 2017 and @CarTax &lt; Round(@ListPrice/(1+@Tax)*0.05,0)))
+    BEGIN
+    SELECT @MSG=@MSG+' 购置税必需大于' + convert(varchar(20), convert(decimal(18,2), case when @CC &gt; 1600 then Round(@ListPrice/11.3,0) else Round(@ListPrice/(1+@Tax)*0.05,0) end))
+    END
+
+
+    Select @ServiceCost_=isNULL(A1,0) FROM ItemCode (nolock)
+    Where ItemType=328 And @ListPrice between V1 And V2
+
+    select @ServiceCost=PA from [OrdersBudget] (nolock) where orders_auto=@Orders_Auto And Type_auto=4
+
+    if @ServiceCost &lt; @ServiceCost_
+    BEGIN
+    SELECT @MSG=@MSG+' 服务费标准为' +Convert(NVARCHAR(20),@ServiceCost_)
+    END
+
+    Select @MM=Case When @MM &lt;=12 Then 12
+    When @MM &lt;=24 Then 24
+    else 36 End
+
+    Select @OverP_=Case	When @MM &lt;=12 Then .5
+    When @MM &lt;=24 Then .4
+    else .3 End
+    if @OverAmt=0
+    BEGIN
+    SELECT @MSG=@MSG+' 残值标准为' +Convert(NVARCHAR(20),@OverP_*100)+'%'
+    END
+    ELSE
+    BEGIN
+    if @ListPrice/@OverAmt>@OverP_
+    BEGIN
+    SELECT @MSG=@MSG+' 残值标准为' +Convert(NVARCHAR(20),@OverP_*100)+'%'
+    END
+    END
+
+    Select @PushMoney_=isNull( A1,0) FROM ItemCode (nolock)
+    Where ItemType = 330 And @ListPrice between V1 And V2 And @MM=ItemName
+
+    if @PushMoney_ &lt; @PushMoney
+    BEGIN
+    SELECT @MSG=@MSG+' 佣金必需小于' +Convert(NVARCHAR(20),@PushMoney_)
+    END
+
+    SELECT @MSG AS msg
+  </select>
 </mapper>

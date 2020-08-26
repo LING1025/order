@@ -35,4 +35,9 @@ public class OrdersServiceImpl implements OrdersService{
         return ordersMapper.selectOrdersBackList(ordersAuto);
     }
 
+    @Override
+    public MsgDto selectMsg(Long ordersAuto) {
+        return ordersMapper.selectMsg(ordersAuto);
+    }
+
 }

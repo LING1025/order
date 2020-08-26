@@ -15,6 +15,9 @@ import java.util.Date;
 @ApiModel(value = "直租数据")
 public class OrdersList implements Serializable {
 
+    @ApiModelProperty(value = "试算单号框外面显示的值")
+    private String msg;
+
     @ApiModelProperty(value = "试算单号")
     private Long ordersAuto;
 

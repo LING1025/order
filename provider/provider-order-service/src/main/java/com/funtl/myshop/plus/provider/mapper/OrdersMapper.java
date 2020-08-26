@@ -14,4 +14,6 @@ public interface OrdersMapper extends MyMapper<Orders> {
     List<SupplierList> selectSupplierList(@Param("params") Long ordersAuto);
 
     OrdersBackList selectOrdersBackList(@Param("params") Long ordersAuto);
+
+    MsgDto selectMsg(@Param("params") Long ordersAuto);
 }
