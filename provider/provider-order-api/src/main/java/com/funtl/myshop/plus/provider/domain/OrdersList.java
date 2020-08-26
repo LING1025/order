@@ -2,6 +2,7 @@ package com.funtl.myshop.plus.provider.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -11,6 +12,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 @Data
+@ApiModel(value = "直租数据")
 public class OrdersList implements Serializable {
 
     @ApiModelProperty(value = "试算单号")
@@ -357,4 +359,9 @@ public class OrdersList implements Serializable {
     /**
      * 签核明细
      */
+    @JsonIgnore
+    private Integer onetime;
+
+    @ApiModelProperty(value = "签核明细表标题后的字")
+    private String onetimeName;
 }

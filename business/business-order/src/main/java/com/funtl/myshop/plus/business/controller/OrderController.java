@@ -124,7 +124,7 @@ public class OrderController {
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", lists);
     }
 
-    @ApiOperation(value = " 获取试算直租签核外部所有信息")
+    @ApiOperation(value = " 获取直租试算签核外部所有信息")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "ordersAuto", value = "试算单号", required = false, dataType = "long", paramType = "path")
     })
@@ -145,6 +145,13 @@ public class OrderController {
             if (list.size() > 0){
                 ordersList.setBudgetMemo("保养维修费与设定金额不符！原保养维修费为：" + ordersList.getBudget01Y());
             }
+        }
+
+        //签核明细表标题后的字
+        if (ordersList.getOnetime() == 1){
+            ordersList.setOnetimeName("(一次性租赁)");
+        }else{
+            ordersList.setOnetimeName("");
         }
 
         //保险成本(年)
