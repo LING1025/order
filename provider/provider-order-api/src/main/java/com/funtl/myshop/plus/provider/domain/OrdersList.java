@@ -309,6 +309,12 @@ public class OrdersList implements Serializable {
     @ApiModelProperty(value = "产地")
     private String carPlace;
 
+    @ApiModelProperty(value = "报告书")
+    private String a6;
+
+    @ApiModelProperty(value = "保险保单")
+    private String a7;
+
     /*@JsonIgnore
     private BigDecimal insureRealAmt;
 
