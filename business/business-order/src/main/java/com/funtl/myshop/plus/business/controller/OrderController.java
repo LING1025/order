@@ -133,12 +133,20 @@ public class OrderController {
         if (ordersAuto == null){
             throw new BusinessException(BusinessStatus.PARAM_ERROR);        }
         OrdersList ordersList = ordersService.selectByOrdersAuto(ordersAuto);
+
+        //判断试算单号框外面显示的值
+        MsgDto msgDto = ordersService.selectMsg(ordersAuto);
+        if (msgDto != null){
+            ordersList.setMsg(msgDto.getMsg());
+        }
+
         //保险内容框标题后的显示
         if (ordersList.getIsCustomerCare() != 2 && ordersList.getIsCustomerCare() != 0){
             ordersList.setInsureIsOffer(ordersList.getCustomerCareName());
         }else{
             ordersList.setInsureIsOffer("");
         }
+
         //上牌规费明细表上面一句话的赋值
         if (ordersList.getBudget01Y().toString() != "" && ordersList.getBudget01Y().doubleValue() != 0){
             List<OrdersBudget> list = ordersBudgetService.selectByOrdersAndPa(ordersAuto,ordersList.getBudget01Y());

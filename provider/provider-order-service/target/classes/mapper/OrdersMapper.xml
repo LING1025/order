@@ -421,7 +421,7 @@
   </resultMap>
   <select id="selectMsg" resultMap="queryMsg">
     declare @Orders_Auto int
-    set @Orders_Auto = 221014
+    set @Orders_Auto = #{params}
     Declare @ServiceCost_ int,@ServiceCost int,@CarTax_ Decimal(10,2),@CarTax Decimal(10,2)
     Declare @ListPrice Decimal(10,2),@OverAmt Decimal(10,2),@MM int,@TaxMode int,@chkListPrice int,@MSG NVARCHAR(500),
     @PushMoney_ Decimal(10,2),@PushMoney Decimal(10,2),@OverP_ Decimal(10,2),@OverP Decimal(10,2),@Orders_Old bigint,@OrderStatus int,
