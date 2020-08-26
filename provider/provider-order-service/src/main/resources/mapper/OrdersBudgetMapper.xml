@@ -36,4 +36,13 @@
     where b.ItemType=310 and a.Orders_Auto = #{param}
     order by a.Type_Auto
     </select>
+  <select id="selectByOrdersAndPa" resultMap="BaseResultMap">
+    SELECT * --,BudgetName=b.ItemName, case b.a1 when 1 then '月费用' when 12 then '年费用' when 0 then '次费用' end TypeName
+    FROM OrdersBudget
+    --left Join ItemCode b on a.Type_Auto=b.Num
+    Where --b.ItemType=310 And
+    Orders_Auto=#{ordersAuto}
+    and Type_Auto = 1 and PA <> #{pa}
+    Order by Type_Auto
+  </select>
 </mapper>

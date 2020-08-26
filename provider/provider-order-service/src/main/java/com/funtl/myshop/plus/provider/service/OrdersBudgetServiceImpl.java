@@ -8,6 +8,7 @@ import com.funtl.myshop.plus.provider.mapper.OrdersBudgetMapper;
 import com.funtl.myshop.plus.provider.api.OrdersBudgetService;
 import org.apache.dubbo.config.annotation.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Service(version = "1.0.0")
@@ -20,5 +21,10 @@ public class OrdersBudgetServiceImpl implements OrdersBudgetService{
     @Override
     public List<BudgetList> selectBudgetList(Long ordersAuto) {
         return ordersBudgetMapper.selectBudgetList(ordersAuto);
+    }
+
+    @Override
+    public List<OrdersBudget> selectByOrdersAndPa(Long ordersAuto, BigDecimal pa) {
+        return ordersBudgetMapper.selectByOrdersAndPa(ordersAuto,pa);
     }
 }
