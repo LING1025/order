@@ -139,6 +139,8 @@ public class OrderController {
         }else{
             ordersList.setInsureIsOffer("");
         }
+        //上牌规费明细表上面一句话的赋值
+
         //保险成本(年)
 //        ordersList.setInsureYG("保险成本(年) : "+ordersList.getInsureRealAmt());
         //客户全称

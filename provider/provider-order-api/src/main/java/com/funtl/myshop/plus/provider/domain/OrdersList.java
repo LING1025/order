@@ -273,6 +273,11 @@ public class OrdersList implements Serializable {
     /**
      * 费用明细
      */
+    @ApiModelProperty(value = "上牌规费明细表上面的值")
+    private String budgetMemo;
+
+    @JsonIgnore
+    private BigDecimal budget01Y;
 
     /**
      * 佣金人
