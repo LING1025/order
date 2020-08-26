@@ -281,10 +281,19 @@ public class OrdersList implements Serializable {
     /**
      * 保险内容
      */
-    @ApiModelProperty(value = "性质类别")
+    @JsonIgnore
+    private Integer isCustomerCare;
+
+    @JsonIgnore
+    private String customerCareName;
+
+    @ApiModelProperty(value = "保险内容框标题后的显示")
+    private String insureIsOffer;
+
+    @ApiModelProperty(value = "性质别")
     private String insureTypeName;
 
-    @ApiModelProperty(value = "座位类别")
+    @ApiModelProperty(value = "座位别")
     private String insurePercntName;
 
     @ApiModelProperty(value = "座位数")

@@ -227,7 +227,8 @@
     <result column="insureTypeName" jdbcType="VARCHAR" property="insureTypeName" />
     <result column="insurePercntName" jdbcType="VARCHAR" property="insurePercntName" />
     <result column="carPlace" jdbcType="VARCHAR" property="carPlace" />
-<!--    <result column="insureRealAmt" jdbcType="DECIMAL" property="insureRealAmt" />-->
+    <result column="customerCareName" jdbcType="VARCHAR" property="customerCareName" />
+    <!--    <result column="insureRealAmt" jdbcType="DECIMAL" property="insureRealAmt" />-->
   </resultMap>
   <select id="selectByOrdersAuto" resultMap="queryByOrdersAuto">
     select
@@ -257,7 +258,7 @@
     convert(varchar(10),convert(decimal(18,2),(a.GrossMarginT)))+'%' as grossMarginT,
     isnull(a.A1,'') AS a1,isnull(a.A2,'') AS a2,isnull(a.A3,'') AS a3,isnull(a.A4,'') AS a4,isnull(a.A5,'') AS a5,
     s.ItemName AS insureTypeName,t.ItemName As insurePercntName,
-    a.Percnt,u.ItemName as carPlace
+    a.Percnt,u.ItemName as carPlace,v.ItemName customerCareName,a.isCustomerCare
     from
     Orders a
     left join v_Emp b on a.Sales_Auto = b.User_Auto
@@ -279,8 +280,9 @@
     left join ItemCode q on q.ItemType = 412 and q.Num = a.MakNoType
     left join ItemCode r on r.ItemType = 841 and r.Num = a.BsType
     inner join Itemcode s on a.InsureType = s.Num and s.ItemType = 411
-    inner join Itemcode t on a.InsurePercnt = t.Num and t.ItemType = 410
-    inner join ItemCode u on u.itemtype = 227 and u.num = a.CarPlace
+    left join Itemcode t on a.InsurePercnt = t.Num and t.ItemType = 410
+    left join ItemCode u on u.itemtype = 227 and u.num = a.CarPlace
+    left join ItemCode v on v.ItemType = 128 and v.Num = a.ISCustomerCare
     where
     a.Orders_Auto = #{params}
   </select>

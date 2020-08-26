@@ -133,6 +133,12 @@ public class OrderController {
         if (ordersAuto == null){
             throw new BusinessException(BusinessStatus.PARAM_ERROR);        }
         OrdersList ordersList = ordersService.selectByOrdersAuto(ordersAuto);
+        //保险内容框标题后的显示
+        if (ordersList.getIsCustomerCare() != 2 && ordersList.getIsCustomerCare() != 0){
+            ordersList.setInsureIsOffer(ordersList.getCustomerCareName());
+        }else{
+            ordersList.setInsureIsOffer("");
+        }
         //保险成本(年)
 //        ordersList.setInsureYG("保险成本(年) : "+ordersList.getInsureRealAmt());
         //客户全称
