@@ -42,7 +42,7 @@
     --left Join ItemCode b on a.Type_Auto=b.Num
     Where --b.ItemType=310 And
     Orders_Auto=#{ordersAuto}
-    and Type_Auto = 1 and PA <> #{pa}
+    and Type_Auto = 1 and PA != #{pa}
     Order by Type_Auto
   </select>
 </mapper>

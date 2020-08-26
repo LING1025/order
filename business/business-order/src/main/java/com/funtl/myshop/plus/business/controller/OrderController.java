@@ -140,6 +140,12 @@ public class OrderController {
             ordersList.setInsureIsOffer("");
         }
         //上牌规费明细表上面一句话的赋值
+        if (ordersList.getBudget01Y().toString() != "" && ordersList.getBudget01Y().doubleValue() != 0){
+            List<OrdersBudget> list = ordersBudgetService.selectByOrdersAndPa(ordersAuto,ordersList.getBudget01Y());
+            if (list.size() > 0){
+                ordersList.setBudgetMemo("保养维修费与设定金额不符！原保养维修费为：" + ordersList.getBudget01Y());
+            }
+        }
 
         //保险成本(年)
 //        ordersList.setInsureYG("保险成本(年) : "+ordersList.getInsureRealAmt());
