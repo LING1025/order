@@ -148,6 +148,7 @@ public class OrderController {
         }
 
         //上牌规费明细表上面一句话的赋值
+        ordersList.setBudgetMemo("");
         if (ordersList.getBudget01Y().toString() != "" && ordersList.getBudget01Y().doubleValue() != 0){
             List<OrdersBudget> list = ordersBudgetService.selectByOrdersAndPa(ordersAuto,ordersList.getBudget01Y());
             if (list.size() > 0){
