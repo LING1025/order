@@ -299,8 +299,12 @@
       <result column="endDt" jdbcType="TIMESTAMP" property="endDt" />
     </resultMap>
     <select id="selectSupplierList" resultMap="querySupplierList">
-      select distinct a.Order_Auto,b.Orders_Auto,c.FactoryBrandName+'-'+e.BrandName brandName,g.ClasenName,b.ListPrice,f.fname supplierName,h.enddt bookDT
-      ,d.fname salesName,isnull(h.enddt,a.CDT) endDt
+      select
+      distinct a.Order_Auto,b.Orders_Auto,
+      c.FactoryBrandName+'-'+e.BrandName brandName,
+      g.ClasenName,convert(decimal(18,0),b.ListPrice) ListPrice,
+      f.fname supplierName,h.enddt bookDT,
+      d.fname salesName,isnull(h.enddt,a.CDT) endDt
       from orders b
       left join [order] a on a.Orders_Auto = b.Orders_Auto
       left join v_emp d on a.Sales_Auto=d.User_Auto

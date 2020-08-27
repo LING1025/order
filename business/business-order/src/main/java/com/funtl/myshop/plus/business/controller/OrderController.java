@@ -400,7 +400,7 @@ public class OrderController {
                 supplierList.setBookTime("");
             }
             if(supplierList.getBookDT() !=null ){
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
                 String dataString = simpleDateFormat.format(supplierList.getBookDT());
                 supplierList.setBookTime(dataString);
             }
