@@ -14,8 +14,13 @@ import java.util.Date;
 @Data
 @ApiModel(value = "直租数据")
 public class OrdersList implements Serializable {
+    @ApiModelProperty(value = "试算单号框外面显示的第一个值")
+    private String isBigTra;
 
-    @ApiModelProperty(value = "试算单号框外面显示的值")
+    @ApiModelProperty(value = "试算单号框外面显示的第二个值")
+    private String projectName;
+
+    @ApiModelProperty(value = "试算单号框外面显示的第三个值")
     private String msg;
 
     @ApiModelProperty(value = "试算单号")

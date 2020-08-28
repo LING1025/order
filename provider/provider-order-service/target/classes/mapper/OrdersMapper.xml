@@ -230,6 +230,8 @@
     <result column="customerCareName" jdbcType="VARCHAR" property="customerCareName" />
     <result column="a6" jdbcType="VARCHAR" property="a6" />
     <result column="a7" jdbcType="VARCHAR" property="a7" />
+    <result column="projectName" jdbcType="VARCHAR" property="projectName" />
+    <result column="isBigTra" jdbcType="VARCHAR" property="isBigTra" />
     <!--    <result column="insureRealAmt" jdbcType="DECIMAL" property="insureRealAmt" />-->
   </resultMap>
   <select id="selectByOrdersAuto" resultMap="queryByOrdersAuto">
@@ -261,7 +263,8 @@
     isnull(a.A1,'') AS a1,isnull(a.A2,'') AS a2,isnull(a.A3,'') AS a3,isnull(a.A4,'') AS a4,isnull(a.A5,'') AS a5,
     s.ItemName AS insureTypeName,t.ItemName As insurePercntName,
     a.Percnt,u.ItemName as carPlace,v.ItemName customerCareName,a.isCustomerCare,
-    a.Budget01_Y,a.Onetime,isnull(a.A6,'') AS a6,isnull(a.A7,'') AS a7
+    a.Budget01_Y,a.Onetime,isnull(a.A6,'') AS a6,isnull(a.A7,'') AS a7,
+    isnull(w.Project_Name,'') as projectName,isBigTra=case  when a.IsBigTradeItem =1  then '（大口客户）' when a.IsBigTradeItem =0  then '' else '' end
     from
     Orders a
     left join v_Emp b on a.Sales_Auto = b.User_Auto
@@ -286,6 +289,7 @@
     left join Itemcode t on a.InsurePercnt = t.Num and t.ItemType = 410
     left join ItemCode u on u.itemtype = 227 and u.num = a.CarPlace
     left join ItemCode v on v.ItemType = 128 and v.Num = a.ISCustomerCare
+    left join Orders_Project w on w.Project_Auto = a.Project_Auto
     where
     a.Orders_Auto = #{params}
   </select>
