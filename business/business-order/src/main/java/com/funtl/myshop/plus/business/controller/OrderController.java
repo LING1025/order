@@ -140,6 +140,11 @@ public class OrderController {
             ordersList.setMsg(msgDto.getMsg());
         }
 
+        //车号
+        if (ordersList.getMakNo() == null || ordersList.getMakNo() == ""){
+            ordersList.setMakNo("0");
+        }
+
         //保险内容框标题后的显示
         if (ordersList.getIsCustomerCare() != 2 && ordersList.getIsCustomerCare() != 0){
             ordersList.setInsureIsOffer(ordersList.getCustomerCareName());
