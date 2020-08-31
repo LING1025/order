@@ -6,3 +6,6 @@ commons/commons-utils/target/
 commons/commons-dto/target/
 commons/commons-provider/target/
 configuration/configuration-feign/target/
+business/business-oauth2/target/classes/
+business/business-oauth2/target/
+business/business-user/business-user-feign/target/
