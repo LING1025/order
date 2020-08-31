@@ -28,7 +28,7 @@ import java.util.Objects;
  */
 
 @RestController
-@RequestMapping(value = "oauth2")
+@RequestMapping(value = "wxOauth2")
 public class LoginController {
     private static final String URL_OAUTH_TOKEN = "http://localhost:9081/oauth/token";
 
@@ -59,7 +59,7 @@ public class LoginController {
      * @param loginParam 登录参数
      * @return {@link ResponseResult}
      */
-    @PostMapping(value = "login")
+    @PostMapping(value = "wxLogin")
     public ResponseResult<Map<String, Object>> login(@RequestBody LoginParam loginParam) {
         // 封装返回的结果集
         Map<String, Object> result = Maps.newHashMap();
@@ -124,7 +124,7 @@ public class LoginController {
      *
      * @return {@link ResponseResult}
      */
-    @PostMapping(value = "logout")
+    /*@PostMapping(value = "logout")
     public ResponseResult<Void> logout(HttpServletRequest request) {
         // 获取 token
         String token = request.getParameter("access_token");
@@ -132,5 +132,5 @@ public class LoginController {
         OAuth2AccessToken oAuth2AccessToken = tokenStore.readAccessToken(token);
         tokenStore.removeAccessToken(oAuth2AccessToken);
         return new ResponseResult<Void>(ResponseResult.CodeStatus.OK, "用户已注销");
-    }
+    }*/
 }

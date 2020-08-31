@@ -1,4 +1,2 @@
-com\funtl\myshop\plus\provider\api\AspnetRolesService.class
-com\funtl\myshop\plus\provider\domain\AspnetRoles.class
-com\funtl\myshop\plus\provider\api\AspnetUsersService.class
-com\funtl\myshop\plus\provider\domain\AspnetUsers.class
+com\funtl\myshop\plus\provider\api\WxEncryptedDataService.class
+com\funtl\myshop\plus\provider\domain\WxEncryptedData.class
