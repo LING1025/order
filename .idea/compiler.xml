@@ -7,7 +7,6 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="provider-order-service" />
-        <module name="provider-user-api" />
         <module name="business-user-feign" />
         <module name="commons-provider" />
         <module name="gateway" />
@@ -15,23 +14,24 @@
         <module name="business-order" />
         <module name="provider-asp-service" />
         <module name="configuration-feign" />
-        <module name="provider-order-api" />
-        <module name="provider-user-service" />
-        <module name="commons-utils" />
-        <module name="provider-user-service (1)" />
         <module name="provider-asp-api" />
-        <module name="business-oauth2" />
-        <module name="provider-user-api (1)" />
+        <module name="commons-utils" />
+        <module name="provider-user-service" />
+        <module name="business-wxOauth2" />
         <module name="business-user-service" />
+        <module name="provider-user-service (1)" />
+        <module name="provider-order-api" />
+        <module name="provider-user-api (1)" />
+        <module name="provider-user-api" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="business" target="1.8" />
-      <module name="business-oauth2" target="1.8" />
       <module name="business-order" target="1.8" />
       <module name="business-user" target="1.8" />
       <module name="business-user-feign" target="1.8" />
       <module name="business-user-service" target="1.8" />
+      <module name="business-wxOauth2" target="1.8" />
       <module name="commons" target="1.8" />
       <module name="commons-dto" target="1.8" />
       <module name="commons-provider" target="1.8" />
@@ -54,10 +54,10 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="business-oauth2" options="-parameters" />
       <module name="business-order" options="-parameters" />
       <module name="business-user-feign" options="-parameters" />
       <module name="business-user-service" options="-parameters" />
+      <module name="business-wxOauth2" options="-parameters" />
       <module name="commons-dto" options="-parameters" />
       <module name="commons-provider" options="-parameters" />
       <module name="commons-utils" options="-parameters" />

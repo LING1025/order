@@ -9,7 +9,7 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>business-oauth2</artifactId>
+    <artifactId>business-wxOauth2</artifactId>
     <packaging>jar</packaging>
     <inceptionYear>2020-Now</inceptionYear>
 

@@ -29,7 +29,7 @@
     </dependencies>
 
     <modules>
-        <module>business-oauth2</module>
+        <module>business-wxOauth2</module>
         <module>business-order</module>
     </modules>
 </project>

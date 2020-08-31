@@ -1,6 +1,6 @@
 spring:
   application:
-    name: business-oauth2
+    name: business-wxOauth2
   cloud:
     nacos:
       discovery:
