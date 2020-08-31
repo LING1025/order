@@ -1,0 +1,5 @@
+com\funtl\myshop\plus\business\configure\WebSecurityConfiguration.class
+com\funtl\myshop\plus\business\configure\UserResourceServerConfiguration.class
+com\funtl\myshop\plus\business\configure\Swagger2Config.class
+com\funtl\myshop\plus\business\controller\UserController.class
+com\funtl\myshop\plus\business\BusinessUserApplication.class
