@@ -9,7 +9,7 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>business-user</artifactId>
+    <artifactId>business-wxUser</artifactId>
     <packaging>pom</packaging>
     <inceptionYear>2020-Now</inceptionYear>
 
@@ -20,7 +20,7 @@
         </license>
     </licenses>
     <modules>
-        <module>business-user-feign</module>
-        <module>business-user-service</module>
+        <module>business-wxUser-feign</module>
+        <module>business-wxUser-service</module>
     </modules>
 </project>

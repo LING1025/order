@@ -30,6 +30,7 @@
 
     <modules>
         <module>business-wxOauth2</module>
+        <module>business-wxUser</module>
         <module>business-order</module>
     </modules>
 </project>

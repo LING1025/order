@@ -5,11 +5,11 @@
 
     <parent>
         <groupId>com.funtl.myshop.plus</groupId>
-        <artifactId>business-user</artifactId>
+        <artifactId>business-wxUser</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>business-user-feign</artifactId>
+    <artifactId>business-wxUser-feign</artifactId>
     <packaging>jar</packaging>
     <inceptionYear>2020-Now</inceptionYear>
 
