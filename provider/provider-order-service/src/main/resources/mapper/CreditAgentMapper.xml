@@ -74,7 +74,7 @@
       AND AgentUser = #{agentUser}
     </if>
     AND IsOn = 1
-    AND AgentCDate &gt;= getdate()
+    AND AgentCDate &gt;= CONVERT(date,GETDATE(),111)
     ORDER BY CreditAgent_Auto DESC
   </select>
   <resultMap id="querySelfList" extends="BaseResultMap" type="com.funtl.myshop.plus.provider.domain.SelfList">
