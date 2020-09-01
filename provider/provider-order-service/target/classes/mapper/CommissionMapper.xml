@@ -26,7 +26,7 @@
   </sql>
   <resultMap id="queryCommissionList" extends="BaseResultMap" type="com.funtl.myshop.plus.provider.domain.CommissionList">
     <result column="pushRelationName" jdbcType="VARCHAR" property="pushRelationName" />
-    <result column="commissionOrders" jdbcType="BIGINT" property="commissionOrders" />
+    <result column="commissionOrders" jdbcType="VARCHAR" property="commissionOrders" />
   </resultMap>
   <select id="selectCommissionList" resultMap="queryCommissionList">
     select

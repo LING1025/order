@@ -25,5 +25,5 @@ public class CommissionList implements Serializable {
     private String pushMemo;
 
     @ApiModelProperty(value = "异常佣金人佣金记录")
-    private Long commissionOrders;
+    private String commissionOrders;
 }
