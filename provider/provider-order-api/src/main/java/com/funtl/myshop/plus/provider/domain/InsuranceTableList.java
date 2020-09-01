@@ -10,6 +10,8 @@ import java.math.BigDecimal;
 @Data
 @ApiModel(value = "保险明细表格数据")
 public class InsuranceTableList implements Serializable {
+    @ApiModelProperty(value = "年度")
+    private Integer insureYear;
 
     @ApiModelProperty(value = "险种")
     private String insureName;

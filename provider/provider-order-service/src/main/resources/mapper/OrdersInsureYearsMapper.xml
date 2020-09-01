@@ -53,6 +53,7 @@
   </resultMap>
   <select id="selectByOrdersAutoAndYear" resultMap="queryByOrdersAutoAndYear">
     select
+    a.InsureYear,
     e.InsureName,a.InsureLimit,
     case when a.DetailAmt = 1 then '是' else '' end detailAmtName,
     a.OrgAmt,a.RateAmt,a.OfferAmt,a.Memo
