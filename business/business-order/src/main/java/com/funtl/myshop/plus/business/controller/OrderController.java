@@ -112,7 +112,7 @@ public class OrderController {
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", agentLists);
     }
 
-    @ApiOperation(value = " 根据角色id、代理人id获取主档信息待签核信息")
+    @ApiOperation(value = " 根据选择角色权限id、选择代理人id获取主档信息待签核信息")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "rolesAuto", value = "角色id", required = false, dataType = "long", paramType = "path"),
             @ApiImplicitParam(name = "userAuto", value = "代理人id", required = false, dataType = "long", paramType = "path")
@@ -126,7 +126,7 @@ public class OrderController {
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", lists);
     }
 
-    @ApiOperation(value = " 根据角色id、代理人id获取可跨阶签核信息")
+    @ApiOperation(value = " 根据选择角色权限id、选择代理人id获取可跨阶签核信息")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "rolesAuto", value = "角色id", required = false, dataType = "long", paramType = "path"),
             @ApiImplicitParam(name = "userAuto", value = "代理人id", required = false, dataType = "long", paramType = "path")
