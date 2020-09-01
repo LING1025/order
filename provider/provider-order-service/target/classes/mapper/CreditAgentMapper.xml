@@ -21,45 +21,6 @@
     CreditAgent_Auto, SelfUser, SelfUSerDept, AgentUser, AgentUserDept, IsOn, AgentCDate,
     CUser, CDT, MUSer, MDT
   </sql>
-  <resultMap id="querySelfAgent" extends="BaseResultMap" type="com.funtl.myshop.plus.provider.domain.SelfAgentList"/>
-  <select id="selectSelf" resultMap="querySelfAgent">
-    SELECT
-<!--    CreditAgent_Auto,-->
-    SelfUser,
-<!--    SelfUSerDept,-->
-    AgentUser
-<!--    AgentUserDept-->
-    <!--IsOn,
-    AgentCDate-->
-    FROM
-    CreditAgent
-    WHERE
-    1 = 1
-    <if test="selfUser != null and selfUser != ''">
-      AND SelfUser = #{selfUser}
-    </if>
-    AND IsOn = 1
-    ORDER BY CreditAgent_Auto DESC
-  </select>
-  <select id="selectAgent" resultMap="querySelfAgent">
-    SELECT
-<!--    CreditAgent_Auto,-->
-    SelfUser,
-<!--    SelfUSerDept,-->
-    AgentUser
-<!--    AgentUserDept-->
-    <!--IsOn,
-    AgentCDate-->
-    FROM
-    CreditAgent
-    WHERE
-    1 = 1
-    <if test="agentUser != null and agentUser != ''">
-      AND AgentUser = #{agentUser}
-    </if>
-    AND IsOn = 1
-    ORDER BY CreditAgent_Auto DESC
-  </select>
   <resultMap id="queryAgentList" extends="BaseResultMap" type="com.funtl.myshop.plus.provider.domain.AgentList">
     <result column="SelfUser" jdbcType="INTEGER" property="selfUser" />
   </resultMap>
@@ -75,22 +36,6 @@
     </if>
     AND IsOn = 1
     AND AgentCDate &gt;= CONVERT(date,GETDATE(),111)
-    ORDER BY CreditAgent_Auto DESC
-  </select>
-  <resultMap id="querySelfList" extends="BaseResultMap" type="com.funtl.myshop.plus.provider.domain.SelfList">
-    <result column="SelfUser" jdbcType="INTEGER" property="selfUser" />
-  </resultMap>
-  <select id="selectSelfList" resultMap="querySelfList">
-    SELECT
-    SelfUser
-    FROM
-    CreditAgent
-    WHERE
-    1 = 1
-    <if test="selfUser != null and selfUser != ''">
-      AND SelfUser = #{selfUser}
-    </if>
-    AND IsOn = 1
-    ORDER BY CreditAgent_Auto DESC
+    ORDER BY AgentCDate
   </select>
 </mapper>

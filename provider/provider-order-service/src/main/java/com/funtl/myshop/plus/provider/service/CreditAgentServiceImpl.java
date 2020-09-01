@@ -18,21 +18,6 @@ public class CreditAgentServiceImpl implements CreditAgentService{
     private CreditAgentMapper creditAgentMapper;
 
     @Override
-    public List<SelfAgentList> selectSelf(Long selfUser) {
-        return creditAgentMapper.selectSelf(selfUser);
-    }
-
-    @Override
-    public List<SelfAgentList> selectAgent(Long agentUser) {
-        return creditAgentMapper.selectAgent(agentUser);
-    }
-
-    @Override
-    public List<SelfList> selectSelfList(Long selfUser) {
-        return creditAgentMapper.selectSelfList(selfUser);
-    }
-
-    @Override
     public List<AgentList> selectAgentList(Long agentUser) {
         return creditAgentMapper.selectAgentList(agentUser);
     }

@@ -11,11 +11,6 @@ import tk.mybatis.mapper.MyMapper;
 import java.util.List;
 
 public interface CreditAgentMapper extends MyMapper<CreditAgent> {
-    List<SelfAgentList> selectSelf(@Param("selfUser") Long selfUser);
-
-    List<SelfAgentList> selectAgent(@Param("agentUser") Long agentUser);
 
     List<AgentList> selectAgentList(@Param("agentUser") Long agentUser);
-
-    List<SelfList> selectSelfList(@Param("selfUser") Long selfUser);
 }
