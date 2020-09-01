@@ -7,11 +7,20 @@ import java.util.List;
 public interface OrdersService{
 
     /**
-     * 根据角色id集合获取主档信息待签核信息
-     * @param roleIds
+     * 根据角色id、代理人id获取主档信息待签核信息
+     * @param rolesAuto
+     * @param userAuto
      * @return
      */
-    List<MasterList> selectByRoleIds(List<Long> roleIds);
+    List<MasterList> selectByRoleIds(Long rolesAuto,Long userAuto);
+
+    /**
+     * 根据角色id、代理人id获取可跨阶签核信息
+     * @param rolesAuto
+     * @param userAuto
+     * @return
+     */
+    List<MasterList> selectCrossList(Long rolesAuto,Long userAuto);
 
     /**
      * 根据试算单号获取直租试算签核信息

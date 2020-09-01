@@ -112,15 +112,31 @@ public class OrderController {
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", agentLists);
     }
 
-    @ApiOperation(value = " 根据角色id集合获取主档信息待签核信息")
+    @ApiOperation(value = " 根据角色id、代理人id获取主档信息待签核信息")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "roleIds", value = "角色id集合", required = false, dataType = "List<Long>", paramType = "path")
+            @ApiImplicitParam(name = "rolesAuto", value = "角色id", required = false, dataType = "long", paramType = "path"),
+            @ApiImplicitParam(name = "userAuto", value = "代理人id", required = false, dataType = "long", paramType = "path")
     })
     @GetMapping(value = "queryMasterList")
-    public ResponseResult<List<MasterList>> queryMasterList(@RequestParam(name = "roleIds",required = false) List<Long> roleIds){
-        if (roleIds == null){
+    public ResponseResult<List<MasterList>> queryMasterList(@RequestParam(name = "rolesAuto",required = false) Long rolesAuto,
+                                                            @RequestParam(name = "userAuto",required = false) Long userAuto){
+        if (rolesAuto == null || userAuto == null){
             throw new BusinessException(BusinessStatus.PARAM_ERROR);        }
-        List<MasterList> lists = ordersService.selectByRoleIds(roleIds);
+        List<MasterList> lists = ordersService.selectByRoleIds(rolesAuto,userAuto);
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", lists);
+    }
+
+    @ApiOperation(value = " 根据角色id、代理人id获取可跨阶签核信息")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "rolesAuto", value = "角色id", required = false, dataType = "long", paramType = "path"),
+            @ApiImplicitParam(name = "userAuto", value = "代理人id", required = false, dataType = "long", paramType = "path")
+    })
+    @GetMapping(value = "queryCrossList")
+    public ResponseResult<List<MasterList>> queryCrossList(@RequestParam(name = "rolesAuto",required = false) Long rolesAuto,
+                                                            @RequestParam(name = "userAuto",required = false) Long userAuto){
+        if (rolesAuto == null || userAuto == null){
+            throw new BusinessException(BusinessStatus.PARAM_ERROR);        }
+        List<MasterList> lists = ordersService.selectCrossList(rolesAuto,userAuto);
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", lists);
     }
 

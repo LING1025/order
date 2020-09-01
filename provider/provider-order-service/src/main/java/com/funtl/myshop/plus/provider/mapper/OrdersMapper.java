@@ -7,7 +7,7 @@ import tk.mybatis.mapper.MyMapper;
 import java.util.List;
 
 public interface OrdersMapper extends MyMapper<Orders> {
-    List<MasterList> selectByRoleIds(@Param("roleIds") List<Long> roleIds);
+    List<MasterList> selectByRoleIds(@Param("rolesAuto") Long rolesAuto,@Param("userAuto") Long userAuto);
 
     OrdersList selectByOrdersAuto(@Param("params") Long ordersAuto);
 
@@ -16,4 +16,6 @@ public interface OrdersMapper extends MyMapper<Orders> {
     OrdersBackList selectOrdersBackList(@Param("params") Long ordersAuto);
 
     MsgDto selectMsg(@Param("params") Long ordersAuto);
+
+    List<MasterList> selectCrossList(@Param("rolesAuto") Long rolesAuto,@Param("userAuto") Long userAuto);
 }

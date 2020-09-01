@@ -16,8 +16,13 @@ public class OrdersServiceImpl implements OrdersService{
     private OrdersMapper ordersMapper;
 
     @Override
-    public List<MasterList> selectByRoleIds(List<Long> roleIds) {
-        return ordersMapper.selectByRoleIds(roleIds);
+    public List<MasterList> selectByRoleIds(Long rolesAuto, Long userAuto) {
+        return ordersMapper.selectByRoleIds(rolesAuto,userAuto);
+    }
+
+    @Override
+    public List<MasterList> selectCrossList(Long rolesAuto, Long userAuto) {
+        return ordersMapper.selectCrossList(rolesAuto,userAuto);
     }
 
     @Override

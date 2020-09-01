@@ -167,34 +167,49 @@
     <result column="orderStatusName" jdbcType="VARCHAR" property="orderStatusName" />
   </resultMap>
   <select id="selectByRoleIds" resultMap="queryByRoleIds">
-    select
-    distinct a.Orders_Auto,
-    a.Sales_Auto,
-    n.ItemName AS orderStatusName,
-    b.FName AS salesname,
-    c.SName,
-    b.DepName,
-    p.Memo AS nowplace,
-    case when a.Onetime = 1 then '是' else '' end onetimeName,a.OrderType
-    from
-    Orders(nolock) a
-    left join v_Emp b on a.Sales_Auto=b.User_Auto
-    left join TradeItem(nolock) c On c.TradeItem_Auto=a.TradeItem_Auto
-    left join WorkFlowDoc(nolock) k0 on a.Orders_Auto=k0.DocPostID And k0.Memo='999' and k0.Status = 0 and k0.AppSeq &lt;= 0 and k0.LevNow = k0.AppSeq
-    inner Join WorkFlowDoc(nolock) k on a.Orders_Auto=k.DocPostID And k.Memo='999' and k.Status = 0 and ((k0.AppSeq is not null and k0.AppSeq = k.AppSeq) or (k0.AppSeq is null and k.AppSeq = k.LevNow +1)) -- and (k.levnow = k.AppSeq or k.AppSeq = k.LevNow +1)
-    left join ItemCode p on k.RoleID=p.Num And p.ItemType=1062
-    left join Itemcode n on a.OrderStatus = n.Num and n.ItemType = 327
-    where
-    1 = 1
-    AND
-    k.RoleID in
-    <foreach collection="roleIds" index="index" item="item" open="(" separator="," close=")">
-      #{item}
-    </foreach>
-<!--    30：保险维护  145：服务部经理  11;业务助理-->
-    AND
-    a.orderstatus between 0 and 20
+    declare
+    @User_Auto Int,
+    @Roles Int
+<!--    @RealUser Int-->
+    set @User_Auto = #{userAuto} <!--&#45;&#45;代理人id-->
+    set @Roles = #{rolesAuto}
+<!--    set @RealUser = 0 &#45;&#45;租金计算中的，可不管默认0即可-->
+    Begin
+    Declare @Seq Int
+    Select @Seq=isnull(seq,0) From ItemCode
+    Where ItemType=1062 And Num=@Roles
+
+    select a.Orders_Auto
+    into #C
+    from Orders a
+    where a.orderstatus &gt; 0 and a.orderstatus &lt; 20
+    and ( @Roles in(11,30,145)<!--&#45;&#45;30：保险维护  145：服务部经理  11;业务助理-->
+    or a.Sales_Auto in (
+    Select  a.User_Auto from AspNet.dbo.aspnet_Users a
+    Join AspNet.dbo.EmpBase b on a.UserName=b.UserName
+    Where Org_Auto in (select a.org_auto from AspNet.dbo.org2EMP a
+    Where a.User_Auto=@User_AUTO and AclType=0)
+    ))
+
+    Select distinct a.Orders_Auto,a.OrderType,a.Sales_Auto,
+    n.ItemName AS orderStatusName,b.FName salesname,c.SName,b.DepName,
+    p.Memo nowplace,case when a.Onetime = 1 then '是' else '' end onetimeName
+    From #C
+    left join Orders(nolock) a on a.Orders_Auto = #C.Orders_Auto
+    left join workflowdoc(nolock) k0 on a.orders_Auto=k0.DocPostID And k0.Memo='999' and k0.Status = 0 and k0.AppSeq &lt;= 0 and k0.levnow = k0.AppSeq
+    inner Join workflowdoc(nolock) k on a.orders_Auto=k.DocPostID And k.Memo='999' and k.Status = 0 and ((k0.AppSeq is not null and k0.AppSeq = k.AppSeq) or (k0.AppSeq is null and k.AppSeq = k.LevNow +1)) <!--&#45;&#45; and (k.levnow = k.AppSeq or k.AppSeq = k.LevNow +1)-->
+    Left join v_Emp b on a.Sales_Auto=b.User_Auto
+    Left Join customer(nolock) f on a.TradeItem_Auto=f.TradeItem_Auto
+    LEFT join TradeItem(nolock) c On c.TradeItem_Auto=f.TradeItem_Auto
+    Left Join Brand cc on a.Brand_Auto=cc.Brand_Auto
+    Left Join Clasen dd on dd.Clasen_Auto=a.Clasen_Auto
+    Left Join itemcode p on k.roleid=p.num And p.itemtype=1062
+    Left join Itemcode n on a.OrderStatus = n.Num and n.ItemType = 327
+    Where k.RoleID = @Roles
     Order By a.Orders_Auto Desc
+
+    drop table #C
+    End
   </select>
 
   <resultMap id="queryByOrdersAuto" extends="BaseResultMap" type="com.funtl.myshop.plus.provider.domain.OrdersList">
@@ -507,5 +522,47 @@
     END
 
     SELECT @MSG AS msg
+  </select>
+  <select id="selectCrossList" resultMap="queryByRoleIds">
+    declare
+    @User_Auto Int,
+    @Roles Int
+    set @User_Auto = #{userAuto}
+    set @Roles = #{rolesAuto}
+    Begin
+    Declare @Seq Int
+    Select @Seq=isnull(seq,0) From ItemCode
+    Where ItemType=1062 And Num=@Roles
+
+    select a.Orders_Auto
+    into #C
+    from Orders a
+    where a.orderstatus &gt; 0 and a.orderstatus &lt; 20
+    and ( @Roles in(11,30,145)
+    or a.Sales_Auto in (
+    Select  a.User_Auto from AspNet.dbo.aspnet_Users a
+    Join AspNet.dbo.EmpBase b on a.UserName=b.UserName
+    Where Org_Auto in (select a.org_auto from AspNet.dbo.org2EMP a
+    Where a.User_Auto=@User_AUTO and AclType=0)
+    ))
+
+    Select distinct a.Orders_Auto,a.OrderType,a.Sales_Auto,
+    n.ItemName AS orderStatusName,b.FName salesname,c.SName,b.DepName,
+    p.Memo nowplace,case when a.Onetime = 1 then '是' else '' end onetimeName
+    From #C
+    left join Orders(nolock) a on a.Orders_Auto = #C.Orders_Auto
+    inner Join workflowdoc(nolock) k on a.orders_Auto=k.DocPostID And k.Memo='999' and k.Status = 0 and (k.levnow = k.AppSeq or k.AppSeq = k.LevNow +1)
+    Left join v_Emp b on a.Sales_Auto=b.User_Auto
+    Left Join customer(nolock) f on a.TradeItem_Auto=f.TradeItem_Auto
+    LEFT join TradeItem(nolock) c On c.TradeItem_Auto=f.TradeItem_Auto
+    Left Join Brand cc on a.Brand_Auto=cc.Brand_Auto
+    Left Join Clasen dd on dd.Clasen_Auto=a.Clasen_Auto
+    Left Join itemcode p on k.roleid=p.num And p.itemtype=1062
+    Left join Itemcode n on a.OrderStatus = n.Num and n.ItemType = 327
+    Where  @Seq &gt; k.AppSeq and (k.levnow  &gt;=2 or (a.PostType = 4 and k.levnow &gt; -1 and  @Roles not in(11,145)))
+    Order By a.Orders_Auto Desc
+
+    drop table #C
+    End
   </select>
 </mapper>
