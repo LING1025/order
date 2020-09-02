@@ -16,4 +16,13 @@
     <!--@mbg.generated-->
     OrdersStepwise_Auto, Orders_Auto, MM_S, MM_E, StepwiseMAmt, CDT, CUser
   </sql>
+  <resultMap id="queryByOrdersAuto" extends="BaseResultMap" type="com.funtl.myshop.plus.provider.domain.StepwiseList"/>
+  <select id="selectByOrdersAuto" resultMap="queryByOrdersAuto">
+    select
+    MM_S,MM_E,convert(decimal(18,0),StepwiseMAmt) StepwiseMAmt
+    from
+    OrdersStepwise
+    Where Orders_Auto = #{param}
+    order by MM_S
+  </select>
 </mapper>
