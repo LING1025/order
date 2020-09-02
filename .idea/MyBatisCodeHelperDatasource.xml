@@ -846,6 +846,46 @@
                 </TableGenerateConfig>
               </value>
             </entry>
+            <entry key="dbo:OrdersStepwise">
+              <value>
+                <TableGenerateConfig>
+                  <option name="columnOverrideList">
+                    <list>
+                      <MyColumnOverride>
+                        <option name="columnName" value="OrdersStepwise_Auto" />
+                        <option name="javaProperty" value="ordersStepwiseAuto" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="Orders_Auto" />
+                        <option name="javaProperty" value="ordersAuto" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="MM_S" />
+                        <option name="javaProperty" value="mmS" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="MM_E" />
+                        <option name="javaProperty" value="mmE" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="StepwiseMAmt" />
+                        <option name="javaProperty" value="stepwiseMAmt" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="CDT" />
+                        <option name="javaProperty" value="cDT" />
+                      </MyColumnOverride>
+                    </list>
+                  </option>
+                  <option name="generatedKey" value="OrdersStepwise_Auto" />
+                  <option name="javaModelName" value="OrdersStepwise" />
+                  <option name="moduleName" value="provider-order-api" />
+                  <option name="sequenceColumn" value="" />
+                  <option name="sequenceId" value="" />
+                  <option name="useActualColumnName" value="true" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
             <entry key="dbo:WorkFlowDoc">
               <value>
                 <TableGenerateConfig>

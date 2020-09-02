@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.funtl.myshop.plus.provider.mapper.OrdersStepwiseMapper">
+  <resultMap id="BaseResultMap" type="com.funtl.myshop.plus.provider.domain.OrdersStepwise">
+    <!--@mbg.generated-->
+    <!--@Table OrdersStepwise-->
+    <id column="OrdersStepwise_Auto" jdbcType="BIGINT" property="ordersStepwiseAuto" />
+    <result column="Orders_Auto" jdbcType="BIGINT" property="ordersAuto" />
+    <result column="MM_S" jdbcType="INTEGER" property="mmS" />
+    <result column="MM_E" jdbcType="INTEGER" property="mmE" />
+    <result column="StepwiseMAmt" jdbcType="DECIMAL" property="stepwiseMAmt" />
+    <result column="CDT" jdbcType="TIMESTAMP" property="cDT" />
+    <result column="CUser" jdbcType="BIGINT" property="CUser" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    OrdersStepwise_Auto, Orders_Auto, MM_S, MM_E, StepwiseMAmt, CDT, CUser
+  </sql>
+</mapper>
