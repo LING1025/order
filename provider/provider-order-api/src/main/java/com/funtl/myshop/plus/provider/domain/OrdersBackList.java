@@ -63,12 +63,6 @@ public class OrdersBackList implements Serializable {
     @ApiModelProperty(value = "客户全称")
     private String fName;
 
-    /**
-     * 客户代码
-     */
-    @JsonIgnore
-    private Long tradeItemAuto;
-
     @JsonIgnore
     private Integer customerStatus;
 

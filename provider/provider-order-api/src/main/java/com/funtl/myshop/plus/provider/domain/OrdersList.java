@@ -79,6 +79,9 @@ public class OrdersList implements Serializable {
     @ApiModelProperty(value = "介绍人")
     private String pushMan;
 
+    @JsonIgnore
+    private String pushTel;
+
     /**
      * 车籍资料
      */

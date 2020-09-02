@@ -263,7 +263,7 @@
     e.ItemName AS rentTypeName,f.ItemName AS orderTypeName,
     a.TradeItem_Auto,c.FName AS fName,b.FName AS salesname,
     g.ItemName AS custSourceName,
-    a.PushMan,supplierBuyName = Supplier_Buy.FName,
+    a.PushMan,a.PushTEL,supplierBuyName = Supplier_Buy.FName,
     a.CarDT,
     l.FactoryBrandName,j.BrandName,k.ClasenName,
     a.CarColor,h.ItemName AS carSourceName,a.CarSource,

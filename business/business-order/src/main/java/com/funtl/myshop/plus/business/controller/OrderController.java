@@ -159,6 +159,9 @@ public class OrderController {
             ordersList.setMsg(msgDto.getMsg());
         }
 
+        //介绍人+手机号码
+        ordersList.setPushMan(ordersList.getPushMan() + ordersList.getPushTel());
+
         //车号
         if (ordersList.getMakNo() == null || ordersList.getMakNo() == ""){
             ordersList.setMakNo("0");
@@ -259,6 +262,8 @@ public class OrderController {
         ordersBackList.setAmtP(amtP + "(" + Math.round(p*100) + "%)");
         //折价金额
         ordersBackList.setDisPriceN(ordersBackList.getDisPrice()+"  "+ordersBackList.getGetPrice());
+        //客户全称
+        ordersBackList.setFName(ordersBackList.getFName() + " " + ordersBackList.getIsBigTra());
         //厂牌车型
         ordersBackList.setFactoryBrandName(ordersBackList.getFactoryBrandName() + " " + ordersBackList.getBrandName() + " " + ordersBackList.getClasenName());
 
