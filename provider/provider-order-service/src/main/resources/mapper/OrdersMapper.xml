@@ -165,7 +165,7 @@
     <result column="nowPlace" jdbcType="VARCHAR" property="nowPlace" />
     <result column="onetimeName" jdbcType="VARCHAR" property="onetimeName" />
     <result column="orderStatusName" jdbcType="VARCHAR" property="orderStatusName" />
-    <result column="auditOK" jdbcType="INTEGER" property="auditOK" />
+<!--    <result column="auditOK" jdbcType="INTEGER" property="auditOK" />-->
   </resultMap>
   <select id="selectByRoleIds" resultMap="queryByRoleIds">
     declare
@@ -194,8 +194,8 @@
 
     Select distinct a.Orders_Auto,a.OrderType,a.Sales_Auto,
     n.ItemName AS orderStatusName,b.FName salesname,c.SName,b.DepName,
-    p.Memo nowplace,case when a.Onetime = 1 then '是' else '' end onetimeName,
-    case when k.MaxLevel &lt;= @Seq then 1 else 0 end auditOK
+    p.Memo nowplace,case when a.Onetime = 1 then '是' else '' end onetimeName
+<!--    ,case when k.MaxLevel &lt;= @Seq then 1 else 0 end auditOK-->
     From #C
     left join Orders(nolock) a on a.Orders_Auto = #C.Orders_Auto
     left join workflowdoc(nolock) k0 on a.orders_Auto=k0.DocPostID And k0.Memo='999' and k0.Status = 0 and k0.AppSeq &lt;= 0 and k0.levnow = k0.AppSeq
@@ -550,8 +550,8 @@
 
     Select distinct a.Orders_Auto,a.OrderType,a.Sales_Auto,
     n.ItemName AS orderStatusName,b.FName salesname,c.SName,b.DepName,
-    p.Memo nowplace,case when a.Onetime = 1 then '是' else '' end onetimeName,
-    case when k.MaxLevel &lt;= @Seq then 1 else 0 end auditOK
+    p.Memo nowplace,case when a.Onetime = 1 then '是' else '' end onetimeName
+<!--    ,case when k.MaxLevel &lt;= @Seq then 1 else 0 end auditOK-->
     From #C
     left join Orders(nolock) a on a.Orders_Auto = #C.Orders_Auto
     inner Join workflowdoc(nolock) k on a.orders_Auto=k.DocPostID And k.Memo='999' and k.Status = 0 and (k.levnow = k.AppSeq or k.AppSeq = k.LevNow +1)
