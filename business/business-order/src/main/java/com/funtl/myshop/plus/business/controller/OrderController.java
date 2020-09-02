@@ -66,6 +66,9 @@ public class OrderController {
     @Reference(version = "1.0.0")
     private ItemCodeService itemCodeService;
 
+    @Reference(version = "1.0.0")
+    private OrdersStepwiseService ordersStepwiseService;
+
     @ApiOperation(value = "根据用户id获取选择权限数据")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "userAuto", value = "用户id", required = false, dataType = "long", paramType = "path")
@@ -268,6 +271,18 @@ public class OrderController {
             ordersBackList.setPostTypeName(itemNameLists);
         }*/
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", ordersBackList);
+    }
+
+    @ApiOperation(value = " 根据试算单号获取付款条件信息")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "ordersAuto", value = "试算单号", required = false, dataType = "long", paramType = "path")
+    })
+    @GetMapping(value = "queryStepwiseList")
+    public ResponseResult<List<StepwiseList>> queryStepwiseList(@RequestParam(name = "ordersAuto",required = false) Long ordersAuto){
+        if (ordersAuto == null){
+            throw new BusinessException(BusinessStatus.PARAM_ERROR);        }
+        List<StepwiseList> lists = ordersStepwiseService.selectByOrdersAuto(ordersAuto);
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", lists);
     }
 
     @ApiOperation(value = " 根据试算单号获取保险内容(未点开时显示的)")
