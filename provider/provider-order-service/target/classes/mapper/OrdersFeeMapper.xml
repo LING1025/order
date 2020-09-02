@@ -35,4 +35,15 @@
     left join Inc t3 on t3.Inc_Auto = t1.Inc_Auto
     where t1.Orders_Auto = #{param}
   </select>
+  <select id="selectFeeBackList" resultMap="queryFeeList">
+    select
+    incName = ISNULL(t3.SName,''),
+    feeTypeName = ISNULL(t2.ItemName,''),
+    t1.FeeAmt,t1.Memo
+    from OrdersFee t1
+    left join ItemCode t2 on t2.ItemType = 1301 and t1.FeeType_Auto = t2.Num
+    left join Inc t3 on t3.Inc_Auto = t1.Inc_Auto
+    where t1.Orders_Auto = #{param}
+	AND t1.FeeType_Auto not in(2,16)
+  </select>
 </mapper>

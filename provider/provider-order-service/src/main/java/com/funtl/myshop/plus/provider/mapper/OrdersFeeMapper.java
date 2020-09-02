@@ -9,4 +9,6 @@ import java.util.List;
 
 public interface OrdersFeeMapper extends MyMapper<OrdersFee> {
     List<FeeList> selectFeeList(@Param("param") Long ordersAuto);
+
+    List<FeeList> selectFeeBackList(@Param("param") Long ordersAuto);
 }

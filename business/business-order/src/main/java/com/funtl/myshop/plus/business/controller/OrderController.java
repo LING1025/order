@@ -387,7 +387,7 @@ public class OrderController {
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", lists);
     }
 
-    @ApiOperation(value = " 根据试算单号获取上牌规费明细数据")
+    @ApiOperation(value = " (直租)根据试算单号获取上牌规费明细数据")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "ordersAuto", value = "试算单号", required = false, dataType = "long", paramType = "path")
     })
@@ -396,6 +396,18 @@ public class OrderController {
         if (ordersAuto == null){
             throw new BusinessException(BusinessStatus.PARAM_ERROR);        }
         List<FeeList> lists = ordersFeeService.selectFeeList(ordersAuto);
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", lists);
+    }
+
+    @ApiOperation(value = " (回租)根据试算单号获取上牌规费明细数据")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "ordersAuto", value = "试算单号", required = false, dataType = "long", paramType = "path")
+    })
+    @GetMapping(value = "queryFeeBackList")
+    public ResponseResult<List<FeeList>> queryFeeBackList(@RequestParam(name = "ordersAuto",required = false) Long ordersAuto){
+        if (ordersAuto == null){
+            throw new BusinessException(BusinessStatus.PARAM_ERROR);        }
+        List<FeeList> lists = ordersFeeService.selectFeeBackList(ordersAuto);
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", lists);
     }
 

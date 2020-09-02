@@ -21,4 +21,9 @@ public class OrdersFeeServiceImpl implements OrdersFeeService{
     public List<FeeList> selectFeeList(Long ordersAuto) {
         return ordersFeeMapper.selectFeeList(ordersAuto);
     }
+
+    @Override
+    public List<FeeList> selectFeeBackList(Long ordersAuto) {
+        return ordersFeeMapper.selectFeeBackList(ordersAuto);
+    }
 }
