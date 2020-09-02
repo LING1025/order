@@ -32,12 +32,17 @@
   <resultMap id="queryAccessoryList" extends="BaseResultMap" type="com.funtl.myshop.plus.provider.domain.AccessoryList">
     <result column="supplierN" jdbcType="VARCHAR" property="supplierN" />
     <result column="subAccessory" jdbcType="VARCHAR" property="subAccessory" />
+    <result column="mainAccessory" jdbcType="VARCHAR" property="mainAccessory" />
   </resultMap>
   <select id="selectAccessoryList" resultMap="queryAccessoryList">
     select
-    supplierN = ISNULL(t5.ItemName,''),subAccessory = ISNULL(t3.AccessoriesTypeName,''),t1.SellingAmt
+    supplierN = ISNULL(t5.ItemName,''),
+    mainAccessory=ISNULL(t4.AccessoriesMainName,''),
+    subAccessory = ISNULL(t3.AccessoriesTypeName,''),t1.SellingAmt,
+    t1.Seat,t1.Location,t1.Remark
     from OrdersAccessary  t1
     left join AccessoriesType t3 on t3.AccessoriesType_Auto=t1.AccessoriesType_Auto
+    left outer join AccessoriesMainType t4 on t3.AccessoriesMainType_Auto=t4.AccessoriesMainType_Auto
     left join ItemCode t5 on t5.ItemType=883 and t5.Num = t1.Supplier
     where t1.Orders_Auto = #{param}
   </select>
