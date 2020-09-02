@@ -165,6 +165,7 @@
     <result column="nowPlace" jdbcType="VARCHAR" property="nowPlace" />
     <result column="onetimeName" jdbcType="VARCHAR" property="onetimeName" />
     <result column="orderStatusName" jdbcType="VARCHAR" property="orderStatusName" />
+    <result column="auditOK" jdbcType="INTEGER" property="auditOK" />
   </resultMap>
   <select id="selectByRoleIds" resultMap="queryByRoleIds">
     declare
