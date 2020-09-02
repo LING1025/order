@@ -249,6 +249,8 @@
     <result column="a7" jdbcType="VARCHAR" property="a7" />
     <result column="projectName" jdbcType="VARCHAR" property="projectName" />
     <result column="isBigTra" jdbcType="VARCHAR" property="isBigTra" />
+    <result column="customerStatus" jdbcType="VARCHAR" property="customerStatus" />
+
     <!--    <result column="insureRealAmt" jdbcType="DECIMAL" property="insureRealAmt" />-->
   </resultMap>
   <select id="selectByOrdersAuto" resultMap="queryByOrdersAuto">
@@ -281,7 +283,9 @@
     s.ItemName AS insureTypeName,t.ItemName As insurePercntName,
     a.Percnt,u.ItemName as carPlace,v.ItemName customerCareName,a.isCustomerCare,
     a.Budget01_Y,a.Onetime,isnull(a.A6,'') AS a6,isnull(a.A7,'') AS a7,
-    isnull(w.Project_Name,'') as projectName,isBigTra=case  when a.IsBigTradeItem =1  then '（大口客户）' when a.IsBigTradeItem =0  then '' else '' end
+    isnull(w.Project_Name,'') as projectName,
+    isBigTra=case  when a.IsBigTradeItem =1  then '（大口客户）' when a.IsBigTradeItem =0  then '' else '' end
+    ,[dbo].[f_CustomerStatus](a.TradeItem_Auto) customerStatus
     from
     Orders a
     left join v_Emp b on a.Sales_Auto = b.User_Auto
@@ -364,7 +368,7 @@
     <result column="rentRateN" jdbcType="VARCHAR" property="rentRateN" />
     <result column="rateTaxy" jdbcType="VARCHAR" property="rateTaxy" />
     <result column="salesTax" jdbcType="DECIMAL" property="salesTax" />
-    <result column="isBigTra" jdbcType="BIGINT" property="isBigTra" />
+    <result column="isBigTra" jdbcType="VARCHAR" property="isBigTra" />
     <result column="mortgageAddrN" jdbcType="VARCHAR" property="mortgageAddrN" />
     <result column="pushTel" jdbcType="VARCHAR" property="pushTel" />
     <result column="commissionRate" jdbcType="VARCHAR" property="commissionRate" />
@@ -376,6 +380,7 @@
     <result column="insureTypeName" jdbcType="VARCHAR" property="insureTypeName" />
     <result column="insurePercntName" jdbcType="VARCHAR" property="insurePercntName" />
     <result column="carPlace" jdbcType="VARCHAR" property="carPlace" />
+    <result column="customerStatus" jdbcType="VARCHAR" property="customerStatus" />
   </resultMap>
   <select id="selectOrdersBackList" resultMap="queryOrdersBackList">
     select
@@ -416,9 +421,10 @@
     a.rentRate,
 	convert(varchar(10),convert(decimal(18,2),(a.rentRate)))+'%' as rentRateN,
     convert(decimal(18,2),(a.FinalTax)) as finalTax,
-	a.IsBigTradeItem AS isBigTra,f.ItemName AS orderTypeName,
+    isBigTra=case  when a.IsBigTradeItem =1  then '（大口客户）' when a.IsBigTradeItem =0  then '' else '' end,f.ItemName AS orderTypeName,
     convert(varchar(10),convert(decimal(18,2),(a.commissionRate)))+'%' as commissionRate,
     a.MAmt AS rentMAmt
+    ,[dbo].[f_CustomerStatus](a.TradeItem_Auto) customerStatus
 	from
     Orders a
     left join v_Emp b on a.Sales_Auto = b.User_Auto

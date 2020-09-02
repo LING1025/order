@@ -66,6 +66,9 @@ public class OrdersList implements Serializable {
     @JsonIgnore
     private Long tradeItemAuto;
 
+    @JsonIgnore
+    private String customerStatus;
+
     @ApiModelProperty(value = "承办业代")
     private String salesName;
 

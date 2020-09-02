@@ -193,7 +193,7 @@ public class OrderController {
         //保险成本(年)
 //        ordersList.setInsureYG("保险成本(年) : "+ordersList.getInsureRealAmt());
         //客户全称
-        ordersList.setFName(ordersList.getFName() + " " + ordersList.getTradeItemAuto());
+        ordersList.setFName(ordersList.getFName() + " " + ordersList.getTradeItemAuto() + " " + ordersList.getCustomerStatus());
         //厂牌车型
         ordersList.setFactoryBrandName(ordersList.getFactoryBrandName() + " " + ordersList.getBrandName() + " " + ordersList.getClasenName());
         //残值判断
@@ -263,7 +263,7 @@ public class OrderController {
         //折价金额
         ordersBackList.setDisPriceN(ordersBackList.getDisPrice()+"  "+ordersBackList.getGetPrice());
         //客户全称
-        ordersBackList.setFName(ordersBackList.getFName() + " " + ordersBackList.getIsBigTra());
+        ordersBackList.setFName(ordersBackList.getFName()+ " "+ ordersBackList.getTradeItemAuto()+ " " + ordersBackList.getCustomerStatus() + " " + ordersBackList.getIsBigTra());
         //厂牌车型
         ordersBackList.setFactoryBrandName(ordersBackList.getFactoryBrandName() + " " + ordersBackList.getBrandName() + " " + ordersBackList.getClasenName());
 
