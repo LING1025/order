@@ -163,9 +163,7 @@ public class OrderController {
         ordersList.setPushMan(ordersList.getPushMan() + ordersList.getPushTel());
 
         //车号
-        if (ordersList.getMakNo() == null || ordersList.getMakNo() == ""){
-            ordersList.setMakNo("0");
-        }
+        ordersList.setMakNo(ordersList.getMakNo() + ordersList.getCarBaseAuto());
 
         //保险内容框标题后的显示
         if (ordersList.getIsCustomerCare() != 2 && ordersList.getIsCustomerCare() != 0){
@@ -215,7 +213,7 @@ public class OrderController {
         //残值
         ordersList.setOverAmtYName(Math.round(ordersList.getOverAmtY().intValue()) + " " + ordersList.getOverP());
         //保证金
-        ordersList.setDptAmtName(Math.round(ordersList.getDptAmt().intValue()) + "(" + ordersList.getDptTypeName() + ")" + ordersList.getDptP());
+        ordersList.setDptAmtName(Math.round(ordersList.getDptAmt().intValue()) + "(" + ordersList.getDptTypeName() + ordersList.getDptTaxPayN()+")" + ordersList.getDptP());
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", ordersList);
     }
 

@@ -141,6 +141,12 @@ public class OrdersList implements Serializable {
     @ApiModelProperty(value = "车号")
     private String makNo;
 
+    /**
+     * 车籍序號
+     */
+    @JsonIgnore
+    private Long carBaseAuto;
+
     @ApiModelProperty(value = "续租新车旧车号")
     private String reletMakNo;
 
