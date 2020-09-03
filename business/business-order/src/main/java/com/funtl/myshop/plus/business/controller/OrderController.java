@@ -438,6 +438,16 @@ public class OrderController {
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", lists);
     }
 
+    @ApiOperation(value = " 根据试算单号集合获取异常佣金人佣金记录")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "ordersAuto", value = "试算单号集合", required = false, dataType = "List<Long>", paramType = "path")
+    })
+    @GetMapping(value = "queryCommissionRecordList")
+    public ResponseResult<List<CommissionRecordList>> queryCommissionRecordList(@RequestParam(name = "ordersAuto",required = false) List<Long> ordersAuto){
+        List<CommissionRecordList> lists = commissionService.selectRecord(ordersAuto);
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", lists);
+    }
+
     @ApiOperation(value = " 根据试算单号获取报价车商历史成交记录")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "ordersAuto", value = "试算单号", required = false, dataType = "long", paramType = "path")
