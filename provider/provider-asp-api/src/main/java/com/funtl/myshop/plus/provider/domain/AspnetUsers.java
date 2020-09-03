@@ -9,7 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Data
-@Table(name = "[aspnet_Users]")
+@Table(name = "AspNet.dbo.aspnet_Users")
 public class AspnetUsers implements Serializable {
     @Column(name = "UserId")
     private Object userId;
