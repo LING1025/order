@@ -286,7 +286,7 @@
     a.Budget01_Y,a.Onetime,isnull(a.A6,'') AS a6,isnull(a.A7,'') AS a7,
     isnull(w.Project_Name,'') as projectName,
     isBigTra=case  when a.IsBigTradeItem =1  then '（大口客户）' when a.IsBigTradeItem =0  then '' else '' end
-    ,[dbo].[f_CustomerStatus](a.TradeItem_Auto) customerStatus
+    ,isnull([dbo].[f_CustomerStatus](a.TradeItem_Auto),'') customerStatus
     from
     Orders a
     left join v_Emp b on a.Sales_Auto = b.User_Auto
@@ -425,7 +425,7 @@
     isBigTra=case  when a.IsBigTradeItem =1  then '（大口客户）' when a.IsBigTradeItem =0  then '' else '' end,f.ItemName AS orderTypeName,
     convert(varchar(10),convert(decimal(18,2),(a.commissionRate)))+'%' as commissionRate,
     a.MAmt AS rentMAmt
-    ,[dbo].[f_CustomerStatus](a.TradeItem_Auto) customerStatus
+    ,isnull([dbo].[f_CustomerStatus](a.TradeItem_Auto),'') customerStatus
 	from
     Orders a
     left join v_Emp b on a.Sales_Auto = b.User_Auto
