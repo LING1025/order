@@ -488,10 +488,7 @@ public class OrderController {
         if(signOffParamDto.getOrdersFDetailAuto() != 0){
             throw new BusinessException(BusinessStatus.PARAM_ERROR);
         }
-        SignOffList signOffList = workFlowDocService.selectByDocPostIDAndRoleId(signOffParamDto.getOrdersAuto(),signOffParamDto.getRoleId());
-        if(signOffList == null){
-            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "查无信息", null);
-        }
+
         OrdersFDetail ordersFDetail = new OrdersFDetail();
         BeanUtils.copyProperties(signOffParamDto,ordersFDetail);
         ordersFDetail.setCdt(new Date());
@@ -507,11 +504,15 @@ public class OrderController {
             throw new BusinessException(BusinessStatus.SAVE_FAILURE);
         }
 
-        Integer j = workFlowDocService.deleteById(signOffList.getWorkFlowDocAuto());
-        if (j == 0){
-            ordersFDetailService.deleteById(i);
-            throw new BusinessException(BusinessStatus.SAVE_FAILURE);
+        SignOffList signOffList = workFlowDocService.selectByDocPostIDAndRoleId(signOffParamDto.getOrdersAuto(),signOffParamDto.getRoleId());
+        if(signOffList != null){
+            Integer j = workFlowDocService.deleteById(signOffList.getWorkFlowDocAuto());
+            if (j == 0){
+                ordersFDetailService.deleteById(i);
+                throw new BusinessException(BusinessStatus.SAVE_FAILURE);
+            }
         }
+
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "保存成功", null);
     }
 
@@ -521,10 +522,7 @@ public class OrderController {
         if(signOffParamDto.getOrdersFDetailAuto() != 0){
             throw new BusinessException(BusinessStatus.PARAM_ERROR);
         }
-        SignOffList signOffList = workFlowDocService.selectByDocPostIDAndRoleId(signOffParamDto.getOrdersAuto(),signOffParamDto.getRoleId());
-        if(signOffList == null){
-            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "查无信息", null);
-        }
+
         OrdersFDetail ordersFDetail = new OrdersFDetail();
         BeanUtils.copyProperties(signOffParamDto,ordersFDetail);
         ordersFDetail.setCdt(new Date());
@@ -540,11 +538,15 @@ public class OrderController {
             throw new BusinessException(BusinessStatus.SAVE_FAILURE);
         }
 
-        Integer j = workFlowDocService.deleteById(signOffList.getWorkFlowDocAuto());
-        if (j == 0){
-            ordersFDetailService.deleteById(i);
-            throw new BusinessException(BusinessStatus.SAVE_FAILURE);
+        SignOffList signOffList = workFlowDocService.selectByDocPostIDAndRoleId(signOffParamDto.getOrdersAuto(),signOffParamDto.getRoleId());
+        if(signOffList != null){
+            Integer j = workFlowDocService.deleteById(signOffList.getWorkFlowDocAuto());
+            if (j == 0){
+                ordersFDetailService.deleteById(i);
+                throw new BusinessException(BusinessStatus.SAVE_FAILURE);
+            }
         }
+
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "保存成功", null);
     }
 
