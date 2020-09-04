@@ -2,6 +2,9 @@ package com.funtl.myshop.plus.provider.api;
 
 import com.funtl.myshop.plus.provider.domain.SignOffList;
 import com.funtl.myshop.plus.provider.domain.WorkFlowDoc;
+
+import java.util.List;
+
 public interface WorkFlowDocService{
 
     /**
@@ -17,7 +20,16 @@ public interface WorkFlowDocService{
      * @param roleId
      * @return
      */
-    SignOffList selectByDocPostIDAndRoleId(Integer docPostID,Integer roleId);
+    SignOffList selectByDocPostIDAndRoleId(Long docPostID,Integer roleId);
 
     Integer deleteById(Long workFlowDocAuto);
+
+    /**
+     * 试算签核验证
+     * @param docPostID
+     * @param roleId
+     * @param type
+     * @return
+     */
+    List<WorkFlowDoc> selectWorkFlowDoc(Long docPostID,Integer roleId,Integer type);
 }
