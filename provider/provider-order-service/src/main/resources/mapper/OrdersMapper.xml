@@ -297,9 +297,9 @@
     left join Itemcode g on a.CustSource = g.Num and g.ItemType = 313
     left join Itemcode h on a.CarSource = h.Num and h.ItemType = 503
     left join Itemcode i on a.oil = i.Num and i.ItemType = 231
-    inner join FactoryBrand l on a.FactoryBrand_Auto = l.FactoryBrand_Auto
-    inner join Brand j on a.Brand_Auto = j.Brand_Auto
-    inner join Clasen k on a.Clasen_Auto = k.Clasen_Auto
+    left join FactoryBrand l on a.FactoryBrand_Auto = l.FactoryBrand_Auto
+    left join Brand j on a.Brand_Auto = j.Brand_Auto
+    left join Clasen k on a.Clasen_Auto = k.Clasen_Auto
     left join Itemcode m on a.PostType = m.Num and m.ItemType = 413
     left join Itemcode n on a.OrderStatus = n.Num and n.ItemType = 327
     left join TradeItem Supplier_Buy (nolock) on a.Supplier_Buy=Supplier_Buy.TradeItem_Auto
@@ -307,7 +307,7 @@
     left join ItemCode p on p.ItemType = 333 and p.Num = a.DptTaxPay
     left join ItemCode q on q.ItemType = 412 and q.Num = a.MakNoType
     left join ItemCode r on r.ItemType = 841 and r.Num = a.BsType
-    inner join Itemcode s on a.InsureType = s.Num and s.ItemType = 411
+    left join Itemcode s on a.InsureType = s.Num and s.ItemType = 411
     left join Itemcode t on a.InsurePercnt = t.Num and t.ItemType = 410
     left join ItemCode u on u.itemtype = 227 and u.num = a.CarPlace
     left join ItemCode v on v.ItemType = 128 and v.Num = a.ISCustomerCare
@@ -388,7 +388,7 @@
     p.ItemName AS postTypeName,
     (select isnull(convert(decimal(18,0),(sum(FeeAmt))),0) from OrdersFee where Orders_Auto=#{params} and FeeType_Auto not in(2,16)) feeAmt,
     (select isnull(convert(decimal(18,0),(sum(FeeAmt))),0) from OrdersFee where Orders_Auto=#{params} and FeeType_Auto in(2)) gpsAmt,
-    (select sum(InsureRealAmt) from OrdersInsureList where Orders_Auto = #{params}) insureRealAmt,
+    (select isnull(convert(decimal(18,0),(sum(InsureRealAmt))),0) from OrdersInsureList where Orders_Auto = #{params}) insureRealAmt,
     a.Orders_Auto,a.Orders_Old,a.MM,
     a.TradeItem_Auto,c.FName AS fName,b.FName AS salesname,
     g.ItemName AS custSourceName,
@@ -431,20 +431,20 @@
     left join v_Emp b on a.Sales_Auto = b.User_Auto
     left join TradeItem(nolock) c On a.TradeItem_Auto = c.TradeItem_Auto
     left join Inc d on a.Inc_Auto = d.Inc_Auto
-    inner join Itemcode g on a.CustSource = g.Num and g.ItemType = 313
-    inner join Itemcode h on a.CarSource = h.Num and h.ItemType = 503
-    inner join Itemcode i on a.oil = i.Num and i.ItemType = 231
-    inner join FactoryBrand l on a.FactoryBrand_Auto = l.FactoryBrand_Auto
-    inner join Brand j on a.Brand_Auto = j.Brand_Auto
-    inner join Clasen k on a.Clasen_Auto = k.Clasen_Auto
+    left join Itemcode g on a.CustSource = g.Num and g.ItemType = 313
+    left join Itemcode h on a.CarSource = h.Num and h.ItemType = 503
+    left join Itemcode i on a.oil = i.Num and i.ItemType = 231
+    left join FactoryBrand l on a.FactoryBrand_Auto = l.FactoryBrand_Auto
+    left join Brand j on a.Brand_Auto = j.Brand_Auto
+    left join Clasen k on a.Clasen_Auto = k.Clasen_Auto
     left join TradeItem Supplier_Buy (nolock) on a.Supplier_Buy=Supplier_Buy.TradeItem_Auto
-	inner join ItemCode r on r.ItemType = 841 and r.Num = a.BsType
-	inner join Itemcode m on a.InsureType = m.Num and m.ItemType = 411
-    inner join Itemcode n on a.InsurePercnt = n.Num and n.ItemType = 410
-	inner join ItemCode o on o.itemtype = 135 and o.num = a.MortgageAddr
+    left join ItemCode r on r.ItemType = 841 and r.Num = a.BsType
+    left join Itemcode m on a.InsureType = m.Num and m.ItemType = 411
+    left join Itemcode n on a.InsurePercnt = n.Num and n.ItemType = 410
+    left join ItemCode o on o.itemtype = 135 and o.num = a.MortgageAddr
     left join Itemcode f on a.OrderType = f.Num and f.ItemType = 326
     left join Itemcode p on a.PostType = p.Num and p.ItemType = 413
-    inner join ItemCode q on q.itemtype = 227 and q.num = a.CarPlace
+    left join ItemCode q on q.itemtype = 227 and q.num = a.CarPlace
     where
     a.Orders_Auto =  #{params}
   </select>
