@@ -10,7 +10,10 @@ import java.io.Serializable;
 
 @Data
 public class SignOffParamDto implements Serializable {
-    @ApiModelProperty(value = "签核明细id")
+    /**
+     * 签核明细id
+     */
+    @JsonIgnore
     private Long ordersFDetailAuto = 0L;
 
     @ApiModelProperty(value = "试算单号")

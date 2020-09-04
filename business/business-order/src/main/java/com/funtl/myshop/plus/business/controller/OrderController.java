@@ -485,9 +485,6 @@ public class OrderController {
     @ApiOperation(value = "签核(先不测，此接口如要测试请联系后端)")
     @PostMapping(value = "insertSignOff")
     public ResponseResult<String> insertSignOff(@ApiParam(value = "签核数据") @Valid @RequestBody SignOffParamDto signOffParamDto){
-        if(signOffParamDto.getOrdersFDetailAuto() != 0){
-            throw new BusinessException(BusinessStatus.PARAM_ERROR);
-        }
 
         OrdersFDetail ordersFDetail = new OrdersFDetail();
         BeanUtils.copyProperties(signOffParamDto,ordersFDetail);
@@ -519,9 +516,6 @@ public class OrderController {
     @ApiOperation(value = "驳回(先不测，此接口如要测试请联系后端)")
     @PostMapping(value = "insertTurnDown")
     public ResponseResult<String> insertTurnDown(@ApiParam(value = "驳回数据") @Valid @RequestBody SignOffParamDto signOffParamDto){
-        if(signOffParamDto.getOrdersFDetailAuto() != 0){
-            throw new BusinessException(BusinessStatus.PARAM_ERROR);
-        }
 
         OrdersFDetail ordersFDetail = new OrdersFDetail();
         BeanUtils.copyProperties(signOffParamDto,ordersFDetail);
