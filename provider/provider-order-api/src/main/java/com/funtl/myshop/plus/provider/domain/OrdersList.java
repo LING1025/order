@@ -29,6 +29,9 @@ public class OrdersList implements Serializable {
     @ApiModelProperty(value = "原试算单号")
     private Long ordersOld;
 
+    @ApiModelProperty(value = "前端用于判断")
+    private Integer postType;
+
     @ApiModelProperty(value = "案件类别")
     private String postTypeName;
 

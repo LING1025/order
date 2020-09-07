@@ -256,7 +256,7 @@
   <select id="selectByOrdersAuto" resultMap="queryByOrdersAuto">
     select
     a.Orders_Auto,a.Orders_Old,a.MM,a.isRelet,
-    o.ItemName AS dptTypeName,
+    o.ItemName AS dptTypeName,a.PostType,
 <!--    (select CONVERT(decimal(18,2),sum(InsureRealAmt)/count(*)) from OrdersInsureList where Orders_Auto = #{params}) insureRealAmt,-->
     convert(varchar(10),convert(decimal(18,2),((cast(a.DptAmt as decimal) *100/cast(a.CarCost as decimal)))))+'%' as dptP,
     case when p.ItemName is null then '' else ' :    ' + p.ItemName end dptTaxPayN,

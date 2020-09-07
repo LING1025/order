@@ -36,4 +36,24 @@
     UserId, User_Auto, Org_Auto, DepCode, Lev, UpUnit, TitleLevel, EmpBase_Auto, DepName,
     TitleName, FName, UserName, IsOn, IsEas, AccCode, IsSalesDep
   </sql>
+  <resultMap id="queryTelEM" extends="BaseResultMap" type="com.funtl.myshop.plus.provider.domain.TelEmail">
+    <result column="mtel" jdbcType="VARCHAR" property="mtel" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+  </resultMap>
+  <select id="selectTelEM" resultMap="queryTelEM">
+        declare
+        @Type nvarchar(2),@Query int
+        set @Type = #{type}
+        set @Query = #{userAuto}
+        begin
+
+        --以用户ID查询
+        if(@Type = 'R4')
+            begin
+            select b.UserName, a.MTEL mtel,a.Email email
+            from v_Emp b join TradeItem a on b.TradeItem_Auto=a.TradeItem_Auto
+            where   b.User_Auto=@Query
+            end
+        end
+   </select>
 </mapper>

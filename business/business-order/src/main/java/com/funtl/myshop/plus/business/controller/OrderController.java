@@ -153,7 +153,10 @@ public class OrderController {
         MsgDto msgDto = ordersService.selectMsg(ordersAuto);
         if (msgDto != null){
             ordersList.setMsg(msgDto.getMsg());
+        }else{
+            ordersList.setMsg("");
         }
+
 
         //介绍人+手机号码
         ordersList.setPushMan(ordersList.getPushMan() + ordersList.getPushTel());

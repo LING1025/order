@@ -69,15 +69,15 @@
   </select>
   <insert id="insertFlowAudit">
     declare
-    @Orders_AUTO bigInt=0,
-    @User_AUTO Int=0,
+    @Orders_AUTO bigInt,
+    @User_AUTO Int,
     @Roles int,
-    @AppMemo Nvarchar(200)='', --签核意见
-    @IsAccess Int =0, --是否核准 0 否 1 是
-    @IsAdd  Int=0, -- 是否加签 0 否 1是
-    @IsAgent Int=0,
-    @IsCredit nvarchar(20)='',
-    @AgentPerson int = 0
+    @AppMemo Nvarchar(200), --签核意见
+    @IsAccess Int , --是否核准 0 否 1 是
+    @IsAdd  Int, -- 是否加签 0 否 1是
+    @IsAgent Int,
+    @IsCredit nvarchar(20),
+    @AgentPerson int
     set @Orders_AUTO = #{flowAuditDto.ordersAuto}
     set @User_AUTO = #{flowAuditDto.userAuto}
     set @Roles = #{flowAuditDto.roles}
