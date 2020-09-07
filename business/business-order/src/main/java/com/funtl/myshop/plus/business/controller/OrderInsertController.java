@@ -40,7 +40,7 @@ public class OrderInsertController {
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "保存成功", null);
     }
 
-    @ApiOperation(value = "签核(先不测，此接口如要测试请联系后端)")
+    /*@ApiOperation(value = "签核(先不测，此接口如要测试请联系后端)")
     @PostMapping(value = "signOff")
     public ResponseResult<String> insertSignOff(@ApiParam(value = "签核数据") @Valid @RequestBody SignOffParamDto signOffParamDto){
 
@@ -100,5 +100,5 @@ public class OrderInsertController {
         }
 
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "保存成功", null);
-    }
+    }*/
 }

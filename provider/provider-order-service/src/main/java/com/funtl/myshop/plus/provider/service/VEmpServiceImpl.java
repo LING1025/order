@@ -1,6 +1,8 @@
 package com.funtl.myshop.plus.provider.service;
 
 import javax.annotation.Resource;
+
+import com.funtl.myshop.plus.provider.domain.TelEmail;
 import com.funtl.myshop.plus.provider.mapper.VEmpMapper;
 import com.funtl.myshop.plus.provider.domain.VEmp;
 import com.funtl.myshop.plus.provider.api.VEmpService;
@@ -19,5 +21,10 @@ public class VEmpServiceImpl implements VEmpService{
         example.createCriteria().andEqualTo("userAuto",userAuto)
         .andEqualTo("isOn",1);
         return vEmpMapper.selectOneByExample(example);
+    }
+
+    @Override
+    public TelEmail selectTelEM(String type, Long userAuto) {
+        return vEmpMapper.selectTelEM(type,userAuto);
     }
 }
