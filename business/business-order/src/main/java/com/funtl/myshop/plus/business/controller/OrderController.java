@@ -20,7 +20,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-@Api(tags = "直租、回租试算签核相关操作")
+@Api(tags = "直租、回租试算签核相关查询操作")
 @RestController
 @RequestMapping(value = "order")
 public class OrderController {
@@ -479,6 +479,20 @@ public class OrderController {
         if (ordersAuto == null){
             throw new BusinessException(BusinessStatus.PARAM_ERROR);        }
         List<ClasenList> lists = orderService.selectClasenList(ordersAuto);
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", lists);
+    }
+
+    @ApiOperation(value = " 试算签核验证")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "docPostID", value = "试算单号", required = false, dataType = "long", paramType = "path"),
+            @ApiImplicitParam(name = "roleId", value = "角色id", required = false, dataType = "int", paramType = "path")
+    })
+    @GetMapping(value = "queryWorkFlowDoc")
+    public ResponseResult<List<WorkFlowDoc>> queryWorkFlowDoc(@RequestParam(name = "docPostID",required = false) Long docPostID,
+                                                              @RequestParam(name = "roleId",required = false) Integer roleId){
+        if (docPostID == null || roleId == null){
+            throw new BusinessException(BusinessStatus.PARAM_ERROR);        }
+        List<WorkFlowDoc> lists = workFlowDocService.selectWorkFlowDoc(docPostID,roleId,1);
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", lists);
     }
 
