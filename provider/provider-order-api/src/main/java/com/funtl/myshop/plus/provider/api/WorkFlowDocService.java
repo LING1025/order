@@ -20,7 +20,7 @@ public interface WorkFlowDocService{
      * @param roleId
      * @return
      */
-    SignOffList selectByDocPostIDAndRoleId(Long docPostID,Integer roleId);
+    SignOffList selectByDocPostIDAndRoleId(Integer docPostID,Integer roleId);
 
     Integer deleteById(Long workFlowDocAuto);
 

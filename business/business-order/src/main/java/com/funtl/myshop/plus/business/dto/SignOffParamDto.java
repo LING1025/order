@@ -17,7 +17,7 @@ public class SignOffParamDto implements Serializable {
     private Long ordersFDetailAuto = 0L;
 
     @ApiModelProperty(value = "试算单号")
-    private Long ordersAuto;
+    private Integer ordersAuto;
 
     @ApiModelProperty(value = "签核意见")
     private String memo;

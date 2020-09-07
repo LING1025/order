@@ -22,7 +22,7 @@ public class WorkFlowDocServiceImpl implements WorkFlowDocService{
     }
 
     @Override
-    public SignOffList selectByDocPostIDAndRoleId(Long docPostID, Integer roleId) {
+    public SignOffList selectByDocPostIDAndRoleId(Integer docPostID, Integer roleId) {
         return workFlowDocMapper.selectSignOffList(docPostID,roleId);
     }
 

@@ -2,21 +2,19 @@ package com.funtl.myshop.plus.business.controller;
 
 import com.funtl.myshop.plus.business.BusinessException;
 import com.funtl.myshop.plus.business.BusinessStatus;
+import com.funtl.myshop.plus.business.dto.SignOffParamDto;
 import com.funtl.myshop.plus.commons.dto.ResponseResult;
+import com.funtl.myshop.plus.provider.api.OrdersFDetailService;
 import com.funtl.myshop.plus.provider.api.WorkFlowDocService;
-import com.funtl.myshop.plus.provider.domain.MasterList;
-import com.funtl.myshop.plus.provider.domain.WorkFlowDoc;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
+import com.funtl.myshop.plus.provider.domain.OrdersFDetail;
+import com.funtl.myshop.plus.provider.domain.SignOffList;
+import io.swagger.annotations.*;
 import org.apache.dubbo.config.annotation.Reference;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.BeanUtils;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import javax.validation.Valid;
+import java.util.Date;
 
 @Api(tags = "直租、回租试算签核相关新增操作")
 @RestController
@@ -25,5 +23,68 @@ public class OrderInsertController {
     @Reference(version = "1.0.0")
     private WorkFlowDocService workFlowDocService;
 
+    @Reference(version = "1.0.0")
+    private OrdersFDetailService ordersFDetailService;
 
+    @ApiOperation(value = "签核(先不测，此接口如要测试请联系后端)")
+    @PostMapping(value = "signOff")
+    public ResponseResult<String> insertSignOff(@ApiParam(value = "签核数据") @Valid @RequestBody SignOffParamDto signOffParamDto){
+
+        OrdersFDetail ordersFDetail = new OrdersFDetail();
+        BeanUtils.copyProperties(signOffParamDto,ordersFDetail);
+        ordersFDetail.setCdt(new Date());
+        ordersFDetail.setMdt(new Date());
+        if(signOffParamDto.getCreditPerson().equals(signOffParamDto.getAgentPerson())){
+            ordersFDetail.setIsAgent(0);
+        }else{
+            ordersFDetail.setIsAgent(1);
+        }
+        ordersFDetail.setOrdersStatus(20);
+        Long i = ordersFDetailService.insert(ordersFDetail);
+        if(i == 0){
+            throw new BusinessException(BusinessStatus.SAVE_FAILURE);
+        }
+
+        SignOffList signOffList = workFlowDocService.selectByDocPostIDAndRoleId(signOffParamDto.getOrdersAuto(),signOffParamDto.getRoleId());
+        if(signOffList != null){
+            Integer j = workFlowDocService.deleteById(signOffList.getWorkFlowDocAuto());
+            if (j == 0){
+                ordersFDetailService.deleteById(i);
+                throw new BusinessException(BusinessStatus.SAVE_FAILURE);
+            }
+        }
+
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK, "保存成功", null);
+    }
+
+    @ApiOperation(value = "驳回(先不测，此接口如要测试请联系后端)")
+    @PostMapping(value = "turnDown")
+    public ResponseResult<String> insertTurnDown(@ApiParam(value = "驳回数据") @Valid @RequestBody SignOffParamDto signOffParamDto){
+
+        OrdersFDetail ordersFDetail = new OrdersFDetail();
+        BeanUtils.copyProperties(signOffParamDto,ordersFDetail);
+        ordersFDetail.setCdt(new Date());
+        ordersFDetail.setMdt(new Date());
+        if(signOffParamDto.getCreditPerson().equals(signOffParamDto.getAgentPerson())){
+            ordersFDetail.setIsAgent(0);
+        }else{
+            ordersFDetail.setIsAgent(1);
+        }
+        ordersFDetail.setOrdersStatus(5);
+        Long i = ordersFDetailService.insert(ordersFDetail);
+        if(i == 0){
+            throw new BusinessException(BusinessStatus.SAVE_FAILURE);
+        }
+
+        SignOffList signOffList = workFlowDocService.selectByDocPostIDAndRoleId(signOffParamDto.getOrdersAuto(),signOffParamDto.getRoleId());
+        if(signOffList != null){
+            Integer j = workFlowDocService.deleteById(signOffList.getWorkFlowDocAuto());
+            if (j == 0){
+                ordersFDetailService.deleteById(i);
+                throw new BusinessException(BusinessStatus.SAVE_FAILURE);
+            }
+        }
+
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK, "保存成功", null);
+    }
 }
