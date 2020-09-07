@@ -2,6 +2,7 @@ package com.funtl.myshop.plus.provider.api;
 
 import com.funtl.myshop.plus.provider.domain.SignOffList;
 import com.funtl.myshop.plus.provider.domain.WorkFlowDoc;
+import com.funtl.myshop.plus.provider.dto.FlowAuditDto;
 
 import java.util.List;
 
@@ -32,4 +33,6 @@ public interface WorkFlowDocService{
      * @return
      */
     List<WorkFlowDoc> selectWorkFlowDoc(Long docPostID,Integer roleId,Integer type);
+
+    Integer insert(FlowAuditDto flowAuditDto);
 }

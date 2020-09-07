@@ -67,4 +67,441 @@
     end
     End
   </select>
+  <insert id="insertFlowAudit">
+    declare
+    @Orders_AUTO bigInt=0,
+    @User_AUTO Int=0,
+    @Roles int,
+    @AppMemo Nvarchar(200)='', --签核意见
+    @IsAccess Int =0, --是否核准 0 否 1 是
+    @IsAdd  Int=0, -- 是否加签 0 否 1是
+    @IsAgent Int=0,
+    @IsCredit nvarchar(20)='',
+    @AgentPerson int = 0
+    set @Orders_AUTO = #{flowAuditDto.ordersAuto}
+    set @User_AUTO = #{flowAuditDto.userAuto}
+    set @Roles = #{flowAuditDto.roles}
+    set @AppMemo = #{flowAuditDto.memo}
+    set @IsAccess = #{flowAuditDto.isAccess}
+    set @IsAdd = #{flowAuditDto.isAdd}
+    set @IsAgent = #{flowAuditDto.isAgent}
+    set @IsCredit  = #{flowAuditDto.isCredit}
+    set @AgentPerson = #{flowAuditDto.agentPerson}
+    Begin
+    Declare @Seq Int,@MaxLev Int,@Lev Int, @CarInfo Nvarchar(200), @MsgMemo Nvarchar(200), @ClasenCode nvarchar(50)
+    Select @Seq=Seq From ItemCode Where ItemType=1062 And Num=@Roles
+
+    select @MaxLev = isnull(max(MaxLevel),0),@Lev = count(*) from Workflowdoc Where DocPostID=@Orders_Auto And Memo='999' and  ((@Seq = 0 and AppSeq = -1) or (@Seq > 0 and AppSeq &lt;= @Seq) or (@Seq=-1 and AppSeq=0 ) )and Status = 0--保险人员 (@Seq=-1 and AppSeq=0 )
+
+    if isnull(@MaxLev,0) > 0
+    Begin
+    Declare @PostType Int,@OldOrders_Auto bigInt,@OrderType Int,@Sales_Auto Int,@SalesOrg Int,@RentType Int,@SALESMAIN Int,@Order_Auto bigInt,@CreditStatus int,@CreditMain_Auto bigInt
+    Select @CarInfo='  ,客户:'+b.FName+'  厂牌:'+c.BrandName+'  车型:'+d.ClasenName+
+    +'  租期:'+cast(a.MM as Nvarchar(20))+'  租金:'+cast(a.MAmt as Nvarchar(20))+'  保证金:'
+    + cast(a.DptAmt as Nvarchar(20))+'  业务员:'+e.fname ,
+    @PostType=PostType,
+    @OldOrders_Auto=Orders_Old,
+    @OrderType = a.OrderType,
+    @SalesOrg = e.Org_Auto,
+    @RentType = a.RentType,
+    @Sales_Auto = Sales_Auto,
+    @ClasenCode = a.ClasenCode
+    From Orders(nolock) a
+    left join TradeItem b on a.TradeItem_Auto=b.TradeItem_Auto
+    left join Brand c on a.Brand_Auto=c.Brand_Auto
+    left join Clasen d on a.Clasen_Auto=d.Clasen_Auto
+    left join v_emp e on a.Sales_Auto=e.user_auto
+    Where Orders_Auto=@Orders_Auto
+
+
+    Insert Into [Rental].[dbo].[OrdersFDetail]([Orders_Auto],[Memo],[CreditPerson],[Orders_Status],IsAgent,AgentPerson,RoleID)
+    Select @Orders_AUTO
+    ,case when AppSeq = @Seq or @Seq = 0 then @AppMemo else  'OK' end
+    ,@User_AUTO
+    ,case when AppSeq = @Seq  or @Seq = 0then case when MaxLevel &lt;= @Seq then 22 else 20 end else 21 end
+    ,@IsAgent,@AgentPerson,a.RoleID
+    From Workflowdoc a
+    Where DocPostID=@Orders_Auto and [Status] = 0 And Memo='999' and ((@Seq = 0 and AppSeq = -1) or (@Seq > 0 and AppSeq &lt;= @Seq))
+
+
+    if(@OrderType in(2,9))
+    begin
+    if Exists(
+    select *
+    from v_Emp a
+    left join AspNet.dbo.aspnet_UsersInRoles b on b.UserId = a.UserId
+    left join AspNet.dbo.aspnet_Roles c on c.RoleId = b.RoleId
+    where a.User_Auto = @Sales_Auto and c.Roles_Auto = 97
+    )
+    begin
+    set @SalesOrg = 201
+    end
+    end
+
+    if @Seq  = 0--当为服务部时
+    begin
+    Declare @InsureAnomalyType int
+    select  @InsureAnomalyType=  isnull(s.InsureAnomalyType ,0) from Orders s where Orders_Auto=@Orders_Auto
+
+    Update a
+    Set [Status]=case when [Status] = 0 and AppSeq=-1 then 20 else a.[Status] end,LevNow = 0--case when @InsureAnomalyType = 0 then -1 else 0 end
+    From Workflowdoc a
+    Where DocPostID=@Orders_Auto And Memo='999'
+
+    if @InsureAnomalyType = 0
+    begin
+    set @SALESMAIN = 0
+    select @SALESMAIN = isnull(User_Auto,0)
+    from (
+    select b.User_Auto , max(f.Seq) Seq
+    from orders h
+    left join [v_Emp] a on a.User_Auto = h.Sales_Auto
+    left join AspNet.dbo.Org2Emp b on b.Org_Auto = a.Org_Auto and b.ACLType = 0
+    inner join AspNet.dbo.aspnet_Users c on c.User_Auto = b.User_Auto
+    inner join AspNet.dbo.aspnet_UsersInRoles d on d.UserId = c.UserId
+    inner join AspNet.dbo.aspnet_Roles e on e.RoleId = d.RoleId
+    inner join ItemCode f on f.ItemType = 1062 and f.Num = e.Roles_Auto
+    inner join v_Emp g on g.User_Auto = b.User_Auto and g.IsSalesDep = 1
+    where h.Orders_Auto = @Orders_AUTO
+    group by b.User_Auto
+    ) aa
+    where Seq = 1
+
+    if ((isnull(@SALESMAIN,0) = 0 and @SalesOrg != 201 and @MaxLev > 1 ) ) --and @RentType != 2
+    begin
+    Update a
+    Set[Status]=case when RoleID = 16 then 20  when RoleID = 30 then 20  else [Status] end , LevNow =1
+    From Workflowdoc a
+    Where a.DocPostID=@Orders_Auto and a.Memo = '999'
+
+    Insert Into [Rental].[dbo].[OrdersFDetail]([Orders_Auto],[Memo],[CreditPerson],[Orders_Status],IsAgent,AgentPerson,RoleID)
+    Select @Orders_AUTO,'OK',0,23,0,0,16
+    end
+    end
+    end
+    else
+    if @Seq  = -1--当为保险人员时
+    begin
+    Update a
+    Set [Status]=case when  @Seq &lt; 0 and [Status] = 0 and AppSeq=0 then 20 else a.[Status] end,LevNow =0
+    From Workflowdoc a
+    Where DocPostID=@Orders_Auto And Memo='999'
+
+    Insert Into [Rental].[dbo].[OrdersFDetail]([Orders_Auto],[Memo],[CreditPerson],[Orders_Status],IsAgent,AgentPerson,RoleID)
+    Select @Orders_AUTO,@AppMemo,@User_AUTO,20,0,0,30 --21：已审核(跨签)  22：核准  20：已审核  23：系统自动审核
+
+    set @SALESMAIN = 0
+    select @SALESMAIN = isnull(User_Auto,0)
+    from (
+    select b.User_Auto , max(f.Seq) Seq
+    from orders h
+    left join [v_Emp] a on a.User_Auto = h.Sales_Auto
+    left join AspNet.dbo.Org2Emp b on b.Org_Auto = a.Org_Auto and b.ACLType = 0
+    inner join AspNet.dbo.aspnet_Users c on c.User_Auto = b.User_Auto
+    inner join AspNet.dbo.aspnet_UsersInRoles d on d.UserId = c.UserId
+    inner join AspNet.dbo.aspnet_Roles e on e.RoleId = d.RoleId
+    inner join ItemCode f on f.ItemType = 1062 and f.Num = e.Roles_Auto
+    inner join v_Emp g on g.User_Auto = b.User_Auto and g.IsSalesDep = 1
+    where h.Orders_Auto = @Orders_AUTO
+    group by b.User_Auto
+    ) aa
+    where Seq = 1
+
+    if ((isnull(@SALESMAIN,0) = 0 and @SalesOrg != 201 and @MaxLev > 1) )
+    begin
+    Update a
+    Set[Status]=case when RoleID = 16 then 20  when RoleID = 30 then 20  else [Status] end , LevNow =1
+    From Workflowdoc a
+    Where a.DocPostID=@Orders_Auto and a.Memo = '999'
+
+    Insert Into [Rental].[dbo].[OrdersFDetail]([Orders_Auto],[Memo],[CreditPerson],[Orders_Status],IsAgent,AgentPerson,RoleID)
+    Select @Orders_AUTO,'OK',0,23,0,0,16
+    end
+
+    end
+    else if @Seq = 1 and @OrderType in(2,9) and @SalesOrg = 201--201：服务部
+    begin
+
+    Update a
+    Set [Status]=case when AppSeq &lt;= 2  and [Status] = 0 then 20 else a.[Status] end,LevNow = 2
+    From Workflowdoc a
+    Where DocPostID=@Orders_Auto And Memo='999'
+
+    Insert Into [Rental].[dbo].[OrdersFDetail]([Orders_Auto],[Memo],[CreditPerson],[Orders_Status],IsAgent,AgentPerson,RoleID)
+    Select @Orders_AUTO,'OK',0,23,0,0,11
+    end
+    else
+    begin
+    Update a
+    Set [Status]=case when AppSeq &lt;= @Seq and [Status] = 0 then 20 else a.[Status] end,LevNow = @Seq
+    From Workflowdoc a
+    Where DocPostID=@Orders_Auto And Memo='999'
+    end
+
+    If (@IsAdd=1) --  加签
+    Begin
+    --取得加签下一流程的代表号 及加签的主管权限
+    DECLARE @Workflowdoc_Auto bigint
+    INSERT Workflowdoc(WorkFlow_Auto,WorkFlowD_Auto,DocPostID,AppSeq,RoleID,MaxLevel
+    ,LevNow,[Status],IsOver,Rights,DefaultStatus,InActiveList,LimitDept,IsAgent,Memo,CUser,MUser,CDT,MDT)
+    Select    c.WorkFlow_Auto,d.WorkFlowD_Auto,@Orders_AUTO,d.AppSeq ,d.RoleID,c.MaxLevel
+    ,@Seq,0,0,0,0,0,0,0,'999',@User_AUTO,@User_AUTO,GETDATE(),GETDATE()
+    From WorkFlowDoc(nolock) a
+    left join WorkFlow c on (c.DocType = 25 and c.MaxLevel = a.MaxLevel + 1)
+    left join WorkFlowD d on d.WorkFlow_Auto = c.WorkFlow_Auto and d.AppSeq = c.MaxLevel
+    Where DocPostID=@Orders_AUTO And a.Memo='999' and a.AppSeq = @Seq
+    Select @Workflowdoc_Auto=@@IDENTITY
+
+    If (isnull(@Workflowdoc_Auto,0) >0)
+    Begin
+    update a
+    set a.WorkFlow_Auto = b.WorkFlow_Auto ,a.WorkFlowD_Auto = c.WorkFlowD_Auto,a.MaxLevel = b.MaxLevel
+    from WorkFlowDoc a
+    left join WorkFlowDoc b on b.Workflowdoc_Auto = @Workflowdoc_Auto and b.DocPostID = a.DocPostID
+    left join WorkFlowD  c on c.WorkFlow_Auto =b.WorkFlow_Auto and a.AppSeq = c.AppSeq
+    where a.DocPostID=@Orders_AUTO And  a.Memo='999' and a.AppSeq &lt;= @Seq
+    End
+    End
+
+    If (not Exists(select * from WorkFlowDoc where  DocPostID = @Orders_AUTO and [Status] = 0 And Memo='999' ) )  -- 核准
+    Begin
+    --更新试算报价单状态为【核准】 更新 审核时间
+    if @OrderType in(2,9)
+    begin
+    Update Orders Set OrderStatus=30,AppDate=GETDATE() Where Orders_Auto=@Orders_AUTO
+    end
+    else
+    begin
+    Update Orders Set OrderStatus=20,AppDate=GETDATE() Where Orders_Auto=@Orders_AUTO
+
+    --试算变更  直接修改授信资料 关联资料 并且申复授信 从债管人员开始重新审核授信
+    --- 修改已转的契约档的报价单号
+    If(@PostType=1 And @OldOrders_Auto>0 )
+    Begin
+    if Exists(select * from Orders a left join Orders b on a.Orders_Old = b.Orders_Auto where a.Orders_Auto = @Orders_AUTO and  a.OrderType in(2,9) and b.OrderType in(2,9))
+    begin
+    if exists(select Orders_Auto from Orders where Orders_Auto= @OldOrders_Auto and PostType = 3)
+    begin --6.更新当前件:三方移转
+    Update orders Set PostType=3 Where Orders_Auto=@Orders_AUTO
+    end
+    else --6.更新当前件:正常件(变更)
+    begin
+    Update orders Set PostType=8 Where Orders_Auto=@Orders_AUTO
+    end
+    --5.更新原报价单类型:旧版
+    Update orders Set PostType=9 Where Orders_Auto=@OldOrders_Auto
+
+    If Exists(Select Orders_Auto From [Order](nolock) Where Orders_Auto=@OldOrders_Auto)
+    Begin
+    Select @Order_Auto=Order_Auto From [Order](nolock) Where Orders_Auto=@OldOrders_Auto
+    --1.更新契约关联的报价单号
+    Update [Order] Set Orders_Auto=@Orders_AUTO Where Orders_Auto=@OldOrders_Auto
+    exec [s_Orders_TRN] @Orders_Auto,0
+    end
+    end
+    else
+    begin
+    Update a Set a.CusSource=CustSource
+    from Orders c
+    Join Credit_Order b On c.Orders_Auto=b.Orders_Auto
+    Join CreditMainInfo a On a.CreditMain_Auto=b.CreditMain_Auto
+    Where c.Orders_Auto=@Orders_AUTO
+
+    select @CreditStatus = b.CreditStatus,@CreditMain_Auto=b.CreditMain_Auto
+    From Credit_Order(nolock) a
+    left join CreditMainInfo (nolock) b on b.CreditMain_Auto = a.CreditMain_Auto
+    Where a.Orders_Auto=@OldOrders_Auto
+
+    if @CreditStatus != 21 and (@IsCredit != '' or Exists(select * from Orders a left join Orders b on a.Orders_Old = b.Orders_Auto where a.Orders_Auto = @Orders_AUTO and (b.OrderStatus &lt; 30 or ((a.ListPrice -a.DisPrice) - (b.ListPrice -b.DisPrice)) >= 3000 or a.DptAmt != b.DptAmt)))
+    begin
+    --检查原报价单是否有关联授信  修改关联的授信
+    If isnull(@CreditMain_Auto,0) > 0
+    Begin
+    if @IsCredit != ''
+    begin
+    update Orders set IsCredit = @IsCredit,IsCreditUser = @User_AUTO where Orders_Auto = @Orders_AUTO
+    end
+
+    --1.更新关联档
+    Update Credit_Order Set Orders_Auto=@Orders_Auto Where Orders_Auto=@OldOrders_Auto
+
+    --2.新增关联历史档
+    Insert Into CreditOrders_Log(Creditmain_Auto,Orders_Auto)Select @CreditMain_Auto,@OldOrders_Auto
+
+    --3.更新授信
+    Update a Set
+    --1.)厂牌车型
+    a.FactoryBrand_Auto=c.FactoryBrand_Auto,a.RenCar_Brand=c.Brand_Auto,
+    a.RenCar_Clasen=c.Clasen_Auto,
+    --2.)总牌价 总进价 配件 保证金 月租金 租期 租赁方式 付款日期 总进价 车辆成本 保证金比例
+    a.RentCarPriceList=c.ListPrice,
+    a.RentCarRealPrice=c.RentAmt,
+    a.RentCarAccessary=c.Accessary,
+    a.CashDep=c.DptAmt,
+    a.MRent=c.MAmt,
+    a.MCount=c.MM,
+    a.TenancyMode=c.RentType,
+    a.CommMoney=c.PushMoney,
+    a.PayDatetime=c.PayDay,
+    a.RentSumPrice=c.RentAmt,
+    a.CashDepQuota= Cast(cast((c.DptAmt*1.0/c.RentAmt*100)as numeric(10,2))As Nvarchar(8)),
+    a.RentAmt=c.RentAmt
+    from CreditMainInfo a
+    Join Credit_Order b On a.CreditMain_Auto=b.CreditMain_Auto
+    Join Orders c On c.Orders_Auto=b.Orders_Auto
+    Where c.Orders_Auto=@Orders_AUTO
+
+    --4.申复授信
+    Exec dbo.s_ReRun_U  @type=0, @creditmain_auto=@CreditMain_Auto,@userId=0,@Memo=''
+
+    if exists(select Orders_Auto from Orders where Orders_Auto= @OldOrders_Auto and PostType = 3)
+    begin --6.更新当前件:三方移转
+    Update orders Set PostType=3 Where Orders_Auto=@Orders_AUTO
+    end
+    else --6.更新当前件:正常件(变更)
+    begin
+    Update orders Set PostType=8 Where Orders_Auto=@Orders_AUTO
+    end
+
+    --5.更新原报价单类型:旧版
+    Update orders Set PostType=9 Where Orders_Auto=@OldOrders_Auto
+    End
+
+    Select @Order_Auto=Order_Auto From [Order](nolock) Where Orders_Auto=@OldOrders_Auto
+    If isnull(@Order_Auto,0) > 0
+    Begin
+    --1.更新契约关联的报价单号
+    Update [Order] Set Orders_Auto=@Orders_AUTO Where Orders_Auto=@OldOrders_Auto
+    End
+    end
+    else
+    begin
+    --检查原报价单是否有关联授信  修改关联的授信
+    If Exists(Select Orders_Auto From Credit_Order Where Orders_Auto=@OldOrders_Auto)
+    Begin
+    Select @CreditMain_Auto=CreditMain_Auto From Credit_Order(nolock) Where Orders_Auto=@OldOrders_Auto
+    --1.更新关联档
+    Update Credit_Order Set Orders_Auto=@Orders_Auto Where Orders_Auto=@OldOrders_Auto
+
+    --2.新增关联历史档
+    Insert Into CreditOrders_Log(Creditmain_Auto,Orders_Auto)Select @CreditMain_Auto,@OldOrders_Auto
+
+    --3.更新授信
+    Update a Set
+    --1.)厂牌车型
+    a.FactoryBrand_Auto=c.FactoryBrand_Auto,a.RenCar_Brand=c.Brand_Auto,
+    a.RenCar_Clasen=c.Clasen_Auto,
+    --2.)总牌价 总进价 配件 保证金 月租金 租期 租赁方式 付款日期 总进价 车辆成本 保证金比例
+    a.RentCarPriceList=c.ListPrice,
+    a.RentCarRealPrice=c.RentAmt,
+    a.RentCarAccessary=c.Accessary,
+    a.CashDep=c.DptAmt,
+    a.MRent=c.MAmt,
+    a.MCount=c.MM,
+    a.TenancyMode=c.RentType,
+    a.CommMoney=c.PushMoney,
+    a.PayDatetime=c.PayDay,
+    a.RentSumPrice=c.RentAmt,
+    a.CashDepQuota= Cast(cast((c.DptAmt*1.0/c.RentAmt*100)as numeric(10,2))As Nvarchar(8)),
+    a.RentAmt=c.RentAmt
+    from CreditMainInfo a
+    Join Credit_Order b On a.CreditMain_Auto=b.CreditMain_Auto
+    Join Orders c On c.Orders_Auto=b.Orders_Auto
+    Where c.Orders_Auto=@Orders_AUTO
+
+    --更新合约号
+    if exists (select *
+    from Orders a
+    left join itemcode b (nolock) on b.itemtype = 410 and a.InsurePercnt = b.num and b.itemname like '%货车%'
+    Where a.Orders_Auto=@Orders_Auto and (a.Inc_Auto = 1 or a.Inc_Auto = 4) and a.OrderType != 5 and b.num is null)
+    begin
+    declare @MAXContractRZNo nvarchar(10)
+    select  @MAXContractRZNo='0000'+RIGHT('0000'+cast ((max(cast(right(ContractRZNo,4) as int))+1) as nvarchar(10) ),4)
+    from  [CreditMainInfo]
+    update [CreditMainInfo] set ContractRZNo = @MAXContractRZNo where CreditMain_auto=@CreditMain_auto
+    and   ContractRZNo='00000000'
+    end
+
+    if exists(select Orders_Auto from Orders where Orders_Auto= @OldOrders_Auto and PostType = 3)
+    begin --5.更新当前件:三方移转
+    Update a Set a.PostType=3,a.OrderStatus=case when b.OrderStatus = 30 then b.OrderStatus  else a.OrderStatus end
+    from orders a
+    left join orders b on a.Orders_Old = b.Orders_Auto
+    Where a.Orders_Auto=@Orders_AUTO
+    end
+    else --5.更新当前件:正常件(变更)
+    begin
+    Update a Set a.PostType=8,a.OrderStatus=case when b.OrderStatus = 30 then b.OrderStatus  else a.OrderStatus end
+    from orders a
+    left join orders b on a.Orders_Old = b.Orders_Auto
+    Where a.Orders_Auto=@Orders_AUTO
+    end
+
+    --4.更新原报价单类型:旧版
+    Update orders Set PostType=9 Where Orders_Auto=@OldOrders_Auto
+    End
+
+    If Exists(Select Orders_Auto From [Order](nolock) Where Orders_Auto=@OldOrders_Auto)
+    Begin
+    Select @Order_Auto=Order_Auto From [Order](nolock) Where Orders_Auto=@OldOrders_Auto
+    --1.更新契约关联的报价单号
+    Update [Order] Set Orders_Auto=@Orders_AUTO Where Orders_Auto=@OldOrders_Auto
+
+    exec [s_Orders_TRN] @Orders_Auto,0
+    End
+    end
+    end
+    End
+    end
+    end
+
+    --if @Seq = 3 and @Lev>2 and @SalesOrg in(41,42,71,164,61,70,138)
+    --begin
+    --	Update a
+    --	Set [Status]=case when AppSeq &lt;= @Seq+1 and [Status] = 0 then 20 else a.[Status] end,LevNow = @Seq+1
+    --	From Workflowdoc a
+    --	Where DocPostID=@Orders_Auto And Memo='999'
+
+    --	Insert Into [Rental].[dbo].[OrdersFDetail]([Orders_Auto],[Memo],[CreditPerson],[Orders_Status],IsAgent,AgentPerson,RoleID)
+    --	Select @Orders_AUTO,'OK',0,23,0,0,22
+    --end
+    End
+
+    if isnull(@CreditMain_auto,0) > 0 and Exists(select a.Orders_Auto
+    from orders a
+    left join orders b on a.Orders_Old = b.Orders_Auto
+    left join OrdersBudget e on e.Orders_Auto = a.Orders_Auto and e.Type_Auto = 1
+    left join OrdersBudget f on f.Orders_Auto = b.Orders_Auto and f.Type_Auto = 1
+    left join OrdersInsure c on c.Orders_Auto = a.Orders_Auto and c.InsureType != 98
+    left join OrdersInsure d on d.Orders_Auto = b.Orders_Auto and d.InsureType = c.InsureType and d.InsureType != 98
+    Where a.Orders_Auto=@Orders_AUTO and a.PostType in(8,3) and a.OrderStatus in(20,30,50)
+    and (a.Inc_Auto != b.Inc_Auto
+    or a.Clasen_Auto != b.Clasen_Auto
+    or a.ClasenCode != b.ClasenCode
+    or a.CarSource != b.CarSource
+    or a.BsType &lt; b.BsType
+                  or a.CarColor != b.CarColor
+    or a.ListPrice != b.ListPrice
+    or a.OverAmt != b.OverAmt
+    or a.DptAmt != b.DptAmt
+    or a.MakNoType != b.MakNoType
+    or a.MM  != b.MM
+    or a.OrderType != b.OrderType
+    or a.RentType != b.RentType
+    or a.MAmt != b.MAmt
+    or isnull(c.InsureLimit,0) &lt; isnull(d.InsureLimit,0)
+    or (a.RentType = 2 and isnull(e.PB,0) != isnull(f.PB,0))
+    )
+    )
+    begin
+    update CreditMainInfo set ISContract = 0, Num = isnull(Num,0)+1 where CreditMain_auto = @CreditMain_auto
+    end
+
+    if isnull(@MaxLev,0) > 0
+    Begin
+    set @MsgMemo =' 报价单:' +cast(@Orders_AUTO as Nvarchar(10))+@CarInfo
+    exec dbo.s_OrdersRemsg @Orders_AUTO,@User_AUTO,@MsgMemo
+    end
+    End
+  </insert>
 </mapper>
