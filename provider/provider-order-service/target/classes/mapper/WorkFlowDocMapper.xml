@@ -793,7 +793,7 @@
     Select @Orders_AUTO,'OK',0,23,0,0,11
     end
     else
-    if ((isnull(@SALESMAIN,0) = 0 and @SalesOrg != 201 and @MaxLev > 1 and @RentType != 2) ) --isnull(@SALESMAIN,0) = 0 and @SalesOrg != 201 and @MaxLev > 1 and @RentType != 2
+    if ((isnull(@SALESMAIN,0) = 0 and @SalesOrg  !=  201 and @MaxLev > 1 and @RentType  !=  2) ) --isnull(@SALESMAIN,0) = 0 and @SalesOrg  !=  201 and @MaxLev > 1 and @RentType  !=  2
     begin
     if @Other = 0--当没有保险人员时
     begin
@@ -840,7 +840,7 @@
     Insert Into [Rental].[dbo].[OrdersFDetail]([Orders_Auto],[Memo],[CreditPerson],[Orders_Status],IsAgent,AgentPerson,RoleID)
     Select @Orders_AUTO,case when AppSeq = @t or @t = 0  then @AppMemo else  'OK' end ,@User_AUTO,case when AppSeq = @t or @t = 0 then @AppStatus else @OverFloor end,@IsAgent,@AgentPerson,a.RoleID
     From Workflowdoc a
-    Where DocPostID=@Orders_Auto and [Status]  !=  @AppStatus And Memo='999' and AppSeq &lt;= @t
+    Where DocPostID=@Orders_Auto and [Status]  !=  @AppStatus And Memo='999' and AppSeq  &lt;=  @t
 
     if(@OrderType in(2,9))
     begin
@@ -859,7 +859,7 @@
     if @t = 1  and @OrderType in(2,9) and @SalesOrg = 201
     begin
     Update a
-    Set [Status]=case when AppSeq &lt;= @t+1 and [Status]  !=  @AppStatus then @AppStatus else a.[Status] end,LevNow = @t+1
+    Set [Status]=case when AppSeq  &lt;=  @t+1 and [Status]  !=  @AppStatus then @AppStatus else a.[Status] end,LevNow = @t+1
     From Workflowdoc a
     Where DocPostID=@Orders_Auto And Memo='999'
 
@@ -885,11 +885,11 @@
     ) aa
     where v1 = 1
 
-    if isnull(@SALESMAIN,0) = 0 and @SalesOrg != 201 and @MaxLev > 1 and @RentType = 2
+    if isnull(@SALESMAIN,0) = 0 and @SalesOrg  !=  201 and @MaxLev > 1 and @RentType = 2
     begin
     set @t = 1
     Update a
-    Set [Status]=case when AppSeq &lt;= @t and [Status] != @AppStatus then @AppStatus else a.[Status] end,LevNow = @t
+    Set [Status]=case when AppSeq  &lt;=  @t and [Status]  !=  @AppStatus then @AppStatus else a.[Status] end,LevNow = @t
     From Workflowdoc a
     Where DocPostID=@Orders_Auto And Memo='999'
 
@@ -899,7 +899,7 @@
     else
     begin
     Update a
-    Set [Status]=case when AppSeq &lt;= @t and [Status] != @AppStatus then @AppStatus else a.[Status] end,LevNow = @t
+    Set [Status]=case when AppSeq  &lt;=  @t and [Status]  !=  @AppStatus then @AppStatus else a.[Status] end,LevNow = @t
     From Workflowdoc a
     Where DocPostID=@Orders_Auto And Memo='999'
     end
@@ -926,7 +926,7 @@
     from WorkFlowDoc a
     left join WorkFlowDoc b on b.Workflowdoc_Auto = @Workflowdoc_Auto and b.DocPostID = a.DocPostID
     left join WorkFlowD  c on c.WorkFlow_Auto =b.WorkFlow_Auto and a.AppSeq = c.AppSeq
-    where a.DocPostID=@Orders_AUTO And  a.Memo='999' and a.AppSeq &lt;= @t
+    where a.DocPostID=@Orders_AUTO And  a.Memo='999' and a.AppSeq  &lt;=  @t
 
     --更新试算报价单状态为【送签】
     Update Orders Set OrderStatus=10 Where Orders_Auto=@Orders_AUTO
@@ -999,13 +999,13 @@
     Where a.Orders_Auto=@OldOrders_Auto
 
     set  @Msg=@MsgChange
-    if (@IsCredit  !=  '' or Exists(select * from Orders a left join Orders b on a.Orders_Old = b.Orders_Auto where a.Orders_Auto = @Orders_AUTO and (b.OrderStatus &lt; 30 or ((a.ListPrice -a.DisPrice) - (b.ListPrice -b.DisPrice))  &gt;=  3000 or (@CreditStatus != 21 and a.DptAmt != b.DptAmt))))
+    if (@IsCredit  !=  '' or Exists(select * from Orders a left join Orders b on a.Orders_Old = b.Orders_Auto where a.Orders_Auto = @Orders_AUTO and (b.OrderStatus  &lt;  30 or ((a.ListPrice -a.DisPrice) - (b.ListPrice -b.DisPrice))  &gt;=  3000 or (@CreditStatus  !=  21 and a.DptAmt  !=  b.DptAmt))))
     begin
     --检查原报价单是否有关联授信  修改关联的授信
     If Exists(Select Orders_Auto From Credit_Order Where Orders_Auto=@OldOrders_Auto)
     Begin
 
-    if @IsCredit != ''
+    if @IsCredit  !=  ''
     begin
     update Orders set IsCredit = @IsCredit,IsCreditUser = @User_AUTO where Orders_Auto = @Orders_AUTO
     end
@@ -1114,7 +1114,7 @@
     if exists (select *
     from Orders a
     left join itemcode b (nolock) on b.itemtype = 410 and a.InsurePercnt = b.num and b.itemname like '%货车%'
-    Where a.Orders_Auto=@Orders_Auto and (a.Inc_Auto = 1 or a.Inc_Auto = 4) and a.OrderType != 5 and b.num is null)
+    Where a.Orders_Auto=@Orders_Auto and (a.Inc_Auto = 1 or a.Inc_Auto = 4) and a.OrderType  !=  5 and b.num is null)
     begin
     declare @MAXContractRZNo nvarchar(10)
     select  @MAXContractRZNo='0000'+RIGHT('0000'+cast ((max(cast(right(ContractRZNo,4) as int))+1) as nvarchar(10) ),4)
@@ -1211,8 +1211,8 @@
     left join orders b on a.Orders_Old = b.Orders_Auto
     left join OrdersBudget e on e.Orders_Auto = a.Orders_Auto and e.Type_Auto = 1
     left join OrdersBudget f on f.Orders_Auto = b.Orders_Auto and f.Type_Auto = 1
-    left join OrdersInsure c on c.Orders_Auto = a.Orders_Auto and c.InsureType != 98
-    left join OrdersInsure d on d.Orders_Auto = b.Orders_Auto and d.InsureType = c.InsureType and d.InsureType != 98
+    left join OrdersInsure c on c.Orders_Auto = a.Orders_Auto and c.InsureType  !=  98
+    left join OrdersInsure d on d.Orders_Auto = b.Orders_Auto and d.InsureType = c.InsureType and d.InsureType  !=  98
     Where a.Orders_Auto=@Orders_AUTO and a.PostType in(8,3) and a.OrderStatus in(20,30,50)
     and (a.Inc_Auto  != b.Inc_Auto
     or a.Clasen_Auto  !=  b.Clasen_Auto
@@ -1229,7 +1229,7 @@
     or a.RentType  !=  b.RentType
     or a.MAmt  !=  b.MAmt
     or isnull(c.InsureLimit,0) &lt; isnull(d.InsureLimit,0)
-    or (a.RentType = 2 and isnull(e.PB,0)  != h isnull(f.PB,0))
+    or (a.RentType = 2 and isnull(e.PB,0)  !=  isnull(f.PB,0))
     )
     )
     begin
@@ -1278,25 +1278,25 @@
     Left Join Brand cc on a.Brand_Auto=cc.Brand_Auto
     Left Join Clasen dd on dd.Clasen_Auto=a.Clasen_Auto
     Where 1=1',
-    @CheckCreditOK=' Select Num from ItemCode Where 1!=1'
+    @CheckCreditOK=' Select Num from ItemCode Where 1 != 1'
 
     If @ReadType=0 --根据不同的用户读取对应的试算报价单 增加跨签信息
     Begin
     If(@RolesName='SALES_ROLES') --业代
-    Set @SqlTwo=@SqlTwo+' a.Sales_Auto='+@User_ID+' And a.OrderStatus!=-1'
+    Set @SqlTwo=@SqlTwo+' a.Sales_Auto='+@User_ID+' And a.OrderStatus != -1'
     Else If(Exists(Select a.User_Auto From AspNet.dbo.org2EMP a
     Where a.User_Auto=@User_AUTO and a.acltype=0 ))  --各主管查看范围
     Begin
-    set @SqlTwo=@SqlTwo+' And ((orderstatus &gt; 0 and orderstatus &lt; 20) or '+convert(varchar(2),@Model)+' = 3) and a.Sales_Auto In (
+    set @SqlTwo=@SqlTwo+' And ((orderstatus > 0 and orderstatus &lt; 20) or '+convert(varchar(2),@Model)+' = 3) and a.Sales_Auto In (
     Select a.User_Auto From AspNet.dbo.Aspnet_Users a
     Join AspNet.dbo.EmpBase b On a.UserName=b.UserName
     Where Org_Auto in (Select a.Org_Auto From AspNet.dbo.Org2EMP a
     Where a.User_Auto='+@User_ID+' And a.Acltype=0)
-    And a.ApplicationId=''73663109-dda2-4c2d-8311-337946b5c373'' )' -- OrderStatus!=-1 and a.Sales_Auto In (
+    And a.ApplicationId=''73663109-dda2-4c2d-8311-337946b5c373'' )' -- OrderStatus != -1 and a.Sales_Auto In (
 
     End
     Else  --查看全部报价单
-    set @SqlTwo=@SqlTwo+' (orderstatus &gt; 0 and orderstatus &lt; 20) '--'OrderStatus!=-1 '
+    set @SqlTwo=@SqlTwo+' (orderstatus > 0 and orderstatus &lt; 20) '--'OrderStatus != -1 '
     --print  @sql1
     Exec(@SqlTwo)
     End
@@ -1305,7 +1305,7 @@
     If(@RolesName='GRMANAGER_ROLES')  -- 服务部经理
     Begin
     Select @Check=@Sql+'  a.OrderStatus =10 and b.LevNow=-1 and b.[Status]=0'
-    Set @CheckCredit='Select ItemCode_Auto ComBoss From ItemCode Where 1!=1'
+    Set @CheckCredit='Select ItemCode_Auto ComBoss From ItemCode Where 1 != 1'
 
     --select * from WorkFlowD
     -- print @sql
@@ -1313,19 +1313,19 @@
 
     Else If(@RolesName='SALES_ROLES') --业代
     Begin
-    Select @Check=@Sql+'  a.Sales_Auto='+@User_ID+' And a.OrderStatus!=-1',
-    @CheckCredit='Select ItemCode_Auto ComBoss From ItemCode Where 1!=1'
+    Select @Check=@Sql+'  a.Sales_Auto='+@User_ID+' And a.OrderStatus != -1',
+    @CheckCredit='Select ItemCode_Auto ComBoss From ItemCode Where 1 != 1'
     End
     Else If(@RolesName='SALESMAIN_ROLES')  --业代组长   可查看本组全部业代的单子
     Begin
-    Select  @Check=@Sql+'  OrderStatus !=-1 and b.LevNow=0 And a.Sales_Auto In (
+    Select  @Check=@Sql+'  OrderStatus  != -1 and b.LevNow=0 And a.Sales_Auto In (
     Select a.User_Auto From AspNet.dbo.Aspnet_Users a
     Join AspNet.dbo.EmpBase b On a.UserName=b.UserName
     Where Org_Auto In (
     Select a.Org_Auto From AspNet.dbo.org2EMP a
     Where a.User_Auto='+@User_ID+' And a.AclType=0 ))
     and b.LevNow=0 and b.[Status]=0'  ,   --判断可否签核
-    --@CheckCredit='Select ItemCode_Auto ComBoss From ItemCode Where 1!=1'
+    --@CheckCredit='Select ItemCode_Auto ComBoss From ItemCode Where 1 != 1'
     @CheckCredit=@Check+' and b.MaxLevel=1'
     End
     Else If(@RolesName='BUSASS_ROLES')  --2 业务助理
@@ -1376,7 +1376,7 @@
     --              on a.RoleId=b.RoleId join ItemCode c on a.Roles_Auto=c.Num and c.ItemType=1010
     --              where  ltrim(rtrim(c.ItemName))='CREDITFFSTA_ROLES' )   --判断第一阶角色是否存在用户
     --     begin
-    --        set  @checkcredit='select ComBoss from CreditMainInfo where 1!=1'
+    --        set  @checkcredit='select ComBoss from CreditMainInfo where 1 != 1'
     --     end
     --     else begin
     --      set     @checkcredit=@sql+' a.CreditStatus =10 and b.LevNow=3  and b.[Status]=20 and b.MaxLevel=4'
@@ -1401,37 +1401,37 @@
     Else If @ReadType=2 -- 根据不同条件获取试算报价单数据
     Begin
     If(@RolesName='SALES_ROLES') --业代
-    Select @SearSql=@SearSql+' and a.Sales_Auto='+@User_ID+' And a.OrderStatus!=-1',
-    @SearSqlTwo=@SearSqlTwo+' and a.Sales_Auto='+@User_ID+' And a.OrderStatus!=-1'
+    Select @SearSql=@SearSql+' and a.Sales_Auto='+@User_ID+' And a.OrderStatus != -1',
+    @SearSqlTwo=@SearSqlTwo+' and a.Sales_Auto='+@User_ID+' And a.OrderStatus != -1'
     Else If(@RolesName='GRMANAGER_ROLES')  -- 服务部经理
     Begin
-    Select @SearSql=@SearSql+' And ((orderstatus > 0 and orderstatus  &lt;  20) or '+convert(varchar(10),@Model)+'  in (1,3,5)) and k.[status]=0 and k.levnow=-1 And p.itemname=''GRMANAGER_ROLES'''
-    ,@SearSqlTwo=@SearSqlTwo+' And 1 != 1 '
+    Select @SearSql=@SearSql+' And ((orderstatus > 0 and orderstatus &lt; 20) or '+convert(varchar(10),@Model)+'  in (1,3,5)) and k.[status]=0 and k.levnow=-1 And p.itemname=''GRMANAGER_ROLES'''
+    ,@SearSqlTwo=@SearSqlTwo+' And 1  !=  1 '
     End
     Else If(@RolesName='BUSASS_ROLES')  -- 业务助理
     Begin
-    Select @SearSql=@SearSql+' And ((orderstatus > 0 and orderstatus  &lt;  20) or '+convert(varchar(10),@Model)+'  in (1,3,5)) and k.[status]=0 and k.levnow=1 and p.itemname=''BUSASS_ROLES'''
-    ,@SearSqlTwo=@SearSqlTwo+' And 1 != 1 '
+    Select @SearSql=@SearSql+' And ((orderstatus > 0 and orderstatus &lt; 20) or '+convert(varchar(10),@Model)+'  in (1,3,5)) and k.[status]=0 and k.levnow=1 and p.itemname=''BUSASS_ROLES'''
+    ,@SearSqlTwo=@SearSqlTwo+' And 1  !=  1 '
     End
     Else If(exists(Select a.User_Auto From AspNet.dbo.org2EMP  a
     Where a.User_Auto=@User_AUTO And AclType=0))  --主管查看范围
     Begin
-    Select @SearSql=@SearSql+'  And ((a.orderstatus > 0 and a.orderstatus  &lt;  20) or '+convert(varchar(10),@Model)+' in (1,3,5)) and k.levnow>-1 and a.Sales_Auto in (
+    Select @SearSql=@SearSql+'  And ((a.orderstatus > 0 and a.orderstatus &lt; 20) or '+convert(varchar(10),@Model)+' in (1,3,5)) and k.levnow>-1 and a.Sales_Auto in (
     Select  a.User_Auto from AspNet.dbo.aspnet_Users a
     Join AspNet.dbo.EmpBase b on a.UserName=b.UserName
     Where Org_Auto in (select a.org_auto from AspNet.dbo.org2EMP a
     Where a.User_Auto='+@User_ID+' and AclType=0)
     And a.ApplicationId=''73663109-dda2-4c2d-8311-337946b5c373'' )'
-    ,@SearSqlTwo=@SearSqlTwo+' And (orderstatus > 0 and orderstatus  &lt;  20) and (k.levnow &gt;= 2 or (a.PostType = 4 and k.levnow> -1 )) and a.Sales_Auto in (
+    ,@SearSqlTwo=@SearSqlTwo+' And (orderstatus > 0 and orderstatus &lt; 20) and (k.levnow &gt;= 2 or (a.PostType = 4 and k.levnow> -1 )) and a.Sales_Auto in (
     Select  a.User_Auto from AspNet.dbo.aspnet_Users a
     Join AspNet.dbo.EmpBase b on a.UserName=b.UserName
     Where Org_Auto in (select a.org_auto from AspNet.dbo.org2EMP a
     Where a.User_Auto='+@User_ID+' and AclType=0)
-    And a.ApplicationId=''73663109-dda2-4c2d-8311-337946b5c373'' )' -- Orderstatus!=-1 and a.Sales_Auto in (
+    And a.ApplicationId=''73663109-dda2-4c2d-8311-337946b5c373'' )' -- Orderstatus != -1 and a.Sales_Auto in (
     End
     Else  --查看全部试算报价单
-    Select @SearSql=@SearSql+' and (orderstatus > 0 and orderstatus  &lt;  20) ', --' and Orderstatus!=-1 '
-    @SearSqlTwo= @SearSqlTwo+' and (orderstatus > 0 and orderstatus  &lt;  20) '
+    Select @SearSql=@SearSql+' and (orderstatus > 0 and orderstatus &lt; 20) ', --' and Orderstatus != -1 '
+    @SearSqlTwo= @SearSqlTwo+' and (orderstatus > 0 and orderstatus &lt; 20) '
 
 
 
@@ -1472,7 +1472,7 @@
     set @SearSql=@SearSql+'   and c.fname like ''%'+@searchword+'%'''
     End
 
-    Select @SearSqlTwo=@SearSqlTwo+' And k.[status]=0 and @Seq>k.LevNow+1 and (k.LevNow  &gt;=  2 or k.MaxLevel = 1) and @Seq != 2
+    Select @SearSqlTwo=@SearSqlTwo+' And k.[status]=0 and @Seq>k.LevNow+1 and (k.LevNow  &gt;=  2 or k.MaxLevel = 1) and @Seq  !=  2
     Group By  a.Orders_Auto,a.TradeItem_Auto,a.Sales_Auto,
     a.OrderStatus,a.cuser,b.FName ,c.sname,f.bossname ,
     b.depname,cc.BrandName,dd.ClasenName ,a.AppDate,case when a.Onetime = 1 then ''是'' else '''' end
@@ -1527,7 +1527,7 @@
     Begin
     --更新试算报价单【驳回】状态
     Update Orders Set OrderStatus=@NoAccess,MDT=GETDATE() Where Orders_Auto=@Orders_AUTO
-    If (@@ERROR!=0)
+    If (@@ERROR != 0)
     Begin
     Goto ERROR
     End
@@ -1535,7 +1535,7 @@
     Update a set [Status]=5 From  Workflowdoc a
     --Join WorkFlow b on a.WorkFlow_Auto=b.WorkFlow_Auto and b.DocType=25
     Where DocPostID=@Orders_AUTO and Memo = '999'
-    If (@@ERROR!=0 )
+    If (@@ERROR != 0 )
     Begin
     Goto ERROR
     End
@@ -1544,7 +1544,7 @@
     Select @Orders_AUTO,@AppMemo,@User_AUTO,@NoAccess,@IsAgent,@AgentPerson ,RoleID
     from Workflowdoc
     where  DocPostID=@Orders_AUTO and Memo = '999' and (AppSeq = LevNow + 1 or (LevNow = -1 and AppSeq =  -1))
-    If (@@ERROR!=0)
+    If (@@ERROR != 0)
     Begin
     Goto Error
     End
@@ -1553,20 +1553,20 @@
     -- Select  @Emp_Mtel=isnull(b.MTEL,''),@Emp_Email=isnull(b.Email,'') From v_Emp a join TradeItem b
     --on a.TradeItem_Auto=b.TradeItem_Auto
     --Where User_Auto=@CallUser_Auto
-    --if @Emp_Email!=''
+    --if @Emp_Email != ''
     --Begin
     --Insert Into remsg(MsgType,Serial_Num,User_Auto,CUser,Memo,Memo1)
     --   Select 10,@Orders_AUTO,@CallUser_Auto,@User_AUTO,@Emp_Email,
     --   @MsgNoAcess +cast(@Orders_AUTO as Nvarchar(10))+@CarInfo
-    -- IF (@@ERROR!=0 ) BEGIN
+    -- IF (@@ERROR != 0 ) BEGIN
     --  GOTO ERROR
     -- END
     --End
 
-    --If  @Emp_Mtel!=''
+    --If  @Emp_Mtel != ''
     --Begin
     -- Insert Into MTel_MAS select @Emp_Mtel,@MsgNoAcess+cast(@Orders_AUTO as Nvarchar(10))+@CarInfo
-    --	  IF (@@ERROR!=0 ) BEGIN
+    --	  IF (@@ERROR != 0 ) BEGIN
     --  GOTO ERROR
     -- END
     --End
@@ -1578,7 +1578,7 @@
     Begin
     --更新试算报价单【作废】状态
     Update Orders Set OrderStatus=@DelOrders,MDT=GETDATE() Where Orders_Auto=@Orders_AUTO
-    If (@@ERROR!=0)
+    If (@@ERROR != 0)
     Begin
     Goto ERROR
     End
@@ -1586,14 +1586,14 @@
     Update a set [Status]=-1 From  Workflowdoc a
     --Join WorkFlow b on a.WorkFlow_Auto=b.WorkFlow_Auto and b.DocType=25
     Where DocPostID=@Orders_AUTO and Memo = '999'
-    If (@@ERROR!=0 )
+    If (@@ERROR != 0 )
     Begin
     Goto ERROR
     End
     --新增审核明细
     Insert Into [Rental].[dbo].[OrdersFDetail]([Orders_Auto],[Memo],[CreditPerson]
     ,[Orders_Status],IsAgent,AgentPerson)Select @Orders_AUTO,@AppMemo,@User_AUTO,@DelOrders ,@IsAgent,@AgentPerson
-    If (@@ERROR!=0)
+    If (@@ERROR != 0)
     Begin
     Goto Error
     End
