@@ -7,7 +7,6 @@ import lombok.Data;
 import java.io.Serializable;
 
 @Data
-@ApiModel(value = "试算签核")
 public class FlowAuditParamDto implements Serializable {
     @ApiModelProperty(value = "试算单号")
     private Long ordersAuto=0L;

@@ -7,7 +7,6 @@ import lombok.Data;
 import java.io.Serializable;
 
 @Data
-@ApiModel(value = "试算签核")
 public class FlowCURParamDto implements Serializable {
     @ApiModelProperty(value = "0 送签 1 签核  2  读取 3 驳回 4 作废")
     private Integer type;
