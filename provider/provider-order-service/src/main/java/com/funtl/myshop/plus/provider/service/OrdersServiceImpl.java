@@ -26,8 +26,8 @@ public class OrdersServiceImpl implements OrdersService{
     }
 
     @Override
-    public OrdersList selectByOrdersAuto(Long ordersAuto) {
-        return ordersMapper.selectByOrdersAuto(ordersAuto);
+    public OrdersList selectOrdersList(Long ordersAuto) {
+        return ordersMapper.selectOrdersList(ordersAuto);
     }
 
     @Override

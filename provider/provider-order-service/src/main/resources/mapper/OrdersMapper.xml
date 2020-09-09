@@ -253,7 +253,7 @@
 
     <!--    <result column="insureRealAmt" jdbcType="DECIMAL" property="insureRealAmt" />-->
   </resultMap>
-  <select id="selectByOrdersAuto" resultMap="queryByOrdersAuto">
+  <select id="selectOrdersList" resultMap="queryByOrdersAuto">
     select
     a.Orders_Auto,a.Orders_Old,a.MM,a.isRelet,
     o.ItemName AS dptTypeName,a.PostType,

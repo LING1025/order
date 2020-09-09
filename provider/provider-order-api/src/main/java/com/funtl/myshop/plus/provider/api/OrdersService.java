@@ -27,7 +27,7 @@ public interface OrdersService{
      * @param ordersAuto
      * @return
      */
-    OrdersList selectByOrdersAuto(Long ordersAuto);
+    OrdersList selectOrdersList(Long ordersAuto);
 
     /**
      * 根据试算单号获取报价车商历史成交记录

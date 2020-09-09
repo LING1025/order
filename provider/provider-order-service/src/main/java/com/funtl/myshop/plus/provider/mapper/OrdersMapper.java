@@ -9,7 +9,7 @@ import java.util.List;
 public interface OrdersMapper extends MyMapper<Orders> {
     List<MasterList> selectByRoleIds(@Param("rolesAuto") Long rolesAuto,@Param("userAuto") Long userAuto);
 
-    OrdersList selectByOrdersAuto(@Param("params") Long ordersAuto);
+    OrdersList selectOrdersList(@Param("params") Long ordersAuto);
 
     List<SupplierList> selectSupplierList(@Param("params") Long ordersAuto);
 

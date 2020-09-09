@@ -147,7 +147,7 @@ public class OrderController {
     public ResponseResult<OrdersList> queryOrdersList(@RequestParam(name = "ordersAuto",required = false) Long ordersAuto){
         if (ordersAuto == null){
             throw new BusinessException(BusinessStatus.PARAM_ERROR);        }
-        OrdersList ordersList = ordersService.selectByOrdersAuto(ordersAuto);
+        OrdersList ordersList = ordersService.selectOrdersList(ordersAuto);
 
         //判断试算单号框外面显示的值
         MsgDto msgDto = ordersService.selectMsg(ordersAuto);
