@@ -210,12 +210,13 @@ public class OrderController {
             ordersList.setOverP(Math.round(ordersList.getOverAmt().doubleValue()/ordersList.getListPrice().doubleValue()*100) + "%");
         }
         //残值
-        ordersList.setOverAmtYName(Math.round(ordersList.getOverAmtY().intValue()) + " " + ordersList.getOverP());
+        ordersList.setOverAmtYName(ordersList.getOverP());
         //保证金
         ordersList.setDptAmtName(Math.round(ordersList.getDptAmt().intValue()) + "(" + ordersList.getDptTypeName() + ordersList.getDptTaxPayN()+")" + ordersList.getDptP());
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", ordersList);
     }
 
+    //贷款金额与贷款成数的计算公式
     public static double calculatePMT(double rate, double nper, double pv) {
         double v = (1 + (rate /100 / 12));
         double t = (-(nper / 12) * 12);
