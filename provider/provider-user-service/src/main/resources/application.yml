@@ -6,7 +6,6 @@ spring:
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
     driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-    #    url: jdbc:sqlserver://192.168.168.208;database=AspNet
     url: jdbc:sqlserver://192.168.1.161;database=WxApplet
     username: sa
     password: SYSLTJ
@@ -31,7 +30,7 @@ dubbo:
     port: -1
     serialization: kryo
   provider:
-    timeout: 2500
+    timeout: 5000
 
 mybatis:
   type-aliases-package: com.funtl.myshop.plus.provider.domain

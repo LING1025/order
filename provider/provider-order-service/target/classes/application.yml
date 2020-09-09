@@ -6,11 +6,11 @@ spring:
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
     driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-    url: jdbc:sqlserver://192.168.168.248;database=Rental
-#    url: jdbc:sqlserver://192.168.1.215;database=Rental
+#    url: jdbc:sqlserver://192.168.168.248;database=Rental
+    url: jdbc:sqlserver://192.168.1.215;database=Rental
     username: sa
-    password: 12208883
-#    password: 1234abcd.
+#    password: 12208883
+    password: 1234abcd.
     hikari:
       minimum-idle: 5
       idle-timeout: 600000
@@ -32,7 +32,7 @@ dubbo:
     port: -1
     serialization: kryo
   provider:
-    timeout: 2500
+    timeout: 5000
 
 mybatis:
   type-aliases-package: com.funtl.myshop.plus.provider.domain

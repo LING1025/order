@@ -1,5 +1,8 @@
-com\funtl\myshop\plus\business\configure\OrderResourceServerConfiguration.class
 com\funtl\myshop\plus\business\dto\SignOffParamDto.class
+com\funtl\myshop\plus\business\dto\FlowCURParamDto.class
+com\funtl\myshop\plus\business\BusinessOrderApplication.class
+com\funtl\myshop\plus\business\dto\FlowAuditParamDto.class
+com\funtl\myshop\plus\business\configure\OrderResourceServerConfiguration.class
+com\funtl\myshop\plus\business\controller\OrderInsertController.class
 com\funtl\myshop\plus\business\configure\Swagger2Config.class
 com\funtl\myshop\plus\business\controller\OrderController.class
-com\funtl\myshop\plus\business\BusinessOrderApplication.class

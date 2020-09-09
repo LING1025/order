@@ -1603,7 +1603,7 @@
     ERROR:
     Begin
     RollBack Tran
-    --RaisError 13301 '操作试算报价单出错'
+    --RaisError 13301 '操作试算报价单出错'好
     RaisError (13301,16,1,'操作试算报价单出错')
     Return
     End
