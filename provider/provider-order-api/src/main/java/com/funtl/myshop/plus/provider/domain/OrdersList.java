@@ -44,7 +44,7 @@ public class OrdersList implements Serializable {
     /**
      * 租赁性质::ItemCode.ItemType=314
      */
-    @JsonIgnore
+//    @JsonIgnore
     private Integer rentType;
 
     @ApiModelProperty(value = "租赁性质")
@@ -205,7 +205,7 @@ public class OrdersList implements Serializable {
     /**
      * 残值
      */
-    @JsonIgnore
+//    @JsonIgnore
     private BigDecimal overAmtY;
 
     /**

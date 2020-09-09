@@ -193,8 +193,8 @@ public class OrderController {
         ordersList.setFName(ordersList.getFName() + " " + ordersList.getTradeItemAuto() + " " + ordersList.getCustomerStatus());
         //厂牌车型
         ordersList.setFactoryBrandName(ordersList.getFactoryBrandName() + " " + ordersList.getBrandName() + " " + ordersList.getClasenName());
-        //残值判断
-        if (ordersList.getRentType() == 2){
+        //残值判断(留给前端判断)
+        /*if (ordersList.getRentType() == 2){
             if (ordersList.getOverAmtY().toString() == "" || ordersList.getOverAmtY() == BigDecimal.valueOf(0)) {
                 ordersList.setOverAmtY(ordersList.getOverAmt());
             }else {
@@ -202,7 +202,7 @@ public class OrderController {
             }
         }else {
             ordersList.setOverAmtY(ordersList.getOverAmt());
-        }
+        }*/
         //残值比例计算
         if (ordersList.getCarSource() == 1 || ordersList.getCarSource() == 4){
             ordersList.setOverP(Math.round(ordersList.getOverAmt().doubleValue()/ordersList.getGetPrice().doubleValue()*100) + "%");
