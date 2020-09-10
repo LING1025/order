@@ -169,35 +169,35 @@ public class OrdersList implements Serializable {
     private String makNoTypeName;
 
     @ApiModelProperty(value = "使用牌费")
-    private BigDecimal makNoCost;//在orders表
+    private BigDecimal makNoCost = BigDecimal.valueOf(0);//在orders表
 
     /**
      * 车辆成本
      */
 
     @ApiModelProperty(value = "牌价")
-    private BigDecimal listPrice;
+    private BigDecimal listPrice = BigDecimal.valueOf(0);
 
     @ApiModelProperty(value = "折价")
-    private BigDecimal disPrice;
+    private BigDecimal disPrice = BigDecimal.valueOf(0);
 
     @ApiModelProperty(value = "车辆进价")
-    private BigDecimal getPrice;
+    private BigDecimal getPrice = BigDecimal.valueOf(0);
 
     @ApiModelProperty(value = "网上参考价")
-    private Long carPriceRef;
+    private Long carPriceRef = 0L;
 
     @ApiModelProperty(value = "配件金额")
-    private BigDecimal accessary;
+    private BigDecimal accessary = BigDecimal.valueOf(0);
 
     @ApiModelProperty(value = "购置税")
-    private BigDecimal carTax;
+    private BigDecimal carTax = BigDecimal.valueOf(0);
 
     @ApiModelProperty(value = "车辆成本")
-    private BigDecimal carCost;
+    private BigDecimal carCost = BigDecimal.valueOf(0);
 
     @ApiModelProperty(value = "佣金")
-    private BigDecimal pushMoney;
+    private BigDecimal pushMoney = BigDecimal.valueOf(0);
 
     @ApiModelProperty(value = "残值")
     private String overAmtYName;
@@ -206,7 +206,7 @@ public class OrdersList implements Serializable {
      * 残值
      */
 //    @JsonIgnore
-    private BigDecimal overAmtY;
+    private BigDecimal overAmtY = BigDecimal.valueOf(0);
 
     /**
      * 残值后面的利率
@@ -221,7 +221,7 @@ public class OrdersList implements Serializable {
      * 保证金
      */
     @JsonIgnore
-    private BigDecimal dptAmt;
+    private BigDecimal dptAmt = BigDecimal.valueOf(0);
 
     /**
      * 保证金后面的第一个参数
@@ -242,44 +242,44 @@ public class OrdersList implements Serializable {
     private String dptP;
 
     @ApiModelProperty(value = "调整")
-    private BigDecimal overAmt;
+    private BigDecimal overAmt = BigDecimal.valueOf(0);
 
     @ApiModelProperty(value = "承租车价")
-    private BigDecimal rentAmt;
+    private BigDecimal rentAmt = BigDecimal.valueOf(0);
 
     @ApiModelProperty(value = "成本调整")
-    private BigDecimal costAdjustment;
+    private BigDecimal costAdjustment = BigDecimal.valueOf(0);
 
     @ApiModelProperty(value = "承购")
-    private BigDecimal repurchaseAmt;
+    private BigDecimal repurchaseAmt = BigDecimal.valueOf(0);
 
     @ApiModelProperty(value = "代垫利息成本")
-    private BigDecimal dptTax;
+    private BigDecimal dptTax = BigDecimal.valueOf(0);
 
     @ApiModelProperty(value = "延保费")
-    private BigDecimal carExtensionAmt;
+    private BigDecimal carExtensionAmt = BigDecimal.valueOf(0);
 
     @ApiModelProperty(value = "出库费")
-    private BigDecimal outFee;
+    private BigDecimal outFee = BigDecimal.valueOf(0);
 
     @ApiModelProperty(value = "金融费")
-    private BigDecimal financeFee;
+    private BigDecimal financeFee = BigDecimal.valueOf(0);
 
     @ApiModelProperty(value = "加急费")
-    private BigDecimal urgentFee;
+    private BigDecimal urgentFee = BigDecimal.valueOf(0);
 
     /**
      * 税费资料
      */
 
     @ApiModelProperty(value = "印花税")
-    private BigDecimal stampTax;
+    private BigDecimal stampTax = BigDecimal.valueOf(0);
 
     @ApiModelProperty(value = "售车税")
-    private BigDecimal sellCarTax;
+    private BigDecimal sellCarTax = BigDecimal.valueOf(0);
 
     @ApiModelProperty(value = "过户费")
-    private BigDecimal trnsFee;
+    private BigDecimal trnsFee = BigDecimal.valueOf(0);
 
 
     /**
@@ -302,7 +302,7 @@ public class OrdersList implements Serializable {
     private String budgetMemo;
 
     @JsonIgnore
-    private BigDecimal budget01Y;
+    private BigDecimal budget01Y = BigDecimal.valueOf(0);
 
     /**
      * 佣金人
@@ -353,11 +353,11 @@ public class OrdersList implements Serializable {
      */
 
     @ApiModelProperty(value = "租金总额")
-    private BigDecimal rentAmtT;
+    private BigDecimal rentAmtT = BigDecimal.valueOf(0);
     @ApiModelProperty(value = "内部报酬率")
     private String irr;
     @ApiModelProperty(value = "毛利总额")
-    private BigDecimal grossMargin;
+    private BigDecimal grossMargin = BigDecimal.valueOf(0);
     @ApiModelProperty(value = "毛利率")
     private String grossMarginT;
 
