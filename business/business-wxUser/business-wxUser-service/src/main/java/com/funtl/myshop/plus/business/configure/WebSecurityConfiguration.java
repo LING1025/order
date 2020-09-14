@@ -14,9 +14,9 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     // 暂时先不用
-    @Override
+    /*@Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring()
                 .antMatchers("/wxUser/wxInfo/{openId}");// ignoring是完全绕过了spring security的所有filter，相当于不走spring security
-    }
+    }*/
 }
