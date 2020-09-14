@@ -31,22 +31,6 @@
     LevNow, [Status], IsOver, Rights, DefaultStatus, InActiveList, LimitDept, IsAgent,
     Memo, CUser, MUser, CDT, MDT
   </sql>
-  <resultMap id="querySignOffList" extends="BaseResultMap" type="com.funtl.myshop.plus.provider.domain.SignOffList">
-    <result column="ordersFDetailAuto" jdbcType="INTEGER" property="ordersFDetailAuto" />
-    <result column="ordersAuto" jdbcType="INTEGER" property="ordersAuto" />
-    <result column="ordersStatus" jdbcType="INTEGER" property="ordersStatus" />
-    <result column="isAgent" jdbcType="INTEGER" property="isAgent" />
-    <result column="roleName" jdbcType="VARCHAR" property="roleName" />
-    <result column="memo" jdbcType="VARCHAR" property="memo" />
-    <result column="creditPerson" jdbcType="VARCHAR" property="creditPerson" />
-  </resultMap>
-  <select id="selectSignOffList" resultMap="querySignOffList">
-    select 0 ordersFDetailAuto,a.DocPostID ordersAuto,'' memo,0 ordersStatus,0 isAgent,'' creditPerson,c.Memo roleName,a.WorkFlowDoc_Auto
-    from  WorkFlowDoc(nolock) a
-    left join Orders b On b.Orders_Auto=a.DocPostID
-    left join ItemCode c on c.ItemType = 1062 and c.Num = a.RoleID
-    where a.DocPostID=#{docPostID} And a.[status]=0 And a.Memo='999'And a.RoleID = #{roleId}
-  </select>
   <select id="selectWorkFlowDoc" resultMap="BaseResultMap">
     declare
     @Orders_AUTO Int=#{docPostID},

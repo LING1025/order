@@ -10,8 +10,4 @@ import java.util.List;
 
 public interface ItemCodeMapper extends MyMapper<ItemCode> {
     List<RoleList> selectByType(@Param("itemType") Integer itemType);
-
-    List<ItemNameList> selectItemName1(@Param("itemType") Integer itemType);
-
-    List<ItemNameList> selectItemName2(@Param("itemType") Integer itemType);
 }

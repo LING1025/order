@@ -19,21 +19,6 @@ public class WorkFlowDocServiceImpl implements WorkFlowDocService{
     private WorkFlowDocMapper workFlowDocMapper;
 
     @Override
-    public Integer update(WorkFlowDoc workFlowDoc) {
-        return workFlowDocMapper.updateByPrimaryKeySelective(workFlowDoc);
-    }
-
-    @Override
-    public SignOffList selectByDocPostIDAndRoleId(Integer docPostID, Integer roleId) {
-        return workFlowDocMapper.selectSignOffList(docPostID,roleId);
-    }
-
-    @Override
-    public Integer deleteById(Long workFlowDocAuto) {
-        return workFlowDocMapper.deleteByPrimaryKey(workFlowDocAuto);
-    }
-
-    @Override
     public List<WorkFlowDoc> selectWorkFlowDoc(Long docPostID, Integer roleId, Integer type) {
         return workFlowDocMapper.selectWorkFlowDoc(docPostID,roleId,type);
     }

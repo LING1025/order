@@ -265,14 +265,6 @@ public class OrderController {
         //厂牌车型
         ordersBackList.setFactoryBrandName(ordersBackList.getFactoryBrandName() + " " + ordersBackList.getBrandName() + " " + ordersBackList.getClasenName());
 
-        /*if(ordersBackList.getPostType() == 1){
-            List<ItemNameList> itemNameLists = itemCodeService.selectItemName1(413);
-            ordersBackList.setPostTypeName(itemNameLists);
-        }
-        if(ordersBackList.getPostType() != 1){
-            List<ItemNameList> itemNameLists = itemCodeService.selectItemName2(413);
-            ordersBackList.setPostTypeName(itemNameLists);
-        }*/
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", ordersBackList);
     }
 
@@ -299,18 +291,6 @@ public class OrderController {
         List<InsuranceContentList> lists = ordersInsureListService.selectInsuranceContentList(ordersAuto);
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", lists);
     }
-
-    /*@ApiOperation(value = " 根据试算单号获取保险明细上部分信息")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "ordersAuto", value = "试算单号", required = false, dataType = "long", paramType = "path")
-    })
-    @GetMapping(value = "queryInsuranceList")
-    public ResponseResult<InsuranceList> queryInsuranceList(@RequestParam(name = "ordersAuto",required = false) Long ordersAuto){
-        if (ordersAuto == null){
-            throw new BusinessException(BusinessStatus.PARAM_ERROR);        }
-        InsuranceList insuranceList = ordersInsureYearsService.selectInsuranceList(ordersAuto);
-        return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", insuranceList);
-    }*/
 
     @ApiOperation(value = " 根据试算单号和年份获取保单明细(点开后的表格)")
     @ApiImplicitParams({

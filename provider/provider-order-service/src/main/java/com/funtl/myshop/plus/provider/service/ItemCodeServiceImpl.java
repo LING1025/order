@@ -21,13 +21,4 @@ public class ItemCodeServiceImpl implements ItemCodeService{
         return itemCodeMapper.selectByType(itemType);
     }
 
-    @Override
-    public List<ItemNameList> selectItemName1(Integer itemType) {
-        return itemCodeMapper.selectItemName1(itemType);
-    }
-
-    @Override
-    public List<ItemNameList> selectItemName2(Integer itemType) {
-        return itemCodeMapper.selectItemName2(itemType);
-    }
 }

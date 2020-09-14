@@ -21,14 +21,4 @@ public class OrdersFDetailServiceImpl implements OrdersFDetailService{
         return ordersFDetailMapper.selectSignOffList(ordersAuto);
     }
 
-    @Override
-    public Long insert(OrdersFDetail ordersFDetail) {
-        Integer i = ordersFDetailMapper.insertUseGeneratedKeys(ordersFDetail);
-        return i == 1 ? ordersFDetail.getOrdersFDetailAuto() : 0;
-    }
-
-    @Override
-    public Integer deleteById(Long ordersFDetailAuto) {
-        return ordersFDetailMapper.deleteByPrimaryKey(ordersFDetailAuto);
-    }
 }

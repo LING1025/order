@@ -31,22 +31,6 @@
     OrgAmt, RateAmt, Memo, CUser, CDT, MUser, MDT, OfferAmt, InsureYear, InsureMode,
     InsurePrice, Percnt, CarPlace, CustomerCare
   </sql>
-  <resultMap id="queryInsuranceList" extends="BaseResultMap" type="com.funtl.myshop.plus.provider.domain.InsuranceList">
-    <result column="insureTypeName" jdbcType="VARCHAR" property="insureTypeName" />
-    <result column="insurePercntName" jdbcType="VARCHAR" property="insurePercntName" />
-    <result column="carPlace" jdbcType="VARCHAR" property="carPlace" />
-  </resultMap>
-    <select id="selectInsuranceList" resultMap="queryInsuranceList">
-    select
-    distinct a.InsureType,b.ItemName insureTypeName,c.ItemName insurePercntName,
-    a.Percnt,d.ItemName carPlace
-    from OrdersInsure_Years a
-    inner join ItemCode b on b.itemtype = 411 and b.num = a.InsureType
-    inner join ItemCode c on c.itemtype = 410 and c.num = a.InsurePercnt
-    inner join ItemCode d on d.itemtype = 227 and d.num = a.CarPlace
-    where a.Orders_Auto = #{param} and b.Num = 1
-    Order by a.InsureType
-    </select>
   <resultMap id="queryByOrdersAutoAndYear" extends="BaseResultMap" type="com.funtl.myshop.plus.provider.domain.InsuranceTableList">
     <result column="InsureName" jdbcType="VARCHAR" property="insureName" />
     <result column="detailAmtName" jdbcType="VARCHAR" property="detailAmtName" />

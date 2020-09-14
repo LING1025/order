@@ -15,17 +15,4 @@ public interface ItemCodeService{
      */
     List<RoleList> selectByType(Integer itemType);
 
-    /**
-     * 根据案件类型获取项目名1
-     * @param itemType
-     * @return
-     */
-    List<ItemNameList> selectItemName1(Integer itemType);
-
-    /**
-     * 根据案件类型获取项目名2
-     * @param itemType
-     * @return
-     */
-    List<ItemNameList> selectItemName2(Integer itemType);
 }

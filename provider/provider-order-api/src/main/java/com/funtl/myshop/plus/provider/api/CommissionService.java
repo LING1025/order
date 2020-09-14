@@ -1,6 +1,5 @@
 package com.funtl.myshop.plus.provider.api;
 
-import com.funtl.myshop.plus.provider.domain.Commission;
 import com.funtl.myshop.plus.provider.domain.CommissionList;
 import com.funtl.myshop.plus.provider.domain.CommissionRecordList;
 

@@ -99,7 +99,7 @@ public class LoginController {
      * @return
      * @throws Exception
      */
-    @GetMapping(value = "wxInfo")
+    /*@GetMapping(value = "wxInfo")
     public ResponseResult<WxLoginInfo> wxInfo(HttpServletRequest request) throws Exception {
         // 获取认证信息
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -116,7 +116,7 @@ public class LoginController {
         wxLoginInfo.setUsername(wxEncryptedData.getUsername());
         wxLoginInfo.setUserAuto(wxEncryptedData.getUserAuto());
         return new ResponseResult<WxLoginInfo>(ResponseResult.CodeStatus.OK, "获取用户信息", wxLoginInfo);
-    }
+    }*/
 
 
     /**
