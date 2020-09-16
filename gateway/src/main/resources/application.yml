@@ -64,7 +64,7 @@ spring:
             - StripPrefix=1
 
 server:
-  port: 9001
+  port: 80
 
 # 配置日志级别，方别调试
 logging:
