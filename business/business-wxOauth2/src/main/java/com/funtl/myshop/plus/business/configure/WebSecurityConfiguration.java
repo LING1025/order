@@ -58,7 +58,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring()
-                .antMatchers("/wxOauth2/wxLogin");
+                .antMatchers("/wxOauth2/wxLogin")
+                .antMatchers("/demo/index") ;
     }
 
     @Override
