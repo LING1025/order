@@ -58,15 +58,16 @@ spring:
             - StripPrefix=1
 
 server:
-  tomcat:
-    uri-encoding: UTF-8
-    max-threads: 1000
-    min-spare-threads: 30
   port: 9001
   ssl:
-    key-store: classpath:wxj.car-plus.com.cn.jks
+    enabled: true
     key-store-password: 094z45iweiqu6
-    keyStoreType: JKS
+    key-store: classpath:wxj.car-plus.com.cn.jks
+    key-store-type: JKS
+condition:
+  http2https: true
+http:
+  port: 80
 # 配置日志级别，方别调试
 logging:
   level:
