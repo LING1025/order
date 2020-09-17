@@ -64,7 +64,13 @@ spring:
             - StripPrefix=1
 
 server:
-  port: 80
+  port: 443
+  ssl:
+    enabled: true
+    key-store: classpath:wxj.car-plus.com.cn.jks
+    key-store-password: 094z45iweiqu6
+    key-store-type: JKS
+
 
 # 配置日志级别，方别调试
 logging:
