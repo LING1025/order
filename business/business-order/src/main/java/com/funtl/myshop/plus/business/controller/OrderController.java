@@ -139,6 +139,14 @@ public class OrderController {
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", lists);
     }
 
+    //贷款金额与贷款成数的计算公式
+    public static double calculatePMT(double rate, double nper, double pv) {
+        double v = (1 + (rate /100 / 12));
+        double t = (-(nper / 12) * 12);
+        double result = (pv * (rate /100 / 12)) / (1 - Math.pow(v, t));
+        return result;
+    }
+
     @ApiOperation(value = " 获取直租试算签核外部所有信息")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "ordersAuto", value = "试算单号", required = false, dataType = "long", paramType = "path")
@@ -213,15 +221,14 @@ public class OrderController {
         ordersList.setOverAmtYName(ordersList.getOverP());
         //保证金
         ordersList.setDptAmtName(Math.round(ordersList.getDptAmt().intValue()) + "(" + ordersList.getDptTypeName() + ordersList.getDptTaxPayN()+")" + ordersList.getDptP());
-        return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", ordersList);
-    }
 
-    //贷款金额与贷款成数的计算公式
-    public static double calculatePMT(double rate, double nper, double pv) {
-        double v = (1 + (rate /100 / 12));
-        double t = (-(nper / 12) * 12);
-        double result = (pv * (rate /100 / 12)) / (1 - Math.pow(v, t));
-        return result;
+        //租金计算
+        ordersList.setRateMAmt(ordersList.getRateAmt().add(ordersList.getRateTax()));
+        ordersList.setRTRentRate(ordersList.getRateRate());
+        ordersList.setRentMAmt(ordersList.getMAmt());
+        ordersList.setFMAmt(ordersList.getRentMAmt());
+        ordersList.setFRentRate(ordersList.getFinalRate());
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", ordersList);
     }
 
     @ApiOperation(value = " 获取回租试算签核外部所有信息")

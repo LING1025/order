@@ -393,4 +393,93 @@ public class OrdersList implements Serializable {
 
     @ApiModelProperty(value = "签核明细表标题后的字")
     private String onetimeName;
+
+    /**
+     * 租金计算
+     */
+    @ApiModelProperty(value = "税点")
+    private BigDecimal taxRate;
+
+    @ApiModelProperty(value = "计价成本竖列第1")
+    private BigDecimal rateRate;
+
+    @ApiModelProperty(value = "计价成本竖列第2")
+    private BigDecimal rateCost;
+
+    @ApiModelProperty(value = "计价成本竖列第3")
+    private BigDecimal rateDPN;
+
+    @ApiModelProperty(value = "计价成本竖列第4")
+    private BigDecimal rateAmt;
+
+    @ApiModelProperty(value = "计价成本竖列第5")
+    private BigDecimal ratel04A;
+
+    @ApiModelProperty(value = "计价成本竖列第6")
+    private BigDecimal rateTax;
+
+    @ApiModelProperty(value = "计价成本竖列第7")
+    private BigDecimal rateMAmt;
+
+    @ApiModelProperty(value = "计价成本竖列第8")
+    private BigDecimal rTRentRate;
+
+    @ApiModelProperty(value = "计价成本竖列第9")
+    private BigDecimal rTRentRateY;
+
+
+    @ApiModelProperty(value = "成交利率竖列第2")
+    private BigDecimal rent;
+
+    @ApiModelProperty(value = "成交利率竖列第3")
+    private BigDecimal rentDPN;
+
+    @ApiModelProperty(value = "成交利率竖列第4")
+    private BigDecimal fRentAmt;
+
+    @ApiModelProperty(value = "成交利率竖列第5")
+    private BigDecimal l04A;
+
+    @ApiModelProperty(value = "成交利率竖列第6")
+    private BigDecimal rentTax;
+
+    @ApiModelProperty(value = "成交利率竖列第7")
+    private BigDecimal rentMAmt;
+
+    @JsonIgnore
+    private BigDecimal mAmt;
+
+    @ApiModelProperty(value = "成交利率竖列第8")
+    private BigDecimal rentRate;
+
+    @ApiModelProperty(value = "成交利率竖列第9")
+    private BigDecimal rentRateYa;
+
+
+    @ApiModelProperty(value = "实际成交价竖列第1")
+    private BigDecimal finalRate;
+
+    @ApiModelProperty(value = "实际成交价竖列第2")
+    private BigDecimal finalCost;
+
+    @ApiModelProperty(value = "实际成交价竖列第3")
+    private BigDecimal finalDPN;
+
+    @ApiModelProperty(value = "实际成交价竖列第4")
+    private BigDecimal finalAmt;
+
+    @ApiModelProperty(value = "实际成交价竖列第5")
+    private BigDecimal fl04A;
+
+    @ApiModelProperty(value = "实际成交价竖列第6")
+    private BigDecimal finalTax;
+
+    @ApiModelProperty(value = "实际成交价竖列第7")
+    private BigDecimal fMAmt;
+
+    @ApiModelProperty(value = "实际成交价竖列第8")
+    private BigDecimal fRentRate;
+
+    @ApiModelProperty(value = "实际成交价竖列第9")
+    private BigDecimal fRentRateY;
 }

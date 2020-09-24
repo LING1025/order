@@ -33,4 +33,7 @@ public class BudgetList implements Serializable {
 
     @ApiModelProperty(value = "备注")
     private String memo;
+
+    @ApiModelProperty(value = "用于直租租金计算判断ratel04A、l04A、fl04A的值")
+    private Integer typeAuto;
 }

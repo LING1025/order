@@ -255,6 +255,9 @@
   </resultMap>
   <select id="selectOrdersList" resultMap="queryByOrdersAuto">
     select
+    a.TaxRate,a.RateRate,a.RateCost,a.RateDPN,a.RateAmt,a.RateTax,
+    a.MAmt,a.RentRate,
+    a.FinalRate,a.FinalCost,a.FinalDPN,a.FinalAmt,a.FinalTax,
     a.Orders_Auto,a.Orders_Old,a.MM,a.isRelet,
     o.ItemName AS dptTypeName,a.PostType,
 <!--    (select CONVERT(decimal(18,2),sum(InsureRealAmt)/count(*)) from OrdersInsureList where Orders_Auto = #{params}) insureRealAmt,-->
