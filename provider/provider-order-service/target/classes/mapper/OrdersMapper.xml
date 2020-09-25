@@ -256,7 +256,7 @@
   <select id="selectOrdersList" resultMap="queryByOrdersAuto">
     select
     a.TaxRate,a.RateRate,a.RateCost,a.RateDPN,a.RateAmt,a.RateTax,
-    a.MAmt,a.RentRate,
+    a.MAmt,a.RentRate,a.ServiceAmt,
     a.FinalRate,a.FinalCost,a.FinalDPN,a.FinalAmt,a.FinalTax,
     a.Orders_Auto,a.Orders_Old,a.MM,a.isRelet,
     o.ItemName AS dptTypeName,a.PostType,

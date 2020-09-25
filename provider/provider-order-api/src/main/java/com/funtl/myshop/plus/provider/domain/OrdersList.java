@@ -482,4 +482,7 @@ public class OrdersList implements Serializable {
 
     @ApiModelProperty(value = "实际成交价竖列第9")
     private BigDecimal fRentRateY;
+
+    @ApiModelProperty(value = "租金计算服务费")
+    private BigDecimal serviceAmt;
 }
