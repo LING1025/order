@@ -407,7 +407,7 @@ public class OrdersList implements Serializable {
     private BigDecimal rateCost;
 
     @ApiModelProperty(value = "计价成本竖列第3")
-    private BigDecimal rateDPN;
+    private BigDecimal rateDpn;
 
     @ApiModelProperty(value = "计价成本竖列第4")
     private BigDecimal rateAmt;
@@ -432,7 +432,7 @@ public class OrdersList implements Serializable {
     private BigDecimal rent;
 
     @ApiModelProperty(value = "成交利率竖列第3")
-    private BigDecimal rentDPN;
+    private BigDecimal rentDpn;
 
     @ApiModelProperty(value = "成交利率竖列第4")
     private BigDecimal fRentAmt;
@@ -463,7 +463,7 @@ public class OrdersList implements Serializable {
     private BigDecimal finalCost;
 
     @ApiModelProperty(value = "实际成交价竖列第3")
-    private BigDecimal finalDPN;
+    private BigDecimal finalDpn;
 
     @ApiModelProperty(value = "实际成交价竖列第4")
     private BigDecimal finalAmt;

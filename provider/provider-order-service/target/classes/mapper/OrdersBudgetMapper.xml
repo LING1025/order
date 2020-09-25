@@ -30,7 +30,7 @@
     <select id="selectBudgetList" resultMap="queryBudgetList">
     select
     b.ItemName AS budgetName,
-    a.PA,a.PB,a.RateAmt,a.RateMAmt,a.FinalAmt,a.FinalMAmt,a.Memo
+    a.PA,a.PB,a.RateAmt,a.RateMAmt,a.FinalAmt,a.FinalMAmt,a.Memo,a.Type_Auto
     FROM dbo.OrdersBudget a
     left Join ItemCode b on a.Type_Auto = b.Num
     where b.ItemType=310 and a.Orders_Auto = #{param}

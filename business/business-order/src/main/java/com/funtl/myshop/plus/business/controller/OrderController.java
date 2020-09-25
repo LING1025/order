@@ -201,16 +201,7 @@ public class OrderController {
         ordersList.setFName(ordersList.getFName() + " " + ordersList.getTradeItemAuto() + " " + ordersList.getCustomerStatus());
         //厂牌车型
         ordersList.setFactoryBrandName(ordersList.getFactoryBrandName() + " " + ordersList.getBrandName() + " " + ordersList.getClasenName());
-        //残值判断(留给前端判断)
-        /*if (ordersList.getRentType() == 2){
-            if (ordersList.getOverAmtY().toString() == "" || ordersList.getOverAmtY() == BigDecimal.valueOf(0)) {
-                ordersList.setOverAmtY(ordersList.getOverAmt());
-            }else {
-                ordersList.setOverAmtY(ordersList.getOverAmtY());
-            }
-        }else {
-            ordersList.setOverAmtY(ordersList.getOverAmt());
-        }*/
+
         //残值比例计算
         if (ordersList.getCarSource() == 1 || ordersList.getCarSource() == 4){
             ordersList.setOverP(Math.round(ordersList.getOverAmt().doubleValue()/ordersList.getGetPrice().doubleValue()*100) + "%");
@@ -223,11 +214,31 @@ public class OrderController {
         ordersList.setDptAmtName(Math.round(ordersList.getDptAmt().intValue()) + "(" + ordersList.getDptTypeName() + ordersList.getDptTaxPayN()+")" + ordersList.getDptP());
 
         //租金计算
+
         ordersList.setRateMAmt(ordersList.getRateAmt().add(ordersList.getRateTax()));
         ordersList.setRTRentRate(ordersList.getRateRate());
         ordersList.setRentMAmt(ordersList.getMAmt());
         ordersList.setFMAmt(ordersList.getRentMAmt());
         ordersList.setFRentRate(ordersList.getFinalRate());
+
+        //计价成本竖列第9计算
+        double d1 = (calculatePMT(ordersList.getRateRate().doubleValue(), ordersList.getMm(), 1) * ordersList.getMm()-1)*100*12/ordersList.getMm();
+        //四舍五入保留两位小数
+        BigDecimal bg = new BigDecimal(d1);
+        ordersList.setRTRentRateY(bg.setScale(2, BigDecimal.ROUND_HALF_UP));
+
+        //成交利率竖列第9计算
+        double d2 = (calculatePMT(ordersList.getRentRate().doubleValue(), ordersList.getMm(), 1) * ordersList.getMm()-1)*100*12/ordersList.getMm();
+        //四舍五入保留两位小数
+        BigDecimal bg2 = new BigDecimal(d2);
+        ordersList.setRentRateYa(bg2.setScale(2, BigDecimal.ROUND_HALF_UP));
+
+        //实际成交价竖列第9计算
+        double d3 = (calculatePMT(ordersList.getFinalRate().doubleValue(), ordersList.getMm(), 1) * ordersList.getMm()-1)*100*12/ordersList.getMm();
+        //四舍五入保留两位小数
+        BigDecimal bg3 = new BigDecimal(d3);
+        ordersList.setFRentRateY(bg3.setScale(2, BigDecimal.ROUND_HALF_UP));
+
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", ordersList);
     }
 
