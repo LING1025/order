@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.funtl.myshop.plus.provider.mapper.RptVstMapper">
+  <resultMap id="BaseResultMap" type="com.funtl.myshop.plus.provider.domain.RptVst">
+    <!--@mbg.generated-->
+    <!--@Table RptVst-->
+    <id column="RptVst_Auto" jdbcType="BIGINT" property="rptVstAuto" />
+    <result column="TradeItem_Auto" jdbcType="BIGINT" property="tradeItemAuto" />
+    <result column="Visit_Auto" jdbcType="INTEGER" property="visitAuto" />
+    <result column="VstType" jdbcType="INTEGER" property="vstType" />
+    <result column="VstDT" jdbcType="TIMESTAMP" property="vstDT" />
+    <result column="VstAddr" jdbcType="VARCHAR" property="vstAddr" />
+    <result column="Fee" jdbcType="DECIMAL" property="fee" />
+    <result column="OutComing" jdbcType="INTEGER" property="outComing" />
+    <result column="Aim" jdbcType="VARCHAR" property="aim" />
+    <result column="Summary" jdbcType="VARCHAR" property="summary" />
+    <result column="Detail" jdbcType="VARCHAR" property="detail" />
+    <result column="Thought" jdbcType="VARCHAR" property="thought" />
+    <result column="Remark" jdbcType="VARCHAR" property="remark" />
+    <result column="CUser" jdbcType="INTEGER" property="cUser" />
+    <result column="CDT" jdbcType="TIMESTAMP" property="cdt" />
+    <result column="NextVstDT" jdbcType="TIMESTAMP" property="nextVstDT" />
+    <result column="Status" jdbcType="INTEGER" property="status" />
+    <result column="CustSource" jdbcType="INTEGER" property="custSource" />
+    <result column="SignMap" jdbcType="VARCHAR" property="signMap" />
+    <result column="SignLongitude" jdbcType="VARCHAR" property="signLongitude" />
+    <result column="SignLatitude" jdbcType="VARCHAR" property="signLatitude" />
+    <result column="MUser" jdbcType="INTEGER" property="mUser" />
+    <result column="MCDT" jdbcType="TIMESTAMP" property="mcDT" />
+    <result column="GPS_ID" jdbcType="INTEGER" property="gpsId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    RptVst_Auto, TradeItem_Auto, Visit_Auto, VstType, VstDT, VstAddr, Fee, OutComing,
+    Aim, Summary, Detail, Thought, Remark, CUser, CDT, NextVstDT, [Status], CustSource,
+    SignMap, SignLongitude, SignLatitude, MUser, MCDT, GPS_ID
+  </sql>
+</mapper>

@@ -886,6 +886,118 @@
                 </TableGenerateConfig>
               </value>
             </entry>
+            <entry key="dbo:RptVst">
+              <value>
+                <TableGenerateConfig>
+                  <option name="columnOverrideList">
+                    <list>
+                      <MyColumnOverride>
+                        <option name="columnName" value="RptVst_Auto" />
+                        <option name="javaProperty" value="rptVstAuto" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="TradeItem_Auto" />
+                        <option name="javaProperty" value="tradeItemAuto" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="Visit_Auto" />
+                        <option name="javaProperty" value="visitAuto" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="VstType" />
+                        <option name="javaProperty" value="vstType" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="VstDT" />
+                        <option name="javaProperty" value="vstDT" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="VstAddr" />
+                        <option name="javaProperty" value="vstAddr" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="Fee" />
+                        <option name="javaProperty" value="fee" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="OutComing" />
+                        <option name="javaProperty" value="outComing" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="Aim" />
+                        <option name="javaProperty" value="aim" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="Summary" />
+                        <option name="javaProperty" value="summary" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="Detail" />
+                        <option name="javaProperty" value="detail" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="Thought" />
+                        <option name="javaProperty" value="thought" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="Remark" />
+                        <option name="javaProperty" value="remark" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="CUser" />
+                        <option name="javaProperty" value="cUser" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="CDT" />
+                        <option name="javaProperty" value="cdt" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="NextVstDT" />
+                        <option name="javaProperty" value="nextVstDT" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="Status" />
+                        <option name="javaProperty" value="status" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="CustSource" />
+                        <option name="javaProperty" value="custSource" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="SignMap" />
+                        <option name="javaProperty" value="signMap" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="SignLongitude" />
+                        <option name="javaProperty" value="signLongitude" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="SignLatitude" />
+                        <option name="javaProperty" value="signLatitude" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="MUser" />
+                        <option name="javaProperty" value="mUser" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="MCDT" />
+                        <option name="javaProperty" value="mcDT" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="GPS_ID" />
+                        <option name="javaProperty" value="gpsId" />
+                      </MyColumnOverride>
+                    </list>
+                  </option>
+                  <option name="generatedKey" value="RptVst_Auto" />
+                  <option name="javaModelName" value="RptVst" />
+                  <option name="moduleName" value="provider-order-api" />
+                  <option name="sequenceColumn" value="" />
+                  <option name="sequenceId" value="" />
+                  <option name="useActualColumnName" value="true" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
             <entry key="dbo:RptVstFlow">
               <value>
                 <TableGenerateConfig>
