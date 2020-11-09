@@ -21,4 +21,9 @@ public class RptVstServiceImpl implements RptVstService{
     public List<TripRecorderList> selectByTrip(TripQueryParam tripQueryParam) {
         return rptVstMapper.selectByTrip(tripQueryParam);
     }
+
+    @Override
+    public List<TripRecorderList> selectByTripTwo(TripQueryParam tripQueryParam) {
+        return rptVstMapper.selectByTripTwo(tripQueryParam);
+    }
 }

@@ -10,4 +10,6 @@ import java.util.List;
 
 public interface RptVstMapper extends MyMapper<RptVst> {
     List<TripRecorderList> selectByTrip(@Param("param") TripQueryParam tripQueryParam);
+
+    List<TripRecorderList> selectByTripTwo(@Param("param") TripQueryParam tripQueryParam);
 }

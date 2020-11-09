@@ -4,9 +4,11 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import java.io.Serializable;
+
 @Data
 @ApiModel(value = "行程报告记录的查询参数")
-public class TripQueryParam {
+public class TripQueryParam implements Serializable {
     @ApiModelProperty(name = "年份")
     private Integer year;
 
