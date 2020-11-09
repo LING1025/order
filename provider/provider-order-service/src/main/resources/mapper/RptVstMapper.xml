@@ -35,4 +35,52 @@
     Aim, Summary, Detail, Thought, Remark, CUser, CDT, NextVstDT, [Status], CustSource,
     SignMap, SignLongitude, SignLatitude, MUser, MCDT, GPS_ID
   </sql>
+  <resultMap id="queryByTrip" extends="BaseResultMap" type="com.funtl.myshop.plus.provider.domain.TripRecorderList">
+    <result column="RptVstFlow_Auto" jdbcType="BIGINT" property="rptVstFlowAuto" />
+    <result column="customerName" jdbcType="VARCHAR" property="customerName" />
+    <result column="contName" jdbcType="VARCHAR" property="contName" />
+    <result column="vstTypeName" jdbcType="VARCHAR" property="vstTypeName" />
+    <result column="outComingName" jdbcType="VARCHAR" property="outComingName" />
+    <result column="salesName" jdbcType="VARCHAR" property="salesName" />
+    <result column="statusName" jdbcType="VARCHAR" property="statusName" />
+  </resultMap>
+  <select id="selectByTrip" resultMap="queryByTrip">
+    declare
+@year int, -- 年份
+@month int,--月份
+@Status int,--0 未审核 1 已审核
+@User int,--操作人
+@Role int,--权限
+@Org int --部门
+set @year=#{param.year}
+set @month=#{param.month}
+set @Status=#{param.status}
+set @User=#{param.userAuto}
+set @Role=#{param.roleAuto}
+set @Org=#{param.orgAuto}
+
+begin
+	select a.RptVst_Auto,a.VstDT,a.VstAddr,a.Detail,b.Name contName,c.FName customerName,d.ItemName vstTypeName,e.ItemName+'_'+e.Memo outComingName,f.FName salesName,g.RptVstFlow_Auto,case isnull(a.Status,0) when 0 then '业代组长' when 1 then '营业部主管' when 2 then '已审' end statusName
+	from RptVst a
+	inner join RptVstFlow g on g.RptVst_Auto = a.RptVst_Auto and g.RoleID = @Role
+	left join CRM_Contact b on a.TradeItem_Auto=b.TradeItem_Auto
+	left join TradeItem c on a.TradeItem_Auto=c.TradeItem_Auto
+	left join ItemCode d on d.ItemType=1042 and d.Num = a.VstType
+	left join ItemCode e on e.ItemType=1043 and e.Num = a.OutComing
+	left join v_Emp  f on f.User_Auto = a.CUser
+	where year(a.VstDT) = @year and month(a.VstDT) = @month and ((@Status = 1 and g.Status = @Status) or (@Status = 0 and ((@Role = 12 and a.Status = 1) or (@Role = 16 and a.Status = 0))))
+	and f.Org_Auto in (Select a.Org_Auto From AspNet.dbo.Org2EMP a Where a.User_Auto = @User and Org_Auto = @Org And a.Acltype=0)
+
+	select a.RptVst_Auto,a.VstDT,a.VstAddr,a.Detail,b.Name contName,c.FName customerName,d.ItemName vstTypeName,e.ItemName+'_'+e.Memo outComingName,f.FName salesName,g.RptVstFlow_Auto,case isnull(a.Status,0) when 0 then '业代组长' when 1 then '营业部主管' when 2 then '已审' end statusName
+	from RptVst a
+	inner join RptVstFlow g on g.RptVst_Auto = a.RptVst_Auto and g.RoleID = @Role
+	left join CRM_Contact b on a.TradeItem_Auto=b.TradeItem_Auto
+	left join TradeItem c on a.TradeItem_Auto=c.TradeItem_Auto
+	left join ItemCode d on d.ItemType=1042 and d.Num = a.VstType
+	left join ItemCode e on e.ItemType=1043 and e.Num = a.OutComing
+	left join v_Emp  f on f.User_Auto = a.CUser
+	where year(a.VstDT) = @year and month(a.VstDT) = @month and g.Status = @Status and @Status = 0 and @Role = 12 and a.Status = 0
+	and f.Org_Auto in (Select a.Org_Auto From AspNet.dbo.Org2EMP a Where a.User_Auto = @User and Org_Auto = @Org And a.Acltype=0)
+end
+  </select>
 </mapper>
