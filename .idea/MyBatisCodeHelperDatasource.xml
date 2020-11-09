@@ -886,6 +886,66 @@
                 </TableGenerateConfig>
               </value>
             </entry>
+            <entry key="dbo:RptVstFlow">
+              <value>
+                <TableGenerateConfig>
+                  <option name="columnOverrideList">
+                    <list>
+                      <MyColumnOverride>
+                        <option name="columnName" value="RptVstFlow_Auto" />
+                        <option name="javaProperty" value="rptVstFlowAuto" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="RptVst_Auto" />
+                        <option name="javaProperty" value="rptVstAuto" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="AppSeq" />
+                        <option name="javaProperty" value="appSeq" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="RoleID" />
+                        <option name="javaProperty" value="roleID" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="Status" />
+                        <option name="javaProperty" value="status" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="Memo" />
+                        <option name="javaProperty" value="memo" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="IsAgent" />
+                        <option name="javaProperty" value="isAgent" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="CUser" />
+                        <option name="javaProperty" value="cUser" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="CDT" />
+                        <option name="javaProperty" value="cDT" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="MUser" />
+                        <option name="javaProperty" value="mUser" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="MDT" />
+                        <option name="javaProperty" value="mDT" />
+                      </MyColumnOverride>
+                    </list>
+                  </option>
+                  <option name="generatedKey" value="RptVstFlow_Auto" />
+                  <option name="javaModelName" value="RptVstFlow" />
+                  <option name="moduleName" value="provider-order-api" />
+                  <option name="sequenceColumn" value="" />
+                  <option name="sequenceId" value="" />
+                  <option name="useActualColumnName" value="true" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
             <entry key="dbo:WorkFlowDoc">
               <value>
                 <TableGenerateConfig>

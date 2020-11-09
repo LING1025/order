@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.funtl.myshop.plus.provider.mapper.RptVstFlowMapper">
+  <resultMap id="BaseResultMap" type="com.funtl.myshop.plus.provider.domain.RptVstFlow">
+    <!--@mbg.generated-->
+    <!--@Table RptVstFlow-->
+    <id column="RptVstFlow_Auto" jdbcType="BIGINT" property="rptVstFlowAuto" />
+    <result column="RptVst_Auto" jdbcType="BIGINT" property="rptVstAuto" />
+    <result column="AppSeq" jdbcType="INTEGER" property="appSeq" />
+    <result column="RoleID" jdbcType="INTEGER" property="roleID" />
+    <result column="Status" jdbcType="INTEGER" property="status" />
+    <result column="Memo" jdbcType="VARCHAR" property="memo" />
+    <result column="IsAgent" jdbcType="INTEGER" property="isAgent" />
+    <result column="CUser" jdbcType="INTEGER" property="cUser" />
+    <result column="CDT" jdbcType="TIMESTAMP" property="cDT" />
+    <result column="MUser" jdbcType="INTEGER" property="mUser" />
+    <result column="MDT" jdbcType="TIMESTAMP" property="mDT" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    RptVstFlow_Auto, RptVst_Auto, AppSeq, RoleID, [Status], Memo, IsAgent, CUser, CDT,
+    MUser, MDT
+  </sql>
+</mapper>
