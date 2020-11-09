@@ -12,9 +12,9 @@
     <result column="Memo" jdbcType="VARCHAR" property="memo" />
     <result column="IsAgent" jdbcType="INTEGER" property="isAgent" />
     <result column="CUser" jdbcType="INTEGER" property="cUser" />
-    <result column="CDT" jdbcType="TIMESTAMP" property="cDT" />
+    <result column="CDT" jdbcType="TIMESTAMP" property="cdt" />
     <result column="MUser" jdbcType="INTEGER" property="mUser" />
-    <result column="MDT" jdbcType="TIMESTAMP" property="mDT" />
+    <result column="MDT" jdbcType="TIMESTAMP" property="mdt" />
   </resultMap>
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
@@ -24,7 +24,7 @@
   <resultMap id="queryByRptVstAuto" extends="BaseResultMap" type="com.funtl.myshop.plus.provider.domain.TripDetailList">
     <result column="FName" jdbcType="VARCHAR" property="fName" />
     <result column="Memo" jdbcType="VARCHAR" property="memo" />
-    <result column="MDT" jdbcType="TIMESTAMP" property="mDT" />
+    <result column="MDT" jdbcType="TIMESTAMP" property="mdt" />
   </resultMap>
   <select id="selectByRptVstAuto" resultMap="queryByRptVstAuto">
     select a.Memo,a.MDT,b.FName

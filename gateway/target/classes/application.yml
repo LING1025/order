@@ -62,14 +62,22 @@ spring:
             - Path=/api/orderInsert/**
           filters:
             - StripPrefix=1
+        - id: BUSINESS-ORDER
+          uri: lb://business-order
+          predicates:
+            - Path=/api/client/**
+          filters:
+            - StripPrefix=1
 
+#server:
+#  port: 443
+#  ssl:
+#    enabled: true
+#    key-store: classpath:wxj.car-plus.com.cn.jks
+#    key-store-password: 094z45iweiqu6
+#    key-store-type: JKS
 server:
-  port: 443
-  ssl:
-    enabled: true
-    key-store: classpath:wxj.car-plus.com.cn.jks
-    key-store-password: 094z45iweiqu6
-    key-store-type: JKS
+  port: 9999
 
 
 # 配置日志级别，方别调试
