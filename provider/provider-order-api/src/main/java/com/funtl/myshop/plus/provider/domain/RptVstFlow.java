@@ -11,25 +11,43 @@ import javax.persistence.Table;
 @Data
 @Table(name = "[RptVstFlow]")
 public class RptVstFlow implements Serializable {
+    /**
+     * 行程列表序号
+     */
     @Id
     @Column(name = "RptVstFlow_Auto")
     private Long rptVstFlowAuto;
 
+    /**
+     * 行程单号
+     */
     @Column(name = "RptVst_Auto")
     private Long rptVstAuto;
 
     @Column(name = "AppSeq")
     private Integer appSeq;
 
+    /**
+     * 权限id
+     */
     @Column(name = "RoleID")
     private Integer roleID;
 
+    /**
+     * 状态
+     */
     @Column(name = "Status")
     private Integer status;
 
+    /**
+     * 备注
+     */
     @Column(name = "Memo")
     private String memo;
 
+    /**
+     * 是否代理 0 否 1是
+     */
     @Column(name = "IsAgent")
     private Integer isAgent;
 

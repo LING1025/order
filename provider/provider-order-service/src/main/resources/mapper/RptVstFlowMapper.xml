@@ -21,4 +21,15 @@
     RptVstFlow_Auto, RptVst_Auto, AppSeq, RoleID, [Status], Memo, IsAgent, CUser, CDT,
     MUser, MDT
   </sql>
+  <resultMap id="queryByRptVstAuto" extends="BaseResultMap" type="com.funtl.myshop.plus.provider.domain.TripDetailList">
+    <result column="FName" jdbcType="VARCHAR" property="fName" />
+    <result column="Memo" jdbcType="VARCHAR" property="memo" />
+    <result column="MDT" jdbcType="TIMESTAMP" property="mDT" />
+  </resultMap>
+  <select id="selectByRptVstAuto" resultMap="queryByRptVstAuto">
+    select a.Memo,a.MDT,b.FName
+	from RptVstFlow a
+	left join v_Emp  b on b.User_Auto = a.MUser
+	where a.RptVst_Auto = #{rptVstAuto} and a.Status = 1
+  </select>
 </mapper>
