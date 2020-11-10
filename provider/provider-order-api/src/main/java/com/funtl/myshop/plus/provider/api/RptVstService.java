@@ -37,4 +37,11 @@ public interface RptVstService{
      * @return
      */
     CrmDetail selectByVisitAuto(Integer visitAuto);
+
+    /**
+     * 编辑CRM行程报告具体数据
+     * @param rptVst
+     * @return
+     */
+    Integer updateByVisitAuto(RptVst rptVst);
 }
