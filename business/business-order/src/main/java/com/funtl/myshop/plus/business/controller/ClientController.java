@@ -116,9 +116,9 @@ public class ClientController {
     }
 
     @ApiOperation(value = "编辑CRM行程报告数据(此接口如要测试请联系后端)")
-    @PutMapping(value = "updateByVisitAuto")
-    public ResponseResult<String> updateByVisitAuto(@ApiParam(value = "CRM行程报告数据") @Valid @RequestBody CrmDetailParamDto crmDetailParamDto){
-        if (crmDetailParamDto.getVisitAuto() == 0){
+    @PutMapping(value = "updateByRptVstAuto")
+    public ResponseResult<String> updateByRptVstAuto(@ApiParam(value = "CRM行程报告数据") @Valid @RequestBody CrmDetailParamDto crmDetailParamDto){
+        if (crmDetailParamDto.getRptVstAuto() == 0){
             return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "参数异常", null);
         }
         RptVst rptVst = new RptVst();
