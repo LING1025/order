@@ -96,7 +96,7 @@ public class ClientController {
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "审核完成", null);
     }
 
-    @ApiOperation(value = "获取CRM行程报告信息")
+    @ApiOperation(value = "获取CRM行程报告列表信息")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "userAuto", value = "用户序号", required = true, dataType = "int", paramType = "path"),
             @ApiImplicitParam(name = "customerName", value = "客户名称", required = false, dataType = "String", paramType = "path")

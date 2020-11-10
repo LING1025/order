@@ -23,7 +23,7 @@ public interface RptVstService{
     List<TripRecorderList> selectByTripTwo(TripQueryParam tripQueryParam);
 
     /**
-     * 根据用户序号、客户名称获取CRM行程报告数据
+     * 根据用户序号、客户名称获取CRM行程报告列表数据
      * @param userAuto
      * @param customerName
      * @return

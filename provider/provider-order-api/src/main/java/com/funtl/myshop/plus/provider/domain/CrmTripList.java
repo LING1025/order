@@ -9,7 +9,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Data
-@ApiModel(value = "CRM行程报告数据")
+@ApiModel(value = "CRM行程报告列表数据")
 public class CrmTripList implements Serializable {
     @ApiModelProperty(value = "拜访序号")
     private Integer visitAuto;
