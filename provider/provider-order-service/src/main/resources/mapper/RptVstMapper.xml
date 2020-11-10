@@ -100,4 +100,28 @@ end
       and f.Org_Auto in (Select a.Org_Auto From AspNet.dbo.Org2EMP a Where a.User_Auto = @User and Org_Auto = @Org And a.Acltype=0)
       end
   </select>
+    <resultMap id="queryCrmTripList" extends="BaseResultMap" type="com.funtl.myshop.plus.provider.domain.CrmTripList">
+        <result column="RptVst_Auto" jdbcType="BIGINT" property="rptVstAuto" />
+        <result column="TradeItem_Auto" jdbcType="BIGINT" property="tradeItemAuto" />
+        <result column="Visit_Auto" jdbcType="INTEGER" property="visitAuto" />
+        <result column="VstType" jdbcType="INTEGER" property="vstType" />
+        <result column="VstDT" jdbcType="TIMESTAMP" property="vstDT" />
+        <result column="VstAddr" jdbcType="VARCHAR" property="vstAddr" />
+    </resultMap>
+    <select id="selectCrmTripList" resultMap="queryCrmTripList">
+        select a.Visit_Auto,a.vstType,a.vstAddr,a.VstDT,a.RptVst_Auto,a.TradeItem_Auto
+	    from
+	    RptVst a
+	    left join TradeItem c on a.TradeItem_Auto=c.TradeItem_Auto
+	    left join v_Emp  b on b.User_Auto = a.CUser
+	    where
+        1=1
+        <if test="customerName != null and customerName != ''">
+            AND c.FName LIKE '%${customerName}%'
+        </if>
+        <if test="userAuto != null and userAuto != ''">
+            AND a.CUser = #{userAuto}
+        </if>
+	    order by a.Visit_Auto
+    </select>
 </mapper>

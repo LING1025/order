@@ -1,5 +1,6 @@
 package com.funtl.myshop.plus.provider.api;
 
+import com.funtl.myshop.plus.provider.domain.CrmTripList;
 import com.funtl.myshop.plus.provider.domain.RptVst;
 import com.funtl.myshop.plus.provider.domain.TripRecorderList;
 import com.funtl.myshop.plus.provider.dto.TripQueryParam;
@@ -20,4 +21,12 @@ public interface RptVstService{
      * @return
      */
     List<TripRecorderList> selectByTripTwo(TripQueryParam tripQueryParam);
+
+    /**
+     * 根据用户序号、客户名称获取CRM行程报告数据
+     * @param userAuto
+     * @param customerName
+     * @return
+     */
+    List<CrmTripList> selectCrmTripList(Integer userAuto,String customerName);
 }

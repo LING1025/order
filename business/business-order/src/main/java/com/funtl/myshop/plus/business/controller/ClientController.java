@@ -6,6 +6,7 @@ import com.funtl.myshop.plus.business.dto.ClientCheckParamDto;
 import com.funtl.myshop.plus.commons.dto.ResponseResult;
 import com.funtl.myshop.plus.provider.api.RptVstFlowService;
 import com.funtl.myshop.plus.provider.api.RptVstService;
+import com.funtl.myshop.plus.provider.domain.CrmTripList;
 import com.funtl.myshop.plus.provider.domain.TripDetailList;
 import com.funtl.myshop.plus.provider.domain.TripRecorderList;
 import com.funtl.myshop.plus.provider.dto.ClientCheckDto;
@@ -80,7 +81,7 @@ public class ClientController {
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", lists);
     }
 
-    @ApiOperation(value = "行程报告审核")
+    @ApiOperation(value = "行程报告审核(此接口如要测试请联系后端)")
     @PutMapping(value = "update")
     public ResponseResult<String> update(@ApiParam(value = "行程报告审核数据") @Valid @RequestBody ClientCheckParamDto clientCheckParamDto){
         if (clientCheckParamDto.getMemo() == null || clientCheckParamDto.getMemo().isEmpty()){
@@ -94,4 +95,17 @@ public class ClientController {
         }
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "审核完成", null);
     }
+
+    @ApiOperation(value = "获取CRM行程报告信息")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userAuto", value = "用户序号", required = true, dataType = "int", paramType = "path"),
+            @ApiImplicitParam(name = "customerName", value = "客户名称", required = false, dataType = "String", paramType = "path")
+    })
+    @GetMapping(value = "queryCrmTripList")
+    public ResponseResult<List<CrmTripList>> queryCrmTripList(@RequestParam(name = "userAuto")Integer userAuto,
+                                                              @RequestParam(name = "customerName", required = false)String customerName){
+        List<CrmTripList> lists = rptVstService.selectCrmTripList(userAuto,customerName);
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", lists);
+    }
+
 }
