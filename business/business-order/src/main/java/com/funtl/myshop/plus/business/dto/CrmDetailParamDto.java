@@ -16,13 +16,13 @@ public class CrmDetailParamDto implements Serializable {
     private Integer visitAuto=0;
 
     @ApiModelProperty(value = "拜访时间")
-    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date vstDT;
 
 //    @ApiModelProperty(value = "客户名称")
 //    private String customerName;
 
-    @ApiModelProperty(value = "对象序号")
+    @ApiModelProperty(value = "客户对象序号")
     private Long tradeItemAuto;
 
 //    @ApiModelProperty(value = "客户来源")
@@ -53,7 +53,7 @@ public class CrmDetailParamDto implements Serializable {
     private Integer outComing;
 
     @ApiModelProperty(value = "拜访时间")
-    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date nextVstDT;
 
     @ApiModelProperty(value = "达成目标")

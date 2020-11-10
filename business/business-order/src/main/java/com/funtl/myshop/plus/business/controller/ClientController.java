@@ -1,15 +1,11 @@
 package com.funtl.myshop.plus.business.controller;
 
-import com.funtl.myshop.plus.business.BusinessException;
-import com.funtl.myshop.plus.business.BusinessStatus;
 import com.funtl.myshop.plus.business.dto.ClientCheckParamDto;
+import com.funtl.myshop.plus.business.dto.CrmDetailParamDto;
 import com.funtl.myshop.plus.commons.dto.ResponseResult;
 import com.funtl.myshop.plus.provider.api.RptVstFlowService;
 import com.funtl.myshop.plus.provider.api.RptVstService;
-import com.funtl.myshop.plus.provider.domain.CrmDetail;
-import com.funtl.myshop.plus.provider.domain.CrmTripList;
-import com.funtl.myshop.plus.provider.domain.TripDetailList;
-import com.funtl.myshop.plus.provider.domain.TripRecorderList;
+import com.funtl.myshop.plus.provider.domain.*;
 import com.funtl.myshop.plus.provider.dto.ClientCheckDto;
 import com.funtl.myshop.plus.provider.dto.TripQueryParam;
 import io.swagger.annotations.*;
@@ -92,7 +88,7 @@ public class ClientController {
         BeanUtils.copyProperties(clientCheckParamDto,clientCheckDto);
         Integer i = rptVstFlowService.update(clientCheckDto);
         if (i == 0){
-            throw new BusinessException(BusinessStatus.UPDATE_FAILURE);
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "审核失败", null);
         }
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "审核完成", null);
     }
@@ -119,6 +115,19 @@ public class ClientController {
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", crmDetail);
     }
 
-
+    @ApiOperation(value = "编辑CRM行程报告数据(此接口如要测试请联系后端)")
+    @PutMapping(value = "updateByVisitAuto")
+    public ResponseResult<String> updateByVisitAuto(@ApiParam(value = "CRM行程报告数据") @Valid @RequestBody CrmDetailParamDto crmDetailParamDto){
+        if (crmDetailParamDto.getVisitAuto() == 0){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "参数异常", null);
+        }
+        RptVst rptVst = new RptVst();
+        BeanUtils.copyProperties(crmDetailParamDto,rptVst);
+        Integer i = rptVstService.update(rptVst);
+        if (i == 0){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "修改失败", null);
+        }
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK, "修改成功", null);
+    }
 
 }

@@ -40,7 +40,7 @@ public class RptVstServiceImpl implements RptVstService{
     }
 
     @Override
-    public Integer updateByVisitAuto(RptVst rptVst) {
+    public Integer update(RptVst rptVst) {
         return rptVstMapper.updateByPrimaryKeySelective(rptVst);
     }
 

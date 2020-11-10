@@ -43,5 +43,5 @@ public interface RptVstService{
      * @param rptVst
      * @return
      */
-    Integer updateByVisitAuto(RptVst rptVst);
+    Integer update(RptVst rptVst);
 }
