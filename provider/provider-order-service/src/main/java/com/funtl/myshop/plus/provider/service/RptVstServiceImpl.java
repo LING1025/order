@@ -2,6 +2,7 @@ package com.funtl.myshop.plus.provider.service;
 
 import javax.annotation.Resource;
 
+import com.funtl.myshop.plus.provider.domain.CrmDetail;
 import com.funtl.myshop.plus.provider.domain.CrmTripList;
 import com.funtl.myshop.plus.provider.domain.TripRecorderList;
 import com.funtl.myshop.plus.provider.dto.TripQueryParam;
@@ -31,5 +32,10 @@ public class RptVstServiceImpl implements RptVstService{
     @Override
     public List<CrmTripList> selectCrmTripList(Integer userAuto, String customerName) {
         return rptVstMapper.selectCrmTripList(userAuto,customerName);
+    }
+
+    @Override
+    public CrmDetail selectByVisitAuto(Integer visitAuto) {
+        return rptVstMapper.selectByVisitAuto(visitAuto);
     }
 }

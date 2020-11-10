@@ -1,5 +1,6 @@
 package com.funtl.myshop.plus.provider.mapper;
 
+import com.funtl.myshop.plus.provider.domain.CrmDetail;
 import com.funtl.myshop.plus.provider.domain.CrmTripList;
 import com.funtl.myshop.plus.provider.domain.RptVst;
 import com.funtl.myshop.plus.provider.domain.TripRecorderList;
@@ -15,4 +16,6 @@ public interface RptVstMapper extends MyMapper<RptVst> {
     List<TripRecorderList> selectByTripTwo(@Param("param") TripQueryParam tripQueryParam);
 
     List<CrmTripList> selectCrmTripList(@Param("userAuto") Integer userAuto, @Param("customerName") String customerName);
+
+    CrmDetail selectByVisitAuto(@Param("visitAuto") Integer visitAuto);
 }
