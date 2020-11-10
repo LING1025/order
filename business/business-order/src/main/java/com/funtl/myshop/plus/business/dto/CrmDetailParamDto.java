@@ -19,26 +19,38 @@ public class CrmDetailParamDto implements Serializable {
     @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     private Date vstDT;
 
-    @ApiModelProperty(value = "客户名称")
-    private String customerName;
+//    @ApiModelProperty(value = "客户名称")
+//    private String customerName;
+
+    @ApiModelProperty(value = "对象序号")
+    private Long tradeItemAuto;
+
+//    @ApiModelProperty(value = "客户来源")
+//    private String custSourceName;
 
     @ApiModelProperty(value = "客户来源")
-    private String custSourceName;
+    private Integer custSource;
+
+//    @ApiModelProperty(value = "活动内容")
+//    private String vstTypeName;
 
     @ApiModelProperty(value = "活动内容")
-    private String vstTypeName;
+    private Integer vstType;
 
     @ApiModelProperty(value = "产生总费用")
     private BigDecimal fee;
 
-    @ApiModelProperty(value = "联系人")
-    private String contName;
+//    @ApiModelProperty(value = "联系人")
+//    private String contName;
 
     @ApiModelProperty(value = "拜访地点")
     private String vstAddr;
 
+//    @ApiModelProperty(value = "进度")
+//    private String outComingName;
+
     @ApiModelProperty(value = "进度")
-    private String outComingName;
+    private Integer outComing;
 
     @ApiModelProperty(value = "拜访时间")
     @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
