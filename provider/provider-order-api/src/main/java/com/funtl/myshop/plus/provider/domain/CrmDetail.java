@@ -6,11 +6,15 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 
 @Data
 @ApiModel(value = "CRM行程报告具体数据")
 public class CrmDetail implements Serializable {
+    @ApiModelProperty(value = "拜访序号")
+    private Integer visitAuto;
+
     @ApiModelProperty(value = "拜访时间")
     @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     private Date vstDT;
@@ -25,7 +29,7 @@ public class CrmDetail implements Serializable {
     private String vstTypeName;
 
     @ApiModelProperty(value = "产生总费用")
-    private String fee;
+    private BigDecimal fee;
 
     @ApiModelProperty(value = "联系人")
     private String contName;

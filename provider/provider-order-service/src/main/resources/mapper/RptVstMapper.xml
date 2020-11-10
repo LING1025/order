@@ -133,6 +133,7 @@ end
     </resultMap>
     <select id="selectByVisitAuto" resultMap="queryByVisitAuto">
         select
+        a.Visit_Auto,
         a.VstDT,c.FName customerName,h.ItemName custSourceName,f.ItemName vstTypeName,a.Fee,
 	    d.Name contName,a.vstAddr,e.ItemName+'_'+e.Memo outComingName,a.NextVstDT,
 	    a.Aim,a.Summary,a.Detail,a.Thought,a.Remark

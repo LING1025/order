@@ -6,6 +6,7 @@ import com.funtl.myshop.plus.business.dto.ClientCheckParamDto;
 import com.funtl.myshop.plus.commons.dto.ResponseResult;
 import com.funtl.myshop.plus.provider.api.RptVstFlowService;
 import com.funtl.myshop.plus.provider.api.RptVstService;
+import com.funtl.myshop.plus.provider.domain.CrmDetail;
 import com.funtl.myshop.plus.provider.domain.CrmTripList;
 import com.funtl.myshop.plus.provider.domain.TripDetailList;
 import com.funtl.myshop.plus.provider.domain.TripRecorderList;
@@ -106,6 +107,16 @@ public class ClientController {
                                                               @RequestParam(name = "customerName", required = false)String customerName){
         List<CrmTripList> lists = rptVstService.selectCrmTripList(userAuto,customerName);
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", lists);
+    }
+
+    @ApiOperation(value = "获取CRM行程报告具体数据")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "visitAuto", value = "拜访序号", required = true, dataType = "String", paramType = "path")
+    })
+    @GetMapping(value = "queryCrmDetail")
+    public ResponseResult<CrmDetail> queryCrmDetail(@RequestParam(name = "visitAuto")Integer visitAuto){
+        CrmDetail crmDetail = rptVstService.selectByVisitAuto(visitAuto);
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", crmDetail);
     }
 
 }
