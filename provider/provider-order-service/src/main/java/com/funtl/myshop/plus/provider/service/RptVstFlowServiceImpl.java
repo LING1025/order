@@ -3,6 +3,7 @@ package com.funtl.myshop.plus.provider.service;
 import javax.annotation.Resource;
 
 import com.funtl.myshop.plus.provider.domain.TripDetailList;
+import com.funtl.myshop.plus.provider.dto.ClientCheckDto;
 import com.funtl.myshop.plus.provider.mapper.RptVstFlowMapper;
 import com.funtl.myshop.plus.provider.domain.RptVstFlow;
 import com.funtl.myshop.plus.provider.api.RptVstFlowService;
@@ -20,5 +21,10 @@ public class RptVstFlowServiceImpl implements RptVstFlowService{
     @Override
     public List<TripDetailList> selectByRptVstAuto(Long rptVstAuto) {
         return rptVstFlowMapper.selectByRptVstAuto(rptVstAuto);
+    }
+
+    @Override
+    public Integer update(ClientCheckDto clientCheckDto) {
+        return rptVstFlowMapper.update(clientCheckDto);
     }
 }

@@ -32,4 +32,27 @@
 	left join v_Emp  b on b.User_Auto = a.MUser
 	where a.RptVst_Auto = #{rptVstAuto} and a.Status = 1
   </select>
+  <update id="update">
+    declare
+    @RptVstFlow_Auto bigint,
+    @Memo nvarchar(200),
+    @User int,
+    @IsAgent int
+    set @RptVstFlow_Auto=#{param.rptVstFlowAuto}
+    set @Memo=#{param.memo}
+    set @User=#{param.userAuto}
+    set @IsAgent= #{param.isAgent}
+
+begin
+	update RptVstFlow
+	set Memo = @Memo,MUser = @User,MDT = getdate(),IsAgent = @IsAgent,Status = 1
+	where RptVstFlow_Auto = @RptVstFlow_Auto
+
+	update RptVst
+	set RptVst.[status] = RptVstFlow.AppSeq
+	from RptVstFlow
+	left join RptVst on RptVst.RptVst_Auto = RptVstFlow.RptVst_Auto
+	where RptVstFlow_Auto = @RptVstFlow_Auto
+end
+  </update>
 </mapper>

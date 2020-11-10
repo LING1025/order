@@ -1,20 +1,21 @@
 package com.funtl.myshop.plus.business.controller;
 
+import com.funtl.myshop.plus.business.BusinessException;
+import com.funtl.myshop.plus.business.BusinessStatus;
+import com.funtl.myshop.plus.business.dto.ClientCheckParamDto;
 import com.funtl.myshop.plus.commons.dto.ResponseResult;
 import com.funtl.myshop.plus.provider.api.RptVstFlowService;
 import com.funtl.myshop.plus.provider.api.RptVstService;
-import com.funtl.myshop.plus.provider.domain.RptVst;
-import com.funtl.myshop.plus.provider.domain.RptVstFlow;
 import com.funtl.myshop.plus.provider.domain.TripDetailList;
 import com.funtl.myshop.plus.provider.domain.TripRecorderList;
+import com.funtl.myshop.plus.provider.dto.ClientCheckDto;
 import com.funtl.myshop.plus.provider.dto.TripQueryParam;
 import io.swagger.annotations.*;
 import org.apache.dubbo.config.annotation.Reference;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.BeanUtils;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Api(tags = "客户模块相关操作")
@@ -77,5 +78,20 @@ public class ClientController {
         TripQueryParam tripQueryParam = new TripQueryParam(year,month,status,userAuto,roleAuto,orgAuto);
         List<TripRecorderList> lists = rptVstService.selectByTripTwo(tripQueryParam);
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", lists);
+    }
+
+    @ApiOperation(value = "行程报告审核")
+    @PutMapping(value = "update")
+    public ResponseResult<String> update(@ApiParam(value = "行程报告审核数据") @Valid @RequestBody ClientCheckParamDto clientCheckParamDto){
+        if (clientCheckParamDto.getMemo() == null || clientCheckParamDto.getMemo().isEmpty()){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "请输入审核意见！", null);
+        }
+        ClientCheckDto clientCheckDto = new ClientCheckDto();
+        BeanUtils.copyProperties(clientCheckParamDto,clientCheckDto);
+        Integer i = rptVstFlowService.update(clientCheckDto);
+        if (i == 0){
+            throw new BusinessException(BusinessStatus.UPDATE_FAILURE);
+        }
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK, "审核完成", null);
     }
 }
