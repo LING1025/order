@@ -24,7 +24,7 @@ public class CrmTripList implements Serializable {
     @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     private Date vstDT;
 
-    @ApiModelProperty(value = "行程单号")
+    @ApiModelProperty(value = "报告序号")
     private Long rptVstAuto;
 
     @ApiModelProperty(value = "客户序号")

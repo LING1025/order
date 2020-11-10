@@ -35,8 +35,8 @@ public class RptVstServiceImpl implements RptVstService{
     }
 
     @Override
-    public CrmDetail selectByVisitAuto(Integer visitAuto) {
-        return rptVstMapper.selectByVisitAuto(visitAuto);
+    public CrmDetail selectByRptVstAuto(Long rptVstAuto) {
+        return rptVstMapper.selectByRptVstAuto(rptVstAuto);
     }
 
     @Override

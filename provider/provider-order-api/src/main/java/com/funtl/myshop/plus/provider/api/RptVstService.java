@@ -32,11 +32,11 @@ public interface RptVstService{
     List<CrmTripList> selectCrmTripList(Integer userAuto,String customerName);
 
     /**
-     * 根据拜访序号获取CRM行程报告具体数据
-     * @param visitAuto
+     * 根据报告序号获取CRM行程报告具体数据
+     * @param rptVstAuto
      * @return
      */
-    CrmDetail selectByVisitAuto(Integer visitAuto);
+    CrmDetail selectByRptVstAuto(Long rptVstAuto);
 
     /**
      * 编辑CRM行程报告具体数据

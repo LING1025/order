@@ -12,8 +12,8 @@ import java.util.Date;
 @Data
 @ApiModel(value = "CRM行程报告具体数据")
 public class CrmDetail implements Serializable {
-    @ApiModelProperty(value = "拜访序号")
-    private Integer visitAuto;
+    @ApiModelProperty(value = "报告序号")
+    private Long rptVstAuto;
 
     @ApiModelProperty(value = "拜访时间")
     @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")

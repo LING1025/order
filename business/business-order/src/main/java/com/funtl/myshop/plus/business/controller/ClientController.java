@@ -107,11 +107,11 @@ public class ClientController {
 
     @ApiOperation(value = "获取CRM行程报告具体数据")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "visitAuto", value = "拜访序号", required = true, dataType = "String", paramType = "path")
+            @ApiImplicitParam(name = "rptVstAuto", value = "报告序号", required = true, dataType = "long", paramType = "path")
     })
     @GetMapping(value = "queryCrmDetail")
-    public ResponseResult<CrmDetail> queryCrmDetail(@RequestParam(name = "visitAuto")Integer visitAuto){
-        CrmDetail crmDetail = rptVstService.selectByVisitAuto(visitAuto);
+    public ResponseResult<CrmDetail> queryCrmDetail(@RequestParam(name = "rptVstAuto")Long rptVstAuto){
+        CrmDetail crmDetail = rptVstService.selectByRptVstAuto(rptVstAuto);
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", crmDetail);
     }
 
