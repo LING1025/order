@@ -10,10 +10,10 @@ import java.io.Serializable;
 @ApiModel(value = "CRM下拉选")
 public class CrmSelect implements Serializable {
     @ApiModelProperty(value = "客户名称")
-    private String fName;
+    private String customerName;
 
     @ApiModelProperty(value = "联系人")
-    private String name;
+    private String contName;
 
     @ApiModelProperty(value = "客户、联系人对应的序号")
     private Long tradeItemAuto;

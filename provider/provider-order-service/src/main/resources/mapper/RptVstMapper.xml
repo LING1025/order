@@ -146,8 +146,8 @@ end
         where a.RptVst_Auto=#{rptVstAuto}
     </select>
     <resultMap id="queryByTradeItemAuto" extends="BaseResultMap" type="com.funtl.myshop.plus.provider.domain.CrmSelect">
-        <result column="FName" jdbcType="VARCHAR" property="fName" />
-        <result column="Name" jdbcType="VARCHAR" property="name" />
+        <result column="FName" jdbcType="VARCHAR" property="customerName" />
+        <result column="Name" jdbcType="VARCHAR" property="contName" />
         <result column="TradeItem_Auto" jdbcType="BIGINT" property="tradeItemAuto" />
     </resultMap>
     <select id="selectByTradeItemAuto" resultMap="queryByTradeItemAuto">
@@ -162,7 +162,7 @@ end
         end
         else if(@type = 2)--联系人
         begin
-        select `Name`,TradeItem_Auto from CRM_Contact where TradeItem_Auto=@TradeItem_Auto
+        select [Name],TradeItem_Auto from CRM_Contact where TradeItem_Auto=@TradeItem_Auto
         end
         else if(@type = 3)--全部客户名称
         begin

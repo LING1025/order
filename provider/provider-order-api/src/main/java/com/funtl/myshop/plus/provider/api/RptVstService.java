@@ -1,9 +1,6 @@
 package com.funtl.myshop.plus.provider.api;
 
-import com.funtl.myshop.plus.provider.domain.CrmDetail;
-import com.funtl.myshop.plus.provider.domain.CrmTripList;
-import com.funtl.myshop.plus.provider.domain.RptVst;
-import com.funtl.myshop.plus.provider.domain.TripRecorderList;
+import com.funtl.myshop.plus.provider.domain.*;
 import com.funtl.myshop.plus.provider.dto.TripQueryParam;
 
 import java.util.List;
@@ -50,5 +47,5 @@ public interface RptVstService{
      * @param tradeItemAuto
      * @return
      */
-    CrmDetail selectByTradeItemAuto(Long tradeItemAuto,Integer type);
+    List<CrmSelect> selectByTradeItemAuto(Long tradeItemAuto, Integer type);
 }

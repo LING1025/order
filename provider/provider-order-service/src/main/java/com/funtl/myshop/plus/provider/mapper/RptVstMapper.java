@@ -1,9 +1,6 @@
 package com.funtl.myshop.plus.provider.mapper;
 
-import com.funtl.myshop.plus.provider.domain.CrmDetail;
-import com.funtl.myshop.plus.provider.domain.CrmTripList;
-import com.funtl.myshop.plus.provider.domain.RptVst;
-import com.funtl.myshop.plus.provider.domain.TripRecorderList;
+import com.funtl.myshop.plus.provider.domain.*;
 import com.funtl.myshop.plus.provider.dto.TripQueryParam;
 import org.apache.ibatis.annotations.Param;
 import tk.mybatis.mapper.MyMapper;
@@ -19,5 +16,5 @@ public interface RptVstMapper extends MyMapper<RptVst> {
 
     CrmDetail selectByRptVstAuto(@Param("rptVstAuto") Long rptVstAuto);
 
-    CrmDetail selectByTradeItemAuto(@Param("tradeItemAuto") Long tradeItemAuto, @Param("type") Integer type);
+    List<CrmSelect> selectByTradeItemAuto(@Param("tradeItemAuto") Long tradeItemAuto, @Param("type") Integer type);
 }

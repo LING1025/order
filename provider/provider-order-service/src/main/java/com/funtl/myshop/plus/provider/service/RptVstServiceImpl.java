@@ -2,12 +2,9 @@ package com.funtl.myshop.plus.provider.service;
 
 import javax.annotation.Resource;
 
-import com.funtl.myshop.plus.provider.domain.CrmDetail;
-import com.funtl.myshop.plus.provider.domain.CrmTripList;
-import com.funtl.myshop.plus.provider.domain.TripRecorderList;
+import com.funtl.myshop.plus.provider.domain.*;
 import com.funtl.myshop.plus.provider.dto.TripQueryParam;
 import com.funtl.myshop.plus.provider.mapper.RptVstMapper;
-import com.funtl.myshop.plus.provider.domain.RptVst;
 import com.funtl.myshop.plus.provider.api.RptVstService;
 import org.apache.dubbo.config.annotation.Service;
 
@@ -45,7 +42,7 @@ public class RptVstServiceImpl implements RptVstService{
     }
 
     @Override
-    public CrmDetail selectByTradeItemAuto(Long tradeItemAuto, Integer type) {
+    public List<CrmSelect> selectByTradeItemAuto(Long tradeItemAuto, Integer type) {
         return rptVstMapper.selectByTradeItemAuto(tradeItemAuto,type);
     }
 

@@ -130,4 +130,16 @@ public class ClientController {
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "修改成功", null);
     }
 
+    @ApiOperation(value = "获取客户名称、联系人下拉选")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "type", value = "类型 1客户名称 2联系人 3全部客户名称", required = true, dataType = "int", paramType = "path"),
+            @ApiImplicitParam(name = "tradeItemAuto", value = "报告序号", required = false, dataType = "long", paramType = "path")
+    })
+    @GetMapping(value = "queryFNameAndName")
+    public ResponseResult<List<CrmSelect>> queryFNameAndName(@RequestParam(name = "type")Integer type,
+                                                    @RequestParam(name = "tradeItemAuto", required = false)Long tradeItemAuto){
+        List<CrmSelect> crmSelects = rptVstService.selectByTradeItemAuto(tradeItemAuto,type);
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", crmSelects);
+    }
+
 }
