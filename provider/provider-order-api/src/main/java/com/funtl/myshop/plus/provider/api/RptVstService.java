@@ -44,4 +44,11 @@ public interface RptVstService{
      * @return
      */
     Integer update(RptVst rptVst);
+
+    /**
+     * 根据对象序号获取客户名称、联系人下拉选
+     * @param tradeItemAuto
+     * @return
+     */
+    CrmDetail selectByTradeItemAuto(Long tradeItemAuto,Integer type);
 }

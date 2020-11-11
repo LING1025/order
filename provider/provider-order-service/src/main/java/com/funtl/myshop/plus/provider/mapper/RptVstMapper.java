@@ -18,4 +18,6 @@ public interface RptVstMapper extends MyMapper<RptVst> {
     List<CrmTripList> selectCrmTripList(@Param("userAuto") Integer userAuto, @Param("customerName") String customerName);
 
     CrmDetail selectByRptVstAuto(@Param("rptVstAuto") Long rptVstAuto);
+
+    CrmDetail selectByTradeItemAuto(@Param("tradeItemAuto") Long tradeItemAuto, @Param("type") Integer type);
 }

@@ -44,4 +44,9 @@ public class RptVstServiceImpl implements RptVstService{
         return rptVstMapper.updateByPrimaryKeySelective(rptVst);
     }
 
+    @Override
+    public CrmDetail selectByTradeItemAuto(Long tradeItemAuto, Integer type) {
+        return rptVstMapper.selectByTradeItemAuto(tradeItemAuto,type);
+    }
+
 }

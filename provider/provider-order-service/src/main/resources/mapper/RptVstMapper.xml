@@ -145,4 +145,28 @@ end
         left join ItemCode h on h.ItemType=313 and h.Num = a.CustSource
         where a.RptVst_Auto=#{rptVstAuto}
     </select>
+    <resultMap id="queryByTradeItemAuto" extends="BaseResultMap" type="com.funtl.myshop.plus.provider.domain.CrmSelect">
+        <result column="FName" jdbcType="VARCHAR" property="fName" />
+        <result column="Name" jdbcType="VARCHAR" property="name" />
+        <result column="TradeItem_Auto" jdbcType="BIGINT" property="tradeItemAuto" />
+    </resultMap>
+    <select id="selectByTradeItemAuto" resultMap="queryByTradeItemAuto">
+        declare
+        @type int,
+        @TradeItem_Auto bigint
+        set @type = #{type}
+        set @TradeItem_Auto = #{tradeItemAuto}
+        if(@type = 1)--客户名称
+        begin
+        select FName,TradeItem_Auto from TradeItem where TradeItem_Auto=@TradeItem_Auto
+        end
+        else if(@type = 2)--联系人
+        begin
+        select `Name`,TradeItem_Auto from CRM_Contact where TradeItem_Auto=@TradeItem_Auto
+        end
+        else if(@type = 3)--全部客户名称
+        begin
+        select FName,TradeItem_Auto from TradeItem
+        end
+    </select>
 </mapper>
