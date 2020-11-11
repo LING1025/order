@@ -47,7 +47,7 @@ public class RptVstServiceImpl implements RptVstService{
     }
 
     @Override
-    public List<CrmSelect> selectByTypes(Integer types) {
+    public List<CrmItemNameSelect> selectByTypes(Integer types) {
         return rptVstMapper.selectByTypes(types);
     }
 

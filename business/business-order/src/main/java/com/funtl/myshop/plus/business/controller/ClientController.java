@@ -130,9 +130,9 @@ public class ClientController {
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "修改成功", null);
     }
 
-    @ApiOperation(value = "获取客户名称、联系人下拉选")
+    @ApiOperation(value = "CRM行程报告：客户名称、联系人下拉选")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "type", value = "类型 1客户名称 2联系人 3全部客户名称", required = true, dataType = "int", paramType = "path"),
+            @ApiImplicitParam(name = "type", value = "类型: 1 客户名称 2 联系人 3 全部客户名称", required = true, dataType = "int", paramType = "path"),
             @ApiImplicitParam(name = "tradeItemAuto", value = "报告序号", required = false, dataType = "long", paramType = "path")
     })
     @GetMapping(value = "queryFNameAndName")
@@ -142,14 +142,14 @@ public class ClientController {
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", crmSelects);
     }
 
-    @ApiOperation(value = "获取客户来源、活动内容、进度下拉选")
+    @ApiOperation(value = "CRM行程报告：客户来源、活动内容、进度下拉选")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "types", value = "类型 1客户来源 2活动内容 3进度", required = true, dataType = "int", paramType = "path")
+            @ApiImplicitParam(name = "types", value = "类型: 1 客户来源 2 活动内容 3 进度", required = true, dataType = "int", paramType = "path")
     })
     @GetMapping(value = "queryItemNameAndNum")
-    public ResponseResult<List<CrmSelect>> queryItemNameAndNum(@RequestParam(name = "types")Integer types){
-        List<CrmSelect> crmSelects = rptVstService.selectByTypes(types);
-        return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", crmSelects);
+    public ResponseResult<List<CrmItemNameSelect>> queryItemNameAndNum(@RequestParam(name = "types")Integer types){
+        List<CrmItemNameSelect> CrmItemNameSelects = rptVstService.selectByTypes(types);
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", CrmItemNameSelects);
     }
 
 }

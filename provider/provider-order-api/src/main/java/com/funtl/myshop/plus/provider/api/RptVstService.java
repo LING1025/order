@@ -54,5 +54,5 @@ public interface RptVstService{
      * @param types
      * @return
      */
-    List<CrmSelect> selectByTypes(Integer types);
+    List<CrmItemNameSelect> selectByTypes(Integer types);
 }

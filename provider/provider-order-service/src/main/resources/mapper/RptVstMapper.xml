@@ -149,8 +149,6 @@ end
         <result column="FName" jdbcType="VARCHAR" property="customerName" />
         <result column="Name" jdbcType="VARCHAR" property="contName" />
         <result column="TradeItem_Auto" jdbcType="BIGINT" property="tradeItemAuto" />
-        <result column="ItemName" jdbcType="VARCHAR" property="itemName" />
-        <result column="Num" jdbcType="INTEGER" property="num" />
     </resultMap>
     <select id="selectByTradeItemAuto" resultMap="queryCrmSelect">
         declare
@@ -171,7 +169,11 @@ end
         select FName,TradeItem_Auto from TradeItem
         end
     </select>
-    <select id="selectByTypes" resultMap="queryCrmSelect">
+    <resultMap id="queryCrmItemNameSelect" extends="BaseResultMap" type="com.funtl.myshop.plus.provider.domain.CrmItemNameSelect">
+        <result column="ItemName" jdbcType="VARCHAR" property="itemName" />
+        <result column="Num" jdbcType="INTEGER" property="num" />
+    </resultMap>
+    <select id="selectByTypes" resultMap="queryCrmItemNameSelect">
         declare
         @types int
         set @types = #{types}
