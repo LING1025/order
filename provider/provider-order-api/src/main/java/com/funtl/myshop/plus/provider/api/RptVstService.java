@@ -48,4 +48,11 @@ public interface RptVstService{
      * @return
      */
     List<CrmSelect> selectByTradeItemAuto(Long tradeItemAuto, Integer type);
+
+    /**
+     * 获取客户来源、活动内容、进度下拉选
+     * @param types
+     * @return
+     */
+    List<CrmSelect> selectByTypes(Integer types);
 }

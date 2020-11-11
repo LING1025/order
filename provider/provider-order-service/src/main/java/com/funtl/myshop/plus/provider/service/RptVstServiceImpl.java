@@ -46,4 +46,9 @@ public class RptVstServiceImpl implements RptVstService{
         return rptVstMapper.selectByTradeItemAuto(tradeItemAuto,type);
     }
 
+    @Override
+    public List<CrmSelect> selectByTypes(Integer types) {
+        return rptVstMapper.selectByTypes(types);
+    }
+
 }

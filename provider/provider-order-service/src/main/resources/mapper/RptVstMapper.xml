@@ -145,12 +145,14 @@ end
         left join ItemCode h on h.ItemType=313 and h.Num = a.CustSource
         where a.RptVst_Auto=#{rptVstAuto}
     </select>
-    <resultMap id="queryByTradeItemAuto" extends="BaseResultMap" type="com.funtl.myshop.plus.provider.domain.CrmSelect">
+    <resultMap id="queryCrmSelect" extends="BaseResultMap" type="com.funtl.myshop.plus.provider.domain.CrmSelect">
         <result column="FName" jdbcType="VARCHAR" property="customerName" />
         <result column="Name" jdbcType="VARCHAR" property="contName" />
         <result column="TradeItem_Auto" jdbcType="BIGINT" property="tradeItemAuto" />
+        <result column="ItemName" jdbcType="VARCHAR" property="itemName" />
+        <result column="Num" jdbcType="INTEGER" property="num" />
     </resultMap>
-    <select id="selectByTradeItemAuto" resultMap="queryByTradeItemAuto">
+    <select id="selectByTradeItemAuto" resultMap="queryCrmSelect">
         declare
         @type int,
         @TradeItem_Auto bigint
@@ -167,6 +169,23 @@ end
         else if(@type = 3)--全部客户名称
         begin
         select FName,TradeItem_Auto from TradeItem
+        end
+    </select>
+    <select id="selectByTypes" resultMap="queryCrmSelect">
+        declare
+        @types int
+        set @types = #{types}
+        if(@types = 1)--客户来源
+        begin
+        select Num,ItemName from ItemCode where ItemType=313
+        end
+        else if(@types = 2)--活动内容
+        begin
+        select Num,ItemName from ItemCode where ItemType=1042
+        end
+        else if(@types = 3)--进度
+        begin
+        select Num,(ItemName +'_'+ Memo)ItemName from ItemCode where ItemType=1043
         end
     </select>
 </mapper>
