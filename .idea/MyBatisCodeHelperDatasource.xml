@@ -1058,6 +1058,134 @@
                 </TableGenerateConfig>
               </value>
             </entry>
+            <entry key="dbo:VisitPlan">
+              <value>
+                <TableGenerateConfig>
+                  <option name="columnOverrideList">
+                    <list>
+                      <MyColumnOverride>
+                        <option name="columnName" value="VisitID" />
+                        <option name="javaProperty" value="visitId" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="Visit_Auto" />
+                        <option name="javaProperty" value="visitAuto" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="TradeItem_Auto" />
+                        <option name="javaProperty" value="tradeItemAuto" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="Customer_Auto" />
+                        <option name="javaProperty" value="customerAuto" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="Contact_Auto" />
+                        <option name="javaProperty" value="contactAuto" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="VstDate" />
+                        <option name="javaProperty" value="vstDate" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="VstType" />
+                        <option name="javaProperty" value="vstType" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="VstAddr" />
+                        <option name="javaProperty" value="vstAddr" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="VstAim" />
+                        <option name="javaProperty" value="vstAim" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="Remark" />
+                        <option name="javaProperty" value="remark" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="IsVsted" />
+                        <option name="javaProperty" value="isVsted" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="CUser" />
+                        <option name="javaProperty" value="cuser" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="CDT" />
+                        <option name="javaProperty" value="cdt" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="Addr_Province" />
+                        <option name="javaProperty" value="addrProvince" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="Addr_City" />
+                        <option name="javaProperty" value="addrCity" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="Addr_Street" />
+                        <option name="javaProperty" value="addrStreet" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="FreeCarApply_Auto" />
+                        <option name="javaProperty" value="freeCarApplyAuto" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="ParkFee" />
+                        <option name="javaProperty" value="parkFee" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="ParkCount" />
+                        <option name="javaProperty" value="parkCount" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="PassFee" />
+                        <option name="javaProperty" value="passFee" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="PassCount" />
+                        <option name="javaProperty" value="passCount" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="Isoneself" />
+                        <option name="javaProperty" value="isOneSelf" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="Refuel" />
+                        <option name="javaProperty" value="refuel" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="VstMile" />
+                        <option name="javaProperty" value="vstMile" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="Status" />
+                        <option name="javaProperty" value="status" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="MUser" />
+                        <option name="javaProperty" value="muser" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="MDT" />
+                        <option name="javaProperty" value="mdt" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="GPS_ID" />
+                        <option name="javaProperty" value="gpsId" />
+                      </MyColumnOverride>
+                    </list>
+                  </option>
+                  <option name="generatedKey" value="VisitID" />
+                  <option name="javaModelName" value="VisitPlan" />
+                  <option name="moduleName" value="provider-order-api" />
+                  <option name="sequenceColumn" value="" />
+                  <option name="sequenceId" value="" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
             <entry key="dbo:WorkFlowDoc">
               <value>
                 <TableGenerateConfig>
@@ -1204,7 +1332,6 @@
             </entry>
           </map>
         </option>
-        <option name="useActualColumnNames" value="true" />
         <option name="xmlMapperPackage" value="mapper" />
         <option name="xmlMapperPath" value="D:\twoWork\order\provider\provider-order-service\src\main\resources" />
       </ProjectProfile>
