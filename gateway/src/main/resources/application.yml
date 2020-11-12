@@ -69,11 +69,11 @@ spring:
           filters:
             - StripPrefix=1
         - id: BUSINESS-ORDER
-            uri: lb://business-order
-            predicates:
-              - Path=/api/license/**
-            filters:
-              - StripPrefix=1
+          uri: lb://business-order
+          predicates:
+            - Path=/api/license/**
+          filters:
+            - StripPrefix=1
 
 #server:
 #  port: 443
