@@ -1,6 +1,7 @@
 package com.funtl.myshop.plus.business.controller;
 
 import com.funtl.myshop.plus.business.dto.ClientCheckParamDto;
+import com.funtl.myshop.plus.business.dto.CrmDetailInsertParamDto;
 import com.funtl.myshop.plus.business.dto.CrmDetailParamDto;
 import com.funtl.myshop.plus.commons.dto.ResponseResult;
 import com.funtl.myshop.plus.provider.api.RptVstFlowService;
@@ -128,6 +129,18 @@ public class ClientController {
             return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "修改失败", null);
         }
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "修改成功", null);
+    }
+
+    @ApiOperation(value = "新增CRM行程报告数据(此接口如要测试请联系后端)")
+    @PostMapping(value = "insertCrmDetail")
+    public ResponseResult<String> insertCrmDetail(@ApiParam(value = "CRM行程报告数据") @Valid @RequestBody CrmDetailInsertParamDto crmDetailInsertParamDto){
+        RptVst rptVst = new RptVst();
+        BeanUtils.copyProperties(crmDetailInsertParamDto,rptVst);
+        Integer i = rptVstService.insert(rptVst);
+        if (i == 0){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "保存失败", null);
+        }
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK, "保存成功", null);
     }
 
     @ApiOperation(value = "CRM行程报告：客户名称、联系人下拉选")

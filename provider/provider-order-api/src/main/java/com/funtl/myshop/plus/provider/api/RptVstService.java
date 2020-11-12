@@ -55,4 +55,11 @@ public interface RptVstService{
      * @return
      */
     List<CrmItemNameSelect> selectByTypes(Integer types);
+
+    /**
+     * 新增CRM行程报告
+     * @param rptVst
+     * @return
+     */
+    Integer insert(RptVst rptVst);
 }

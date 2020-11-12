@@ -51,4 +51,9 @@ public class RptVstServiceImpl implements RptVstService{
         return rptVstMapper.selectByTypes(types);
     }
 
+    @Override
+    public Integer insert(RptVst rptVst) {
+        return rptVstMapper.insertSelective(rptVst);
+    }
+
 }
