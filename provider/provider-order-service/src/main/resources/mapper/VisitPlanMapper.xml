@@ -46,7 +46,7 @@
     </resultMap>
     <select id="selectByType" resultMap="queryByType">
     declare
-    @type int=1
+    @type int=#{type}
     if(@type = 1)--省
     begin
     select code, name from CreditProvince
