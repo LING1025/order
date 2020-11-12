@@ -6,6 +6,7 @@ import com.funtl.myshop.plus.business.dto.CrmDetailParamDto;
 import com.funtl.myshop.plus.commons.dto.ResponseResult;
 import com.funtl.myshop.plus.provider.api.RptVstFlowService;
 import com.funtl.myshop.plus.provider.api.RptVstService;
+import com.funtl.myshop.plus.provider.api.VisitPlanService;
 import com.funtl.myshop.plus.provider.domain.*;
 import com.funtl.myshop.plus.provider.dto.ClientCheckDto;
 import com.funtl.myshop.plus.provider.dto.TripQueryParam;
@@ -26,6 +27,9 @@ public class ClientController {
 
     @Reference(version = "1.0.0")
     private RptVstService rptVstService;
+
+    @Reference(version = "1.0.0")
+    private VisitPlanService visitPlanService;
 
     @ApiOperation(value = "根据行程单号获取审核信息")
     @ApiImplicitParams({
@@ -163,6 +167,16 @@ public class ClientController {
     public ResponseResult<List<CrmItemNameSelect>> queryItemNameAndNum(@RequestParam(name = "types")Integer types){
         List<CrmItemNameSelect> CrmItemNameSelects = rptVstService.selectByTypes(types);
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", CrmItemNameSelects);
+    }
+
+    @ApiOperation(value = "CRM行程安排：省、市、区下拉选")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "type", value = "类型: 1省 2市 3区", required = true, dataType = "int", paramType = "path")
+    })
+    @GetMapping(value = "queryAddressList")
+    public ResponseResult<List<AddressList>> queryAddressList(@RequestParam(name = "type")Integer type){
+        List<AddressList> lists = visitPlanService.selectByType(type);
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", lists);
     }
 
 }

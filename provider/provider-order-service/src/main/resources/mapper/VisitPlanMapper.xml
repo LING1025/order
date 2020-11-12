@@ -1,43 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.funtl.myshop.plus.provider.mapper.VisitPlanMapper">
-  <resultMap id="BaseResultMap" type="com.funtl.myshop.plus.provider.domain.VisitPlan">
-    <!--@mbg.generated-->
-    <!--@Table VisitPlan-->
-    <id column="VisitID" jdbcType="BIGINT" property="visitId" />
-    <result column="Visit_Auto" jdbcType="INTEGER" property="visitAuto" />
-    <result column="TradeItem_Auto" jdbcType="INTEGER" property="tradeItemAuto" />
-    <result column="Customer_Auto" jdbcType="VARCHAR" property="customerAuto" />
-    <result column="Contact_Auto" jdbcType="VARCHAR" property="contactAuto" />
-    <result column="VstDate" jdbcType="TIMESTAMP" property="vstDate" />
-    <result column="VstType" jdbcType="INTEGER" property="vstType" />
-    <result column="VstAddr" jdbcType="VARCHAR" property="vstAddr" />
-    <result column="VstAim" jdbcType="VARCHAR" property="vstAim" />
-    <result column="Remark" jdbcType="VARCHAR" property="remark" />
-    <result column="IsVsted" jdbcType="BIT" property="isVsted" />
-    <result column="CUser" jdbcType="INTEGER" property="cuser" />
-    <result column="CDT" jdbcType="TIMESTAMP" property="cdt" />
-    <result column="Addr_Province" jdbcType="BIGINT" property="addrProvince" />
-    <result column="Addr_City" jdbcType="BIGINT" property="addrCity" />
-    <result column="Addr_Street" jdbcType="BIGINT" property="addrStreet" />
-    <result column="FreeCarApply_Auto" jdbcType="BIGINT" property="freeCarApplyAuto" />
-    <result column="ParkFee" jdbcType="DECIMAL" property="parkFee" />
-    <result column="ParkCount" jdbcType="INTEGER" property="parkCount" />
-    <result column="PassFee" jdbcType="DECIMAL" property="passFee" />
-    <result column="PassCount" jdbcType="INTEGER" property="passCount" />
-    <result column="Isoneself" jdbcType="INTEGER" property="isOneSelf" />
-    <result column="Refuel" jdbcType="FLOAT" property="refuel" />
-    <result column="VstMile" jdbcType="FLOAT" property="vstMile" />
-    <result column="Status" jdbcType="INTEGER" property="status" />
-    <result column="MUser" jdbcType="BIGINT" property="muser" />
-    <result column="MDT" jdbcType="TIMESTAMP" property="mdt" />
-    <result column="GPS_ID" jdbcType="INTEGER" property="gpsId" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    <!--@mbg.generated-->
-    VisitID, Visit_Auto, TradeItem_Auto, Customer_Auto, Contact_Auto, VstDate, VstType,
-    VstAddr, VstAim, Remark, IsVsted, CUser, CDT, Addr_Province, Addr_City, Addr_Street,
-    FreeCarApply_Auto, ParkFee, ParkCount, PassFee, PassCount, Isoneself, Refuel, VstMile,
-    [Status], MUser, MDT, GPS_ID
-  </sql>
+    <resultMap id="BaseResultMap" type="com.funtl.myshop.plus.provider.domain.VisitPlan">
+        <!--@mbg.generated-->
+        <!--@Table VisitPlan-->
+        <id column="VisitID" jdbcType="BIGINT" property="visitId"/>
+        <result column="Visit_Auto" jdbcType="INTEGER" property="visitAuto"/>
+        <result column="TradeItem_Auto" jdbcType="INTEGER" property="tradeItemAuto"/>
+        <result column="Customer_Auto" jdbcType="VARCHAR" property="customerAuto"/>
+        <result column="Contact_Auto" jdbcType="VARCHAR" property="contactAuto"/>
+        <result column="VstDate" jdbcType="TIMESTAMP" property="vstDate"/>
+        <result column="VstType" jdbcType="INTEGER" property="vstType"/>
+        <result column="VstAddr" jdbcType="VARCHAR" property="vstAddr"/>
+        <result column="VstAim" jdbcType="VARCHAR" property="vstAim"/>
+        <result column="Remark" jdbcType="VARCHAR" property="remark"/>
+        <result column="IsVsted" jdbcType="BIT" property="isVsted"/>
+        <result column="CUser" jdbcType="INTEGER" property="cuser"/>
+        <result column="CDT" jdbcType="TIMESTAMP" property="cdt"/>
+        <result column="Addr_Province" jdbcType="BIGINT" property="addrProvince"/>
+        <result column="Addr_City" jdbcType="BIGINT" property="addrCity"/>
+        <result column="Addr_Street" jdbcType="BIGINT" property="addrStreet"/>
+        <result column="FreeCarApply_Auto" jdbcType="BIGINT" property="freeCarApplyAuto"/>
+        <result column="ParkFee" jdbcType="DECIMAL" property="parkFee"/>
+        <result column="ParkCount" jdbcType="INTEGER" property="parkCount"/>
+        <result column="PassFee" jdbcType="DECIMAL" property="passFee"/>
+        <result column="PassCount" jdbcType="INTEGER" property="passCount"/>
+        <result column="Isoneself" jdbcType="INTEGER" property="isOneSelf"/>
+        <result column="Refuel" jdbcType="FLOAT" property="refuel"/>
+        <result column="VstMile" jdbcType="FLOAT" property="vstMile"/>
+        <result column="Status" jdbcType="INTEGER" property="status"/>
+        <result column="MUser" jdbcType="BIGINT" property="muser"/>
+        <result column="MDT" jdbcType="TIMESTAMP" property="mdt"/>
+        <result column="GPS_ID" jdbcType="INTEGER" property="gpsId"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--@mbg.generated-->
+        VisitID, Visit_Auto, TradeItem_Auto, Customer_Auto, Contact_Auto, VstDate, VstType,
+        VstAddr, VstAim, Remark, IsVsted, CUser, CDT, Addr_Province, Addr_City, Addr_Street,
+        FreeCarApply_Auto, ParkFee, ParkCount, PassFee, PassCount, Isoneself, Refuel, VstMile,
+        [Status], MUser, MDT, GPS_ID
+    </sql>
+    <resultMap id="queryByType" type="com.funtl.myshop.plus.provider.domain.AddressList">
+        <result column="code" jdbcType="VARCHAR" property="code"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+    </resultMap>
+    <select id="selectByType" resultMap="queryByType">
+    declare
+    @type int=1
+    if(@type = 1)--省
+    begin
+    select code, name from CreditProvince
+    end
+    else if(@type = 2)--市
+    begin
+    select code,name from CreditCity
+    end
+    else if(@type = 3)--区
+    begin
+    select code,name from CreditArea
+    end
+  </select>
 </mapper>
