@@ -158,11 +158,13 @@ public class ClientController {
 
     @ApiOperation(value = "CRM：省、市、区下拉选")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "type", value = "类型: 1省 2市 3区", required = true, dataType = "int", paramType = "path")
+            @ApiImplicitParam(name = "type", value = "类型: 1省 2市 3区", required = true, dataType = "int", paramType = "path"),
+            @ApiImplicitParam(name = "code", value = "省、市、区编码", required = true, dataType = "long", paramType = "path")
     })
     @GetMapping(value = "queryAddressList")
-    public ResponseResult<List<AddressList>> queryAddressList(@RequestParam(name = "type")Integer type){
-        List<AddressList> lists = visitPlanService.selectByType(type);
+    public ResponseResult<List<AddressList>> queryAddressList(@RequestParam(name = "type")Integer type,
+                                                              @RequestParam(name = "code")Long code){
+        List<AddressList> lists = visitPlanService.selectByType(type,code);
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", lists);
     }
 

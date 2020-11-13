@@ -17,4 +17,16 @@ public class CustomerNameSelect implements Serializable {
 
     @ApiModelProperty(value = "客户序号")
     private Long customerAuto;
+
+    @ApiModelProperty(value = "省编码")
+    private Long addrProvince;
+
+    @ApiModelProperty(value = "市编码")
+    private Long addrCity;
+
+    @ApiModelProperty(value = "区编码")
+    private Long addrArea;
+
+    @ApiModelProperty(value = "街道")
+    private String addr;
 }

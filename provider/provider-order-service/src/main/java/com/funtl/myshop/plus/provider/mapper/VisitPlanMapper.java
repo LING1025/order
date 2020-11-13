@@ -8,5 +8,5 @@ import tk.mybatis.mapper.MyMapper;
 import java.util.List;
 
 public interface VisitPlanMapper extends MyMapper<VisitPlan> {
-    List<AddressList> selectByType(@Param("type") Integer type);
+    List<AddressList> selectByType(@Param("type") Integer type,@Param("code") Long code);
 }

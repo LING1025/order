@@ -17,7 +17,7 @@ public class VisitPlanServiceImpl implements VisitPlanService{
     private VisitPlanMapper visitPlanMapper;
 
     @Override
-    public List<AddressList> selectByType(Integer type) {
-        return visitPlanMapper.selectByType(type);
+    public List<AddressList> selectByType(Integer type,Long code) {
+        return visitPlanMapper.selectByType(type,code);
     }
 }

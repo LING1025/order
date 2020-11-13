@@ -12,6 +12,6 @@ public interface VisitPlanService{
      * @param type
      * @return
      */
-    List<AddressList> selectByType (Integer type);
+    List<AddressList> selectByType (Integer type,Long code);
 
 }

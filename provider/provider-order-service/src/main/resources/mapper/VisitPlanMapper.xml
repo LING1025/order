@@ -46,18 +46,19 @@
     </resultMap>
     <select id="selectByType" resultMap="queryByType">
     declare
-    @type int=#{type}
+    @type int=#{type},
+    @code Nvarchar(20)=#{code}
     if(@type = 1)--省
     begin
-    select convert(bigint,code) code, name from CreditProvince
+    select convert(bigint,code) code, name from CreditProvince where code = @code
     end
     else if(@type = 2)--市
     begin
-    select convert(bigint,code) code,name from CreditCity
+    select convert(bigint,code) code,name from CreditCity where code = @code
     end
     else if(@type = 3)--区
     begin
-    select convert(bigint,code) code,name from CreditArea
+    select convert(bigint,code) code,name from CreditArea where code = @code
     end
   </select>
 </mapper>

@@ -149,10 +149,14 @@ end
         <result column="FName" jdbcType="VARCHAR" property="customerName" />
         <result column="TradeItem_Auto" jdbcType="BIGINT" property="tradeItemAuto" />
         <result column="Customer_Auto" jdbcType="BIGINT" property="customerAuto" />
+        <result column="AddrProvince" jdbcType="BIGINT" property="addrProvince"/>
+        <result column="AddrCity" jdbcType="BIGINT" property="addrCity"/>
+        <result column="AddrArea" jdbcType="BIGINT" property="addrArea"/>
+        <result column="Addr" jdbcType="VARCHAR" property="addr" />
     </resultMap>
     <select id="selectByFName" resultMap="queryCustomerNameSelect">
         select
-        a.FName,a.TradeItem_Auto,Customer_Auto
+        a.FName,a.TradeItem_Auto,b.Customer_Auto,a.Addr,a.AddrProvince,a.AddrCity,a.AddrArea
         from TradeItem a
         left join Customer b on b.TradeItem_Auto = a.TradeItem_Auto
         left join v_Emp c on c.User_Auto = b.Sales_Auto
