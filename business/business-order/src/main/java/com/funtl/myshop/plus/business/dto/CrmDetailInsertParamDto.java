@@ -12,7 +12,7 @@ import java.util.Date;
 @Data
 @ApiModel(value = "新增CRM行程报告数据")
 public class CrmDetailInsertParamDto implements Serializable {
-    @ApiModelProperty(value = "拜访时间")
+    @ApiModelProperty(value = "实际拜访日期yyyy-MM-dd")
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date vstDT;
 
@@ -49,8 +49,8 @@ public class CrmDetailInsertParamDto implements Serializable {
     @ApiModelProperty(value = "进度")
     private Integer outComing;
 
-    @ApiModelProperty(value = "拜访时间")
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @ApiModelProperty(value = "预计下次拜访日期yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date nextVstDT;
 
     @ApiModelProperty(value = "达成目标")
