@@ -1,6 +1,7 @@
 package com.funtl.myshop.plus.business.controller;
 
 import com.funtl.myshop.plus.business.dto.ClientCheckParamDto;
+import com.funtl.myshop.plus.business.dto.CrmArrangeParamDto;
 import com.funtl.myshop.plus.business.dto.CrmDetailInsertParamDto;
 import com.funtl.myshop.plus.business.dto.CrmDetailParamDto;
 import com.funtl.myshop.plus.commons.dto.ResponseResult;
@@ -201,6 +202,23 @@ public class ClientController {
         RptVst rptVst = new RptVst();
         BeanUtils.copyProperties(crmDetailInsertParamDto,rptVst);
         Integer i = rptVstService.insert(rptVst);
+        if (i == 0){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "保存失败", null);
+        }
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK, "保存成功", null);
+    }
+
+    @ApiOperation(value = "CRM:新增行程安排数据(此接口如要测试请联系后端)")
+    @PostMapping(value = "insertCrmArrange")
+    public ResponseResult<String> insertCrmArrange(@ApiParam(value = "CRM:新增行程安排数据") @Valid @RequestBody CrmArrangeParamDto crmArrangeParamDto){
+        VisitPlan visitPlan = new VisitPlan();
+        BeanUtils.copyProperties(crmArrangeParamDto,visitPlan);
+        visitPlan.setAddrStreet(crmArrangeParamDto.getAddrArea());
+        visitPlan.setCuser(crmArrangeParamDto.getSalesAuto().intValue());
+        VisitPlan visitPlan2 = visitPlanService.selectMaxVisitAuto();
+        visitPlan.setVisitAuto(visitPlan2.getVisitAuto() + 1);
+        visitPlan.setVstAddr(crmArrangeParamDto.getVstProvince()+crmArrangeParamDto.getVstCity()+crmArrangeParamDto.getVstArea()+crmArrangeParamDto.getVstAddr());
+        Integer i = visitPlanService.insert(visitPlan);
         if (i == 0){
             return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "保存失败", null);
         }

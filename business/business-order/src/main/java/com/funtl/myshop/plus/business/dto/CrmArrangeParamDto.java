@@ -1,6 +1,7 @@
 package com.funtl.myshop.plus.business.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -14,6 +15,9 @@ public class CrmArrangeParamDto implements Serializable {
     @ApiModelProperty(value = "拜访编号")
     private Integer visitAuto;
 
+    @ApiModelProperty(value = "是否已拜访 false否 true是")
+    private Boolean isVsted;
+
     @ApiModelProperty(value = "业代序号")
     private Long salesAuto;
 
@@ -21,8 +25,8 @@ public class CrmArrangeParamDto implements Serializable {
     private String saleName;
 
     @ApiModelProperty(value = "拜访时间yyyy-MM-dd HH:mm:ss")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date nextVstDT;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    private Date vstDate;
 
     @ApiModelProperty(value = "活动内容")
     private Integer vstType;
@@ -30,11 +34,17 @@ public class CrmArrangeParamDto implements Serializable {
     @ApiModelProperty(value = "活动内容")
     private String vstTypeName;
 
-    @ApiModelProperty(value = "拜访客户序号")
+    @ApiModelProperty(value = "客户对象序号")
     private Long tradeItemAuto;
+
+    @ApiModelProperty(value = "客户序号")
+    private Long customerAuto;
 
     @ApiModelProperty(value = "拜访客户名称")
     private String customerName;
+
+    @ApiModelProperty(value = "联系人序号")//todo:数据库中是String类型，还需修改
+    private Long contactAuto;
 
     @ApiModelProperty(value = "联系人姓名")
     private String contName;
