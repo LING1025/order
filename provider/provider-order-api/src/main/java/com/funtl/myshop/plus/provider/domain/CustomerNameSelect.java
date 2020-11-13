@@ -12,6 +12,9 @@ public class CustomerNameSelect implements Serializable {
     @ApiModelProperty(value = "客户名称")
     private String customerName;
 
-    @ApiModelProperty(value = "客户对应的序号")
+    @ApiModelProperty(value = "客户对像序号")
     private Long tradeItemAuto;
+
+    @ApiModelProperty(value = "客户序号")
+    private Long customerAuto;
 }

@@ -148,10 +148,11 @@ end
     <resultMap id="queryCustomerNameSelect" extends="BaseResultMap" type="com.funtl.myshop.plus.provider.domain.CustomerNameSelect">
         <result column="FName" jdbcType="VARCHAR" property="customerName" />
         <result column="TradeItem_Auto" jdbcType="BIGINT" property="tradeItemAuto" />
+        <result column="Customer_Auto" jdbcType="BIGINT" property="customerAuto" />
     </resultMap>
     <select id="selectByFName" resultMap="queryCustomerNameSelect">
         select
-        a.FName,a.TradeItem_Auto
+        a.FName,a.TradeItem_Auto,Customer_Auto
         from TradeItem a
         left join Customer b on b.TradeItem_Auto = a.TradeItem_Auto
         left join v_Emp c on c.User_Auto = b.Sales_Auto
@@ -166,14 +167,15 @@ end
     </select>
 
     <resultMap id="queryContNameSelect" extends="BaseResultMap" type="com.funtl.myshop.plus.provider.domain.ContNameSelect">
-        <result column="Name" jdbcType="VARCHAR" property="contName" />
+        <result column="contName" jdbcType="VARCHAR" property="contName" />
         <result column="TradeItem_Auto" jdbcType="BIGINT" property="tradeItemAuto" />
+        <result column="contactAuto" jdbcType="BIGINT" property="contactAuto" />
     </resultMap>
     <select id="selectByTradeItemAuto" resultMap="queryContNameSelect">
         select
-        [Name] ,TradeItem_Auto
+        Title contName ,TradeItem_Auto,Contect_Auto contactAuto
         from
-        CRM_Contact
+        Contect
         where
         1=1
         <if test="tradeItemAuto != null and tradeItemAuto != ''">
