@@ -41,7 +41,7 @@
         [Status], MUser, MDT, GPS_ID
     </sql>
     <resultMap id="queryByType" type="com.funtl.myshop.plus.provider.domain.AddressList">
-        <result column="code" jdbcType="VARCHAR" property="code"/>
+        <result column="code" jdbcType="BIGINT" property="code"/>
         <result column="name" jdbcType="VARCHAR" property="name"/>
     </resultMap>
     <select id="selectByType" resultMap="queryByType">
@@ -49,15 +49,15 @@
     @type int=#{type}
     if(@type = 1)--省
     begin
-    select code, name from CreditProvince
+    select convert(bigint,code) code, name from CreditProvince
     end
     else if(@type = 2)--市
     begin
-    select code,name from CreditCity
+    select convert(bigint,code) code,name from CreditCity
     end
     else if(@type = 3)--区
     begin
-    select code,name from CreditArea
+    select convert(bigint,code) code,name from CreditArea
     end
   </select>
 </mapper>
