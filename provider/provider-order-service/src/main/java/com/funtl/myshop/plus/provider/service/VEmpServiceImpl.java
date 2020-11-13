@@ -2,11 +2,14 @@ package com.funtl.myshop.plus.provider.service;
 
 import javax.annotation.Resource;
 
+import com.funtl.myshop.plus.provider.domain.SaleNameSelect;
 import com.funtl.myshop.plus.provider.mapper.VEmpMapper;
 import com.funtl.myshop.plus.provider.domain.VEmp;
 import com.funtl.myshop.plus.provider.api.VEmpService;
 import org.apache.dubbo.config.annotation.Service;
 import tk.mybatis.mapper.entity.Example;
+
+import java.util.List;
 
 @Service(version = "1.0.0")
 public class VEmpServiceImpl implements VEmpService{
@@ -20,6 +23,11 @@ public class VEmpServiceImpl implements VEmpService{
         example.createCriteria().andEqualTo("userAuto",userAuto)
         .andEqualTo("isOn",1);
         return vEmpMapper.selectOneByExample(example);
+    }
+
+    @Override
+    public List<SaleNameSelect> selectSaleName(Long salesAuto, String saleName) {
+        return vEmpMapper.selectSaleName(salesAuto,saleName);
     }
 
 }

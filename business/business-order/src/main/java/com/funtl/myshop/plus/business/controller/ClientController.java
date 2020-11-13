@@ -6,6 +6,7 @@ import com.funtl.myshop.plus.business.dto.CrmDetailParamDto;
 import com.funtl.myshop.plus.commons.dto.ResponseResult;
 import com.funtl.myshop.plus.provider.api.RptVstFlowService;
 import com.funtl.myshop.plus.provider.api.RptVstService;
+import com.funtl.myshop.plus.provider.api.VEmpService;
 import com.funtl.myshop.plus.provider.api.VisitPlanService;
 import com.funtl.myshop.plus.provider.domain.*;
 import com.funtl.myshop.plus.provider.dto.ClientCheckDto;
@@ -30,6 +31,9 @@ public class ClientController {
 
     @Reference(version = "1.0.0")
     private VisitPlanService visitPlanService;
+
+    @Reference(version = "1.0.0")
+    private VEmpService vEmpService;
 
     @ApiOperation(value = "根据行程单号获取审核信息")
     @ApiImplicitParams({
@@ -186,6 +190,18 @@ public class ClientController {
     @GetMapping(value = "queryAddressList")
     public ResponseResult<List<AddressList>> queryAddressList(@RequestParam(name = "type")Integer type){
         List<AddressList> lists = visitPlanService.selectByType(type);
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", lists);
+    }
+
+    @ApiOperation(value = "CRM：业代下拉选")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "salesAuto", value = "业代序号", required = false, dataType = "long", paramType = "path"),
+            @ApiImplicitParam(name = "saleName", value = "业代名称", required = false, dataType = "String", paramType = "path")
+    })
+    @GetMapping(value = "querySaleNameSelect")
+    public ResponseResult<List<SaleNameSelect>> querySaleNameSelect(@RequestParam(name = "salesAuto", required = false)Long salesAuto,
+                                                                    @RequestParam(name = "saleName", required = false)String saleName){
+        List<SaleNameSelect> lists = vEmpService.selectSaleName(salesAuto,saleName);
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", lists);
     }
 

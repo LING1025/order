@@ -36,4 +36,21 @@
     UserId, User_Auto, Org_Auto, DepCode, Lev, UpUnit, TitleLevel, EmpBase_Auto, DepName,
     TitleName, FName, UserName, IsOn, IsEas, AccCode, IsSalesDep
   </sql>
+  <resultMap id="querySaleName" extends="BaseResultMap" type="com.funtl.myshop.plus.provider.domain.SaleNameSelect">
+    <result column="salesAuto" jdbcType="BIGINT" property="salesAuto" />
+    <result column="saleName" jdbcType="VARCHAR" property="saleName" />
+  </resultMap>
+    <select id="selectSaleName" resultMap="querySaleName">
+        select
+        User_Auto salesAuto,FName saleName
+        from v_Emp
+        where
+        1=1
+      <if test="salesAuto != null and salesAuto != ''">
+        AND User_Auto = #{salesAuto}
+      </if>
+      <if test="saleName != null and saleName != ''">
+        AND FName LIKE '%${saleName}%'
+      </if>
+    </select>
 </mapper>
