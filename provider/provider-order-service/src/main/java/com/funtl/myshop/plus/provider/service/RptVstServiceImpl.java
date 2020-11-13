@@ -42,8 +42,13 @@ public class RptVstServiceImpl implements RptVstService{
     }
 
     @Override
-    public List<CrmSelect> selectByTradeItemAuto(Long tradeItemAuto, Integer type) {
-        return rptVstMapper.selectByTradeItemAuto(tradeItemAuto,type);
+    public List<CustomerNameSelect> selectByFName(String fName) {
+        return rptVstMapper.selectByFName(fName);
+    }
+
+    @Override
+    public List<ContNameSelect> selectByTradeItemAuto(Long tradeItemAuto) {
+        return rptVstMapper.selectByTradeItemAuto(tradeItemAuto);
     }
 
     @Override

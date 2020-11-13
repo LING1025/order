@@ -145,30 +145,37 @@ end
         left join ItemCode h on h.ItemType=313 and h.Num = a.CustSource
         where a.RptVst_Auto=#{rptVstAuto}
     </select>
-    <resultMap id="queryCrmSelect" extends="BaseResultMap" type="com.funtl.myshop.plus.provider.domain.CrmSelect">
+    <resultMap id="queryCustomerNameSelect" extends="BaseResultMap" type="com.funtl.myshop.plus.provider.domain.CustomerNameSelect">
         <result column="FName" jdbcType="VARCHAR" property="customerName" />
+        <result column="TradeItem_Auto" jdbcType="BIGINT" property="tradeItemAuto" />
+    </resultMap>
+    <select id="selectByFName" resultMap="queryCustomerNameSelect">
+        select
+        FName,TradeItem_Auto
+        from TradeItem
+        where
+        1=1
+        <if test="fName != null and fName != ''">
+            AND FName LIKE '%${fName}%'
+        </if>
+    </select>
+
+    <resultMap id="queryContNameSelect" extends="BaseResultMap" type="com.funtl.myshop.plus.provider.domain.ContNameSelect">
         <result column="Name" jdbcType="VARCHAR" property="contName" />
         <result column="TradeItem_Auto" jdbcType="BIGINT" property="tradeItemAuto" />
     </resultMap>
-    <select id="selectByTradeItemAuto" resultMap="queryCrmSelect">
-        declare
-        @type int,
-        @TradeItem_Auto bigint
-        set @type = #{type}
-        set @TradeItem_Auto = #{tradeItemAuto}
-        if(@type = 1)--客户名称
-        begin
-        select FName,TradeItem_Auto from TradeItem where TradeItem_Auto=@TradeItem_Auto
-        end
-        else if(@type = 2)--联系人
-        begin
-        select [Name],TradeItem_Auto from CRM_Contact where TradeItem_Auto=@TradeItem_Auto
-        end
-        else if(@type = 3)--全部客户名称
-        begin
-        select FName,TradeItem_Auto from TradeItem
-        end
+    <select id="selectByTradeItemAuto" resultMap="queryContNameSelect">
+        select
+        [Name] ,TradeItem_Auto
+        from
+        CRM_Contact
+        where
+        1=1
+        <if test="tradeItemAuto != null and tradeItemAuto != ''">
+            AND TradeItem_Auto = #{tradeItemAuto}
+        </if>
     </select>
+
     <resultMap id="queryCrmItemNameSelect" extends="BaseResultMap" type="com.funtl.myshop.plus.provider.domain.CrmItemNameSelect">
         <result column="ItemName" jdbcType="VARCHAR" property="itemName" />
         <result column="Num" jdbcType="INTEGER" property="num" />

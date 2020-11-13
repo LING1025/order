@@ -147,19 +147,26 @@ public class ClientController {
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "保存成功", null);
     }
 
-    @ApiOperation(value = "CRM行程报告：客户名称、联系人下拉选")
+    @ApiOperation(value = "CRM：客户名称下拉选")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "type", value = "类型: 1 客户名称 2 联系人 3 全部客户名称", required = true, dataType = "int", paramType = "path"),
-            @ApiImplicitParam(name = "tradeItemAuto", value = "报告序号", required = false, dataType = "long", paramType = "path")
+            @ApiImplicitParam(name = "fName", value = "客户名称", required = false, dataType = "String", paramType = "path")
     })
-    @GetMapping(value = "queryFNameAndName")
-    public ResponseResult<List<CrmSelect>> queryFNameAndName(@RequestParam(name = "type")Integer type,
-                                                    @RequestParam(name = "tradeItemAuto", required = false)Long tradeItemAuto){
-        List<CrmSelect> crmSelects = rptVstService.selectByTradeItemAuto(tradeItemAuto,type);
-        return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", crmSelects);
+    @GetMapping(value = "queryByFName")
+    public ResponseResult<List<CustomerNameSelect>> queryByFName(@RequestParam(name = "fName", required = false)String fName){
+        List<CustomerNameSelect> list = rptVstService.selectByFName(fName);
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", list);
     }
 
-    @ApiOperation(value = "CRM行程报告：客户来源、活动内容、进度下拉选")
+    @ApiOperation(value = "CRM：联系人下拉选")
+    @ApiImplicitParams({@ApiImplicitParam(name = "tradeItemAuto", value = "客户序号", required = false, dataType = "long", paramType = "path")
+    })
+    @GetMapping(value = "queryByTradeItemAuto")
+    public ResponseResult<List<ContNameSelect>> queryByTradeItemAuto(@RequestParam(name = "tradeItemAuto", required = false)Long tradeItemAuto){
+        List<ContNameSelect> list = rptVstService.selectByTradeItemAuto(tradeItemAuto);
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", list);
+    }
+
+    @ApiOperation(value = "CRM：客户来源、活动内容、进度下拉选")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "types", value = "类型: 1 客户来源 2 活动内容 3 进度", required = true, dataType = "int", paramType = "path")
     })
@@ -169,7 +176,7 @@ public class ClientController {
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", CrmItemNameSelects);
     }
 
-    @ApiOperation(value = "CRM行程安排：省、市、区下拉选")
+    @ApiOperation(value = "CRM：省、市、区下拉选")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "type", value = "类型: 1省 2市 3区", required = true, dataType = "int", paramType = "path")
     })

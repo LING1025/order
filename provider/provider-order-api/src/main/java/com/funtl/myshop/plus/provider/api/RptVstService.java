@@ -43,11 +43,18 @@ public interface RptVstService{
     Integer update(RptVst rptVst);
 
     /**
-     * 根据对象序号获取客户名称、联系人下拉选
+     * 获取客户名称下拉选
+     * @param fName
+     * @return
+     */
+    List<CustomerNameSelect> selectByFName(String fName);
+
+    /**
+     * 获取联系人下拉选
      * @param tradeItemAuto
      * @return
      */
-    List<CrmSelect> selectByTradeItemAuto(Long tradeItemAuto, Integer type);
+    List<ContNameSelect> selectByTradeItemAuto(Long tradeItemAuto);
 
     /**
      * 获取客户来源、活动内容、进度下拉选
