@@ -47,7 +47,7 @@ public interface RptVstService{
      * @param fName
      * @return
      */
-    List<CustomerNameSelect> selectByFName(String fName);
+    List<CustomerNameSelect> selectByFName(String fName,Long salesAuto);
 
     /**
      * 获取联系人下拉选

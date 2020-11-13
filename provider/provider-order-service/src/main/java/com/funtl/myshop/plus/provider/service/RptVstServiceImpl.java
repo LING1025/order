@@ -42,8 +42,8 @@ public class RptVstServiceImpl implements RptVstService{
     }
 
     @Override
-    public List<CustomerNameSelect> selectByFName(String fName) {
-        return rptVstMapper.selectByFName(fName);
+    public List<CustomerNameSelect> selectByFName(String fName,Long salesAuto) {
+        return rptVstMapper.selectByFName(fName,salesAuto);
     }
 
     @Override

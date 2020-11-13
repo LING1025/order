@@ -149,16 +149,19 @@ public class ClientController {
 
     @ApiOperation(value = "CRM：客户名称下拉选")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "fName", value = "客户名称", required = false, dataType = "String", paramType = "path")
+            @ApiImplicitParam(name = "fName", value = "客户名称", required = false, dataType = "String", paramType = "path"),
+            @ApiImplicitParam(name = "salesAuto", value = "业代序号", required = true, dataType = "long", paramType = "path")
     })
     @GetMapping(value = "queryByFName")
-    public ResponseResult<List<CustomerNameSelect>> queryByFName(@RequestParam(name = "fName", required = false)String fName){
-        List<CustomerNameSelect> list = rptVstService.selectByFName(fName);
+    public ResponseResult<List<CustomerNameSelect>> queryByFName(@RequestParam(name = "fName", required = false)String fName,
+                                                                 @RequestParam(name = "salesAuto")Long salesAuto){
+        List<CustomerNameSelect> list = rptVstService.selectByFName(fName,salesAuto);
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", list);
     }
 
     @ApiOperation(value = "CRM：联系人下拉选")
-    @ApiImplicitParams({@ApiImplicitParam(name = "tradeItemAuto", value = "客户序号", required = false, dataType = "long", paramType = "path")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "tradeItemAuto", value = "客户序号", required = false, dataType = "long", paramType = "path")
     })
     @GetMapping(value = "queryByTradeItemAuto")
     public ResponseResult<List<ContNameSelect>> queryByTradeItemAuto(@RequestParam(name = "tradeItemAuto", required = false)Long tradeItemAuto){

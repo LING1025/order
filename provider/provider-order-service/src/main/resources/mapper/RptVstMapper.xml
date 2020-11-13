@@ -151,12 +151,17 @@ end
     </resultMap>
     <select id="selectByFName" resultMap="queryCustomerNameSelect">
         select
-        FName,TradeItem_Auto
-        from TradeItem
+        a.FName,a.TradeItem_Auto
+        from TradeItem a
+        left join Customer b on b.TradeItem_Auto = a.TradeItem_Auto
+        left join v_Emp c on c.User_Auto = b.Sales_Auto
         where
         1=1
         <if test="fName != null and fName != ''">
-            AND FName LIKE '%${fName}%'
+            AND a.FName LIKE '%${fName}%'
+        </if>
+        <if test="salesAuto != null and salesAuto != ''">
+            AND b.Sales_Auto = #{salesAuto}
         </if>
     </select>
 
