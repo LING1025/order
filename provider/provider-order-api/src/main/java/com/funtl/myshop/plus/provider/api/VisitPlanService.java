@@ -14,4 +14,16 @@ public interface VisitPlanService{
      */
     List<AddressList> selectByType (Integer type,Long code);
 
+    /**
+     * CRM:新增行程安排
+     * @param visitPlan
+     * @return
+     */
+    Integer insert(VisitPlan visitPlan);
+
+    /**
+     * VisitPlan表获取VisitAuto最大值
+     * @return
+     */
+    VisitPlan selectMaxVisitAuto();
 }
