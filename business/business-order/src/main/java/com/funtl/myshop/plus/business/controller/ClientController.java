@@ -18,6 +18,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Date;
 import java.util.List;
 
 @Api(tags = "客户模块相关操作")
@@ -214,10 +215,11 @@ public class ClientController {
         VisitPlan visitPlan = new VisitPlan();
         BeanUtils.copyProperties(crmArrangeParamDto,visitPlan);
         visitPlan.setAddrStreet(crmArrangeParamDto.getAddrArea());
-        visitPlan.setCuser(crmArrangeParamDto.getSalesAuto().intValue());
+        visitPlan.setCuser(crmArrangeParamDto.getSalesAuto());
         VisitPlan visitPlan2 = visitPlanService.selectMaxVisitAuto();
         visitPlan.setVisitAuto(visitPlan2.getVisitAuto() + 1);
         visitPlan.setVstAddr(crmArrangeParamDto.getVstProvince()+crmArrangeParamDto.getVstCity()+crmArrangeParamDto.getVstArea()+crmArrangeParamDto.getVstAddr());
+        visitPlan.setCdt(new Date());
         Integer i = visitPlanService.insert(visitPlan);
         if (i == 0){
             return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "保存失败", null);
