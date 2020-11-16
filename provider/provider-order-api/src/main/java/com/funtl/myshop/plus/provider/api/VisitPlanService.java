@@ -2,6 +2,9 @@ package com.funtl.myshop.plus.provider.api;
 
 import com.funtl.myshop.plus.provider.domain.AddressList;
 import com.funtl.myshop.plus.provider.domain.VisitPlan;
+import com.funtl.myshop.plus.provider.dto.CrmArrangeDto;
+import com.funtl.myshop.plus.provider.dto.CrmArrangeQueryParam;
+import com.github.pagehelper.PageInfo;
 
 import java.util.List;
 
@@ -26,4 +29,11 @@ public interface VisitPlanService{
      * @return
      */
     VisitPlan selectMaxVisitAuto();
+
+    /**
+     * CRM:获取行程安排数据
+     * @param crmArrangeQueryParam
+     * @return
+     */
+    PageInfo<CrmArrangeDto> selectCrmArrangeDto(CrmArrangeQueryParam crmArrangeQueryParam);
 }

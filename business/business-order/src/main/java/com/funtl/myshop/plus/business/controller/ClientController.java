@@ -11,7 +11,10 @@ import com.funtl.myshop.plus.provider.api.VEmpService;
 import com.funtl.myshop.plus.provider.api.VisitPlanService;
 import com.funtl.myshop.plus.provider.domain.*;
 import com.funtl.myshop.plus.provider.dto.ClientCheckDto;
+import com.funtl.myshop.plus.provider.dto.CrmArrangeDto;
+import com.funtl.myshop.plus.provider.dto.CrmArrangeQueryParam;
 import com.funtl.myshop.plus.provider.dto.TripQueryParam;
+import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.*;
 import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.beans.BeanUtils;
@@ -225,6 +228,25 @@ public class ClientController {
             return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "保存失败", null);
         }
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "保存成功", null);
+    }
+
+    @ApiOperation(value = "CRM:获取行程安排数据")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "kind", value = "查询类别：1客户名称 2联系人姓名", required = false, dataType = "int", paramType = "path"),
+            @ApiImplicitParam(name = "searchWord", value = "查询条件", required = false, dataType = "String", paramType = "path"),
+            @ApiImplicitParam(name = "salesName", value = "业代序号", required = false, dataType = "String", paramType = "path"),
+            @ApiImplicitParam(name = "pageNum", value = "页码", required = false, dataType = "int", paramType = "path"),
+            @ApiImplicitParam(name = "pageSize", value = "笔数", required = false, dataType = "int", paramType = "path")
+    })
+    @GetMapping(value = "queryCrmArrangeDto")
+    public ResponseResult<PageInfo<CrmArrangeDto>> queryCrmArrangeDto(@RequestParam(name = "kind", required = false) Integer kind,
+                                                                      @RequestParam(name = "searchWord", required = false) String searchWord,
+                                                                      @RequestParam(name = "salesName", required = false) String salesName,
+                                                                      @RequestParam(name = "pageNum", defaultValue = "0") Integer pageNum,
+                                                                      @RequestParam(name = "pageSize", defaultValue = "20") Integer pageSize){
+        CrmArrangeQueryParam crmArrangeQueryParam = new CrmArrangeQueryParam(kind,searchWord,salesName,pageNum,pageSize);
+        PageInfo<CrmArrangeDto> pageInfo = visitPlanService.selectCrmArrangeDto(crmArrangeQueryParam);
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", pageInfo);
     }
 
 }

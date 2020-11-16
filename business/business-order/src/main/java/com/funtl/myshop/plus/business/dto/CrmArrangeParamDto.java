@@ -15,7 +15,7 @@ public class CrmArrangeParamDto implements Serializable {
     @ApiModelProperty(value = "拜访编号")
     private Integer visitAuto;
 
-    @ApiModelProperty(value = "是否已拜访 false否 true是")
+    @ApiModelProperty(value = "是否已拜访 0否 1是")
     private Boolean isVsted;
 
     @ApiModelProperty(value = "业代序号")
@@ -37,13 +37,13 @@ public class CrmArrangeParamDto implements Serializable {
     @ApiModelProperty(value = "客户对象序号")
     private Integer tradeItemAuto;
 
-    @ApiModelProperty(value = "客户序号")//todo:数据库中是String类型，还需修改
+    @ApiModelProperty(value = "客户序号")
     private String customerAuto;
 
     @ApiModelProperty(value = "拜访客户名称")
     private String customerName;
 
-    @ApiModelProperty(value = "联系人序号")//todo:数据库中是String类型，还需修改
+    @ApiModelProperty(value = "联系人序号")
     private String contactAuto;
 
     @ApiModelProperty(value = "联系人姓名")
