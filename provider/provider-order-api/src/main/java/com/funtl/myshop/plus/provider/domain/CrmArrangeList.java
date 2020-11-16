@@ -11,6 +11,9 @@ import java.util.Date;
 @Data
 @ApiModel(value = "CRM:行程安排数据")
 public class CrmArrangeList implements Serializable {
+    @ApiModelProperty(value = "序号")
+    private Integer sno;
+
     @ApiModelProperty(value = "拜访序号")
     private Integer visitAuto;
 

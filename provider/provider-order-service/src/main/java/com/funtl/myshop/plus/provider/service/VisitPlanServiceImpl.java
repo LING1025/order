@@ -43,7 +43,7 @@ public class VisitPlanServiceImpl implements VisitPlanService{
 
     @Override
     public PageInfo<CrmArrangeDto> selectCrmArrangeDto(CrmArrangeQueryParam crmArrangeQueryParam) {
-        PageHelper.startPage(crmArrangeQueryParam.getPageNum(),crmArrangeQueryParam.getPageSize());
+//        PageHelper.startPage(crmArrangeQueryParam.getPageNum(),crmArrangeQueryParam.getPageSize());
         PageInfo<CrmArrangeList> pageInfo = new PageInfo<>(visitPlanMapper.selectCrmArrangeDto(crmArrangeQueryParam));
         PageInfo<CrmArrangeDto> result = PageInfoUtils.pageInfo2PageInfoDTO(pageInfo,CrmArrangeDto.class);
         return result;

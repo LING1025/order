@@ -66,42 +66,70 @@
         <result column="compName" jdbcType="VARCHAR" property="compName"/>
         <result column="contName" jdbcType="VARCHAR" property="contName"/>
         <result column="vstTypeName" jdbcType="VARCHAR" property="vstTypeName"/>
+        <result column="sno" jdbcType="INTEGER" property="sno"/>
     </resultMap>
     <select id="selectCrmArrangeDto" resultMap="queryCrmArrangeDto">
 declare
-@kind int,
-@SearchWord nvarchar(50),
-@SalesName nvarchar(50)
-set @kind=#{param.kind}
-set @SearchWord=#{param.searchWord}
-set @SalesName=#{param.salesName}
-begin
- if (OBJECT_ID(N'tempdb..#customer')is not null)
- drop table #customer
-     begin
-       select
-	   t1.Visit_Auto,
-	   t1.TradeItem_Auto,t3.CompName as compName,
-	   t1.Contact_Auto,t4.Title as contName,
-	   convert(varchar(10),t1.VstDate,111) as VstDate,
-	   t2.ItemName as vstTypeName,t1.VstAddr,
-       t1.VstAim,t1.Remark,
-	   t1.IsVsted, isnull(t1.CUser, 0) as CUser
-       into #visitPlan
-       from VisitPlan t1
-	   inner join CRM_Customer t3 on t1.TradeItem_Auto=t3.TradeItem_Auto
-       inner join Contect t4  on t1.TradeItem_Auto=t4.TradeItem_Auto and t1.Contact_Auto=t4.ContectType
-       inner join v_Emp t5 on t3.Cuser=t5.User_Auto
-       left join ItemCode t2 on t1.VstType=t2.Num and t2.ItemType=1042
-	   where t3.SalesName=@SalesName
-       order by  t1.Visit_Auto,t3.TradeItem_Auto,t1.CDT
+@kind int=#{param.kind},
+@SearchWord nvarchar(50)=#{param.searchWord},
+@SalesName nvarchar(50)=#{param.salesName},
+@PageCount int=#{param.pageNum},--分页总数
+@PageSize int =#{param.pageSize},--每页多少条数据
+@PageIndex int=#{param.pageIndex}--当前要求的页码索引
+        BEGIN
+        declare @Count int --记录的总数
+        declare @min int,@max int
+        begin
+        select @Count=count(*) from VisitPlan t1
+        inner join CRM_Customer t3 on t1.TradeItem_Auto=t3.TradeItem_Auto
+        inner join Contect t4  on t1.TradeItem_Auto=t4.TradeItem_Auto and t1.Contact_Auto=t4.ContectType
+        where t3.SalesName=@SalesName
+        set @PageCount=(@Count+@PageSize-1)/@PageSize
+        set @min=(@PageIndex-1)*@PageSize+1
+        set @max=(@PageSize*@PageIndex)
+        select*into #visitPlans from(
+        select
+        t1.Visit_Auto,
+        t1.TradeItem_Auto,t3.CompName as compName,
+        t1.Contact_Auto,t4.Title as contName,
+        t1.VstDate,
+        t2.ItemName as vstTypeName,t1.VstAddr,
+        t1.VstAim,t1.Remark,
+        t1.IsVsted, isnull(t1.CUser, 0) as CUser
+        from VisitPlan t1
+        inner join CRM_Customer t3 on t1.TradeItem_Auto=t3.TradeItem_Auto
+        inner join Contect t4  on t1.TradeItem_Auto=t4.TradeItem_Auto and t1.Contact_Auto=t4.ContectType
+        inner join v_Emp t5 on t3.Cuser=t5.User_Auto
+        left join ItemCode t2 on t1.VstType=t2.Num and t2.ItemType=1042
+        where t3.SalesName=@SalesName) t
+        order by  t.Visit_Auto,t.TradeItem_Auto
 
         if(@kind=1)
-         select * from #visitPlan where compName like '%'+@SearchWord+'%'
-       else if(@kind=2)
-         select * from #visitPlan where contName like '%'+@SearchWord+'%'
-		 drop table #visitPlan
-     end
-end
+        begin
+        select ROW_NUMBER() OVER(ORDER BY Visit_Auto) as sno,
+        Visit_Auto,TradeItem_Auto,compName,Contact_Auto,contName,
+        VstDate,vstTypeName,VstAddr,VstAim,Remark,IsVsted,CUser
+        into #tvisitPlans
+        from #visitPlans
+        where
+        compName like '%'+@SearchWord+'%'
+        select * from #tvisitPlans where sno between @min and @max
+        drop table #tvisitPlans
+        end
+        else if(@kind=2)
+        begin
+        select ROW_NUMBER() OVER(ORDER BY Visit_Auto) as sno,
+        Visit_Auto,TradeItem_Auto,compName,Contact_Auto,contName,
+        VstDate,vstTypeName,VstAddr,VstAim,Remark,IsVsted,CUser
+        into #tvisitPlans2
+        from #visitPlans
+        where
+        contName like '%'+@SearchWord+'%'
+        select * from #tvisitPlans2 where sno between @min and @max
+        drop table #tvisitPlans2
+        end
+        drop table #visitPlans
+        end
+        END
     </select>
 </mapper>

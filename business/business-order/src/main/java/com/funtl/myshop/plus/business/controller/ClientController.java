@@ -236,15 +236,17 @@ public class ClientController {
             @ApiImplicitParam(name = "searchWord", value = "查询条件", required = false, dataType = "String", paramType = "path"),
             @ApiImplicitParam(name = "salesName", value = "业代序号", required = false, dataType = "String", paramType = "path"),
             @ApiImplicitParam(name = "pageNum", value = "页码", required = false, dataType = "int", paramType = "path"),
-            @ApiImplicitParam(name = "pageSize", value = "笔数", required = false, dataType = "int", paramType = "path")
+            @ApiImplicitParam(name = "pageSize", value = "笔数", required = false, dataType = "int", paramType = "path"),
+            @ApiImplicitParam(name = "pageIndex", value = "当前要求的页码索引", required = false, dataType = "int", paramType = "path")
     })
     @GetMapping(value = "queryCrmArrangeDto")
     public ResponseResult<PageInfo<CrmArrangeDto>> queryCrmArrangeDto(@RequestParam(name = "kind", required = false) Integer kind,
                                                                       @RequestParam(name = "searchWord", required = false) String searchWord,
                                                                       @RequestParam(name = "salesName", required = false) String salesName,
                                                                       @RequestParam(name = "pageNum", defaultValue = "0") Integer pageNum,
-                                                                      @RequestParam(name = "pageSize", defaultValue = "20") Integer pageSize){
-        CrmArrangeQueryParam crmArrangeQueryParam = new CrmArrangeQueryParam(kind,searchWord,salesName,pageNum,pageSize);
+                                                                      @RequestParam(name = "pageSize", defaultValue = "10") Integer pageSize,
+                                                                      @RequestParam(name = "pageIndex", defaultValue = "1") Integer pageIndex){
+        CrmArrangeQueryParam crmArrangeQueryParam = new CrmArrangeQueryParam(kind,searchWord,salesName,pageNum,pageSize,pageIndex);
         PageInfo<CrmArrangeDto> pageInfo = visitPlanService.selectCrmArrangeDto(crmArrangeQueryParam);
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", pageInfo);
     }

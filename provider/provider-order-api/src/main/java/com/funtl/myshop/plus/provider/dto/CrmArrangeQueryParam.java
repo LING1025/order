@@ -33,11 +33,17 @@ public class CrmArrangeQueryParam implements Serializable {
      */
     private Integer pageSize;
 
-    public CrmArrangeQueryParam(Integer kind, String searchWord, String salesName, Integer pageNum, Integer pageSize) {
+    /**
+     * 当前要求的页码索引
+     */
+    private Integer pageIndex;
+
+    public CrmArrangeQueryParam(Integer kind, String searchWord, String salesName, Integer pageNum, Integer pageSize, Integer pageIndex) {
         this.kind = kind;
         this.searchWord = searchWord;
         this.salesName = salesName;
         this.pageNum = pageNum;
         this.pageSize = pageSize;
+        this.pageIndex = pageIndex;
     }
 }
