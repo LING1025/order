@@ -261,6 +261,8 @@ public class ClientController {
     public ResponseResult<String> insertCrmDetail(@ApiParam(value = "CRM：行程报告数据") @Valid @RequestBody CrmDetailInsertParamDto crmDetailInsertParamDto){
         RptVst rptVst = new RptVst();
         BeanUtils.copyProperties(crmDetailInsertParamDto,rptVst);
+        rptVst.setCUser(crmDetailInsertParamDto.getSalesAuto());
+        rptVst.setCdt(new Date());
         Integer i = rptVstService.insert(rptVst);
         if (i == 0){
             return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "保存失败", null);
