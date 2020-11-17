@@ -23,7 +23,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -132,7 +131,7 @@ public class ClientController {
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", crmDetail);
     }
 
-    @ApiOperation(value = "CRM：客户名称下拉选")
+    @ApiOperation(value = "CRM:客户名称下拉选")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "fName", value = "客户名称", required = false, dataType = "String", paramType = "path"),
             @ApiImplicitParam(name = "salesAuto", value = "业代序号", required = true, dataType = "long", paramType = "path")
@@ -144,7 +143,7 @@ public class ClientController {
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", list);
     }
 
-    @ApiOperation(value = "CRM：联系人下拉选")
+    @ApiOperation(value = "CRM:联系人下拉选")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "tradeItemAuto", value = "客户序号", required = false, dataType = "long", paramType = "path")
     })
@@ -154,7 +153,7 @@ public class ClientController {
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", list);
     }
 
-    @ApiOperation(value = "CRM：客户来源、活动内容、进度下拉选")
+    @ApiOperation(value = "CRM:客户来源、活动内容、进度下拉选")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "types", value = "类型: 1 客户来源 2 活动内容 3 进度", required = true, dataType = "int", paramType = "path")
     })
@@ -164,7 +163,7 @@ public class ClientController {
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", CrmItemNameSelects);
     }
 
-    @ApiOperation(value = "CRM：省、市、区下拉选")
+    @ApiOperation(value = "CRM:省、市、区下拉选")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "type", value = "类型: 1省 2市 3区", required = false, dataType = "int", paramType = "path"),
             @ApiImplicitParam(name = "code", value = "省、市、区编码", required = true, dataType = "long", paramType = "path")
@@ -176,7 +175,7 @@ public class ClientController {
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", lists);
     }
 
-    @ApiOperation(value = "CRM：业代下拉选")
+    @ApiOperation(value = "CRM:业代下拉选")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "salesAuto", value = "业代序号", required = false, dataType = "long", paramType = "path"),
             @ApiImplicitParam(name = "saleName", value = "业代名称", required = false, dataType = "String", paramType = "path")
@@ -266,9 +265,9 @@ public class ClientController {
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "修改成功", null);
     }
 
-    @ApiOperation(value = "CRM：新增行程报告数据(此接口如要测试请联系后端)")
+    @ApiOperation(value = "CRM:新增行程报告数据(此接口如要测试请联系后端)")
     @PostMapping(value = "insertCrmDetail")
-    public ResponseResult<String> insertCrmDetail(@ApiParam(value = "CRM：新增行程报告数据") @Valid @RequestBody CrmDetailInsertParamDto crmDetailInsertParamDto){
+    public ResponseResult<String> insertCrmDetail(@ApiParam(value = "CRM:新增行程报告数据") @Valid @RequestBody CrmDetailInsertParamDto crmDetailInsertParamDto){
         RptVst rptVst = new RptVst();
         BeanUtils.copyProperties(crmDetailInsertParamDto,rptVst);
         rptVst.setCUser(crmDetailInsertParamDto.getSalesAuto());
@@ -280,9 +279,9 @@ public class ClientController {
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "保存成功", null);
     }
 
-    @ApiOperation(value = "CRM：编辑行程报告数据(此接口如要测试请联系后端)")
+    @ApiOperation(value = "CRM:编辑行程报告数据(此接口如要测试请联系后端)")
     @PutMapping(value = "updateCrmDetail")
-    public ResponseResult<String> updateCrmDetail(@ApiParam(value = "CRM：编辑行程报告数据") @Valid @RequestBody CrmDetailParamDto crmDetailParamDto){
+    public ResponseResult<String> updateCrmDetail(@ApiParam(value = "CRM:编辑行程报告数据") @Valid @RequestBody CrmDetailParamDto crmDetailParamDto){
         if (crmDetailParamDto.getRptVstAuto() == 0){
             return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "参数异常", null);
         }
