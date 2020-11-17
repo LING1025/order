@@ -14,6 +14,9 @@ public class CrmArrangeDto implements Serializable {
     @ApiModelProperty(value = "序号")
     private Integer sno;
 
+    @ApiModelProperty(value = "拜访id")
+    private Long visitId;
+
     @ApiModelProperty(value = "拜访序号")
     private Integer visitAuto;
 

@@ -89,6 +89,7 @@ declare
         set @max=(@PageSize*@PageIndex)
         select*into #visitPlans from(
         select
+        t1.VisitID,
         t1.Visit_Auto,
         t1.TradeItem_Auto,t3.CompName as compName,
         t1.Contact_Auto,t4.Title as contName,
@@ -106,7 +107,7 @@ declare
 
         if(@kind=1)
         begin
-        select ROW_NUMBER() OVER(ORDER BY Visit_Auto) as sno,
+        select ROW_NUMBER() OVER(ORDER BY Visit_Auto) as sno,VisitID,
         Visit_Auto,TradeItem_Auto,compName,Contact_Auto,contName,
         VstDate,vstTypeName,VstAddr,VstAim,Remark,IsVsted,CUser
         into #tvisitPlans
@@ -118,7 +119,7 @@ declare
         end
         else if(@kind=2)
         begin
-        select ROW_NUMBER() OVER(ORDER BY Visit_Auto) as sno,
+        select ROW_NUMBER() OVER(ORDER BY Visit_Auto) as sno,VisitID,
         Visit_Auto,TradeItem_Auto,compName,Contact_Auto,contName,
         VstDate,vstTypeName,VstAddr,VstAim,Remark,IsVsted,CUser
         into #tvisitPlans2
