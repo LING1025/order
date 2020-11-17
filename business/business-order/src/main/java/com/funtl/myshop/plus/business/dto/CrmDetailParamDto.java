@@ -28,13 +28,13 @@ public class CrmDetailParamDto implements Serializable {
     @ApiModelProperty(value = "客户来源")
     private String custSourceName;
 
-    @ApiModelProperty(value = "客户来源")
+    @ApiModelProperty(value = "客户来源序号")
     private Integer custSource;
 
     @ApiModelProperty(value = "活动内容")
     private String vstTypeName;
 
-    @ApiModelProperty(value = "活动内容")
+    @ApiModelProperty(value = "活动内容序号")
     private Integer vstType;
 
     @ApiModelProperty(value = "产生总费用")
@@ -49,7 +49,7 @@ public class CrmDetailParamDto implements Serializable {
     @ApiModelProperty(value = "进度")
     private String outComingName;
 
-    @ApiModelProperty(value = "进度")
+    @ApiModelProperty(value = "进度序号")
     private Integer outComing;
 
     @ApiModelProperty(value = "预计下次拜访日期yyyy-MM-dd HH:mm:ss")
@@ -70,4 +70,7 @@ public class CrmDetailParamDto implements Serializable {
 
     @ApiModelProperty(value = "备注")
     private String remark;
+
+    @ApiModelProperty(value = "业代序号")
+    private Integer salesAuto;
 }

@@ -216,7 +216,7 @@ public class ClientController {
 
     @ApiOperation(value = "CRM:新增行程安排数据(此接口如要测试请联系后端)")
     @PostMapping(value = "insertCrmArrange")
-    public ResponseResult<String> insertCrmArrange(@ApiParam(value = "CRM:新增行程安排数据") @Valid @RequestBody CrmArrangeParamDto crmArrangeParamDto){
+    public ResponseResult<String> insertCrmArrange(@ApiParam(value = "CRM:新增、编辑行程安排数据") @Valid @RequestBody CrmArrangeParamDto crmArrangeParamDto){
         VisitPlan visitPlan = new VisitPlan();
         BeanUtils.copyProperties(crmArrangeParamDto,visitPlan);
         visitPlan.setAddrStreet(crmArrangeParamDto.getAddrArea());
@@ -234,7 +234,7 @@ public class ClientController {
 
     @ApiOperation(value = "CRM:编辑行程安排数据(此接口如要测试请联系后端)")
     @PutMapping(value = "updateCrmArrange")
-    public ResponseResult<String> updateCrmArrange(@ApiParam(value = "CRM:行程安排数据") @Valid @RequestBody CrmArrangeParamDto crmArrangeParamDto){
+    public ResponseResult<String> updateCrmArrange(@ApiParam(value = "CRM:新增、编辑行程安排数据") @Valid @RequestBody CrmArrangeParamDto crmArrangeParamDto){
         VisitPlan visitPlan = new VisitPlan();
         BeanUtils.copyProperties(crmArrangeParamDto,visitPlan);
         visitPlan.setAddrStreet(crmArrangeParamDto.getAddrArea());
@@ -258,7 +258,7 @@ public class ClientController {
 
     @ApiOperation(value = "CRM：新增行程报告数据(此接口如要测试请联系后端)")
     @PostMapping(value = "insertCrmDetail")
-    public ResponseResult<String> insertCrmDetail(@ApiParam(value = "CRM：行程报告数据") @Valid @RequestBody CrmDetailInsertParamDto crmDetailInsertParamDto){
+    public ResponseResult<String> insertCrmDetail(@ApiParam(value = "CRM：新增行程报告数据") @Valid @RequestBody CrmDetailInsertParamDto crmDetailInsertParamDto){
         RptVst rptVst = new RptVst();
         BeanUtils.copyProperties(crmDetailInsertParamDto,rptVst);
         rptVst.setCUser(crmDetailInsertParamDto.getSalesAuto());
@@ -271,13 +271,15 @@ public class ClientController {
     }
 
     @ApiOperation(value = "CRM：编辑行程报告数据(此接口如要测试请联系后端)")
-    @PutMapping(value = "updateByRptVstAuto")
-    public ResponseResult<String> updateByRptVstAuto(@ApiParam(value = "CRM：行程报告数据") @Valid @RequestBody CrmDetailParamDto crmDetailParamDto){
+    @PutMapping(value = "updateCrmDetail")
+    public ResponseResult<String> updateCrmDetail(@ApiParam(value = "CRM：编辑行程报告数据") @Valid @RequestBody CrmDetailParamDto crmDetailParamDto){
         if (crmDetailParamDto.getRptVstAuto() == 0){
             return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "参数异常", null);
         }
         RptVst rptVst = new RptVst();
         BeanUtils.copyProperties(crmDetailParamDto,rptVst);
+        rptVst.setMUser(crmDetailParamDto.getSalesAuto());
+        rptVst.setMcDT(new Date());
         Integer i = rptVstService.update(rptVst);
         if (i == 0){
             return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "修改失败", null);
