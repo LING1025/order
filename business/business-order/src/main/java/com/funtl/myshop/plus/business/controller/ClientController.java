@@ -245,6 +245,9 @@ public class ClientController {
         visitPlan.setContactAuto(crmArrangeParamDto.getContectType().toString());
         //根据拜访编号获取拜访信息
         VisitPlan visitPlan1 = visitPlanService.selectByVisitAuto(crmArrangeParamDto.getVisitAuto());
+        if (visitPlan1 == null){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "此拜访编号不存在", null);
+        }
         visitPlan.setVisitId(visitPlan1.getVisitId());
         Integer i = visitPlanService.update(visitPlan);
         if (i == 0){
