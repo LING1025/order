@@ -21,6 +21,9 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -216,7 +219,7 @@ public class ClientController {
 
     @ApiOperation(value = "CRM:新增行程安排数据(此接口如要测试请联系后端)")
     @PostMapping(value = "insertCrmArrange")
-    public ResponseResult<String> insertCrmArrange(@ApiParam(value = "CRM:新增、编辑行程安排数据") @Valid @RequestBody CrmArrangeParamDto crmArrangeParamDto){
+    public ResponseResult<String> insertCrmArrange(@ApiParam(value = "CRM:新增、编辑行程安排数据") @Valid @RequestBody CrmArrangeParamDto crmArrangeParamDto) throws ParseException {
         VisitPlan visitPlan = new VisitPlan();
         BeanUtils.copyProperties(crmArrangeParamDto,visitPlan);
         visitPlan.setAddrStreet(crmArrangeParamDto.getAddrArea());
@@ -225,6 +228,10 @@ public class ClientController {
         visitPlan.setContactAuto(crmArrangeParamDto.getContectType().toString());
         visitPlan.setVstAddr(crmArrangeParamDto.getVstProvince()+crmArrangeParamDto.getVstCity()+crmArrangeParamDto.getVstArea()+crmArrangeParamDto.getVstAddr());
         visitPlan.setCdt(new Date());
+        //拜访时间：拜访日期加具体时间
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        Date date = df.parse(crmArrangeParamDto.getVstDate() + " " + crmArrangeParamDto.getVstTime());
+        visitPlan.setVstDate(date);
         Integer i = visitPlanService.insert(visitPlan);
         if (i == 0){
             return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "保存失败", null);
@@ -234,13 +241,16 @@ public class ClientController {
 
     @ApiOperation(value = "CRM:编辑行程安排数据(此接口如要测试请联系后端)")
     @PutMapping(value = "updateCrmArrange")
-    public ResponseResult<String> updateCrmArrange(@ApiParam(value = "CRM:新增、编辑行程安排数据") @Valid @RequestBody CrmArrangeParamDto crmArrangeParamDto){
+    public ResponseResult<String> updateCrmArrange(@ApiParam(value = "CRM:新增、编辑行程安排数据") @Valid @RequestBody CrmArrangeParamDto crmArrangeParamDto) throws ParseException {
         VisitPlan visitPlan = new VisitPlan();
         BeanUtils.copyProperties(crmArrangeParamDto,visitPlan);
         visitPlan.setAddrStreet(crmArrangeParamDto.getAddrArea());
         visitPlan.setMuser(crmArrangeParamDto.getSalesAuto().longValue());
         visitPlan.setVstAddr(crmArrangeParamDto.getVstProvince()+crmArrangeParamDto.getVstCity()+crmArrangeParamDto.getVstArea()+crmArrangeParamDto.getVstAddr());
         visitPlan.setMdt(new Date());
+        //拜访时间：拜访日期加具体时间
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        Date date = df.parse(crmArrangeParamDto.getVstDate() + " " + crmArrangeParamDto.getVstTime());
         //联系人t1.Contact_Auto=t4.ContectType
         visitPlan.setContactAuto(crmArrangeParamDto.getContectType().toString());
         //根据拜访编号获取拜访信息

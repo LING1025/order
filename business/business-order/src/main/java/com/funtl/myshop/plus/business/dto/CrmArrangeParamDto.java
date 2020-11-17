@@ -24,9 +24,13 @@ public class CrmArrangeParamDto implements Serializable {
     @ApiModelProperty(value = "业代名称")
     private String saleName;
 
-    @ApiModelProperty(value = "拜访时间yyyy-MM-dd HH:mm:ss")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
-    private Date vstDate;
+    @ApiModelProperty(value = "拜访时间yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private String vstDate;
+
+    @ApiModelProperty(value = "拜访具体时间HH:mm")
+    @JsonFormat(pattern = "HH:mm")
+    private String vstTime;
 
     @ApiModelProperty(value = "活动内容")
     private Integer vstType;
