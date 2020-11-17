@@ -213,6 +213,8 @@ public class ClientController {
         BeanUtils.copyProperties(crmArrangeParamDto,visitPlan);
         visitPlan.setAddrStreet(crmArrangeParamDto.getAddrArea());
         visitPlan.setCuser(crmArrangeParamDto.getSalesAuto());
+        //联系人t1.Contact_Auto=t4.ContectType
+        visitPlan.setContactAuto(crmArrangeParamDto.getContectType().toString());
         VisitPlan visitPlan2 = visitPlanService.selectMaxVisitAuto();
         visitPlan.setVisitAuto(visitPlan2.getVisitAuto() + 1);
         visitPlan.setVstAddr(crmArrangeParamDto.getVstProvince()+crmArrangeParamDto.getVstCity()+crmArrangeParamDto.getVstArea()+crmArrangeParamDto.getVstAddr());
@@ -233,6 +235,8 @@ public class ClientController {
         visitPlan.setMuser(crmArrangeParamDto.getSalesAuto().longValue());
         visitPlan.setVstAddr(crmArrangeParamDto.getVstProvince()+crmArrangeParamDto.getVstCity()+crmArrangeParamDto.getVstArea()+crmArrangeParamDto.getVstAddr());
         visitPlan.setMdt(new Date());
+        //联系人t1.Contact_Auto=t4.ContectType
+        visitPlan.setContactAuto(crmArrangeParamDto.getContectType().toString());
         //根据拜访编号获取拜访信息
         VisitPlan visitPlan1 = visitPlanService.selectByVisitAuto(crmArrangeParamDto.getVisitAuto());
         visitPlan.setVisitId(visitPlan1.getVisitId());

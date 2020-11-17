@@ -46,6 +46,9 @@ public class CrmArrangeParamDto implements Serializable {
     @ApiModelProperty(value = "联系人序号")
     private String contactAuto;
 
+    @ApiModelProperty(value = "联系人类型编号")
+    private Integer contectType;
+
     @ApiModelProperty(value = "联系人姓名")
     private String contName;
 
