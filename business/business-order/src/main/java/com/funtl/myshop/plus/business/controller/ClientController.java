@@ -39,7 +39,11 @@ public class ClientController {
     @Reference(version = "1.0.0")
     private VEmpService vEmpService;
 
-    @ApiOperation(value = "根据行程单号获取审核信息")
+    /**
+     * 目前没用到的api
+     *
+     */
+    /*@ApiOperation(value = "根据行程单号获取审核信息")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "rptVstAuto", value = "行程单号", required = false, dataType = "long", paramType = "path")
     })
@@ -105,6 +109,7 @@ public class ClientController {
         }
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "审核完成", null);
     }
+    */
 
     @ApiOperation(value = "获取CRM行程报告列表信息")
     @ApiImplicitParams({
