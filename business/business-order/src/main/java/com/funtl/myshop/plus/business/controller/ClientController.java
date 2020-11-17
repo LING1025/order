@@ -233,22 +233,10 @@ public class ClientController {
         visitPlan.setMuser(crmArrangeParamDto.getSalesAuto().longValue());
         visitPlan.setVstAddr(crmArrangeParamDto.getVstProvince()+crmArrangeParamDto.getVstCity()+crmArrangeParamDto.getVstArea()+crmArrangeParamDto.getVstAddr());
         visitPlan.setMdt(new Date());
+        //根据拜访编号获取拜访信息
+        VisitPlan visitPlan1 = visitPlanService.selectByVisitAuto(crmArrangeParamDto.getVisitAuto());
+        visitPlan.setVisitId(visitPlan1.getVisitId());
         Integer i = visitPlanService.update(visitPlan);
-        if (i == 0){
-            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "修改失败", null);
-        }
-        return new ResponseResult<>(ResponseResult.CodeStatus.OK, "修改成功", null);
-    }
-
-    @ApiOperation(value = "CRM：编辑行程报告数据(此接口如要测试请联系后端)")
-    @PutMapping(value = "updateByRptVstAuto")
-    public ResponseResult<String> updateByRptVstAuto(@ApiParam(value = "CRM：行程报告数据") @Valid @RequestBody CrmDetailParamDto crmDetailParamDto){
-        if (crmDetailParamDto.getRptVstAuto() == 0){
-            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "参数异常", null);
-        }
-        RptVst rptVst = new RptVst();
-        BeanUtils.copyProperties(crmDetailParamDto,rptVst);
-        Integer i = rptVstService.update(rptVst);
         if (i == 0){
             return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "修改失败", null);
         }
@@ -266,4 +254,20 @@ public class ClientController {
         }
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "保存成功", null);
     }
+
+    @ApiOperation(value = "CRM：编辑行程报告数据(此接口如要测试请联系后端)")
+    @PutMapping(value = "updateByRptVstAuto")
+    public ResponseResult<String> updateByRptVstAuto(@ApiParam(value = "CRM：行程报告数据") @Valid @RequestBody CrmDetailParamDto crmDetailParamDto){
+        if (crmDetailParamDto.getRptVstAuto() == 0){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "参数异常", null);
+        }
+        RptVst rptVst = new RptVst();
+        BeanUtils.copyProperties(crmDetailParamDto,rptVst);
+        Integer i = rptVstService.update(rptVst);
+        if (i == 0){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "修改失败", null);
+        }
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK, "修改成功", null);
+    }
+
 }

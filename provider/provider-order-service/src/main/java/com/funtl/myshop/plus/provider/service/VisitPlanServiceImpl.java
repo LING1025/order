@@ -53,4 +53,11 @@ public class VisitPlanServiceImpl implements VisitPlanService{
         PageInfo<CrmArrangeDto> result = PageInfoUtils.pageInfo2PageInfoDTO(pageInfo,CrmArrangeDto.class);
         return result;
     }
+
+    @Override
+    public VisitPlan selectByVisitAuto(Integer visitAuto) {
+        Example example = new Example(VisitPlan.class);
+        example.createCriteria().andEqualTo("visitAuto",visitAuto);
+        return visitPlanMapper.selectOneByExample(example);
+    }
 }

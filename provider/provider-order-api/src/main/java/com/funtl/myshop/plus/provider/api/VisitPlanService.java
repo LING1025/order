@@ -43,4 +43,11 @@ public interface VisitPlanService{
      * @return
      */
     PageInfo<CrmArrangeDto> selectCrmArrangeDto(CrmArrangeQueryParam crmArrangeQueryParam);
+
+    /**
+     * 根据拜访编号获取拜访信息
+     * @param visitAuto
+     * @return
+     */
+    VisitPlan selectByVisitAuto(Integer visitAuto);
 }
