@@ -206,6 +206,14 @@ public class ClientController {
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", pageInfo);
     }
 
+    @ApiOperation(value = "CRM:获取新增行程安排数据中visitAuto的值")
+    @GetMapping(value = "queryMaxVisitAuto")
+    public ResponseResult<Integer> queryMaxVisitAuto(){
+        VisitPlan visitPlan = visitPlanService.selectMaxVisitAuto();
+        Integer visitAuto = visitPlan.getVisitAuto() + 1;
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", visitAuto);
+    }
+
     @ApiOperation(value = "CRM:新增行程安排数据(此接口如要测试请联系后端)")
     @PostMapping(value = "insertCrmArrange")
     public ResponseResult<String> insertCrmArrange(@ApiParam(value = "CRM:新增行程安排数据") @Valid @RequestBody CrmArrangeParamDto crmArrangeParamDto){
@@ -215,8 +223,6 @@ public class ClientController {
         visitPlan.setCuser(crmArrangeParamDto.getSalesAuto());
         //联系人t1.Contact_Auto=t4.ContectType
         visitPlan.setContactAuto(crmArrangeParamDto.getContectType().toString());
-        VisitPlan visitPlan2 = visitPlanService.selectMaxVisitAuto();
-        visitPlan.setVisitAuto(visitPlan2.getVisitAuto() + 1);
         visitPlan.setVstAddr(crmArrangeParamDto.getVstProvince()+crmArrangeParamDto.getVstCity()+crmArrangeParamDto.getVstArea()+crmArrangeParamDto.getVstAddr());
         visitPlan.setCdt(new Date());
         Integer i = visitPlanService.insert(visitPlan);
