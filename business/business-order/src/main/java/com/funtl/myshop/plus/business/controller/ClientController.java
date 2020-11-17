@@ -185,51 +185,6 @@ public class ClientController {
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", lists);
     }
 
-    @ApiOperation(value = "编辑CRM行程报告数据(此接口如要测试请联系后端)")
-    @PutMapping(value = "updateByRptVstAuto")
-    public ResponseResult<String> updateByRptVstAuto(@ApiParam(value = "CRM行程报告数据") @Valid @RequestBody CrmDetailParamDto crmDetailParamDto){
-        if (crmDetailParamDto.getRptVstAuto() == 0){
-            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "参数异常", null);
-        }
-        RptVst rptVst = new RptVst();
-        BeanUtils.copyProperties(crmDetailParamDto,rptVst);
-        Integer i = rptVstService.update(rptVst);
-        if (i == 0){
-            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "修改失败", null);
-        }
-        return new ResponseResult<>(ResponseResult.CodeStatus.OK, "修改成功", null);
-    }
-
-    @ApiOperation(value = "新增CRM行程报告数据(此接口如要测试请联系后端)")
-    @PostMapping(value = "insertCrmDetail")
-    public ResponseResult<String> insertCrmDetail(@ApiParam(value = "CRM行程报告数据") @Valid @RequestBody CrmDetailInsertParamDto crmDetailInsertParamDto){
-        RptVst rptVst = new RptVst();
-        BeanUtils.copyProperties(crmDetailInsertParamDto,rptVst);
-        Integer i = rptVstService.insert(rptVst);
-        if (i == 0){
-            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "保存失败", null);
-        }
-        return new ResponseResult<>(ResponseResult.CodeStatus.OK, "保存成功", null);
-    }
-
-    @ApiOperation(value = "CRM:新增行程安排数据(此接口如要测试请联系后端)")
-    @PostMapping(value = "insertCrmArrange")
-    public ResponseResult<String> insertCrmArrange(@ApiParam(value = "CRM:新增行程安排数据") @Valid @RequestBody CrmArrangeParamDto crmArrangeParamDto){
-        VisitPlan visitPlan = new VisitPlan();
-        BeanUtils.copyProperties(crmArrangeParamDto,visitPlan);
-        visitPlan.setAddrStreet(crmArrangeParamDto.getAddrArea());
-        visitPlan.setCuser(crmArrangeParamDto.getSalesAuto());
-        VisitPlan visitPlan2 = visitPlanService.selectMaxVisitAuto();
-        visitPlan.setVisitAuto(visitPlan2.getVisitAuto() + 1);
-        visitPlan.setVstAddr(crmArrangeParamDto.getVstProvince()+crmArrangeParamDto.getVstCity()+crmArrangeParamDto.getVstArea()+crmArrangeParamDto.getVstAddr());
-        visitPlan.setCdt(new Date());
-        Integer i = visitPlanService.insert(visitPlan);
-        if (i == 0){
-            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "保存失败", null);
-        }
-        return new ResponseResult<>(ResponseResult.CodeStatus.OK, "保存成功", null);
-    }
-
     @ApiOperation(value = "CRM:获取行程安排数据")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "kind", value = "查询类别：1客户名称 2联系人姓名", required = false, dataType = "int", paramType = "path"),
@@ -251,4 +206,64 @@ public class ClientController {
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", pageInfo);
     }
 
+    @ApiOperation(value = "CRM:新增行程安排数据(此接口如要测试请联系后端)")
+    @PostMapping(value = "insertCrmArrange")
+    public ResponseResult<String> insertCrmArrange(@ApiParam(value = "CRM:新增行程安排数据") @Valid @RequestBody CrmArrangeParamDto crmArrangeParamDto){
+        VisitPlan visitPlan = new VisitPlan();
+        BeanUtils.copyProperties(crmArrangeParamDto,visitPlan);
+        visitPlan.setAddrStreet(crmArrangeParamDto.getAddrArea());
+        visitPlan.setCuser(crmArrangeParamDto.getSalesAuto());
+        VisitPlan visitPlan2 = visitPlanService.selectMaxVisitAuto();
+        visitPlan.setVisitAuto(visitPlan2.getVisitAuto() + 1);
+        visitPlan.setVstAddr(crmArrangeParamDto.getVstProvince()+crmArrangeParamDto.getVstCity()+crmArrangeParamDto.getVstArea()+crmArrangeParamDto.getVstAddr());
+        visitPlan.setCdt(new Date());
+        Integer i = visitPlanService.insert(visitPlan);
+        if (i == 0){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "保存失败", null);
+        }
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK, "保存成功", null);
+    }
+
+    @ApiOperation(value = "CRM:编辑行程安排数据(此接口如要测试请联系后端)")
+    @PutMapping(value = "updateCrmArrange")
+    public ResponseResult<String> updateCrmArrange(@ApiParam(value = "CRM:行程安排数据") @Valid @RequestBody CrmArrangeParamDto crmArrangeParamDto){
+        VisitPlan visitPlan = new VisitPlan();
+        BeanUtils.copyProperties(crmArrangeParamDto,visitPlan);
+        visitPlan.setAddrStreet(crmArrangeParamDto.getAddrArea());
+        visitPlan.setMuser(crmArrangeParamDto.getSalesAuto().longValue());
+        visitPlan.setVstAddr(crmArrangeParamDto.getVstProvince()+crmArrangeParamDto.getVstCity()+crmArrangeParamDto.getVstArea()+crmArrangeParamDto.getVstAddr());
+        visitPlan.setMdt(new Date());
+        Integer i = visitPlanService.update(visitPlan);
+        if (i == 0){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "修改失败", null);
+        }
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK, "修改成功", null);
+    }
+
+    @ApiOperation(value = "CRM：编辑行程报告数据(此接口如要测试请联系后端)")
+    @PutMapping(value = "updateByRptVstAuto")
+    public ResponseResult<String> updateByRptVstAuto(@ApiParam(value = "CRM：行程报告数据") @Valid @RequestBody CrmDetailParamDto crmDetailParamDto){
+        if (crmDetailParamDto.getRptVstAuto() == 0){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "参数异常", null);
+        }
+        RptVst rptVst = new RptVst();
+        BeanUtils.copyProperties(crmDetailParamDto,rptVst);
+        Integer i = rptVstService.update(rptVst);
+        if (i == 0){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "修改失败", null);
+        }
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK, "修改成功", null);
+    }
+
+    @ApiOperation(value = "CRM：新增行程报告数据(此接口如要测试请联系后端)")
+    @PostMapping(value = "insertCrmDetail")
+    public ResponseResult<String> insertCrmDetail(@ApiParam(value = "CRM：行程报告数据") @Valid @RequestBody CrmDetailInsertParamDto crmDetailInsertParamDto){
+        RptVst rptVst = new RptVst();
+        BeanUtils.copyProperties(crmDetailInsertParamDto,rptVst);
+        Integer i = rptVstService.insert(rptVst);
+        if (i == 0){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "保存失败", null);
+        }
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK, "保存成功", null);
+    }
 }

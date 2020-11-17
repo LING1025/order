@@ -34,6 +34,11 @@ public class VisitPlanServiceImpl implements VisitPlanService{
     }
 
     @Override
+    public Integer update(VisitPlan visitPlan) {
+        return visitPlanMapper.updateByPrimaryKeySelective(visitPlan);
+    }
+
+    @Override
     public VisitPlan selectMaxVisitAuto() {
         PageHelper.startPage(1,1);
         Example example = new Example(VisitPlan.class);

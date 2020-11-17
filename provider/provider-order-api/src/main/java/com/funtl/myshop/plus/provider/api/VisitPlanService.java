@@ -25,6 +25,13 @@ public interface VisitPlanService{
     Integer insert(VisitPlan visitPlan);
 
     /**
+     * CRM:编辑行程安排
+     * @param visitPlan
+     * @return
+     */
+    Integer update(VisitPlan visitPlan);
+
+    /**
      * VisitPlan表获取VisitAuto最大值
      * @return
      */
