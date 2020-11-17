@@ -22,7 +22,7 @@ public interface VisitPlanService{
      * @param visitPlan
      * @return
      */
-    Integer insert(VisitPlan visitPlan);
+    Long insert(VisitPlan visitPlan);
 
     /**
      * CRM:编辑行程安排
@@ -45,9 +45,9 @@ public interface VisitPlanService{
     PageInfo<CrmArrangeDto> selectCrmArrangeDto(CrmArrangeQueryParam crmArrangeQueryParam);
 
     /**
-     * 根据拜访编号获取拜访信息
-     * @param visitAuto
+     * 判断拜访信息是否存在
+     * @param visitId
      * @return
      */
-    VisitPlan selectByVisitAuto(Integer visitAuto);
+    VisitPlan selectByVisitId(Long visitId,Integer visitAuto);
 }

@@ -101,13 +101,13 @@ public class VisitPlan implements Serializable {
     * 加油里程
     */
     @Column(name = "Refuel")
-    private Double refuel;
+    private Double refuel=0.0;
 
     /**
     * 到访里程
     */
     @Column(name = "VstMile")
-    private Double vstMile;
+    private Double vstMile=0.0;
 
     @Column(name = "Status")
     private Integer status;

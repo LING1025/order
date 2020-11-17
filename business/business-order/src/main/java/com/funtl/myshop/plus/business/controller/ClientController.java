@@ -1,9 +1,6 @@
 package com.funtl.myshop.plus.business.controller;
 
-import com.funtl.myshop.plus.business.dto.ClientCheckParamDto;
-import com.funtl.myshop.plus.business.dto.CrmArrangeParamDto;
-import com.funtl.myshop.plus.business.dto.CrmDetailInsertParamDto;
-import com.funtl.myshop.plus.business.dto.CrmDetailParamDto;
+import com.funtl.myshop.plus.business.dto.*;
 import com.funtl.myshop.plus.commons.dto.ResponseResult;
 import com.funtl.myshop.plus.provider.api.RptVstFlowService;
 import com.funtl.myshop.plus.provider.api.RptVstService;
@@ -218,7 +215,7 @@ public class ClientController {
 
     @ApiOperation(value = "CRM:新增行程安排数据(此接口如要测试请联系后端)")
     @PostMapping(value = "insertCrmArrange")
-    public ResponseResult<String> insertCrmArrange(@ApiParam(value = "CRM:新增、编辑行程安排数据") @Valid @RequestBody CrmArrangeParamDto crmArrangeParamDto) throws ParseException {
+    public ResponseResult<Long> insertCrmArrange(@ApiParam(value = "CRM:新增行程安排数据") @Valid @RequestBody CrmArrangeInsertParamDto crmArrangeParamDto) throws ParseException {
         VisitPlan visitPlan = new VisitPlan();
         BeanUtils.copyProperties(crmArrangeParamDto,visitPlan);
         visitPlan.setAddrStreet(crmArrangeParamDto.getAddrArea());
@@ -231,17 +228,25 @@ public class ClientController {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         Date date = df.parse(crmArrangeParamDto.getVstDate() + " " + crmArrangeParamDto.getVstTime());
         visitPlan.setVstDate(date);
-        Integer i = visitPlanService.insert(visitPlan);
-        if (i == 0){
-            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "保存失败", null);
+        Long i = visitPlanService.insert(visitPlan);
+        if (i != 0){
+//            Long visitId = visitPlan.getVisitId();
+            return new ResponseResult<>(ResponseResult.CodeStatus.OK, "新插入数据的visitId：", i);
         }
-        return new ResponseResult<>(ResponseResult.CodeStatus.OK, "保存成功", null);
+        return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "保存失败", null);
     }
 
     @ApiOperation(value = "CRM:编辑行程安排数据(此接口如要测试请联系后端)")
     @PutMapping(value = "updateCrmArrange")
-    public ResponseResult<String> updateCrmArrange(@ApiParam(value = "CRM:新增、编辑行程安排数据") @Valid @RequestBody CrmArrangeParamDto crmArrangeParamDto) throws ParseException {
-        VisitPlan visitPlan = new VisitPlan();
+    public ResponseResult<String> updateCrmArrange(@ApiParam(value = "CRM:编辑行程安排数据") @Valid @RequestBody CrmArrangeParamDto crmArrangeParamDto) throws ParseException {
+        if (crmArrangeParamDto.getVisitId() == 0){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "参数异常", null);
+        }
+        //根据拜访id获取拜访信息
+        VisitPlan visitPlan = visitPlanService.selectByVisitId(crmArrangeParamDto.getVisitId(),crmArrangeParamDto.getVisitAuto());
+        if (visitPlan == null){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "此拜访信息不存在", null);
+        }
         BeanUtils.copyProperties(crmArrangeParamDto,visitPlan);
         visitPlan.setAddrStreet(crmArrangeParamDto.getAddrArea());
         visitPlan.setMuser(crmArrangeParamDto.getSalesAuto().longValue());
@@ -250,14 +255,9 @@ public class ClientController {
         //拜访时间：拜访日期加具体时间
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         Date date = df.parse(crmArrangeParamDto.getVstDate() + " " + crmArrangeParamDto.getVstTime());
+        visitPlan.setVstDate(date);
         //联系人t1.Contact_Auto=t4.ContectType
         visitPlan.setContactAuto(crmArrangeParamDto.getContectType().toString());
-        //根据拜访编号获取拜访信息
-        VisitPlan visitPlan1 = visitPlanService.selectByVisitAuto(crmArrangeParamDto.getVisitAuto());
-        if (visitPlan1 == null){
-            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "此拜访编号不存在", null);
-        }
-        visitPlan.setVisitId(visitPlan1.getVisitId());
         Integer i = visitPlanService.update(visitPlan);
         if (i == 0){
             return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "修改失败", null);

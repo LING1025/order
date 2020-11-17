@@ -29,8 +29,9 @@ public class VisitPlanServiceImpl implements VisitPlanService{
     }
 
     @Override
-    public Integer insert(VisitPlan visitPlan) {
-        return visitPlanMapper.insertSelective(visitPlan);
+    public Long insert(VisitPlan visitPlan) {
+        Integer i = visitPlanMapper.insertUseGeneratedKeys(visitPlan);
+        return i == 1 ? visitPlan.getVisitId() : 0;
     }
 
     @Override
@@ -55,9 +56,9 @@ public class VisitPlanServiceImpl implements VisitPlanService{
     }
 
     @Override
-    public VisitPlan selectByVisitAuto(Integer visitAuto) {
+    public VisitPlan selectByVisitId(Long visitId,Integer visitAuto) {
         Example example = new Example(VisitPlan.class);
-        example.createCriteria().andEqualTo("visitAuto",visitAuto);
+        example.createCriteria().andEqualTo("visitId",visitId).andEqualTo("visitAuto",visitAuto);
         return visitPlanMapper.selectOneByExample(example);
     }
 }
