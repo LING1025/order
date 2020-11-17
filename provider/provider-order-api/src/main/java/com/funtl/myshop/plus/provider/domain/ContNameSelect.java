@@ -15,6 +15,9 @@ public class ContNameSelect implements Serializable {
     @ApiModelProperty(value = "联系人对象序号")
     private Long tradeItemAuto;
 
-    @ApiModelProperty(value = "联系人序号")
-    private Long contactAuto;
+   /* @ApiModelProperty(value = "联系人序号")
+    private Long contactAuto;*/
+
+    @ApiModelProperty(value = "联系人类型编号")
+    private Integer contectType;
 }

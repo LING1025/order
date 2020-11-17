@@ -173,11 +173,11 @@ end
     <resultMap id="queryContNameSelect" extends="BaseResultMap" type="com.funtl.myshop.plus.provider.domain.ContNameSelect">
         <result column="contName" jdbcType="VARCHAR" property="contName" />
         <result column="TradeItem_Auto" jdbcType="BIGINT" property="tradeItemAuto" />
-        <result column="contactAuto" jdbcType="BIGINT" property="contactAuto" />
+        <result column="ContectType" jdbcType="INTEGER" property="contectType" />
     </resultMap>
     <select id="selectByTradeItemAuto" resultMap="queryContNameSelect">
         select
-        Title contName ,TradeItem_Auto,Contect_Auto contactAuto
+        Title contName ,TradeItem_Auto,ContectType
         from
         Contect
         where
