@@ -206,7 +206,7 @@ public class ClientController {
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", pageInfo);
     }
 
-    @ApiOperation(value = "CRM:获取新增行程安排数据中visitAuto的值")
+    @ApiOperation(value = "CRM:新增行程安排数据中visitAuto的值")
     @GetMapping(value = "queryMaxVisitAuto")
     public ResponseResult<Integer> queryMaxVisitAuto(){
         VisitPlan visitPlan = visitPlanService.selectMaxVisitAuto();
