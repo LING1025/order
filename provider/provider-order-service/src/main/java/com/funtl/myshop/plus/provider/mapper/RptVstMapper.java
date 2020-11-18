@@ -20,6 +20,6 @@ public interface RptVstMapper extends MyMapper<RptVst> {
 
     List<ContNameSelect> selectByTradeItemAuto(@Param("tradeItemAuto") Long tradeItemAuto);
 
-    List<CrmItemNameSelect> selectByTypes(@Param("types") Integer types);
+    List<CrmItemNameSelect> selectByTypes(@Param("types") Integer types,@Param("num") Integer num);
 
 }

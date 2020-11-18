@@ -157,11 +157,13 @@ public class ClientController {
 
     @ApiOperation(value = "CRM:客户来源、活动内容、进度下拉选")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "types", value = "类型: 1 客户来源 2 活动内容 3 进度", required = true, dataType = "int", paramType = "path")
+            @ApiImplicitParam(name = "types", value = "类型: 1 客户来源 2 活动内容 3 进度", required = true, dataType = "int", paramType = "path"),
+            @ApiImplicitParam(name = "num", value = "客户来源、活动内容、进度对应的num", required = false, dataType = "int", paramType = "path")
     })
     @GetMapping(value = "queryItemNameAndNum")
-    public ResponseResult<List<CrmItemNameSelect>> queryItemNameAndNum(@RequestParam(name = "types")Integer types){
-        List<CrmItemNameSelect> CrmItemNameSelects = rptVstService.selectByTypes(types);
+    public ResponseResult<List<CrmItemNameSelect>> queryItemNameAndNum(@RequestParam(name = "types")Integer types,
+                                                                       @RequestParam(name = "num", defaultValue = "0")Integer num){
+        List<CrmItemNameSelect> CrmItemNameSelects = rptVstService.selectByTypes(types,num);
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", CrmItemNameSelects);
     }
 

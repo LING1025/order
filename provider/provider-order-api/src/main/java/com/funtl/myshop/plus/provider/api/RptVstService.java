@@ -61,7 +61,7 @@ public interface RptVstService{
      * @param types
      * @return
      */
-    List<CrmItemNameSelect> selectByTypes(Integer types);
+    List<CrmItemNameSelect> selectByTypes(Integer types,Integer num);
 
     /**
      * 新增CRM行程报告

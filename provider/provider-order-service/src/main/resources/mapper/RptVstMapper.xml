@@ -192,20 +192,52 @@ end
         <result column="Num" jdbcType="INTEGER" property="num" />
     </resultMap>
     <select id="selectByTypes" resultMap="queryCrmItemNameSelect">
+
         declare
-        @types int
+        @types int,
+        @num int
         set @types = #{types}
+        set @num = #{num}
+
         if(@types = 1)--客户来源
         begin
-        select Num,ItemName from ItemCode where ItemType=313
+        if(@num != 0)
+        select Num,ItemName from (
+        select Num=-1,ItemName=null,0 seq
+        union all
+        select Num,ItemName,seq from ItemCode where ItemType=313 and V1 > 0
+        union all
+        select Num=1,ItemName='保有维系',98 seq
+        union all
+        select Num=2,ItemName='通路维系',99 seq
+        )aa where Num=@num order by seq
+        else
+        select Num,ItemName from (
+        select Num=-1,ItemName=null,0 seq
+        union all
+        select Num,ItemName,seq from ItemCode where ItemType=313 and V1 > 0
+        union all
+        select Num=1,ItemName='保有维系',98 seq
+        union all
+        select Num=2,ItemName='通路维系',99 seq
+        )aa order by seq
         end
+
         else if(@types = 2)--活动内容
         begin
+        if(@num != 0)
+        select Num,ItemName from ItemCode where ItemType=1042 and Num=@num
+        else
         select Num,ItemName from ItemCode where ItemType=1042
         end
+
         else if(@types = 3)--进度
         begin
+        if(@num != 0)
+        select Num,(ItemName +'_'+ Memo)ItemName from ItemCode where ItemType=1043 and Num=@num
+        else
         select Num,(ItemName +'_'+ Memo)ItemName from ItemCode where ItemType=1043
         end
+
     </select>
 </mapper>
