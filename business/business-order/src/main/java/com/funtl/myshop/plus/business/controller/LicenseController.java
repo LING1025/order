@@ -23,9 +23,9 @@ public class LicenseController {
     @Reference(version = "1.0.0")
     private OrderService orderService;
 
-    @ApiOperation(value = "获取讯息列表信息")
+    @ApiOperation(value = "上牌费请款：获取讯息列表信息")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "type", value = "类型 0申购单号 1车牌号 2客户名称 6车架号 5上牌完成待请款", required = true, dataType = "int", paramType = "path"),
+            @ApiImplicitParam(name = "type", value = "类型 0申购单号 1车牌号 2客户名称 6车架号", required = true, dataType = "int", paramType = "path"),
             @ApiImplicitParam(name = "year", value = "年份", required = false, dataType = "int", paramType = "path"),
             @ApiImplicitParam(name = "month", value = "月份", required = false, dataType = "int", paramType = "path"),
             @ApiImplicitParam(name = "searchWord", value = "输入查询条件", required = false, dataType = "String", paramType = "path")
@@ -39,6 +39,11 @@ public class LicenseController {
         List<MessageList> lists = orderService.selectMessageList(messageQueryParam);
         if (lists.size() == 0){
             return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "查询条件无数据", null);
+        }
+        for (MessageList messageList : lists){
+            if (messageList.getStatus() == 0 || messageList.getStatus() == 5){
+                messageList.setCkb(1);
+            }
         }
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", lists);
     }
