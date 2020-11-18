@@ -9,6 +9,11 @@ import java.io.Serializable;
 @ApiModel(value = "CRM:行程安排查询参数")
 public class CrmArrangeQueryParam implements Serializable {
     /**
+     * 拜访id
+     */
+    private Long visitId;
+
+    /**
      * 1客户名称 2联系人姓名
      */
     private Integer kind;
@@ -38,7 +43,8 @@ public class CrmArrangeQueryParam implements Serializable {
      */
     private Integer pageIndex;
 
-    public CrmArrangeQueryParam(Integer kind, String searchWord, String salesName, Integer pageNum, Integer pageSize, Integer pageIndex) {
+    public CrmArrangeQueryParam(Long visitId, Integer kind, String searchWord, String salesName, Integer pageNum, Integer pageSize, Integer pageIndex) {
+        this.visitId = visitId;
         this.kind = kind;
         this.searchWord = searchWord;
         this.salesName = salesName;
