@@ -111,7 +111,7 @@ public class ClientController {
     }
     */
 
-    @ApiOperation(value = "获取CRM行程报告列表信息")
+    @ApiOperation(value = "CRM:获取行程报告列表信息")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "userAuto", value = "用户序号", required = true, dataType = "int", paramType = "path"),
             @ApiImplicitParam(name = "customerName", value = "客户名称", required = false, dataType = "String", paramType = "path")
@@ -123,7 +123,7 @@ public class ClientController {
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", lists);
     }
 
-    @ApiOperation(value = "获取CRM行程报告具体数据")
+    @ApiOperation(value = "CRM:获取行程报告具体数据")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "rptVstAuto", value = "报告序号", required = true, dataType = "long", paramType = "path")
     })
@@ -248,7 +248,7 @@ public class ClientController {
             return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "参数异常", null);
         }
         //根据拜访id获取拜访信息
-        VisitPlan visitPlan = visitPlanService.selectByVisitId(crmArrangeParamDto.getVisitId(),crmArrangeParamDto.getVisitAuto());
+        VisitPlan visitPlan = visitPlanService.selectByVisitIdAndAuto(crmArrangeParamDto.getVisitId(),crmArrangeParamDto.getVisitAuto());
         if (visitPlan == null){
             return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "此拜访信息不存在", null);
         }
@@ -268,6 +268,32 @@ public class ClientController {
             return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "修改失败", null);
         }
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "修改成功", null);
+    }
+
+    @ApiOperation(value = "CRM:行程安排删除")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "visitId", value = "拜访id", required = true, dataType = "long", paramType = "path"),
+            @ApiImplicitParam(name = "salesAuto", value = "业代序号", required = true, dataType = "long", paramType = "path")
+    })
+    @DeleteMapping(value = "delete")
+    public ResponseResult<VisitPlan> delete(@RequestParam(name = "visitId")Long visitId,
+                                            @RequestParam(name = "salesAuto")Long salesAuto){
+        VisitPlan visitPlan = visitPlanService.selectByVisitId(visitId);
+        if (visitPlan == null) {
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "此拜访信息不存在", null);
+        }
+        if (visitPlan.getIsVsted() == true){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "已拜访信息不可删除", null);
+        }
+        //删除状态为-1
+        visitPlan.setStatus(-1);
+        visitPlan.setMuser(salesAuto);
+        visitPlan.setMdt(new Date());
+        Integer i = visitPlanService.update(visitPlan);
+        if (i == 0){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "删除失败", null);
+        }
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK, "删除成功", null);
     }
 
     @ApiOperation(value = "CRM:新增行程报告数据(此接口如要测试请联系后端)")

@@ -52,7 +52,7 @@ public interface VisitPlanService{
     VisitPlan selectByVisitIdAndAuto(Long visitId,Integer visitAuto);
 
     /**
-     * 通过拜访id获取拜访信息
+     * 通过拜访id获取拜访信息(不包括删除状态的)
      * @param visitId
      * @return
      */
