@@ -147,11 +147,13 @@ public class ClientController {
 
     @ApiOperation(value = "CRM:联系人下拉选")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "tradeItemAuto", value = "客户序号", required = false, dataType = "long", paramType = "path")
+            @ApiImplicitParam(name = "tradeItemAuto", value = "客户序号", required = false, dataType = "long", paramType = "path"),
+            @ApiImplicitParam(name = "contName", value = "联系人姓名", required = false, dataType = "String", paramType = "path")
     })
     @GetMapping(value = "queryByTradeItemAuto")
-    public ResponseResult<List<ContNameSelect>> queryByTradeItemAuto(@RequestParam(name = "tradeItemAuto", required = false)Long tradeItemAuto){
-        List<ContNameSelect> list = rptVstService.selectByTradeItemAuto(tradeItemAuto);
+    public ResponseResult<List<ContNameSelect>> queryByTradeItemAuto(@RequestParam(name = "tradeItemAuto", required = false)Long tradeItemAuto,
+                                                                     @RequestParam(name = "contName", required = false)String contName){
+        List<ContNameSelect> list = rptVstService.selectByTradeItemAuto(tradeItemAuto,contName);
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", list);
     }
 

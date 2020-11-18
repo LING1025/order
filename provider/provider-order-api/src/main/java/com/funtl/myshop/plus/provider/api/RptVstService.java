@@ -54,7 +54,7 @@ public interface RptVstService{
      * @param tradeItemAuto
      * @return
      */
-    List<ContNameSelect> selectByTradeItemAuto(Long tradeItemAuto);
+    List<ContNameSelect> selectByTradeItemAuto(Long tradeItemAuto,String contName);
 
     /**
      * 获取客户来源、活动内容、进度下拉选

@@ -192,6 +192,9 @@ end
         <if test="tradeItemAuto != null and tradeItemAuto != ''">
             AND TradeItem_Auto = #{tradeItemAuto}
         </if>
+        <if test="contName != null and contName != ''">
+            AND Title = #{contName}
+        </if>
     </select>
 
     <resultMap id="queryCrmItemNameSelect" extends="BaseResultMap" type="com.funtl.myshop.plus.provider.domain.CrmItemNameSelect">
