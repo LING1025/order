@@ -56,9 +56,14 @@ public class VisitPlanServiceImpl implements VisitPlanService{
     }
 
     @Override
-    public VisitPlan selectByVisitId(Long visitId,Integer visitAuto) {
+    public VisitPlan selectByVisitIdAndAuto(Long visitId,Integer visitAuto) {
         Example example = new Example(VisitPlan.class);
         example.createCriteria().andEqualTo("visitId",visitId).andEqualTo("visitAuto",visitAuto);
         return visitPlanMapper.selectOneByExample(example);
+    }
+
+    @Override
+    public VisitPlan selectByVisitId(Long visitId) {
+        return visitPlanMapper.selectByPrimaryKey(visitId);
     }
 }

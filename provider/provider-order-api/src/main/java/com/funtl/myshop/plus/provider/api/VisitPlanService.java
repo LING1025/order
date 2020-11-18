@@ -49,5 +49,14 @@ public interface VisitPlanService{
      * @param visitId
      * @return
      */
-    VisitPlan selectByVisitId(Long visitId,Integer visitAuto);
+    VisitPlan selectByVisitIdAndAuto(Long visitId,Integer visitAuto);
+
+    /**
+     * 通过拜访id获取拜访信息
+     * @param visitId
+     * @return
+     */
+    VisitPlan selectByVisitId(Long visitId);
+
+
 }
