@@ -107,13 +107,18 @@ end
         <result column="VstType" jdbcType="INTEGER" property="vstType" />
         <result column="VstDT" jdbcType="TIMESTAMP" property="vstDT" />
         <result column="VstAddr" jdbcType="VARCHAR" property="vstAddr" />
+        <result column="vstTypeName" jdbcType="VARCHAR" property="vstTypeName" />
     </resultMap>
     <select id="selectCrmTripList" resultMap="queryCrmTripList">
-        select a.Visit_Auto,a.vstType,a.vstAddr,a.VstDT,a.RptVst_Auto,a.TradeItem_Auto
+        select
+        a.Visit_Auto,a.vstType,a.vstAddr,
+        a.VstDT,a.RptVst_Auto,a.TradeItem_Auto,
+        d.ItemName vstTypeName
 	    from
 	    RptVst a
 	    left join TradeItem c on a.TradeItem_Auto=c.TradeItem_Auto
 	    left join v_Emp  b on b.User_Auto = a.CUser
+        left join ItemCode d on d.ItemType=1042 and d.Num = a.VstType
 	    where
         1=1
         <if test="customerName != null and customerName != ''">
@@ -130,15 +135,17 @@ end
         <result column="vstTypeName" jdbcType="VARCHAR" property="vstTypeName" />
         <result column="contName" jdbcType="VARCHAR" property="contName" />
         <result column="outComingName" jdbcType="VARCHAR" property="outComingName" />
+        <result column="ContectType" jdbcType="INTEGER" property="contectType" />
     </resultMap>
     <select id="selectByRptVstAuto" resultMap="queryByRptVstAuto">
         select
         a.RptVst_Auto,
         a.VstDT,c.FName customerName,h.ItemName custSourceName,f.ItemName vstTypeName,a.Fee,
-        d.Name contName,a.vstAddr,e.ItemName+'_'+e.Memo outComingName,a.NextVstDT,
-        a.Aim,a.Summary,a.Detail,a.Thought,a.Remark
+        d.Title contName,a.vstAddr,e.ItemName+'_'+e.Memo outComingName,a.NextVstDT,
+        a.Aim,a.Summary,a.Detail,a.Thought,a.Remark,
+        a.TradeItem_Auto,a.VstType,a.OutComing,d.ContectType
         from RptVst a
-        left join CRM_Contact d on a.TradeItem_Auto=d.TradeItem_Auto
+        left join Contect d on a.TradeItem_Auto=d.TradeItem_Auto
         left join TradeItem c on a.TradeItem_Auto=c.TradeItem_Auto
         left join ItemCode f on f.ItemType=1042 and f.Num = a.VstType
         left join ItemCode e on e.ItemType=1043 and e.Num = a.OutComing

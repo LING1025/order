@@ -14,8 +14,11 @@ public class CrmTripList implements Serializable {
     @ApiModelProperty(value = "拜访序号")
     private Integer visitAuto;
 
-    @ApiModelProperty(value = "拜访方式")
+    @ApiModelProperty(value = "拜访方式序号")
     private Integer vstType;
+
+    @ApiModelProperty(value = "拜访方式")
+    private String vstTypeName;
 
     @ApiModelProperty(value = "拜访地点")
     private String vstAddr;
