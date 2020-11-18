@@ -32,7 +32,7 @@ public class CrmArrangeInsertParamDto implements Serializable {
     @JsonFormat(pattern = "HH:mm")
     private String vstTime;
 
-    @ApiModelProperty(value = "活动内容")
+    @ApiModelProperty(value = "活动内容序号")
     private Integer vstType;
 
     @ApiModelProperty(value = "活动内容")

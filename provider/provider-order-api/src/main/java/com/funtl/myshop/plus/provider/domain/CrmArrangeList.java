@@ -53,4 +53,10 @@ public class CrmArrangeList implements Serializable {
 
     @ApiModelProperty(value = "创建者")
     private Integer cuser;
+
+    @ApiModelProperty(value = "创建者")
+    private String saleName;
+
+    @ApiModelProperty(value = "活动内容序号")
+    private Integer vstType;
 }

@@ -51,6 +51,12 @@ public class CrmArrangeDto implements Serializable {
     @ApiModelProperty(value = "是否已拜访 0否 1是")
     private Boolean isVsted;
 
-    @ApiModelProperty(value = "创建者")
+    @ApiModelProperty(value = "创建者序号")
     private Integer cuser;
+
+    @ApiModelProperty(value = "创建者")
+    private String saleName;
+
+    @ApiModelProperty(value = "活动内容序号")
+    private Integer vstType;
 }

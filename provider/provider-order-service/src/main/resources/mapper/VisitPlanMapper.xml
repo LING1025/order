@@ -67,6 +67,7 @@
         <result column="contName" jdbcType="VARCHAR" property="contName"/>
         <result column="vstTypeName" jdbcType="VARCHAR" property="vstTypeName"/>
         <result column="sno" jdbcType="INTEGER" property="sno"/>
+        <result column="saleName" jdbcType="VARCHAR" property="saleName"/>
     </resultMap>
     <select id="selectCrmArrangeDto" resultMap="queryCrmArrangeDto">
 declare
@@ -97,7 +98,8 @@ declare
         t2.ItemName as vstTypeName,t1.VstAddr,
         t1.VstAim,t1.Remark,
         t1.IsVsted, isnull(t1.CUser, 0) as CUser,
-        Status = isnull(t1.Status,0)
+        Status = isnull(t1.Status,0),
+        t1.VstType
         from VisitPlan t1
         inner join CRM_Customer t3 on t1.TradeItem_Auto=t3.TradeItem_Auto
         inner join Contect t4  on t1.TradeItem_Auto=t4.TradeItem_Auto and t1.Contact_Auto=t4.ContectType
@@ -110,7 +112,8 @@ declare
         begin
         select ROW_NUMBER() OVER(ORDER BY Visit_Auto) as sno,VisitID,
         Visit_Auto,TradeItem_Auto,compName,Contact_Auto,contName,
-        VstDate,vstTypeName,VstAddr,VstAim,Remark,IsVsted,CUser
+        VstDate,vstTypeName,VstAddr,VstAim,Remark,IsVsted,CUser,VstType,
+        saleName=(select FName from v_Emp where User_Auto=CUser)
         into #tvisitPlans
         from #visitPlans
         where
@@ -122,7 +125,8 @@ declare
         begin
         select ROW_NUMBER() OVER(ORDER BY Visit_Auto) as sno,VisitID,
         Visit_Auto,TradeItem_Auto,compName,Contact_Auto,contName,
-        VstDate,vstTypeName,VstAddr,VstAim,Remark,IsVsted,CUser
+        VstDate,vstTypeName,VstAddr,VstAim,Remark,IsVsted,CUser,VstType,
+        saleName=(select FName from v_Emp where User_Auto=CUser)
         into #tvisitPlans2
         from #visitPlans
         where
