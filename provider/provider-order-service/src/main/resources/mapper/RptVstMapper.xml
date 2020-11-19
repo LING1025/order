@@ -28,12 +28,13 @@
     <result column="MUser" jdbcType="INTEGER" property="mUser" />
     <result column="MCDT" jdbcType="TIMESTAMP" property="mcDT" />
     <result column="GPS_ID" jdbcType="INTEGER" property="gpsId" />
+    <result column="img1" jdbcType="VARCHAR" property="img1" />
   </resultMap>
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
     RptVst_Auto, TradeItem_Auto, Visit_Auto, VstType, VstDT, VstAddr, Fee, OutComing,
     Aim, Summary, Detail, Thought, Remark, CUser, CDT, NextVstDT, [Status], CustSource,
-    SignMap, SignLongitude, SignLatitude, MUser, MCDT, GPS_ID
+    SignMap, SignLongitude, SignLatitude, MUser, MCDT, GPS_ID, img1
   </sql>
   <resultMap id="queryByTrip" extends="BaseResultMap" type="com.funtl.myshop.plus.provider.domain.TripRecorderList">
     <result column="RptVstFlow_Auto" jdbcType="BIGINT" property="rptVstFlowAuto" />

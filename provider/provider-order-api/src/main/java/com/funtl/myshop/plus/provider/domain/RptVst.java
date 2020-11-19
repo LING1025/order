@@ -142,5 +142,8 @@ public class RptVst implements Serializable {
     @Column(name = "GPS_ID")
     private Integer gpsId;
 
+    @Column(name = "img1")
+    private String img1;
+
     private static final long serialVersionUID = 1L;
 }
