@@ -317,7 +317,7 @@ public class ClientController {
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "保存成功", null);
     }
 
-    @ApiOperation(value = "CRM:编辑行程报告数据(此接口如要测试请联系后端)")
+    /*@ApiOperation(value = "CRM:编辑行程报告数据(此接口如要测试请联系后端)")
     @PutMapping(value = "updateCrmDetail")
     public ResponseResult<String> updateCrmDetail(@ApiParam(value = "CRM:编辑行程报告数据") @Valid @RequestBody CrmDetailParamDto crmDetailParamDto){
         if (crmDetailParamDto.getRptVstAuto() == 0){
@@ -332,6 +332,6 @@ public class ClientController {
             return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "修改失败", null);
         }
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "修改成功", null);
-    }
+    }*/
 
 }

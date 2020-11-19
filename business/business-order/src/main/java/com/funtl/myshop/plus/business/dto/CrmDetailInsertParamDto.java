@@ -74,12 +74,12 @@ public class CrmDetailInsertParamDto implements Serializable {
     @ApiModelProperty(value = "业代序号")
     private Integer salesAuto;
 
-    @ApiModelProperty(value = "图片1")
-    private String img1;
-
     @ApiModelProperty(value = "经度")
     private String signLongitude;
 
     @ApiModelProperty(value = "纬度")
     private String signLatitude;
+
+    @ApiModelProperty(value = "图片1")
+    private String img1;
 }
