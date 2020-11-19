@@ -233,7 +233,6 @@ public class ClientController {
         visitPlan.setCuser(crmArrangeParamDto.getSalesAuto());
         //联系人t1.Contact_Auto=t4.ContectType
         visitPlan.setContactAuto(crmArrangeParamDto.getContectType().toString());
-        visitPlan.setVstAddr(crmArrangeParamDto.getVstProvince()+crmArrangeParamDto.getVstCity()+crmArrangeParamDto.getVstArea()+crmArrangeParamDto.getVstAddr());
         visitPlan.setCdt(new Date());
         //拜访时间：拜访日期加具体时间
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
@@ -261,7 +260,6 @@ public class ClientController {
         BeanUtils.copyProperties(crmArrangeParamDto,visitPlan);
         visitPlan.setAddrStreet(crmArrangeParamDto.getAddrArea());
         visitPlan.setMuser(crmArrangeParamDto.getSalesAuto().longValue());
-        visitPlan.setVstAddr(crmArrangeParamDto.getVstProvince()+crmArrangeParamDto.getVstCity()+crmArrangeParamDto.getVstArea()+crmArrangeParamDto.getVstAddr());
         visitPlan.setMdt(new Date());
         //拜访时间：拜访日期加具体时间
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
