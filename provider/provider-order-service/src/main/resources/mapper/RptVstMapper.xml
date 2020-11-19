@@ -151,7 +151,8 @@ end
         a.NextVstDT,
         a.Aim,a.Summary,a.Detail,a.Thought,a.Remark
         from RptVst a
-        left join Contect d on a.TradeItem_Auto=d.TradeItem_Auto
+        left join VisitPlan i on a.Visit_Auto=i.Visit_Auto
+        left join Contect d on a.TradeItem_Auto=d.TradeItem_Auto and i.Contact_Auto = d.ContectType
         left join TradeItem c on a.TradeItem_Auto=c.TradeItem_Auto
         left join ItemCode f on f.ItemType=1042 and f.Num = a.VstType
         left join ItemCode e on e.ItemType=1043 and e.Num = a.OutComing
