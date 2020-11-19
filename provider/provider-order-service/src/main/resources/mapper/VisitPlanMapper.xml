@@ -68,6 +68,9 @@
         <result column="vstTypeName" jdbcType="VARCHAR" property="vstTypeName"/>
         <result column="sno" jdbcType="INTEGER" property="sno"/>
         <result column="saleName" jdbcType="VARCHAR" property="saleName"/>
+        <result column="addrProvince" jdbcType="BIGINT" property="addrProvince"/>
+        <result column="addrCity" jdbcType="BIGINT" property="addrCity"/>
+        <result column="addrArea" jdbcType="BIGINT" property="addrArea"/>
     </resultMap>
     <select id="selectCrmArrangeDto" resultMap="queryCrmArrangeDto">
 declare
@@ -102,6 +105,7 @@ declare
         t1.IsVsted, isnull(t1.CUser, 0) as CUser,
         Status = isnull(t1.Status,0),
         t1.VstType
+        ,t1.Addr_Province as addrProvince,t1.Addr_City as addrCity,t1.Addr_Street as addrArea
         from VisitPlan t1
         inner join CRM_Customer t3 on t1.TradeItem_Auto=t3.TradeItem_Auto
         inner join Contect t4  on t1.TradeItem_Auto=t4.TradeItem_Auto and t1.Contact_Auto=t4.ContectType
@@ -116,6 +120,7 @@ declare
         Visit_Auto,TradeItem_Auto,compName,Contact_Auto,contName,
         VstDate,vstTypeName,VstAddr,VstAim,Remark,IsVsted,CUser,VstType,
         saleName=(select FName from v_Emp where User_Auto=CUser)
+        ,addrProvince,addrCity,addrArea
         into #tvisitPlan
         from #visitPlan
         where
@@ -129,6 +134,7 @@ declare
         Visit_Auto,TradeItem_Auto,compName,Contact_Auto,contName,
         VstDate,vstTypeName,VstAddr,VstAim,Remark,IsVsted,CUser,VstType,
         saleName=(select FName from v_Emp where User_Auto=CUser)
+        ,addrProvince,addrCity,addrArea
         into #tvisitPlan2
         from #visitPlan
         where
@@ -159,6 +165,7 @@ declare
         t1.IsVsted, isnull(t1.CUser, 0) as CUser,
         Status = isnull(t1.Status,0),
         t1.VstType
+        ,t1.Addr_Province as addrProvince,t1.Addr_City as addrCity,t1.Addr_Street as addrArea
         from VisitPlan t1
         inner join CRM_Customer t3 on t1.TradeItem_Auto=t3.TradeItem_Auto
         inner join Contect t4  on t1.TradeItem_Auto=t4.TradeItem_Auto and t1.Contact_Auto=t4.ContectType
@@ -173,6 +180,7 @@ declare
         Visit_Auto,TradeItem_Auto,compName,Contact_Auto,contName,
         VstDate,vstTypeName,VstAddr,VstAim,Remark,IsVsted,CUser,VstType,
         saleName=(select FName from v_Emp where User_Auto=CUser)
+        ,addrProvince,addrCity,addrArea
         into #tvisitPlans
         from #visitPlans
         where
@@ -186,6 +194,7 @@ declare
         Visit_Auto,TradeItem_Auto,compName,Contact_Auto,contName,
         VstDate,vstTypeName,VstAddr,VstAim,Remark,IsVsted,CUser,VstType,
         saleName=(select FName from v_Emp where User_Auto=CUser)
+        ,addrProvince,addrCity,addrArea
         into #tvisitPlans2
         from #visitPlans
         where

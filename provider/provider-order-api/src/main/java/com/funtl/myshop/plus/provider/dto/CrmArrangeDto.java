@@ -59,4 +59,13 @@ public class CrmArrangeDto implements Serializable {
 
     @ApiModelProperty(value = "活动内容序号")
     private Integer vstType;
+
+    @ApiModelProperty(value = "省编码")
+    private Long addrProvince;
+
+    @ApiModelProperty(value = "市编码")
+    private Long addrCity;
+
+    @ApiModelProperty(value = "区编码")
+    private Long addrArea;
 }
