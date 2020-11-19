@@ -257,6 +257,9 @@ public class ClientController {
         if (visitPlan == null){
             return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "此拜访信息不存在", null);
         }
+        if (visitPlan.getIsVsted() == true){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "已拜访信息不可编辑", null);
+        }
         BeanUtils.copyProperties(crmArrangeParamDto,visitPlan);
         visitPlan.setAddrStreet(crmArrangeParamDto.getAddrArea());
         visitPlan.setMuser(crmArrangeParamDto.getSalesAuto().longValue());
