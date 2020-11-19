@@ -25,6 +25,9 @@ public class CrmDetail implements Serializable {
     @ApiModelProperty(value = "客户名称")
     private String customerName;
 
+    @ApiModelProperty(value = "客户来源序号")
+    private Integer custSource;
+
     @ApiModelProperty(value = "客户来源")
     private String custSourceName;
 
