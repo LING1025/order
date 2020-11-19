@@ -50,6 +50,12 @@ spring:
             - Path=/api/wxUser/**
           filters:
             - StripPrefix=1
+        - id: BUSINESS-WXUSER
+          uri: lb://business-wxUser
+          predicates:
+            - Path=/api/upload/**
+          filters:
+            - StripPrefix=1
         - id: BUSINESS-ORDER
           uri: lb://business-order
           predicates:
