@@ -1,5 +1,8 @@
 package com.funtl.myshop.plus.business.controller;
 
+import com.funtl.myshop.plus.business.BusinessStatus;
+import com.funtl.myshop.plus.business.dto.FileInfo;
+import com.funtl.myshop.plus.commons.dto.ResponseResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -26,7 +29,7 @@ public class UploadController {
 
     @ApiOperation(value = "上传图片")
     @PostMapping(value = "picture")
-    public String uploadPicture(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    public ResponseResult<FileInfo> uploadPicture(HttpServletRequest request, HttpServletResponse response) throws Exception {
         String filePath = "";
         request.setCharacterEncoding("utf-8"); //设置编码
         String realPath = request.getSession().getServletContext().getRealPath("/uploadFile/");
@@ -60,6 +63,6 @@ public class UploadController {
         } catch (Exception e) {
             logger.error("", e);
         }
-        return filePath;
+        return new ResponseResult<>(BusinessStatus.OK.getCode(), "文件上传成功", new FileInfo(filePath));
     }
 }
