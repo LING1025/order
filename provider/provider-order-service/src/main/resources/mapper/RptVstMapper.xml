@@ -29,12 +29,21 @@
     <result column="MCDT" jdbcType="TIMESTAMP" property="mcDT" />
     <result column="GPS_ID" jdbcType="INTEGER" property="gpsId" />
     <result column="img1" jdbcType="VARCHAR" property="img1" />
+    <result column="img2" jdbcType="VARCHAR" property="img2" />
+    <result column="img3" jdbcType="VARCHAR" property="img3" />
+    <result column="img4" jdbcType="VARCHAR" property="img4" />
+    <result column="img5" jdbcType="VARCHAR" property="img5" />
+    <result column="img6" jdbcType="VARCHAR" property="img6" />
+    <result column="img7" jdbcType="VARCHAR" property="img7" />
+    <result column="img8" jdbcType="VARCHAR" property="img8" />
+    <result column="img9" jdbcType="VARCHAR" property="img9" />
   </resultMap>
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
     RptVst_Auto, TradeItem_Auto, Visit_Auto, VstType, VstDT, VstAddr, Fee, OutComing,
     Aim, Summary, Detail, Thought, Remark, CUser, CDT, NextVstDT, [Status], CustSource,
-    SignMap, SignLongitude, SignLatitude, MUser, MCDT, GPS_ID, img1
+    SignMap, SignLongitude, SignLatitude, MUser, MCDT, GPS_ID, img1,img2,img3,img4,img5,
+    img6,img7,img8,img9
   </sql>
   <resultMap id="queryByTrip" extends="BaseResultMap" type="com.funtl.myshop.plus.provider.domain.TripRecorderList">
     <result column="RptVstFlow_Auto" jdbcType="BIGINT" property="rptVstFlowAuto" />

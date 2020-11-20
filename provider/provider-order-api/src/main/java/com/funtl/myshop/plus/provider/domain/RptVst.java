@@ -3,6 +3,8 @@ package com.funtl.myshop.plus.provider.domain;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.persistence.Column;
@@ -144,6 +146,30 @@ public class RptVst implements Serializable {
 
     @Column(name = "img1")
     private String img1;
+
+    @Column(name = "img2")
+    private String img2;
+
+    @Column(name = "img3")
+    private String img3;
+
+    @Column(name = "img4")
+    private String img4;
+
+    @Column(name = "img5")
+    private String img5;
+
+    @Column(name = "img6")
+    private String img6;
+
+    @Column(name = "img7")
+    private String img7;
+
+    @Column(name = "img8")
+    private String img8;
+
+    @Column(name = "img9")
+    private String img9;
 
     private static final long serialVersionUID = 1L;
 }
