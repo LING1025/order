@@ -37,13 +37,14 @@
     <result column="img7" jdbcType="VARCHAR" property="img7" />
     <result column="img8" jdbcType="VARCHAR" property="img8" />
     <result column="img9" jdbcType="VARCHAR" property="img9" />
+    <result column="vstRealAddr" jdbcType="VARCHAR" property="vstRealAddr" />
   </resultMap>
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
     RptVst_Auto, TradeItem_Auto, Visit_Auto, VstType, VstDT, VstAddr, Fee, OutComing,
     Aim, Summary, Detail, Thought, Remark, CUser, CDT, NextVstDT, [Status], CustSource,
     SignMap, SignLongitude, SignLatitude, MUser, MCDT, GPS_ID, img1,img2,img3,img4,img5,
-    img6,img7,img8,img9
+    img6,img7,img8,img9,vstRealAddr
   </sql>
   <resultMap id="queryByTrip" extends="BaseResultMap" type="com.funtl.myshop.plus.provider.domain.TripRecorderList">
     <result column="RptVstFlow_Auto" jdbcType="BIGINT" property="rptVstFlowAuto" />

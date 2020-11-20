@@ -171,5 +171,8 @@ public class RptVst implements Serializable {
     @Column(name = "img9")
     private String img9;
 
+    @Column(name = "vstRealAddr")
+    private String vstRealAddr;
+
     private static final long serialVersionUID = 1L;
 }
