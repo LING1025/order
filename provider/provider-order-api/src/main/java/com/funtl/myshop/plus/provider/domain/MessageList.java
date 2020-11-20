@@ -38,7 +38,7 @@ public class MessageList implements Serializable {
     private BigDecimal ordersFeeAmt;
 
     @ApiModelProperty(value = "请款日期")
-    @JsonFormat(pattern = "yyyy/MM/dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date requestDT;
 
     @ApiModelProperty(value = "请款金额")
@@ -57,8 +57,8 @@ public class MessageList implements Serializable {
     private String statusD;
 
     @ApiModelProperty(value = "业绩日")
-    @JsonFormat(pattern = "yyyy/MM/dd")
-    private Date yjCDT;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private Date yjcDT;
 
     @JsonIgnore
     private Integer type;
@@ -73,7 +73,7 @@ public class MessageList implements Serializable {
     private String carNO;
 
     @ApiModelProperty(value = "领牌日期")
-    @JsonFormat(pattern = "yyyy/MM/dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date makDT;
 
     @ApiModelProperty(value = "请款备注")

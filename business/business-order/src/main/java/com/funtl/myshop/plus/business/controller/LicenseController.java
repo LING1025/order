@@ -30,8 +30,8 @@ public class LicenseController {
             @ApiImplicitParam(name = "month", value = "月份", required = false, dataType = "int", paramType = "path"),
             @ApiImplicitParam(name = "searchWord", value = "输入查询条件", required = false, dataType = "String", paramType = "path")
     })
-    @GetMapping(value = "queryMessageList")
-    public ResponseResult<List<MessageList>> queryMessageList(@RequestParam(name = "type", required = false)Integer type,
+    @GetMapping(value = "queryMessages")
+    public ResponseResult<List<MessageList>> queryMessages(@RequestParam(name = "type", defaultValue = "0")Integer type,
                                                               @RequestParam(name = "year", required = false)Integer year,
                                                               @RequestParam(name = "month", required = false)Integer month,
                                                               @RequestParam(name = "searchWord", required = false)String searchWord){

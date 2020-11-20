@@ -224,7 +224,7 @@
         <result column="RequestDT" jdbcType="TIMESTAMP" property="requestDT"/>
         <result column="OrdersFeeRequest_Auto" jdbcType="BIGINT" property="ordersFeeRequestAuto"/>
 <!--        <result column="Remark" jdbcType="VARCHAR" property="remark"/>-->
-        <result column="YJCDT" jdbcType="TIMESTAMP" property="yjCDT"/>
+        <result column="YJCDT" jdbcType="TIMESTAMP" property="yjcDT"/>
 <!--        <result column="MakDT" jdbcType="TIMESTAMP" property="makDT"/>-->
 <!--        <result column="CarNo" jdbcType="VARCHAR" property="carNO"/>-->
         <result column="Type" jdbcType="INTEGER" property="type"/>
@@ -234,11 +234,11 @@
     </resultMap>
     <select id="selectMessageList" resultMap="queryMessageList">
         declare
-        @type int,
+        @Type int,
         @YY int,
         @MM int,
         @SearchWord nvarchar(1000)
-        set @type=#{param.type}
+        set @Type=#{param.type}
         set @YY=#{param.year}
         set @MM=#{param.month}
         set @SearchWord=#{param.searchWord}
@@ -307,10 +307,12 @@
         ,OrdersFeeAmt=isnull((select isnull(sum(isnull(a.FeeAmt,0)),0) from OrdersFee a where a.Orders_Auto=t1.Orders_Auto and a.FeeType_Auto=1 group by a.Orders_Auto),0)
         ,RequestAmt=isnull(t8.RequestAmt,0),Status=isnull(t8.Status,-1)
         ,StatusD=case isnull(t8.Status,-1) when -1 then '未请款' when 0 then '暂存' when 10 then '送件' when '20' then '核准' when 5 then '驳回' end
-        ,RequestDT=isnull(convert(nvarchar(20),t8.RequestDT,111),null)
+        --,RequestDT=isnull(convert(nvarchar(20),t8.RequestDT,111),null)
+        ,RequestDT=isnull(t8.RequestDT,null)
         ,OrdersFeeRequest_Auto=isnull(t8.OrdersFeeRequest_Auto,0)
         --,Remark=isnull(t8.Remark,'')
-        ,YJCDT=convert(nvarchar(20),t1.YJCDT,111)
+        --,YJCDT=convert(nvarchar(20),t1.YJCDT,111)
+        ,YJCDT=isnull(t1.YJCDT,null)
         --,Is_GPS=isnull(t8.Is_GPS,0),Is_GPS_D=case isnull(t8.Is_GPS,0) when 0 then '未维护' when 1 then '否' when 2 then '是' end
         --,MakDT=case t3.MakDT when null then '' else convert(nvarchar(20),t3.MakDT,111) end,t3.CarNo
         ,Type=isnull(t8.Type,-1),TypeD=case isnull(t8.Type,-1) when -1 then '' when 0 then '请款' when 1 then '销账' end
@@ -335,7 +337,9 @@
         ,OrdersFeeAmt=isnull((select isnull(sum(isnull(a.FeeAmt,0)),0) from OrdersFee a where a.Orders_Auto=t1.Orders_Auto and a.FeeType_Auto not in(2,16,32) group by a.Orders_Auto),0)
         ,RequestAmt=0,Status=-1,StatusD='未请款',RequestDT=null
         ,OrdersFeeRequest_Auto=0,Remark='',YJCDT=convert(nvarchar(20),t1.YJCDT,111),Is_GPS=0,Is_GPS_D=' '
-        ,MakDT=case t9.MakDT when null then '' else convert(nvarchar(20),t9.MakDT,111) end,t9.CreditMain_Auto,t3.CarNo
+        --,MakDT=case t9.MakDT when null then '' else convert(nvarchar(20),t9.MakDT,111) end
+        ,MakDT=case t9.MakDT when null then '' else t9.MakDT end
+        ,t9.CreditMain_Auto,t3.CarNo
         ,Type=-1,TypeD=''
         into #a
         from LicensingApply t9
