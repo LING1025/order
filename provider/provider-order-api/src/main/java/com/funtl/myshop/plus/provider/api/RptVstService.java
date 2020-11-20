@@ -33,7 +33,7 @@ public interface RptVstService{
      * @param rptVstAuto
      * @return
      */
-    CrmDetail selectByRptVstAuto(Long rptVstAuto);
+    CrmDetail selectByRptVstAuto(Long rptVstAuto,String contName);
 
     /**
      * 编辑CRM行程报告具体数据

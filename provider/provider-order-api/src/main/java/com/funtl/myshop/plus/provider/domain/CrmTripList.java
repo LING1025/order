@@ -32,4 +32,10 @@ public class CrmTripList implements Serializable {
 
     @ApiModelProperty(value = "客户序号")
     private Long tradeItemAuto;
+
+    @ApiModelProperty(value = "客户名称")
+    private String customerName;
+
+    @ApiModelProperty(value = "联系人姓名")
+    private String contName;
 }

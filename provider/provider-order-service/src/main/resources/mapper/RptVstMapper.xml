@@ -118,14 +118,20 @@ end
         <result column="VstDT" jdbcType="TIMESTAMP" property="vstDT" />
         <result column="VstAddr" jdbcType="VARCHAR" property="vstAddr" />
         <result column="vstTypeName" jdbcType="VARCHAR" property="vstTypeName" />
+        <result column="customerName" jdbcType="VARCHAR" property="customerName" />
+        <result column="contName" jdbcType="VARCHAR" property="contName" />
     </resultMap>
     <select id="selectCrmTripList" resultMap="queryCrmTripList">
         select
         a.Visit_Auto,a.vstType,a.vstAddr,
         a.VstDT,a.RptVst_Auto,a.TradeItem_Auto,
         d.ItemName vstTypeName
-	    from
-	    RptVst a
+        ,c.FName customerName
+        ,e.Title contName
+        from
+        RptVst a
+        left join VisitPlan i on a.Visit_Auto=i.Visit_Auto and a.TradeItem_Auto = i.TradeItem_Auto
+        left join Contect e on a.TradeItem_Auto=e.TradeItem_Auto and i.Contact_Auto = e.ContectType
 	    left join TradeItem c on a.TradeItem_Auto=c.TradeItem_Auto
 	    left join v_Emp  b on b.User_Auto = a.CUser
         left join ItemCode d on d.ItemType=1042 and d.Num = a.VstType
@@ -167,7 +173,10 @@ end
         left join ItemCode f on f.ItemType=1042 and f.Num = a.VstType
         left join ItemCode e on e.ItemType=1043 and e.Num = a.OutComing
         left join ItemCode h on h.ItemType=313 and h.Num = a.CustSource and h.V1 > 0
-        where a.RptVst_Auto=#{rptVstAuto}
+        where
+        d.Title = #{contName}
+        AND
+        a.RptVst_Auto=#{rptVstAuto}
     </select>
     <resultMap id="queryCustomerNameSelect" extends="BaseResultMap" type="com.funtl.myshop.plus.provider.domain.CustomerNameSelect">
         <result column="FName" jdbcType="VARCHAR" property="customerName" />
