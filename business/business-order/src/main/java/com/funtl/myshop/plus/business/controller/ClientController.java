@@ -319,9 +319,9 @@ public class ClientController {
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "保存成功", null);
     }
 
-    /*@ApiOperation(value = "CRM:编辑行程报告数据(此接口如要测试请联系后端)")
+    @ApiOperation(value = "CRM:行程记录打卡(此接口如要测试请联系后端)")
     @PutMapping(value = "updateCrmDetail")
-    public ResponseResult<String> updateCrmDetail(@ApiParam(value = "CRM:编辑行程报告数据") @Valid @RequestBody CrmDetailParamDto crmDetailParamDto){
+    public ResponseResult<String> updateCrmDetail(@ApiParam(value = "CRM:行程记录打卡数据") @Valid @RequestBody CrmDetailParamDto crmDetailParamDto){
         if (crmDetailParamDto.getRptVstAuto() == 0){
             return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "参数异常", null);
         }
@@ -331,9 +331,9 @@ public class ClientController {
         rptVst.setMcDT(new Date());
         Integer i = rptVstService.update(rptVst);
         if (i == 0){
-            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "修改失败", null);
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "保存失败", null);
         }
-        return new ResponseResult<>(ResponseResult.CodeStatus.OK, "修改成功", null);
-    }*/
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK, "保存成功", null);
+    }
 
 }
