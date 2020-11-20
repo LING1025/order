@@ -25,30 +25,6 @@ public class CrmDetailParamDto implements Serializable {
     @ApiModelProperty(value = "图片1")
     private String img1;
 
-    @ApiModelProperty(value = "图片2")
-    private String img2;
-
-    @ApiModelProperty(value = "图片3")
-    private String img3;
-
-    @ApiModelProperty(value = "图片4")
-    private String img4;
-
-    @ApiModelProperty(value = "图片5")
-    private String img5;
-
-    @ApiModelProperty(value = "图片6")
-    private String img6;
-
-    @ApiModelProperty(value = "图片7")
-    private String img7;
-
-    @ApiModelProperty(value = "图片8")
-    private String img8;
-
-    @ApiModelProperty(value = "图片9")
-    private String img9;
-
     @ApiModelProperty(value = "具体地址")
     private String vstRealAddr;
 }
