@@ -63,6 +63,6 @@ public class UploadController {
         } catch (Exception e) {
             logger.error("", e);
         }
-        return new ResponseResult<>(BusinessStatus.OK.getCode(), "文件上传成功", new FileInfo(filePath));
+        return new ResponseResult<>(BusinessStatus.OK.getCode(), "图片上传成功", new FileInfo(filePath));
     }
 }
