@@ -243,7 +243,7 @@ public class ClientController {
         Long i = visitPlanService.insert(visitPlan);
         if (i != 0){
 //            Long visitId = visitPlan.getVisitId();
-            return new ResponseResult<>(ResponseResult.CodeStatus.OK, "新插入数据的visitId：", i);
+            return new ResponseResult<>(ResponseResult.CodeStatus.OK, "新插入数据的visitId", i);
         }
         return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "保存失败", null);
     }
@@ -307,16 +307,16 @@ public class ClientController {
 
     @ApiOperation(value = "CRM:行程记录打卡(此接口如要测试请联系后端)")
     @PostMapping(value = "insertCrmDetail")
-    public ResponseResult<String> insertCrmDetail(@ApiParam(value = "CRM:行程记录打卡数据") @Valid @RequestBody CrmDetailInsertParamDto crmDetailInsertParamDto){
+    public ResponseResult<Long> insertCrmDetail(@ApiParam(value = "CRM:行程记录打卡数据") @Valid @RequestBody CrmDetailInsertParamDto crmDetailInsertParamDto){
         RptVst rptVst = new RptVst();
         BeanUtils.copyProperties(crmDetailInsertParamDto,rptVst);
         rptVst.setCUser(crmDetailInsertParamDto.getSalesAuto());
         rptVst.setCdt(new Date());
-        Integer i = rptVstService.insert(rptVst);
+        Long i = rptVstService.insert(rptVst);
         if (i == 0){
             return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "保存失败", null);
         }
-        return new ResponseResult<>(ResponseResult.CodeStatus.OK, "保存成功", null);
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK, "新插入数据的rptVstAuto", i);
     }
 
     @ApiOperation(value = "CRM:行程报告提交(此接口如要测试请联系后端)")

@@ -68,5 +68,5 @@ public interface RptVstService{
      * @param rptVst
      * @return
      */
-    Integer insert(RptVst rptVst);
+    Long insert(RptVst rptVst);
 }

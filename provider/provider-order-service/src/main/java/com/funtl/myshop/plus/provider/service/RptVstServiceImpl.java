@@ -57,8 +57,9 @@ public class RptVstServiceImpl implements RptVstService{
     }
 
     @Override
-    public Integer insert(RptVst rptVst) {
-        return rptVstMapper.insertSelective(rptVst);
+    public Long insert(RptVst rptVst) {
+        Integer i = rptVstMapper.insertUseGeneratedKeys(rptVst);
+        return i == 1 ? rptVst.getRptVstAuto() : 0;
     }
 
 }
