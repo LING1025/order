@@ -305,9 +305,9 @@ public class ClientController {
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "删除成功", null);
     }
 
-    @ApiOperation(value = "CRM:新增行程报告数据(此接口如要测试请联系后端)")
+    @ApiOperation(value = "CRM:行程记录打卡(此接口如要测试请联系后端)")
     @PostMapping(value = "insertCrmDetail")
-    public ResponseResult<String> insertCrmDetail(@ApiParam(value = "CRM:新增行程报告数据") @Valid @RequestBody CrmDetailInsertParamDto crmDetailInsertParamDto){
+    public ResponseResult<String> insertCrmDetail(@ApiParam(value = "CRM:行程记录打卡数据") @Valid @RequestBody CrmDetailInsertParamDto crmDetailInsertParamDto){
         RptVst rptVst = new RptVst();
         BeanUtils.copyProperties(crmDetailInsertParamDto,rptVst);
         rptVst.setCUser(crmDetailInsertParamDto.getSalesAuto());
@@ -319,9 +319,9 @@ public class ClientController {
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "保存成功", null);
     }
 
-    @ApiOperation(value = "CRM:行程记录打卡(此接口如要测试请联系后端)")
+    @ApiOperation(value = "CRM:行程报告提交(此接口如要测试请联系后端)")
     @PutMapping(value = "updateCrmDetail")
-    public ResponseResult<String> updateCrmDetail(@ApiParam(value = "CRM:行程记录打卡数据") @Valid @RequestBody CrmDetailParamDto crmDetailParamDto){
+    public ResponseResult<String> updateCrmDetail(@ApiParam(value = "CRM:行程报告提交数据") @Valid @RequestBody CrmDetailParamDto crmDetailParamDto){
         if (crmDetailParamDto.getRptVstAuto() == 0){
             return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "参数异常", null);
         }
