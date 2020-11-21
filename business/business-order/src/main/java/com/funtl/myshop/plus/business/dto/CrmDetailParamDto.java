@@ -52,8 +52,8 @@ public class CrmDetailParamDto implements Serializable {
     @ApiModelProperty(value = "进度序号")
     private Integer outComing;
 
-    @ApiModelProperty(value = "预计下次拜访日期yyyy-MM-dd HH:mm:ss")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @ApiModelProperty(value = "预计下次拜访日期yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date nextVstDT;
 
     @ApiModelProperty(value = "达成目标")

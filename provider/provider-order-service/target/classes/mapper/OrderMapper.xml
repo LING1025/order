@@ -333,7 +333,7 @@
         select t1.Order_Auto,t3.MakNo,ClasenName=isnull(t4.ClasenName,''),CusName=t5.FName
         ,SalesName=isnull(t6.FName,''),IncName=ISNULL(t7.SName,'')
         ,OrdersFeeAmt=isnull((select isnull(sum(isnull(a.FeeAmt,0)),0) from OrdersFee a where a.Orders_Auto=t1.Orders_Auto and a.FeeType_Auto not in(2,16,32) group by a.Orders_Auto),0)
-        ,RequestAmt=0,Status=-1,StatusD='未请款',RequestDT=null
+        ,RequestAmt=0,Status=-1,StatusD='未请款'
         ,OrdersFeeRequest_Auto=0,Remark=''
         ,YJCDT=isnull(t1.YJCDT,null)
         ,MakDT=isnull(t3.MakDT,'')
