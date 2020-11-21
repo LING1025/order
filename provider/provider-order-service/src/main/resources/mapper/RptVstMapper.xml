@@ -135,7 +135,7 @@ end
         <if test="userAuto != null and userAuto != ''">
             AND a.CUser = #{userAuto}
         </if>
-	    order by a.Visit_Auto
+	    order by a.Visit_Auto desc
     </select>
     <resultMap id="queryByRptVstAuto" extends="BaseResultMap" type="com.funtl.myshop.plus.provider.domain.CrmDetail">
         <result column="customerName" jdbcType="VARCHAR" property="customerName" />
