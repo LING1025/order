@@ -223,10 +223,10 @@
         <result column="StatusD" jdbcType="VARCHAR" property="statusD"/>
         <result column="RequestDT" jdbcType="TIMESTAMP" property="requestDT"/>
         <result column="OrdersFeeRequest_Auto" jdbcType="BIGINT" property="ordersFeeRequestAuto"/>
-<!--        <result column="Remark" jdbcType="VARCHAR" property="remark"/>-->
+        <result column="Remark" jdbcType="VARCHAR" property="remark"/>
         <result column="YJCDT" jdbcType="TIMESTAMP" property="yjcDT"/>
-<!--        <result column="MakDT" jdbcType="TIMESTAMP" property="makDT"/>-->
-<!--        <result column="CarNo" jdbcType="VARCHAR" property="carNO"/>-->
+        <result column="MakDT" jdbcType="TIMESTAMP" property="makDT"/>
+        <result column="CarNo" jdbcType="VARCHAR" property="carNO"/>
         <result column="Type" jdbcType="INTEGER" property="type"/>
         <result column="TypeD" jdbcType="VARCHAR" property="typeD"/>
         <result column="ZJAmt" jdbcType="DECIMAL" property="zJAmt"/>
@@ -299,22 +299,20 @@
         and t1.CarBase_Auto=t2.CarBase_Auto
         and (t2.CarNo like @SearchWord or @SearchWord='')
         end
+
         if(@Type=0 or @Type=1 or @Type=2 or @Type=6)
         begin
         select t1.Order_Auto,t3.MakNo,ClasenName=isnull(t4.ClasenName,''),CusName=t5.FName
         ,SalesName=isnull(t6.FName,''),IncName=ISNULL(t7.SName,'')
-        --,OrdersFeeAmt=isnull((select isnull(sum(isnull(a.FeeAmt,0)),0) from OrdersFee a where a.Orders_Auto=t1.Orders_Auto and a.FeeType_Auto not in(2,16,32) group by a.Orders_Auto),0)
         ,OrdersFeeAmt=isnull((select isnull(sum(isnull(a.FeeAmt,0)),0) from OrdersFee a where a.Orders_Auto=t1.Orders_Auto and a.FeeType_Auto=1 group by a.Orders_Auto),0)
         ,RequestAmt=isnull(t8.RequestAmt,0),Status=isnull(t8.Status,-1)
         ,StatusD=case isnull(t8.Status,-1) when -1 then '未请款' when 0 then '暂存' when 10 then '送件' when '20' then '核准' when 5 then '驳回' end
-        --,RequestDT=isnull(convert(nvarchar(20),t8.RequestDT,111),null)
         ,RequestDT=isnull(t8.RequestDT,null)
         ,OrdersFeeRequest_Auto=isnull(t8.OrdersFeeRequest_Auto,0)
-        --,Remark=isnull(t8.Remark,'')
-        --,YJCDT=convert(nvarchar(20),t1.YJCDT,111)
+        ,Remark=isnull(t8.Remark,'')
         ,YJCDT=isnull(t1.YJCDT,null)
-        --,Is_GPS=isnull(t8.Is_GPS,0),Is_GPS_D=case isnull(t8.Is_GPS,0) when 0 then '未维护' when 1 then '否' when 2 then '是' end
-        --,MakDT=case t3.MakDT when null then '' else convert(nvarchar(20),t3.MakDT,111) end,t3.CarNo
+        ,MakDT=isnull(t3.MakDT,'')
+        ,t3.CarNo
         ,Type=isnull(t8.Type,-1),TypeD=case isnull(t8.Type,-1) when -1 then '' when 0 then '请款' when 1 then '销账' end
         ,ZJAmt=case when isnull(t8.OrdersFeeRequest_Auto,0)=0 then isnull((select sum(a.ZJAmt) from ZanJie a,Credit_Order b  where a.CreditMain_Auto=b.CreditMain_Auto and a.ZJ_Type=18 and a.FeeType_Auto=1 and a.Status not in(5,-1) and b.Orders_Auto=t1.orders_auto  group by a.CreditMain_Auto),0) else isnull(t8.ZJAmt,0) end
         ,XZAmt=isnull(t8.XZAmt,0)
@@ -335,10 +333,10 @@
         select t1.Order_Auto,t3.MakNo,ClasenName=isnull(t4.ClasenName,''),CusName=t5.FName
         ,SalesName=isnull(t6.FName,''),IncName=ISNULL(t7.SName,'')
         ,OrdersFeeAmt=isnull((select isnull(sum(isnull(a.FeeAmt,0)),0) from OrdersFee a where a.Orders_Auto=t1.Orders_Auto and a.FeeType_Auto not in(2,16,32) group by a.Orders_Auto),0)
-        ,RequestAmt=0,Status=-1,StatusD='未请款',RequestDT=null
-        ,OrdersFeeRequest_Auto=0,Remark='',YJCDT=convert(nvarchar(20),t1.YJCDT,111),Is_GPS=0,Is_GPS_D=' '
-        --,MakDT=case t9.MakDT when null then '' else convert(nvarchar(20),t9.MakDT,111) end
-        ,MakDT=case t9.MakDT when null then '' else t9.MakDT end
+        ,RequestAmt=0,Status=-1,StatusD='未请款'
+        ,OrdersFeeRequest_Auto=0,Remark=''
+        ,YJCDT=isnull(t1.YJCDT,null)
+        ,MakDT=isnull(t3.MakDT,'')
         ,t9.CreditMain_Auto,t3.CarNo
         ,Type=-1,TypeD=''
         into #a
@@ -352,13 +350,13 @@
         inner join TradeItem t5 on t1.TradeItem_Auto=t5.TradeItem_Auto
         left outer join v_Emp t6 on t6.User_Auto=t1.Sales_Auto
         left outer join Inc t7 on t3.Inc_Auto=t7.Inc_Auto
-        --where t9.Status=4
         order by StatusD,OrdersFeeRequest_Auto
 
         select *
         from #a
         where OrdersFeeAmt>0
         order by StatusD,OrdersFeeRequest_Auto
+        drop table #a
         end
     </select>
 </mapper>

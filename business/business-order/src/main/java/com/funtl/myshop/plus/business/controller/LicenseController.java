@@ -38,7 +38,11 @@ public class LicenseController {
         MessageQueryParam messageQueryParam = new MessageQueryParam(type,year,month,searchWord);
         List<MessageList> lists = orderService.selectMessageList(messageQueryParam);
         if (lists.size() == 0){
-            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "查询条件无数据", null);
+            if (type == 5){
+                return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "查询条件无未请款数据", null);
+            }else {
+                return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "查询条件无数据", null);
+            }
         }
         for (MessageList messageList : lists){
             if (messageList.getStatus() == 0 || messageList.getStatus() == 5){

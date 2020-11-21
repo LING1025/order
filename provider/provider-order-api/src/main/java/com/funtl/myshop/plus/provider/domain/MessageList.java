@@ -69,7 +69,7 @@ public class MessageList implements Serializable {
     @ApiModelProperty(value = "送签 0否 1是 ")
     private Integer ckb;
 
-    /*@ApiModelProperty(value = "车架号")
+    @ApiModelProperty(value = "车架号")
     private String carNO;
 
     @ApiModelProperty(value = "领牌日期")
@@ -77,5 +77,5 @@ public class MessageList implements Serializable {
     private Date makDT;
 
     @ApiModelProperty(value = "请款备注")
-    private String remark;*/
+    private String remark;
 }
