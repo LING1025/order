@@ -43,6 +43,8 @@ public class LicenseController {
         for (MessageList messageList : lists){
             if (messageList.getStatus() == 0 || messageList.getStatus() == 5){
                 messageList.setCkb(1);
+            }else{
+                messageList.setCkb(0);
             }
         }
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", lists);
