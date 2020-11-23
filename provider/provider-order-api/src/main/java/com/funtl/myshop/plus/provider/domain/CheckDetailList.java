@@ -19,7 +19,7 @@ public class CheckDetailList implements Serializable {
     private String accessoryAppPersonName;
 
     @ApiModelProperty(value = "签核意见")
-    private String accessoryAppstatusD;
+    private String accessoryAppStatusD;
 
     @ApiModelProperty(value = "说明")
     private String accessoryAppMemo;

@@ -20,4 +20,24 @@
     AccessaryApp_Auto, Request_Auto, AccessaryAppMemo, AccessaryAppstatus, IsAgent, AccessaryAppType,
     AccessaryAppPerson, AccessaryAppDate, AccessoriesWork_Auto, AccessoriesAppSeq
   </sql>
+  <resultMap id="queryCheckDetailList" extends="BaseResultMap" type="com.funtl.myshop.plus.provider.domain.CheckDetailList">
+    <result column="accessoryAppStatusD" jdbcType="VARCHAR" property="accessoryAppStatusD" />
+    <result column="accessoryAppPersonName" jdbcType="VARCHAR" property="accessoryAppPersonName" />
+    <result column="accessoryAppPersonDept" jdbcType="VARCHAR" property="accessoryAppPersonDept" />
+  </resultMap>
+  <select id="selectCheckDetailList" resultMap="queryCheckDetailList">
+    select
+	t1.AccessoriesAppSeq
+    ,accessoryAppStatusD=case t1.AccessaryAppstatus when 20 then '核准' when 5 then '驳回' end
+    ,accessoryAppPersonName=ISNULL(t2.FName,''),accessoryAppPersonDept=ISNULL(t2.DepName,'')
+	,t1.AccessaryAppMemo
+    from AccessaryApp  t1
+    left outer join v_Emp t2 on t1.AccessaryAppPerson=t2.User_Auto
+    inner join OrdersFeeRequest t3 on t1.Request_Auto=t3.OrdersFeeRequest_Auto
+    where
+	t1.Request_Auto=#{requestAuto}
+	and
+	t1.AccessaryAppType=2
+    order by t1.AccessaryAppDate
+  </select>
 </mapper>
