@@ -1,7 +1,9 @@
 package com.funtl.myshop.plus.business.controller;
 
 import com.funtl.myshop.plus.commons.dto.ResponseResult;
+import com.funtl.myshop.plus.provider.api.AccessaryAppService;
 import com.funtl.myshop.plus.provider.api.OrderService;
+import com.funtl.myshop.plus.provider.domain.CheckDetailList;
 import com.funtl.myshop.plus.provider.domain.MessageList;
 import com.funtl.myshop.plus.provider.domain.ZjDetail;
 import com.funtl.myshop.plus.provider.dto.MessageQueryParam;
@@ -20,6 +22,9 @@ import java.util.List;
 public class LicenseController {
     @Reference(version = "1.0.0")
     private OrderService orderService;
+
+    @Reference(version = "1.0.0")
+    private AccessaryAppService accessaryAppService;
 
     @ApiOperation(value = "上牌费请款：获取讯息列表信息")
     @ApiImplicitParams({
@@ -63,5 +68,13 @@ public class LicenseController {
         ZjDetail zjDetail2 = orderService.selectIsShow(orderAuto);
         zjDetail.setIsShow(zjDetail2.getIsShow());
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", zjDetail);
+    }
+
+    @ApiOperation(value = "上牌费请款：审核明细")
+    @ApiImplicitParam(name = "requestAuto", value = "请款单号", required = true, dataType = "long", paramType = "path")
+    @GetMapping(value = "queryCheckDetailList")
+    public ResponseResult<List<CheckDetailList>> queryCheckDetailList(@RequestParam(name = "requestAuto") Long requestAuto){
+        List<CheckDetailList> lists = accessaryAppService.selectCheckDetailList(requestAuto);
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", lists);
     }
 }
