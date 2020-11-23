@@ -74,8 +74,8 @@ spring:
             - Path=/api/client/**
           filters:
             - StripPrefix=1
-        - id: BUSINESS-ORDER
-          uri: lb://business-order
+        - id: BUSINESS-LICENSE
+          uri: lb://business-license
           predicates:
             - Path=/api/license/**
           filters:

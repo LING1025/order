@@ -3,7 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/business/business.iml" filepath="$PROJECT_DIR$/business/business.iml" />
+      <module fileurl="file://$PROJECT_DIR$/business/business-license/business-license.iml" filepath="$PROJECT_DIR$/business/business-license/business-license.iml" />
       <module fileurl="file://$PROJECT_DIR$/business/business-order/business-order.iml" filepath="$PROJECT_DIR$/business/business-order/business-order.iml" />
+      <module fileurl="file://$PROJECT_DIR$/business/business-license/business-order (1).iml" filepath="$PROJECT_DIR$/business/business-license/business-order (1).iml" />
       <module fileurl="file://$PROJECT_DIR$/business/business-wxOauth2/business-wxOauth2.iml" filepath="$PROJECT_DIR$/business/business-wxOauth2/business-wxOauth2.iml" />
       <module fileurl="file://$PROJECT_DIR$/business/business-wxUser/business-wxUser.iml" filepath="$PROJECT_DIR$/business/business-wxUser/business-wxUser.iml" />
       <module fileurl="file://$PROJECT_DIR$/business/business-wxUser/business-wxUser-feign/business-wxUser-feign.iml" filepath="$PROJECT_DIR$/business/business-wxUser/business-wxUser-feign/business-wxUser-feign.iml" />
@@ -20,6 +22,8 @@
       <module fileurl="file://$PROJECT_DIR$/provider/provider.iml" filepath="$PROJECT_DIR$/provider/provider.iml" />
       <module fileurl="file://$PROJECT_DIR$/provider/provider-asp-api/provider-asp-api.iml" filepath="$PROJECT_DIR$/provider/provider-asp-api/provider-asp-api.iml" />
       <module fileurl="file://$PROJECT_DIR$/provider/provider-asp-service/provider-asp-service.iml" filepath="$PROJECT_DIR$/provider/provider-asp-service/provider-asp-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/provider/provider-license-api/provider-license-api.iml" filepath="$PROJECT_DIR$/provider/provider-license-api/provider-license-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/provider/provider-license-service/provider-license-service.iml" filepath="$PROJECT_DIR$/provider/provider-license-service/provider-license-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/provider/provider-order-api/provider-order-api.iml" filepath="$PROJECT_DIR$/provider/provider-order-api/provider-order-api.iml" />
       <module fileurl="file://$PROJECT_DIR$/provider/provider-order-service/provider-order-service.iml" filepath="$PROJECT_DIR$/provider/provider-order-service/provider-order-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/provider/provider-user-api/provider-user-api.iml" filepath="$PROJECT_DIR$/provider/provider-user-api/provider-user-api.iml" />

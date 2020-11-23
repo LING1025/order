@@ -12,22 +12,28 @@
         <module name="gateway" />
         <module name="commons-dto" />
         <module name="business-wxUser-service" />
-        <module name="provider-asp-service" />
-        <module name="configuration-feign" />
         <module name="business-order" />
-        <module name="commons-utils" />
-        <module name="provider-user-service" />
-        <module name="business-wxOauth2" />
         <module name="business-wxUser-feign" />
+        <module name="configuration-feign" />
+        <module name="business-order (1)" />
+        <module name="provider-user-service" />
+        <module name="provider-license-api" />
+        <module name="commons-utils" />
+        <module name="provider-license-service" />
+        <module name="business-wxOauth2" />
+        <module name="business-license" />
         <module name="provider-user-service (1)" />
         <module name="provider-asp-api" />
         <module name="provider-order-api" />
         <module name="provider-user-api (1)" />
+        <module name="provider-asp-service" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="business" target="1.8" />
+      <module name="business-license" target="1.8" />
       <module name="business-order" target="1.8" />
+      <module name="business-order (1)" target="1.8" />
       <module name="business-wxOauth2" target="1.8" />
       <module name="business-wxUser" target="1.8" />
       <module name="business-wxUser-feign" target="1.8" />
@@ -44,6 +50,8 @@
       <module name="provider" target="1.8" />
       <module name="provider-asp-api" target="1.8" />
       <module name="provider-asp-service" target="1.8" />
+      <module name="provider-license-api" target="1.8" />
+      <module name="provider-license-service" target="1.8" />
       <module name="provider-order-api" target="1.8" />
       <module name="provider-order-service" target="1.8" />
       <module name="provider-user-api" target="1.8" />
@@ -54,7 +62,9 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="business-license" options="-parameters" />
       <module name="business-order" options="-parameters" />
+      <module name="business-order (1)" options="-parameters" />
       <module name="business-wxOauth2" options="-parameters" />
       <module name="business-wxUser-feign" options="-parameters" />
       <module name="business-wxUser-service" options="-parameters" />
@@ -65,6 +75,8 @@
       <module name="gateway" options="-parameters" />
       <module name="provider-asp-api" options="-parameters" />
       <module name="provider-asp-service" options="-parameters" />
+      <module name="provider-license-api" options="-parameters" />
+      <module name="provider-license-service" options="-parameters" />
       <module name="provider-order-api" options="-parameters" />
       <module name="provider-order-service" options="-parameters" />
       <module name="provider-user-api" options="-parameters" />
