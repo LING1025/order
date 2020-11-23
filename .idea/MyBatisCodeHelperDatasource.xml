@@ -66,6 +66,18 @@
         </option>
         <option name="tableGenerateConfigs">
           <map>
+            <entry key="dbo:AccessaryApp">
+              <value>
+                <TableGenerateConfig>
+                  <option name="generatedKey" value="" />
+                  <option name="javaModelName" value="AccessaryApp" />
+                  <option name="moduleName" value="provider-order-api" />
+                  <option name="sequenceColumn" value="" />
+                  <option name="sequenceId" value="" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
             <entry key="dbo:Commission">
               <value>
                 <TableGenerateConfig>
