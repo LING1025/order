@@ -78,4 +78,10 @@ public class MessageList implements Serializable {
 
     @ApiModelProperty(value = "请款备注")
     private String remark;
+
+    @JsonIgnore
+    private Integer isGps;
+
+    @ApiModelProperty(value = "是否加装GPS")
+    private String isGpsD;
 }

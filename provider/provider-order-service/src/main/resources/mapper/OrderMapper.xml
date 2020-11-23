@@ -231,6 +231,8 @@
         <result column="TypeD" jdbcType="VARCHAR" property="typeD"/>
         <result column="ZJAmt" jdbcType="DECIMAL" property="zJAmt"/>
         <result column="XZAmt" jdbcType="DECIMAL" property="xZAmt"/>
+        <result column="Is_GPS_D" jdbcType="VARCHAR" property="isGpsD"/>
+        <result column="Is_GPS" jdbcType="INTEGER" property="isGps"/>
     </resultMap>
     <select id="selectMessageList" resultMap="queryMessageList">
         declare
@@ -311,6 +313,7 @@
         ,OrdersFeeRequest_Auto=isnull(t8.OrdersFeeRequest_Auto,0)
         ,Remark=isnull(t8.Remark,'')
         ,YJCDT=isnull(t1.YJCDT,null)
+        ,Is_GPS=isnull(t8.Is_GPS,0),Is_GPS_D=case isnull(t8.Is_GPS,0) when 0 then '未维护' when 1 then '否' when 2 then '是' end
         ,MakDT=isnull(t3.MakDT,'')
         ,t3.CarNo
         ,Type=isnull(t8.Type,-1),TypeD=case isnull(t8.Type,-1) when -1 then '' when 0 then '请款' when 1 then '销账' end
