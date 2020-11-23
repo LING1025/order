@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 @Data
-@ApiModel(value = "讯息列表数据")
+@ApiModel(value = "上牌费请款：讯息列表数据")
 public class MessageList implements Serializable {
     @ApiModelProperty(value = "请款单号")
     private Long ordersFeeRequestAuto;

@@ -4,6 +4,7 @@ import javax.annotation.Resource;
 
 import com.funtl.myshop.plus.provider.domain.ClasenList;
 import com.funtl.myshop.plus.provider.domain.MessageList;
+import com.funtl.myshop.plus.provider.domain.ZjDetail;
 import com.funtl.myshop.plus.provider.dto.MessageQueryParam;
 import com.funtl.myshop.plus.provider.mapper.OrderMapper;
 import com.funtl.myshop.plus.provider.domain.Order;
@@ -26,5 +27,10 @@ public class OrderServiceImpl implements OrderService{
     @Override
     public List<MessageList> selectMessageList(MessageQueryParam messageQueryParam) {
         return orderMapper.selectMessageList(messageQueryParam);
+    }
+
+    @Override
+    public ZjDetail selectZjDetail(Long orderAuto) {
+        return orderMapper.selectZjDetail(orderAuto);
     }
 }
