@@ -362,4 +362,71 @@
         drop table #a
         end
     </select>
+    <resultMap id="queryZjDetail" extends="BaseResultMap" type="com.funtl.myshop.plus.provider.domain.ZjDetail">
+        <result column="ZJ_TypeD" jdbcType="VARCHAR" property="zjTypeD"/>
+        <result column="PayeeName" jdbcType="VARCHAR" property="payeeName"/>
+        <result column="StatusD" jdbcType="VARCHAR" property="statusD"/>
+        <result column="Is_Appropriation_D" jdbcType="VARCHAR" property="isAppropriationD"/>
+        <result column="ExportDT" jdbcType="TIMESTAMP" property="exportDT"/>
+        <result column="ZJAmt" jdbcType="DECIMAL" property="zJAmt"/>
+        <result column="XZAmt" jdbcType="DECIMAL" property="xZAmt"/>
+        <result column="RequestAmt" jdbcType="DECIMAL" property="requestAmt"/>
+    </resultMap>
+    <select id="selectZjDetail" resultMap="queryZjDetail">
+        declare
+        @Order_Auto  int=#{orderAuto}
+
+        BEGIN
+        --申购送件及之后的状态才可暂借
+        declare @Order_Temp table(CreditMain_Auto bigint,TradeItem_Auto bigint,CarBase_Auto bigint)
+
+        insert into @Order_Temp(CreditMain_Auto,TradeItem_Auto,CarBase_Auto)
+        select t3.CreditMain_Auto,t2.TradeItem_Auto,t2.CarBase_Auto
+        from [Order] t1
+        left join [order] a1 on a1.CarBase_Auto = t1.CarBase_Auto and a1.OrderNo like '%-0%' and t1.OrderNo like '%-1%'
+        inner join Orders t2 on isnull(a1.Orders_Auto, t1.Orders_Auto )=t2.Orders_Auto
+        inner join Credit_Order t3 on t3.Orders_Auto=t2.Orders_Auto
+        left outer join BookCar t4 on t4.CreditMain_Auto=t3.CreditMain_Auto and t4.BookCarStatus>=20
+        where t1.Order_Auto=@Order_Auto and isnull(a1.Status, t1.Status )>=10
+
+        select
+        ZJ_TypeD=isnull(t6.ItemName,'')
+        ,ZJAmt=isnull(t4.ZJAmt,0)
+        ,PayeeName=isnull(t4.PayeeName,'')
+        ,StatusD=case when t4.IsTrn = 1 then '已转传票' else case isnull(t4.Status,-1) when -1 then '未申请'  when 5 then '驳回'  when 0 then '暂存' when 10 then '审核中' when  20 then '核准' when 30 then '已转付' end end
+        ,Is_Appropriation_D= case t4.Is_Appropriation when 1 then '拨款暂借'  when 0 then '暂借' end
+        ,t8.ExportDT
+        ,isnull(t4.XZAmt,0) XZAmt
+        ,RequestAmt=-1*isnull(t4.RefundAmt,0)
+        from @Order_Temp t1
+        inner join TradeItem t2 on t1.TradeItem_Auto=t2.TradeItem_Auto
+        inner  join CarBase t3 on t1.CarBase_Auto=t3.CarBase_Auto
+        inner join ZanJie t4 on t1.CreditMain_Auto=t4.CreditMain_Auto  and t4.Status != -1
+        inner join v_Emp t5 on t5.User_Auto=t4.ZJUser
+        left outer join ItemCode t6 on t4.ZJ_Type=t6.Num and t6.ItemType=1400
+        left outer join BankType t7 on t7.BankType=t4.BankType
+        left join BatchPay t8 on  t4.ZanJie_Auto=t8.Form_Auto and t8.FormType=t4.ZJ_Type
+        where ZJ_Type = 18
+        order by t1.CreditMain_Auto
+        END
+    </select>
+    <resultMap id="queryIsShow" extends="BaseResultMap" type="com.funtl.myshop.plus.provider.domain.ZjDetail">
+        <result column="IsShow" jdbcType="INTEGER" property="isShow"/>
+    </resultMap>
+    <select id="selectIsShow" resultMap="queryIsShow">
+        declare
+        @Order_Auto  int=#{orderAuto}
+        --上牌费销账信息查询，放在暂借明细接口里
+begin
+   declare @CreditMain_Auto bigint,@IsShow int
+   set @IsShow=0
+   set @CreditMain_Auto=(select CreditMain_Auto from Credit_Order where Orders_Auto =(select Orders_Auto from [order] where Order_Auto=@OrderAuto))
+   if exists(select ZanJie_Auto from ZanJie where CreditMain_Auto=@CreditMain_Auto and ZJ_Type=18 and Status not in(5,-1) and FeeType_Auto=1 and isnull(XZ_Auto,0)=0)
+   begin
+      set @IsShow=1 --IsShow等于1时，销账按钮就显示
+   end
+   select @IsShow IsShow
+   print @CreditMain_Auto
+end
+    </select>
 </mapper>

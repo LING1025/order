@@ -16,4 +16,6 @@ public interface OrderMapper extends MyMapper<Order> {
     List<MessageList> selectMessageList(@Param("param") MessageQueryParam messageQueryParam);
 
     ZjDetail selectZjDetail(@Param("orderAuto")Long orderAuto);
+
+    ZjDetail selectIsShow(@Param("orderAuto")Long orderAuto);
 }

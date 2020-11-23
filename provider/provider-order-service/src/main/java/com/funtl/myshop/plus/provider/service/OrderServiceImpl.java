@@ -33,4 +33,9 @@ public class OrderServiceImpl implements OrderService{
     public ZjDetail selectZjDetail(Long orderAuto) {
         return orderMapper.selectZjDetail(orderAuto);
     }
+
+    @Override
+    public ZjDetail selectIsShow(Long orderAuto) {
+        return orderMapper.selectIsShow(orderAuto);
+    }
 }

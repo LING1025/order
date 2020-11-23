@@ -30,4 +30,11 @@ public interface OrderService{
      * @return
      */
     ZjDetail selectZjDetail(Long orderAuto);
+
+    /**
+     * 上牌费请款：暂借明细判断有没销账
+     * @param orderAuto
+     * @return
+     */
+    ZjDetail selectIsShow(Long orderAuto);
 }
