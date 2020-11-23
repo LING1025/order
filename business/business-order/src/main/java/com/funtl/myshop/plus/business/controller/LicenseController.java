@@ -3,11 +3,9 @@ package com.funtl.myshop.plus.business.controller;
 import com.funtl.myshop.plus.commons.dto.ResponseResult;
 import com.funtl.myshop.plus.provider.api.OrderService;
 import com.funtl.myshop.plus.provider.domain.MessageList;
+import com.funtl.myshop.plus.provider.domain.ZjDetail;
 import com.funtl.myshop.plus.provider.dto.MessageQueryParam;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.*;
 import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -52,5 +50,18 @@ public class LicenseController {
             }
         }
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", lists);
+    }
+
+    @ApiOperation(value = "上牌费请款：暂借明细数据且判断有没销账")
+    @ApiImplicitParam(name = "orderAuto", value = "申购单号", required = true, dataType = "long", paramType = "path")
+    @GetMapping(value = "queryZjDetail")
+    public ResponseResult<ZjDetail> queryZjDetail(@RequestParam(name = "orderAuto") Long orderAuto){
+        ZjDetail zjDetail = orderService.selectZjDetail(orderAuto);
+        if (zjDetail == null){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "查询条件无数据", null);
+        }
+        ZjDetail zjDetail2 = orderService.selectIsShow(orderAuto);
+        zjDetail.setIsShow(zjDetail2.getIsShow());
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", zjDetail);
     }
 }

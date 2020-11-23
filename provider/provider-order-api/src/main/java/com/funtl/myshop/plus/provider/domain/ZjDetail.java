@@ -37,6 +37,6 @@ public class ZjDetail implements Serializable {
     @ApiModelProperty(value = "请款金额")
     private BigDecimal requestAmt;
 
-    @ApiModelProperty(value = "是否显示销账按钮：0否 1是")
+    @ApiModelProperty(value = "判断有没销账，是否显示销账按钮：0否 1是")
     private Integer isShow;
 }

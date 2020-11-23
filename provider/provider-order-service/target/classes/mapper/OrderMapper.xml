@@ -374,7 +374,7 @@
     </resultMap>
     <select id="selectZjDetail" resultMap="queryZjDetail">
         declare
-        @Order_Auto  int=#{orderAuto}
+        @Order_Auto  bigint=#{orderAuto}
 
         BEGIN
         --申购送件及之后的状态才可暂借
@@ -415,12 +415,12 @@
     </resultMap>
     <select id="selectIsShow" resultMap="queryIsShow">
         declare
-        @Order_Auto  int=#{orderAuto}
+        @Order_Auto  bigint=#{orderAuto}
         --上牌费销账信息查询，放在暂借明细接口里
 begin
    declare @CreditMain_Auto bigint,@IsShow int
    set @IsShow=0
-   set @CreditMain_Auto=(select CreditMain_Auto from Credit_Order where Orders_Auto =(select Orders_Auto from [order] where Order_Auto=@OrderAuto))
+   set @CreditMain_Auto=(select CreditMain_Auto from Credit_Order where Orders_Auto =(select Orders_Auto from [order] where Order_Auto=@Order_Auto))
    if exists(select ZanJie_Auto from ZanJie where CreditMain_Auto=@CreditMain_Auto and ZJ_Type=18 and Status not in(5,-1) and FeeType_Auto=1 and isnull(XZ_Auto,0)=0)
    begin
       set @IsShow=1 --IsShow等于1时，销账按钮就显示
