@@ -7,7 +7,10 @@ import com.funtl.myshop.plus.provider.domain.CheckDetailList;
 import com.funtl.myshop.plus.provider.domain.MessageList;
 import com.funtl.myshop.plus.provider.domain.ZjDetail;
 import com.funtl.myshop.plus.provider.dto.MessageQueryParam;
-import io.swagger.annotations.*;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,7 +21,7 @@ import java.util.List;
 
 @Api(tags = "上牌管理模块相关操作")
 @RestController
-@RequestMapping(value = "license")
+@RequestMapping(value = "request")
 public class LicenseController {
     @Reference(version = "1.0.0")
     private OrderService orderService;
