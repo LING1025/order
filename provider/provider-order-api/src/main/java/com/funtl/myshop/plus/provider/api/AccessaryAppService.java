@@ -3,6 +3,8 @@ package com.funtl.myshop.plus.provider.api;
 import com.funtl.myshop.plus.provider.domain.AccessaryApp;
 import com.funtl.myshop.plus.provider.domain.CheckDetailList;
 
+import java.util.List;
+
 public interface AccessaryAppService{
 
     /**
@@ -10,6 +12,6 @@ public interface AccessaryAppService{
      * @param requestAuto
      * @return
      */
-    CheckDetailList selectCheckDetailList(Long requestAuto);
+    List<CheckDetailList> selectCheckDetailList(Long requestAuto);
 
 }
