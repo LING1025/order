@@ -116,7 +116,7 @@ declare
 
         if(@kind=1)
         begin
-        select ROW_NUMBER() OVER(ORDER BY Visit_Auto) as sno,VisitID,
+        select ROW_NUMBER() OVER(ORDER BY Visit_Auto desc) as sno,VisitID,
         Visit_Auto,TradeItem_Auto,compName,Contact_Auto,contName,
         VstDate,vstTypeName,VstAddr,VstAim,Remark,IsVsted,CUser,VstType,
         saleName=(select FName from v_Emp where User_Auto=CUser)
@@ -126,11 +126,11 @@ declare
         where
         compName like '%'+@SearchWord+'%' and Status != -1
         select * from #tvisitPlan where sno between @min and @max
-        drop table #tvisitPlans
+        drop table #tvisitPlan
         end
         else if(@kind=2)
         begin
-        select ROW_NUMBER() OVER(ORDER BY Visit_Auto) as sno,VisitID,
+        select ROW_NUMBER() OVER(ORDER BY Visit_Auto desc) as sno,VisitID,
         Visit_Auto,TradeItem_Auto,compName,Contact_Auto,contName,
         VstDate,vstTypeName,VstAddr,VstAim,Remark,IsVsted,CUser,VstType,
         saleName=(select FName from v_Emp where User_Auto=CUser)
@@ -176,7 +176,7 @@ declare
 
         if(@kind=1)
         begin
-        select ROW_NUMBER() OVER(ORDER BY Visit_Auto) as sno,VisitID,
+        select ROW_NUMBER() OVER(ORDER BY Visit_Auto desc) as sno,VisitID,
         Visit_Auto,TradeItem_Auto,compName,Contact_Auto,contName,
         VstDate,vstTypeName,VstAddr,VstAim,Remark,IsVsted,CUser,VstType,
         saleName=(select FName from v_Emp where User_Auto=CUser)
@@ -190,7 +190,7 @@ declare
         end
         else if(@kind=2)
         begin
-        select ROW_NUMBER() OVER(ORDER BY Visit_Auto) as sno,VisitID,
+        select ROW_NUMBER() OVER(ORDER BY Visit_Auto desc) as sno,VisitID,
         Visit_Auto,TradeItem_Auto,compName,Contact_Auto,contName,
         VstDate,vstTypeName,VstAddr,VstAim,Remark,IsVsted,CUser,VstType,
         saleName=(select FName from v_Emp where User_Auto=CUser)
