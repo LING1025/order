@@ -135,6 +135,7 @@ end
         <if test="userAuto != null and userAuto != ''">
             AND a.CUser = #{userAuto}
         </if>
+        AND isnull(a.Status,0) != 2  <!--已审状态不显示-->
 	    order by a.Visit_Auto desc
     </select>
     <resultMap id="queryByRptVstAuto" extends="BaseResultMap" type="com.funtl.myshop.plus.provider.domain.CrmDetail">
@@ -169,6 +170,7 @@ end
         d.Title = #{contName}
         AND
         a.RptVst_Auto=#{rptVstAuto}
+        AND isnull(a.Status,0) != 2
     </select>
     <resultMap id="queryCustomerNameSelect" extends="BaseResultMap" type="com.funtl.myshop.plus.provider.domain.CustomerNameSelect">
         <result column="FName" jdbcType="VARCHAR" property="customerName" />
