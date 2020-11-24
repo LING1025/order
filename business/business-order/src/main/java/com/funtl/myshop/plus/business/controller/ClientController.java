@@ -132,6 +132,9 @@ public class ClientController {
     public ResponseResult<CrmDetail> queryCrmDetail(@RequestParam(name = "rptVstAuto")Long rptVstAuto,
                                                     @RequestParam(name = "contName")String contName){
         CrmDetail crmDetail = rptVstService.selectByRptVstAuto(rptVstAuto,contName);
+        if (crmDetail == null){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "查询条件无数据或已审核", null);
+        }
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", crmDetail);
     }
 
