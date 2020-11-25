@@ -5,6 +5,7 @@ import com.funtl.myshop.plus.business.BusinessStatus;
 import com.funtl.myshop.plus.commons.dto.ResponseResult;
 import com.funtl.myshop.plus.provider.api.*;
 import com.funtl.myshop.plus.provider.domain.*;
+import com.funtl.myshop.plus.provider.dto.LeasebackQueryParam;
 import com.funtl.myshop.plus.provider.dto.RolesList;
 import com.google.common.collect.Lists;
 import io.swagger.annotations.*;
@@ -495,4 +496,29 @@ public class OrderController {
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", lists);
     }
 
+    /**
+     * 回租报价
+     */
+
+    @ApiOperation(value = " 回租报价：查询按钮")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userAuto", value = "登录者userAuto", required = false, dataType = "long", paramType = "path"),
+            @ApiImplicitParam(name = "mode", value = "1报价单号 2客户名称 3业务员", required = true, dataType = "int", paramType = "path"),
+            @ApiImplicitParam(name = "searchWord", value = "查询条件", required = false, dataType = "String", paramType = "path"),
+            @ApiImplicitParam(name = "startDT", value = "开始日期", required = false, dataType = "String", paramType = "path"),
+            @ApiImplicitParam(name = "endDT", value = "结束日期", required = false, dataType = "String", paramType = "path")
+    })
+    @GetMapping(value = "queryLeasebackList")
+    public ResponseResult<List<LeasebackList>> queryLeasebackList(@RequestParam(name = "userAuto",required = false) Long userAuto,
+                                                                  @RequestParam(name = "mode") Integer mode,
+                                                                  @RequestParam(name = "searchWord",required = false) String searchWord,
+                                                                  @RequestParam(name = "startDT",required = false) String startDT,
+                                                                  @RequestParam(name = "endDT",required = false) String endDT){
+        LeasebackQueryParam leasebackQueryParam = new LeasebackQueryParam(userAuto,mode,searchWord,startDT,endDT);
+        List<LeasebackList> lists = ordersService.selectLeasebackList(leasebackQueryParam);
+        if (lists.size() == 0){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "查无资料，请输入其它查询条件!", null);
+        }
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", lists);
+    }
 }
