@@ -9,6 +9,8 @@ import java.io.Serializable;
 @Data
 @ApiModel(value = "CRM:行程记录打卡数据")
 public class CrmDetailInsertParamDto implements Serializable {
+    @ApiModelProperty(value = "拜访id")
+    private Long visitId=0L;
 
     @ApiModelProperty(value = "拜访编号")
     private Integer visitAuto;

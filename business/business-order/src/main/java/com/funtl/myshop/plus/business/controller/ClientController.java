@@ -240,6 +240,7 @@ public class ClientController {
         visitPlan.setContactAuto(crmArrangeParamDto.getContectType().toString());
         visitPlan.setCdt(new Date());
         visitPlan.setIsVsted(false);
+        visitPlan.setStatus(0);
         //拜访时间：拜访日期加具体时间
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         Date date = df.parse(crmArrangeParamDto.getVstDate() + " " + crmArrangeParamDto.getVstTime());
@@ -312,13 +313,26 @@ public class ClientController {
     @ApiOperation(value = "CRM:行程记录打卡(此接口如要测试请联系后端)")
     @PostMapping(value = "insertCrmDetail")
     public ResponseResult<Long> insertCrmDetail(@ApiParam(value = "CRM:行程记录打卡数据") @Valid @RequestBody CrmDetailInsertParamDto crmDetailInsertParamDto){
+
+        VisitPlan visitPlan = visitPlanService.selectByVisitId(crmDetailInsertParamDto.getVisitId());
+        if (visitPlan == null){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "拜访id不存在", null);
+        }
         RptVst rptVst = new RptVst();
         BeanUtils.copyProperties(crmDetailInsertParamDto,rptVst);
         rptVst.setCUser(crmDetailInsertParamDto.getSalesAuto());
         rptVst.setCdt(new Date());
         Long i = rptVstService.insert(rptVst);
         if (i == 0){
-            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "保存失败", null);
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "行程记录保存失败", null);
+        }
+        //行程记录提交成功，行程安排显示已拜访
+        visitPlan.setIsVsted(true);
+        visitPlan.setMuser(crmDetailInsertParamDto.getSalesAuto().longValue());
+        visitPlan.setMdt(new Date());
+        Integer i2 = visitPlanService.update(visitPlan);
+        if (i2 == 0){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "是否拜访修改失败", null);
         }
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "新插入数据的rptVstAuto", i);
     }
