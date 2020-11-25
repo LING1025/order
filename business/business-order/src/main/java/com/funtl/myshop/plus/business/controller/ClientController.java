@@ -239,6 +239,7 @@ public class ClientController {
         //联系人t1.Contact_Auto=t4.ContectType
         visitPlan.setContactAuto(crmArrangeParamDto.getContectType().toString());
         visitPlan.setCdt(new Date());
+        visitPlan.setIsVsted(false);
         //拜访时间：拜访日期加具体时间
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         Date date = df.parse(crmArrangeParamDto.getVstDate() + " " + crmArrangeParamDto.getVstTime());
