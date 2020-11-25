@@ -156,7 +156,9 @@ public class OrderController {
         if (ordersAuto == null){
             throw new BusinessException(BusinessStatus.PARAM_ERROR);        }
         OrdersList ordersList = ordersService.selectOrdersList(ordersAuto);
-
+        if(ordersList == null){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "查询条件无资料", null);
+        }
         //判断试算单号框外面显示的值
         MsgDto msgDto = ordersService.selectMsg(ordersAuto);
         if (msgDto != null){
@@ -251,6 +253,9 @@ public class OrderController {
         if (ordersAuto == null){
             throw new BusinessException(BusinessStatus.PARAM_ERROR);        }
         OrdersBackList ordersBackList = ordersService.selectOrdersBackList(ordersAuto);
+        if(ordersBackList == null){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "查询条件无资料", null);
+        }
         if (ordersBackList.getTaxMode() == 5){
             ordersBackList.setTaxMode(6);
         }
