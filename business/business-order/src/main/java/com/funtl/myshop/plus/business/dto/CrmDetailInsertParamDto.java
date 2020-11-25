@@ -42,12 +42,6 @@ public class CrmDetailInsertParamDto implements Serializable {
     @ApiModelProperty(value = "客户序号")
     private Long tradeItemAuto;
 
-    @ApiModelProperty(value = "客户来源")
-    private String custSourceName;
-
-    @ApiModelProperty(value = "客户来源序号")
-    private Integer custSource;
-
     @ApiModelProperty(value = "活动内容")
     private String vstTypeName;
 

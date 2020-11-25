@@ -45,4 +45,10 @@ public class CrmDetailParamDto implements Serializable {
 
     @ApiModelProperty(value = "业代序号")
     private Integer salesAuto;
+
+    @ApiModelProperty(value = "客户来源")
+    private String custSourceName;
+
+    @ApiModelProperty(value = "客户来源序号")
+    private Integer custSource;
 }
