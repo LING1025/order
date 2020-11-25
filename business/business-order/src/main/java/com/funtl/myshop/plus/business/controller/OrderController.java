@@ -500,6 +500,18 @@ public class OrderController {
      * 回租报价
      */
 
+    @ApiOperation(value = "回租报价：下拉选")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "itemType", value = "413回租报价", required = true, dataType = "int", paramType = "path"),
+            @ApiImplicitParam(name = "num", value = "对应的num", required = false, dataType = "long", paramType = "path")
+    })
+    @GetMapping(value = "queryItemNames")
+    public ResponseResult<List<LeasebackSelect>> queryItemNames(@RequestParam(name = "itemType")Integer itemType,
+                                                          @RequestParam(name = "num", defaultValue = "100")Long num){
+        List<LeasebackSelect> leasebackSelects = itemCodeService.selectItemName(itemType,num);
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", leasebackSelects);
+    }
+
     @ApiOperation(value = " 回租报价：查询按钮")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "userAuto", value = "登录者userAuto", required = false, dataType = "long", paramType = "path"),

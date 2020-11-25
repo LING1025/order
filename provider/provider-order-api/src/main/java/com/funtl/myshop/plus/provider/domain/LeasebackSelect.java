@@ -13,6 +13,6 @@ public class LeasebackSelect implements Serializable {
     private String itemName;
 
     @ApiModelProperty(value = "回租报价对应的num")
-    private Integer num;
+    private Long num;
 
 }

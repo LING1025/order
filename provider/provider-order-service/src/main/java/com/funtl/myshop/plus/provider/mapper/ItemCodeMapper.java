@@ -12,5 +12,5 @@ import java.util.List;
 public interface ItemCodeMapper extends MyMapper<ItemCode> {
     List<RoleList> selectByType(@Param("itemType") Integer itemType);
 
-    List<LeasebackSelect> selectItemName(@Param("itemType") Integer itemType,@Param("num") Integer num);
+    List<LeasebackSelect> selectItemName(@Param("itemType") Integer itemType,@Param("num") Long num);
 }

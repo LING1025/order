@@ -23,7 +23,7 @@ public class ItemCodeServiceImpl implements ItemCodeService{
     }
 
     @Override
-    public List<LeasebackSelect> selectItemName(Integer itemType,Integer num) {
+    public List<LeasebackSelect> selectItemName(Integer itemType,Long num) {
         return itemCodeMapper.selectItemName(itemType,num);
     }
 

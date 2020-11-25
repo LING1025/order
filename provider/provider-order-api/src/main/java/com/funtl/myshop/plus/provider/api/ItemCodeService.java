@@ -21,5 +21,5 @@ public interface ItemCodeService{
      * @param itemType
      * @return
      */
-    List<LeasebackSelect> selectItemName(Integer itemType,Integer num);
+    List<LeasebackSelect> selectItemName(Integer itemType,Long num);
 }

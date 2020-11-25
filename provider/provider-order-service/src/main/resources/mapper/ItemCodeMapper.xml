@@ -26,16 +26,26 @@
   <resultMap id="queryItemName" extends="BaseResultMap" type="com.funtl.myshop.plus.provider.domain.LeasebackSelect"/>
   <select id="selectItemName" resultMap="queryItemName">
       declare
-      @ItemType int = #{itemType}
+      @ItemType int = #{itemType},
+      @num bigint = #{num}
 
-      if(@ItemType=413)
+      if(@ItemType=413)--回租报价下拉选
       begin
+      if(@num = 100)
       Select
       Num,ItemName
       From
       ItemCode
       Where
       Num != 1 and ItemType = @ItemType
+      Order By  Seq,Num
+      else
+      Select
+      Num,ItemName
+      From
+      ItemCode
+      Where
+      Num != 1 and ItemType = @ItemType and Num = @num
       Order By  Seq,Num
       end
     </select>
