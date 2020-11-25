@@ -23,5 +23,21 @@
   <select id="selectByType" resultMap="queryByType">
     select Num from ItemCode where ItemType=#{itemType} and Num in (7,11,12,16,22,30,83,145) order by Seq desc
   </select>
+  <resultMap id="queryItemName" extends="BaseResultMap" type="com.funtl.myshop.plus.provider.domain.LeasebackSelect"/>
+  <select id="selectItemName" resultMap="queryItemName">
+      declare
+      @ItemType int = #{itemType}
+
+      if(@ItemType=413)
+      begin
+      Select
+      Num,ItemName
+      From
+      ItemCode
+      Where
+      Num != 1 and ItemType = @ItemType
+      Order By  Seq,Num
+      end
+    </select>
 
 </mapper>
