@@ -152,9 +152,7 @@ public class OrderController {
             @ApiImplicitParam(name = "ordersAuto", value = "试算单号", required = false, dataType = "long", paramType = "path")
     })
     @GetMapping(value = "queryOrdersList")
-    public ResponseResult<OrdersList> queryOrdersList(@RequestParam(name = "ordersAuto",required = false) Long ordersAuto){
-        if (ordersAuto == null){
-            throw new BusinessException(BusinessStatus.PARAM_ERROR);        }
+    public ResponseResult<OrdersList> queryOrdersList(@RequestParam(name = "ordersAuto",defaultValue = "0") Long ordersAuto){
         OrdersList ordersList = ordersService.selectOrdersList(ordersAuto);
         if(ordersList == null){
             return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "查询条件无资料", null);
@@ -249,9 +247,7 @@ public class OrderController {
             @ApiImplicitParam(name = "ordersAuto", value = "试算单号", required = false, dataType = "long", paramType = "path")
     })
     @GetMapping(value = "queryOrdersBackList")
-    public ResponseResult<OrdersBackList> queryOrdersBackList(@RequestParam(name = "ordersAuto",required = false) Long ordersAuto){
-        if (ordersAuto == null){
-            throw new BusinessException(BusinessStatus.PARAM_ERROR);        }
+    public ResponseResult<OrdersBackList> queryOrdersBackList(@RequestParam(name = "ordersAuto",defaultValue = "0") Long ordersAuto){
         OrdersBackList ordersBackList = ordersService.selectOrdersBackList(ordersAuto);
         if(ordersBackList == null){
             return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "查询条件无资料", null);
