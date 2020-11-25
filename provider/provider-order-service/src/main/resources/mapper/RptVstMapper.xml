@@ -135,7 +135,7 @@ end
         <if test="userAuto != null and userAuto != ''">
             AND a.CUser = #{userAuto}
         </if>
-        AND isnull(a.Status,0) != 2  <!--已审状态不显示-->
+        AND isnull(a.Status,0) != 2  <!--已审状态2不显示-->
 	    order by a.Visit_Auto desc
     </select>
     <resultMap id="queryByRptVstAuto" extends="BaseResultMap" type="com.funtl.myshop.plus.provider.domain.CrmDetail">

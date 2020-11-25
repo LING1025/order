@@ -120,6 +120,9 @@ public class ClientController {
     public ResponseResult<List<CrmTripList>> queryCrmTripList(@RequestParam(name = "userAuto")Integer userAuto,
                                                               @RequestParam(name = "customerName", required = false)String customerName){
         List<CrmTripList> lists = rptVstService.selectCrmTripList(userAuto,customerName);
+        if (lists.size() == 0){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "查询条件无数据或已审核", null);
+        }
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", lists);
     }
 
@@ -132,9 +135,6 @@ public class ClientController {
     public ResponseResult<CrmDetail> queryCrmDetail(@RequestParam(name = "rptVstAuto")Long rptVstAuto,
                                                     @RequestParam(name = "contName")String contName){
         CrmDetail crmDetail = rptVstService.selectByRptVstAuto(rptVstAuto,contName);
-        if (crmDetail == null){
-            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "查询条件无数据或已审核", null);
-        }
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", crmDetail);
     }
 
@@ -322,6 +322,7 @@ public class ClientController {
         BeanUtils.copyProperties(crmDetailInsertParamDto,rptVst);
         rptVst.setCUser(crmDetailInsertParamDto.getSalesAuto());
         rptVst.setCdt(new Date());
+        rptVst.setStatus(0);
         Long i = rptVstService.insert(rptVst);
         if (i == 0){
             return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "行程记录保存失败", null);
