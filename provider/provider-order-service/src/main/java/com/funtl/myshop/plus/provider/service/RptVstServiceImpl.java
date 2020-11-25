@@ -62,4 +62,10 @@ public class RptVstServiceImpl implements RptVstService{
         return i == 1 ? rptVst.getRptVstAuto() : 0;
     }
 
+    @Override
+    public Integer deleteByRptVstId(Long rptVstAuto) {
+        return rptVstMapper.deleteByPrimaryKey(rptVstAuto);
+    }
+
+
 }

@@ -332,6 +332,7 @@ public class ClientController {
         visitPlan.setMdt(new Date());
         Integer i2 = visitPlanService.update(visitPlan);
         if (i2 == 0){
+            rptVstService.deleteByRptVstId(i);//是否已拜访修改失败后删除
             return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "是否已拜访修改失败", null);
         }
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "新插入数据的rptVstAuto", i);

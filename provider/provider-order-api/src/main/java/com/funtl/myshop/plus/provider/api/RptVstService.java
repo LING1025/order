@@ -69,4 +69,11 @@ public interface RptVstService{
      * @return
      */
     Long insert(RptVst rptVst);
+
+    /**
+     * 删除
+     * @param rptVstAuto
+     * @return
+     */
+    Integer deleteByRptVstId(Long rptVstAuto);
 }
