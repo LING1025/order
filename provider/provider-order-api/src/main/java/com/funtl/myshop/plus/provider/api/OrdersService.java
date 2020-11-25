@@ -1,6 +1,7 @@
 package com.funtl.myshop.plus.provider.api;
 
 import com.funtl.myshop.plus.provider.domain.*;
+import com.funtl.myshop.plus.provider.dto.LeasebackQueryParam;
 
 import java.util.List;
 
@@ -49,5 +50,12 @@ public interface OrdersService{
      * @return
      */
     MsgDto selectMsg(Long ordersAuto);
+
+    /**
+     * 回租报价：查询按钮
+     * @param leasebackQueryParam
+     * @return
+     */
+    List<LeasebackList> selectLeasebackList(LeasebackQueryParam leasebackQueryParam);
 
 }

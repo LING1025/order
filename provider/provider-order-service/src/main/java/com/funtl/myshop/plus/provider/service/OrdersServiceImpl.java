@@ -3,6 +3,7 @@ package com.funtl.myshop.plus.provider.service;
 import javax.annotation.Resource;
 
 import com.funtl.myshop.plus.provider.domain.*;
+import com.funtl.myshop.plus.provider.dto.LeasebackQueryParam;
 import com.funtl.myshop.plus.provider.mapper.OrdersMapper;
 import com.funtl.myshop.plus.provider.api.OrdersService;
 import org.apache.dubbo.config.annotation.Service;
@@ -43,6 +44,11 @@ public class OrdersServiceImpl implements OrdersService{
     @Override
     public MsgDto selectMsg(Long ordersAuto) {
         return ordersMapper.selectMsg(ordersAuto);
+    }
+
+    @Override
+    public List<LeasebackList> selectLeasebackList(LeasebackQueryParam leasebackQueryParam) {
+        return ordersMapper.selectLeasebackList(leasebackQueryParam);
     }
 
 }

@@ -158,6 +158,7 @@
     FinanceFee, UrgentFee, MortgageAddr, CommissionRate, RateTaxY, A6, A7, InsureAnomalyType,
     CarPriceRef, IsBigTradeItem, CarExtensionAmt, Discount
   </sql>
+  <!--试算签核-->
   <resultMap id="queryByRoleIds" extends="BaseResultMap" type="com.funtl.myshop.plus.provider.domain.MasterList">
     <result column="salesName" jdbcType="VARCHAR" property="salesName" />
     <result column="SName" jdbcType="VARCHAR" property="sName" />
@@ -576,6 +577,103 @@
     Order By a.Orders_Auto Desc
 
     drop table #C
+    End
+  </select>
+
+  <!--回租报价-->
+  <resultMap id="queryLeasebackList" extends="BaseResultMap" type="com.funtl.myshop.plus.provider.domain.LeasebackList">
+    <result column="incName" jdbcType="VARCHAR" property="incName" />
+    <result column="custName" jdbcType="VARCHAR" property="custName" />
+    <result column="brandName" jdbcType="VARCHAR" property="brandName" />
+    <result column="clasenName" jdbcType="VARCHAR" property="clasenName" />
+    <result column="salesName" jdbcType="VARCHAR" property="salesName" />
+    <result column="statusName" jdbcType="VARCHAR" property="statusName" />
+  </resultMap>
+  <select id="selectLeasebackList" resultMap="queryLeasebackList">
+    declare
+    @UserID BigInt=#{params.userAuto},
+    @Mode int=#{params.mode},
+    @SearchWord NvarChar(20)=#{params.searchWord},
+    @StartDT NvarChar(20)=#{params.startDT},
+    @EndDT NvarChar(20)=#{params.endDT},
+    @IsChecked int = 0,
+    @Type int = 8
+    --[dbo].[s_Orders_N_R]
+    -- @Mode 1报价单号 2客户名称 3业务员
+    Declare @Orders Table
+    (
+    Orders_Auto Bigint
+    )
+    Declare @IsLook int     --是否可以查看
+
+    Set @IsLook=0
+
+    if Exists(select distinct Roles_Auto,RoleName,e.ItemName from  AspNet.dbo.aspnet_Users a
+    join AspNet.dbo.aspnet_UsersInRoles b
+    on a.UserId=b.UserId  join AspNet.dbo.aspnet_Roles c
+    on b.RoleId=c.RoleId  join ItemCode e on c.Roles_Auto=e.Num and e.ItemType=1010
+    where  a.ApplicationId='73663109-dda2-4c2d-8311-337946b5c373' and a.User_Auto=@UserID
+    and e.itemname in('ORDER_ROLES','BUSASS_ROLES' ,'ZHAI_ROLES','ADMIN_ROLES','QIHUA_ROLES') )
+    begin
+    Set @IsLook=1
+    end
+
+    If @Mode=1  -- 1报价单号
+    Begin
+    Insert Into @Orders
+    Select Orders_Auto
+    From [Orders] a (NoLock)
+    left join dbo.f_GetEmpList(@UserID) c on @IsLook=0 and c.User_auto=a.Sales_Auto
+    Where Orders_Auto=@SearchWord
+    and (@Type = -1 or (@Type = 0 and a.OrderType != 8) or (@Type = 8 and a.OrderType = 8))
+    and (@IsLook=1 or c.User_auto is not null)
+    End
+
+    If @Mode=2   --2客户名称
+    Begin
+    Insert Into @Orders
+    Select a.Orders_Auto
+    From [Orders] a  (NoLock)
+    inner join TradeItem b (NoLock) on a.TradeItem_Auto=b.TradeItem_Auto
+    left join dbo.f_GetEmpList(@UserID) c on @IsLook=0 and c.User_auto=a.Sales_Auto
+    Where a.CDT between @StartDT and DATEADD(dd,1,@EndDT) and b.FName Like '%'+@SearchWord+'%'
+    and (@Type = -1 or (@Type = 0 and a.OrderType != 8) or (@Type = 8 and a.OrderType = 8))
+    and (@IsChecked = 0 or (@IsChecked = 1 and a.OrderStatus >= 20))
+    and (@IsLook=1 or c.User_auto is not null)
+    End
+
+    If @Mode=3   --3业务员
+    Begin
+    Insert Into @Orders
+    Select a.Orders_Auto
+    From [Orders] a (NoLock)
+    inner join v_emp b on a.Sales_Auto=b.User_Auto
+    left join dbo.f_GetEmpList(@UserID) c on @IsLook=0 and c.User_auto=a.Sales_Auto
+    Where  a.CDT between @StartDT and DATEADD(dd,1,@EndDT) and b.FName like @SearchWord+'%'
+    and (@Type = -1 or (@Type = 0 and a.OrderType != 8) or (@Type = 8 and a.OrderType = 8))
+    and (@IsChecked = 0 or (@IsChecked = 1 and a.OrderStatus >= 20))
+    and (@IsLook=1 or c.User_auto is not null)
+    End
+
+
+    if Exists(Select Orders_Auto From @Orders)
+    Begin
+
+    Select
+    t1.SName incName,a.Orders_Auto
+    ,custName=c.SName
+    ,d1.BrandName,d2.ClasenName
+    ,a.MAmt,a.OverAmt,a.DptAmt,a.RentRate
+    ,salesName=isnull(f.fname,17)
+    ,statusName=dbo.f_GetItemName(327,a.OrderStatus)
+    from @Orders b
+    inner join [Orders] a (NoLock) on a.Orders_Auto=b.Orders_Auto
+    inner Join Brand d1 (NoLock) on a.Brand_Auto=d1.Brand_Auto
+    inner Join Clasen d2 (NoLock) On a.Clasen_Auto=d2.Clasen_Auto
+    inner join v_emp f on f.User_auto=a.Sales_Auto
+    Left Join TradeItem c (NoLock) on a.TradeItem_Auto=c.TradeItem_Auto
+    left join Inc t1 (NoLock) on a.Inc_Auto=t1.Inc_Auto
+    Order by a.CDT desc
     End
   </select>
 </mapper>
