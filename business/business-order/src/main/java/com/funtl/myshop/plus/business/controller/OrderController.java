@@ -148,7 +148,7 @@ public class OrderController {
         return result;
     }
 
-    @ApiOperation(value = " 获取直租试算签核外部所有信息")
+    @ApiOperation(value = " 获取直租试算签核外部所有信息")//获取直租试算签核外部所有信息
     @ApiImplicitParams({
             @ApiImplicitParam(name = "ordersAuto", value = "试算单号", required = false, dataType = "long", paramType = "path")
     })
@@ -243,7 +243,7 @@ public class OrderController {
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", ordersList);
     }
 
-    @ApiOperation(value = " 获取回租试算签核外部所有信息")
+    @ApiOperation(value = "回租报价：获取回租信息")//获取回租试算签核外部所有信息
     @ApiImplicitParams({
             @ApiImplicitParam(name = "ordersAuto", value = "试算单号", required = false, dataType = "long", paramType = "path")
     })
