@@ -40,7 +40,7 @@ public class LeasebackController implements Serializable {
      * 回租报价
      */
 
-    @ApiOperation(value = "回租报价：下拉选1")
+    @ApiOperation(value = "回租报价：下拉选")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "itemType", value = "413回租报价，326业务类别，313客户来源，135抵押地，841排档方式，231燃油种类，316付款条件中的月份", required = true, dataType = "int", paramType = "path"),
             @ApiImplicitParam(name = "num", value = "对应的num", required = false, dataType = "long", paramType = "path")
@@ -52,7 +52,7 @@ public class LeasebackController implements Serializable {
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", leasebackSelects);
     }
 
-    @ApiOperation(value = "回租报价：承办业代部门下拉选")
+    @ApiOperation(value = "回租报价：1、承办业代部门下拉选")
     @ApiImplicitParam(name = "userAuto", value = "登录者userAuto", required = true, dataType = "long", paramType = "path")
     @GetMapping(value = "queryOrgName")
     public ResponseResult<List<OrgNameSelect>> queryOrgName(@RequestParam(name = "userAuto")Long userAuto){
@@ -60,7 +60,7 @@ public class LeasebackController implements Serializable {
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", list);
     }
 
-    @ApiOperation(value = "回租报价：承办业代姓名下拉选")
+    @ApiOperation(value = "回租报价：2、承办业代姓名下拉选")
     @ApiImplicitParam(name = "orgAuto", value = "部门序号", required = false, dataType = "long", paramType = "path")
     @GetMapping(value = "queryFName")
     public ResponseResult<List<FNameSelect>> queryFName(/*@RequestParam(name = "roleName")String roleName,*/
@@ -69,12 +69,14 @@ public class LeasebackController implements Serializable {
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", list);
     }
 
-    @ApiOperation(value = "回租报价：总厂牌下拉选")
+    @ApiOperation(value = "回租报价：1、总厂牌下拉选")
     @GetMapping(value = "queryFactoryBrandName")
     public ResponseResult<List<FactoryBrandNameSelect>> queryFactoryBrandName(){
         List<FactoryBrandNameSelect> list = factoryBrandService.selectFactoryBrandName();
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", list);
     }
+
+    
 
     @ApiOperation(value = "回租报价：查询按钮")
     @ApiImplicitParams({

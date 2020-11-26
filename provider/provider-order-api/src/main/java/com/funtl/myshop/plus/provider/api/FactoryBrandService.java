@@ -8,7 +8,7 @@ import java.util.List;
 public interface FactoryBrandService{
 
     /**
-     * 回租报价：总厂牌下拉选
+     * 回租报价：1、总厂牌下拉选
      * @return
      */
     List<FactoryBrandNameSelect> selectFactoryBrandName();

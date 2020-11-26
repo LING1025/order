@@ -7,7 +7,7 @@ import lombok.Data;
 import java.io.Serializable;
 
 @Data
-@ApiModel(value = "回租报价：承办业代姓名下拉选")
+@ApiModel(value = "回租报价：2、承办业代姓名下拉选")
 public class FNameSelect implements Serializable {
     @ApiModelProperty(value = "业代序号")
     private Long userAuto;

@@ -16,4 +16,16 @@
     <!--@mbg.generated-->
     Brand_Auto, BrandName, CDT, CUser, MDT, MUser, FactoryBrand_Auto
   </sql>
+  <resultMap id="queryBrandName" extends="BaseResultMap" type="com.funtl.myshop.plus.provider.domain.BrandNameSelect">
+    <result column="Brand_Auto" jdbcType="BIGINT" property="brandAuto" />
+    <result column="BrandName" jdbcType="VARCHAR" property="brandName" />
+  </resultMap>
+  <select id="selectBrandName" resultMap="queryBrandName">
+    select
+    Brand_Auto,BrandName
+    from
+    Brand
+    where FactoryBrand_Auto=#{factoryBrandAuto}
+    Order by BrandName collate chinese_PRC_CS_AS_KS_WS asc
+  </select>
 </mapper>

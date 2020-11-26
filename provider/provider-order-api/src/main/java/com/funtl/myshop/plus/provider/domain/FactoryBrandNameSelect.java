@@ -7,7 +7,7 @@ import lombok.Data;
 import java.io.Serializable;
 
 @Data
-@ApiModel(value = "回租报价：总厂牌下拉选")
+@ApiModel(value = "回租报价：1、总厂牌下拉选")
 public class FactoryBrandNameSelect implements Serializable {
     @ApiModelProperty(value = "总厂牌序号")
     private Long factoryBrandAuto;
