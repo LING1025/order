@@ -24,4 +24,18 @@
     UserId, User_Auto, Org_Auto, DepCode, Lev, UpUnit, TitleLevel, EmpBase_Auto, DepName,
     TitleName, FName, UserName, IsOn, RoleName
   </sql>
+  <resultMap id="queryOrgName" extends="BaseResultMap" type="com.funtl.myshop.plus.provider.domain.OrgNameSelect">
+    <result column="Org_Auto" jdbcType="BIGINT" property="orgAuto" />
+    <result column="DepName" jdbcType="VARCHAR" property="depName" />
+  </resultMap>
+  <select id="selectOrgName" resultMap="queryOrgName">
+    Select Distinct Org_Auto,DepName from f_GetEmpList(#{userAuto})
+  </select>
+  <resultMap id="queryFName" extends="BaseResultMap" type="com.funtl.myshop.plus.provider.domain.FNameSelect">
+    <result column="User_Auto" jdbcType="BIGINT" property="userAuto" />
+    <result column="FName" jdbcType="VARCHAR" property="fName" />
+  </resultMap>
+  <select id="selectFName" resultMap="queryFName">
+    Select Distinct User_Auto,FName from v_Emp2Role Where RoleName=#{roleName} And Org_Auto=#{orgAuto}
+  </select>
 </mapper>
