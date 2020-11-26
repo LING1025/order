@@ -84,6 +84,14 @@ public class LeasebackController implements Serializable {
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", list);
     }
 
+    @ApiOperation(value = "回租报价：3、车型下拉选")
+    @ApiImplicitParam(name = "brandAuto", value = "厂牌序号", required = false, dataType = "long", paramType = "path")
+    @GetMapping(value = "queryClasenName")
+    public ResponseResult<List<ClasenNameSelect>> queryClasenName(@RequestParam(name = "brandAuto")Long brandAuto){
+        List<ClasenNameSelect> list = brandService.selectClasenName(brandAuto);
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", list);
+    }
+
     @ApiOperation(value = "回租报价：查询按钮")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "userAuto", value = "登录者userAuto", required = false, dataType = "long", paramType = "path"),

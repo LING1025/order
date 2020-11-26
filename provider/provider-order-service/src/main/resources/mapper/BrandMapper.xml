@@ -25,7 +25,27 @@
     Brand_Auto,BrandName
     from
     Brand
-    where FactoryBrand_Auto=#{factoryBrandAuto}
+    where
+    1=1
+    <if test="factoryBrandAuto != null and factoryBrandAuto != ''">
+      AND FactoryBrand_Auto=#{factoryBrandAuto}
+    </if>
     Order by BrandName collate chinese_PRC_CS_AS_KS_WS asc
+  </select>
+  <resultMap id="queryClasenName" extends="BaseResultMap" type="com.funtl.myshop.plus.provider.domain.ClasenNameSelect">
+    <result column="Clasen_Auto" jdbcType="BIGINT" property="clasenAuto" />
+    <result column="ClasenName" jdbcType="VARCHAR" property="clasenName" />
+  </resultMap>
+  <select id="selectClasenName" resultMap="queryClasenName">
+    Select
+    b.Clasen_Auto,b.ClasenName
+    from Brand a
+    Inner Join Clasen b on a.Brand_Auto = b.Brand_Auto
+    Where
+    1=1
+    <if test="brandAuto != null and brandAuto != ''">
+      AND b.Brand_Auto = #{brandAuto}
+    </if>
+    Order by b.Brand_Auto,b.Clasen_Auto
   </select>
 </mapper>

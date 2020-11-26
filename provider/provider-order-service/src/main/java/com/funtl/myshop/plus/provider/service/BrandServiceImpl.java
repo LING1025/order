@@ -3,6 +3,7 @@ package com.funtl.myshop.plus.provider.service;
 import javax.annotation.Resource;
 
 import com.funtl.myshop.plus.provider.domain.BrandNameSelect;
+import com.funtl.myshop.plus.provider.domain.ClasenNameSelect;
 import com.funtl.myshop.plus.provider.mapper.BrandMapper;
 import com.funtl.myshop.plus.provider.domain.Brand;
 import com.funtl.myshop.plus.provider.api.BrandService;
@@ -20,5 +21,10 @@ public class BrandServiceImpl implements BrandService{
     @Override
     public List<BrandNameSelect> selectBrandName(Long factoryBrandAuto) {
         return brandMapper.selectBrandName(factoryBrandAuto);
+    }
+
+    @Override
+    public List<ClasenNameSelect> selectClasenName(Long brandAuto) {
+        return brandMapper.selectClasenName(brandAuto);
     }
 }
