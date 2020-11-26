@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 
 @Data
-@ApiModel(value = "回租报价查询按钮返回数据")
+@ApiModel(value = "回租报价：查询按钮返回数据")
 public class LeasebackList implements Serializable {
     @ApiModelProperty(value = "公司别")
     private String incName;
