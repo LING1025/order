@@ -3,8 +3,11 @@ package com.funtl.myshop.plus.business.controller;
 import com.funtl.myshop.plus.commons.dto.ResponseResult;
 import com.funtl.myshop.plus.provider.api.ItemCodeService;
 import com.funtl.myshop.plus.provider.api.OrdersService;
+import com.funtl.myshop.plus.provider.api.VEmp2RoleService;
+import com.funtl.myshop.plus.provider.domain.FNameSelect;
 import com.funtl.myshop.plus.provider.domain.LeasebackList;
 import com.funtl.myshop.plus.provider.domain.LeasebackSelect;
+import com.funtl.myshop.plus.provider.domain.OrgNameSelect;
 import com.funtl.myshop.plus.provider.dto.LeasebackQueryParam;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -29,6 +32,9 @@ public class LeasebackController implements Serializable {
     @Reference(version = "1.0.0")
     private ItemCodeService itemCodeService;
 
+    @Reference(version = "1.0.0")
+    private VEmp2RoleService vEmp2RoleService;
+
     /**
      * 回租报价
      */
@@ -43,6 +49,23 @@ public class LeasebackController implements Serializable {
                                                                 @RequestParam(name = "num", defaultValue = "100")Long num){
         List<LeasebackSelect> leasebackSelects = itemCodeService.selectItemName(itemType,num);
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", leasebackSelects);
+    }
+
+    @ApiOperation(value = "回租报价：承办业代部门下拉选")
+    @ApiImplicitParam(name = "userAuto", value = "登录者userAuto", required = true, dataType = "long", paramType = "path")
+    @GetMapping(value = "queryOrgName")
+    public ResponseResult<List<OrgNameSelect>> queryOrgName(@RequestParam(name = "userAuto")Long userAuto){
+        List<OrgNameSelect> list = vEmp2RoleService.selectOrgName(userAuto);
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", list);
+    }
+
+    @ApiOperation(value = "回租报价：承办业代姓名下拉选")
+    @ApiImplicitParam(name = "orgAuto", value = "部门序号", required = false, dataType = "long", paramType = "path")
+    @GetMapping(value = "queryFName")
+    public ResponseResult<List<FNameSelect>> queryFName(/*@RequestParam(name = "roleName")String roleName,*/
+                                                        @RequestParam(name = "orgAuto")Long orgAuto){
+        List<FNameSelect> list = vEmp2RoleService.selectFName("業務員",orgAuto);
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", list);
     }
 
     @ApiOperation(value = "回租报价：查询按钮")
