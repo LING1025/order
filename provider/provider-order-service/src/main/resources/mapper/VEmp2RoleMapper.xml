@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.funtl.myshop.plus.provider.mapper.VEmp2RoleMapper">
+  <resultMap id="BaseResultMap" type="com.funtl.myshop.plus.provider.domain.VEmp2Role">
+    <!--@mbg.generated-->
+    <!--@Table v_Emp2Role-->
+    <result column="UserId" jdbcType="OTHER" property="userId" />
+    <result column="User_Auto" jdbcType="BIGINT" property="userAuto" />
+    <result column="Org_Auto" jdbcType="BIGINT" property="orgAuto" />
+    <result column="DepCode" jdbcType="VARCHAR" property="depCode" />
+    <result column="Lev" jdbcType="INTEGER" property="lev" />
+    <result column="UpUnit" jdbcType="BIGINT" property="upUnit" />
+    <result column="TitleLevel" jdbcType="INTEGER" property="titleLevel" />
+    <result column="EmpBase_Auto" jdbcType="BIGINT" property="empBaseAuto" />
+    <result column="DepName" jdbcType="VARCHAR" property="depName" />
+    <result column="TitleName" jdbcType="VARCHAR" property="titleName" />
+    <result column="FName" jdbcType="VARCHAR" property="fName" />
+    <result column="UserName" jdbcType="VARCHAR" property="username" />
+    <result column="IsOn" jdbcType="INTEGER" property="isOn" />
+    <result column="RoleName" jdbcType="VARCHAR" property="roleName" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    UserId, User_Auto, Org_Auto, DepCode, Lev, UpUnit, TitleLevel, EmpBase_Auto, DepName,
+    TitleName, FName, UserName, IsOn, RoleName
+  </sql>
+</mapper>
