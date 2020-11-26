@@ -21,4 +21,6 @@ public interface OrdersMapper extends MyMapper<Orders> {
     List<MasterList> selectCrossList(@Param("rolesAuto") Long rolesAuto,@Param("userAuto") Long userAuto);
 
     List<LeasebackList> selectLeasebackList(@Param("params") LeasebackQueryParam leasebackQueryParam);
+
+    Leasebacks selectLeasebacks(@Param("ordersAuto") Long ordersAuto);
 }

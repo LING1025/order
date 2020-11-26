@@ -32,7 +32,7 @@ public class Leasebacks implements Serializable {
      * 基本信息
      */
     @ApiModelProperty(value = "回租报价序号")
-    private Integer postType;
+    private Long postType;
 
     @ApiModelProperty(value = "回租报价")
     private String postTypeName;
@@ -55,14 +55,23 @@ public class Leasebacks implements Serializable {
     @ApiModelProperty(value = "承办业代姓名")
     private String salesName;
 
+    @ApiModelProperty(value = "业务类别序号")
+    private Long orderType;
+
     @ApiModelProperty(value = "业务类别")
     private String orderTypeName;
 
+    @ApiModelProperty(value = "公司别序号")
+    private Long companyInc;
+
     @ApiModelProperty(value = "公司别")
-    private String carIncName;
+    private String companyIncN;
 
     @ApiModelProperty(value = "租赁期数")
     private Integer mm;
+
+    @ApiModelProperty(value = "客户来源序号")
+    private Long custSource;
 
     @ApiModelProperty(value = "客户来源")
     private String custSourceName;

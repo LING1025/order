@@ -51,4 +51,9 @@ public class OrdersServiceImpl implements OrdersService{
         return ordersMapper.selectLeasebackList(leasebackQueryParam);
     }
 
+    @Override
+    public Leasebacks selectLeasebacks(Long ordersAuto) {
+        return ordersMapper.selectLeasebacks(ordersAuto);
+    }
+
 }

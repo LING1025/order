@@ -580,7 +580,7 @@
     End
   </select>
 
-  <!--回租报价-->
+  <!--回租报价：查询按钮-->
   <resultMap id="queryLeasebackList" extends="BaseResultMap" type="com.funtl.myshop.plus.provider.domain.LeasebackList">
     <result column="incName" jdbcType="VARCHAR" property="incName" />
     <result column="custName" jdbcType="VARCHAR" property="custName" />
@@ -675,5 +675,53 @@
     left join Inc t1 (NoLock) on a.Inc_Auto=t1.Inc_Auto
     Order by a.CDT desc
     End
+  </select>
+
+  <!--回租报价：单号获取数据-->
+  <resultMap id="queryLeasebacks" extends="BaseResultMap" type="com.funtl.myshop.plus.provider.domain.Leasebacks">
+    <result column="postType" jdbcType="BIGINT" property="postType" />
+    <result column="postTypeName" jdbcType="VARCHAR" property="postTypeName" />
+    <result column="fName" jdbcType="VARCHAR" property="fName" />
+    <result column="userAuto" jdbcType="BIGINT" property="userAuto" />
+    <result column="salesName" jdbcType="VARCHAR" property="salesName" />
+    <result column="orgAuto" jdbcType="BIGINT" property="orgAuto" />
+    <result column="depName" jdbcType="VARCHAR" property="depName" />
+    <result column="companyInc" jdbcType="BIGINT" property="companyInc" />
+    <result column="carIncName" jdbcType="VARCHAR" property="companyIncN" />
+    <result column="orderTypeName" jdbcType="VARCHAR" property="orderTypeName" />
+    <result column="custSourceName" jdbcType="VARCHAR" property="custSourceName" />
+    <result column="carSourceName" jdbcType="VARCHAR" property="carSourceName" />
+    <result column="oilName" jdbcType="VARCHAR" property="oilName" />
+    <result column="FactoryBrandName" jdbcType="VARCHAR" property="factoryBrandName" />
+    <result column="BrandName" jdbcType="VARCHAR" property="brandName" />
+    <result column="ClasenName" jdbcType="VARCHAR" property="clasenName" />
+    <result column="supplierBuyName" jdbcType="VARCHAR" property="supplierBuyName" />
+    <result column="irr" jdbcType="VARCHAR" property="irr" />
+    <result column="grossMarginT" jdbcType="VARCHAR" property="grossMarginT" />
+    <result column="a1" jdbcType="VARCHAR" property="a1" />
+    <result column="a2" jdbcType="VARCHAR" property="a2" />
+    <result column="a3" jdbcType="VARCHAR" property="a3" />
+    <result column="a4" jdbcType="VARCHAR" property="a4" />
+    <result column="a5" jdbcType="VARCHAR" property="a5" />
+    <result column="bsTypeName" jdbcType="VARCHAR" property="bsTypeName" />
+    <result column="rateRate" jdbcType="VARCHAR" property="rateRate" />
+    <result column="rentRateN" jdbcType="VARCHAR" property="rentRateN" />
+    <result column="rateTaxY" jdbcType="VARCHAR" property="rateTaxY" />
+    <result column="salesTax" jdbcType="DECIMAL" property="salesTax" />
+    <result column="mortgageAddrN" jdbcType="VARCHAR" property="mortgageAddrN" />
+    <result column="pushTel" jdbcType="VARCHAR" property="pushTel" />
+    <result column="commissionRate" jdbcType="VARCHAR" property="commissionRate" />
+    <result column="rentMAmt" jdbcType="DECIMAL" property="rentMAmt" />
+    <result column="gpsAmt" jdbcType="DECIMAL" property="gpsAmt" />
+    <result column="insureRealAmt" jdbcType="DECIMAL" property="insureRealAmt" />
+    <result column="postTypeName" jdbcType="VARCHAR" property="postTypeName" />
+    <result column="finalTax" jdbcType="DECIMAL" property="finalTax" />
+    <result column="insureTypeName" jdbcType="VARCHAR" property="insureTypeName" />
+    <result column="insurePercentName" jdbcType="VARCHAR" property="insurePercentName" />
+    <result column="carPlace" jdbcType="VARCHAR" property="carPlace" />
+    <result column="customerStatus" jdbcType="VARCHAR" property="customerStatus" />
+  </resultMap>
+  <select id="selectLeasebacks" resultMap="queryLeasebacks">
+
   </select>
 </mapper>

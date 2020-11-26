@@ -58,4 +58,10 @@ public interface OrdersService{
      */
     List<LeasebackList> selectLeasebackList(LeasebackQueryParam leasebackQueryParam);
 
+    /**
+     * 回租报价：单号获取数据
+     * @param ordersAuto
+     * @return
+     */
+    Leasebacks selectLeasebacks(Long ordersAuto);
 }
