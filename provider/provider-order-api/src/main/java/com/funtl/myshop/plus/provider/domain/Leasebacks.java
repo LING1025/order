@@ -160,9 +160,6 @@ public class Leasebacks implements Serializable {
     private Integer mm2;
 
     @ApiModelProperty(value = "已用里程")
-    private String useKmN;
-
-    @JsonIgnore
     private Integer usekm;
 
     @ApiModelProperty(value = "燃油种类序号")
@@ -202,19 +199,16 @@ public class Leasebacks implements Serializable {
     @ApiModelProperty(value = "车辆牌价")
     private BigDecimal listPrice = BigDecimal.valueOf(0);
 
-    @ApiModelProperty(value = "折价金额")
-    private String disPriceN;
-
     /**
      * 折价金额
      */
-    @JsonIgnore
+    @ApiModelProperty(value = "折价金额")
     private BigDecimal disPrice = BigDecimal.valueOf(0);
 
     /**
      * 车辆进价
      */
-    @JsonIgnore
+    @ApiModelProperty(value = "折价金额后面的值")
     private BigDecimal getPrice = BigDecimal.valueOf(0);
 
     @ApiModelProperty(value = "网上参考价")
@@ -224,6 +218,9 @@ public class Leasebacks implements Serializable {
     private BigDecimal discount = BigDecimal.valueOf(0);
 
     @ApiModelProperty(value = "贷款成数(%)")
+    private Long amtPNum;
+
+    @ApiModelProperty(value = "贷款成数(%)后面的值")
     private String amtP;
 
     @ApiModelProperty(value = "首付金额")
@@ -289,7 +286,7 @@ public class Leasebacks implements Serializable {
      */
 
     @ApiModelProperty(value = "年化利率(含税)")
-    private String rateTaxYear;
+    private BigDecimal rateTaxYear = BigDecimal.valueOf(0);
 
     @ApiModelProperty(value = "退税年化利率")
     private String rentRateY;

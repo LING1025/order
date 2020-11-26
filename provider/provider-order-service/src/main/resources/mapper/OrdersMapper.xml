@@ -682,12 +682,12 @@
     <result column="postType" jdbcType="BIGINT" property="postType" />
     <result column="postTypeName" jdbcType="VARCHAR" property="postTypeName" />
     <result column="fName" jdbcType="VARCHAR" property="fName" />
-    <result column="userAuto" jdbcType="BIGINT" property="userAuto" />
+    <result column="User_Auto" jdbcType="BIGINT" property="userAuto" />
     <result column="salesName" jdbcType="VARCHAR" property="salesName" />
-    <result column="orgAuto" jdbcType="BIGINT" property="orgAuto" />
+    <result column="Org_Auto" jdbcType="BIGINT" property="orgAuto" />
     <result column="depName" jdbcType="VARCHAR" property="depName" />
     <result column="companyInc" jdbcType="BIGINT" property="companyInc" />
-    <result column="carIncName" jdbcType="VARCHAR" property="companyIncN" />
+    <result column="companyIncN" jdbcType="VARCHAR" property="companyIncN" />
     <result column="orderType" jdbcType="BIGINT" property="orderType" />
     <result column="orderTypeName" jdbcType="VARCHAR" property="orderTypeName" />
     <result column="custSource" jdbcType="BIGINT" property="custSource" />
@@ -695,9 +695,9 @@
     <result column="carSource" jdbcType="BIGINT" property="carSource" />
     <result column="carSourceName" jdbcType="VARCHAR" property="carSourceName" />
     <result column="oil" jdbcType="BIGINT" property="oil" />
-    <result column="factoryBrandAuto" jdbcType="BIGINT" property="factoryBrandAuto" />
-    <result column="brandAuto" jdbcType="BIGINT" property="brandAuto" />
-    <result column="clasenAuto" jdbcType="BIGINT" property="clasenAuto" />
+    <result column="FactoryBrand_Auto" jdbcType="BIGINT" property="factoryBrandAuto" />
+    <result column="Brand_Auto" jdbcType="BIGINT" property="brandAuto" />
+    <result column="Clasen_Auto" jdbcType="BIGINT" property="clasenAuto" />
     <result column="oilName" jdbcType="VARCHAR" property="oilName" />
     <result column="FactoryBrandName" jdbcType="VARCHAR" property="factoryBrandName" />
     <result column="BrandName" jdbcType="VARCHAR" property="brandName" />
@@ -714,7 +714,7 @@
     <result column="bsTypeName" jdbcType="VARCHAR" property="bsTypeName" />
     <result column="rateRate" jdbcType="VARCHAR" property="rateRate" />
     <result column="rentRateN" jdbcType="VARCHAR" property="rentRateN" />
-    <result column="rateTaxYear" jdbcType="VARCHAR" property="rateTaxYear" />
+    <result column="rateTaxYear" jdbcType="DECIMAL" property="rateTaxYear" />
     <result column="salesTax" jdbcType="DECIMAL" property="salesTax" />
     <result column="mortgageAddr" jdbcType="BIGINT" property="mortgageAddr" />
     <result column="mortgageAddrN" jdbcType="VARCHAR" property="mortgageAddrN" />
@@ -777,7 +777,7 @@
 	n.Num As insurePercent,n.ItemName As insurePercentName,
 	a.Percnt,isnull(convert(decimal(18,0),a.Discount),0) as Discount,
 	q.Num as car,q.ItemName as carPlace,
-	convert(varchar(10),convert(decimal(18,2),(a.RateTaxY)))+'%' as rateTaxYear,
+    isnull(a.RateTaxY,0) as rateTaxYear,
 	a.TaxMode,
 	convert(varchar(10),convert(decimal(18,2),(a.RateRate)))+'%' as rateRate,
     a.TaxRate AS salesTax,

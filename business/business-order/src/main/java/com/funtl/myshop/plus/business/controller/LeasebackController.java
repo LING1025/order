@@ -135,8 +135,6 @@ public class LeasebackController implements Serializable {
         if (leasebacks.getTaxMode() == 5){
             leasebacks.setTaxMode(6);
         }
-        //已用里程
-        leasebacks.setUseKmN(leasebacks.getUsekm()+"公里");
         //退税年化利率计算
         double rentRateY = (calculatePMT(leasebacks.getRentRate().doubleValue(), leasebacks.getMm(), 1) * leasebacks.getMm()-1)*100*12/leasebacks.getMm();
         //四舍五入保留两位小数
@@ -156,13 +154,10 @@ public class LeasebackController implements Serializable {
         double p = ((leasebacks.getRentAmt().subtract(leasebacks.getStampTax())).doubleValue())*1.0/
                 ((leasebacks.getListPrice().subtract(leasebacks.getDisPrice())).doubleValue() + dFee);
         Integer amtP = Math.round(leasebacks.getRentAmt().subtract(leasebacks.getStampTax()).intValue());
+        leasebacks.setAmtPNum(Math.round(p*100));
         leasebacks.setAmtP(amtP + "(" + Math.round(p*100) + "%)");
-        //折价金额
-        leasebacks.setDisPriceN(leasebacks.getDisPrice()+"  "+leasebacks.getGetPrice());
         //客户全称
-        leasebacks.setFName(leasebacks.getFName()+ " "+ leasebacks.getTradeItemAuto()+ " " + leasebacks.getCustomerStatus());
-        //厂牌车型
-        leasebacks.setFactoryBrandName(leasebacks.getFactoryBrandName() + " " + leasebacks.getBrandName() + " " + leasebacks.getClasenName());
+//        leasebacks.setFName(leasebacks.getFName()+ " "+ leasebacks.getTradeItemAuto()+ " " + leasebacks.getCustomerStatus());
 
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", leasebacks);
     }
