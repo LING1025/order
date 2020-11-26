@@ -1,10 +1,7 @@
 package com.funtl.myshop.plus.business.controller;
 
 import com.funtl.myshop.plus.commons.dto.ResponseResult;
-import com.funtl.myshop.plus.provider.api.FactoryBrandService;
-import com.funtl.myshop.plus.provider.api.ItemCodeService;
-import com.funtl.myshop.plus.provider.api.OrdersService;
-import com.funtl.myshop.plus.provider.api.VEmp2RoleService;
+import com.funtl.myshop.plus.provider.api.*;
 import com.funtl.myshop.plus.provider.domain.*;
 import com.funtl.myshop.plus.provider.dto.LeasebackQueryParam;
 import io.swagger.annotations.Api;
@@ -35,6 +32,9 @@ public class LeasebackController implements Serializable {
 
     @Reference(version = "1.0.0")
     private FactoryBrandService factoryBrandService;
+
+    @Reference(version = "1.0.0")
+    private BrandService brandService;
 
     /**
      * 回租报价
@@ -76,7 +76,13 @@ public class LeasebackController implements Serializable {
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", list);
     }
 
-    
+    @ApiOperation(value = "回租报价：2、厂牌下拉选")
+    @ApiImplicitParam(name = "factoryBrandAuto", value = "总厂牌序号", required = false, dataType = "long", paramType = "path")
+    @GetMapping(value = "queryBrandName")
+    public ResponseResult<List<BrandNameSelect>> queryBrandName(@RequestParam(name = "factoryBrandAuto")Long factoryBrandAuto){
+        List<BrandNameSelect> list = brandService.selectBrandName(factoryBrandAuto);
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", list);
+    }
 
     @ApiOperation(value = "回租报价：查询按钮")
     @ApiImplicitParams({
