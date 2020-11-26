@@ -82,7 +82,7 @@ public class Leasebacks implements Serializable {
     /**
      * 客户序号
      */
-    @JsonIgnore
+    @ApiModelProperty(value = "客户序号")
     private Long tradeItemAuto;
 
     @ApiModelProperty(value = "客户全称")//fName+tradeItemAuto+customerStatus
