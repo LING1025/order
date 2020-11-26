@@ -6,42 +6,55 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import javax.persistence.Table;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.List;
 
 @Data
-@ApiModel(value = "回租数据")
-public class OrdersBackList implements Serializable {
+@ApiModel(value = "回租报价：单号获取数据")
+public class Leasebacks implements Serializable {
+    /*@ApiModelProperty(value = "框外面显示的第1个值")
+    private String status;
+
+    @ApiModelProperty(value = "框外面显示的第2个值")
+    private String msg;
+
+    @ApiModelProperty(value = "框外面显示的第3个值 车籍序号")
+    private Long carBaseAuto;
+
+    @ApiModelProperty(value = "框外面显示的第4个值 可抵扣 0否 1是")
+    private Integer chkListPrice;
+
+    @ApiModelProperty(value = "框外面显示的第5个值 计价租金")
+    private BigDecimal rateMAmt;*/
+
     /**
      * 基本信息
      */
-
-    @ApiModelProperty(value = "试算单号")
-    private Long ordersAuto;
-
-    /**
-     * 案件类别
-     */
-    /*@JsonIgnore
+    @ApiModelProperty(value = "回租报价序号")
     private Integer postType;
 
-    @ApiModelProperty(value = "回租报价")
-    private List<ItemNameList> postTypeName;*/
     @ApiModelProperty(value = "回租报价")
     private String postTypeName;
 
     @ApiModelProperty(value = "原单号")
     private Long ordersOld;
 
-    @ApiModelProperty(value = "承办业代")
+    @ApiModelProperty(value = "试算单号")
+    private Long ordersAuto;
+
+    @ApiModelProperty(value = "承办业代部门序号")
+    private Long orgAuto;
+
+    @ApiModelProperty(value = "承办业代部门")
+    private String depName;
+
+    @ApiModelProperty(value = "承办业代序号")
+    private Long userAuto;
+
+    @ApiModelProperty(value = "承办业代姓名")
     private String salesName;
 
-    /**
-     * 业务类别::ItemCode.ItemType=326
-     */
     @ApiModelProperty(value = "业务类别")
     private String orderTypeName;
 
@@ -51,30 +64,26 @@ public class OrdersBackList implements Serializable {
     @ApiModelProperty(value = "租赁期数")
     private Integer mm;
 
-    /**
-     * 客户来源::ItemCode.ItemType=313
-     */
     @ApiModelProperty(value = "客户来源")
     private String custSourceName;
 
     @ApiModelProperty(value = "介绍人")
     private String pushMan;
 
-    @ApiModelProperty(value = "客户全称")
-    private String fName;
-
     /**
-     * 客户代码
+     * 客户序号
      */
     @JsonIgnore
     private Long tradeItemAuto;
 
+    @ApiModelProperty(value = "客户全称")//fName+tradeItemAuto+customerStatus
+    private String fName;
+
     @JsonIgnore
     private String customerStatus;
 
-    @JsonIgnore
-//    private Integer isBigTra;
-    private String isBigTra;
+    @ApiModelProperty(value = "大口客户 0否 1是")
+    private Integer isBigTradeItem;
 
     @ApiModelProperty(value = "行动电话")
     private String pushTel;
@@ -89,39 +98,48 @@ public class OrdersBackList implements Serializable {
     @ApiModelProperty(value = "车号")
     private String makNo;
 
-    /**
-     * 车辆来源::ItemCode.ItemType=503
-     */
+    @ApiModelProperty(value = "车辆来源序号")
+    private Long carSource;
+
     @ApiModelProperty(value = "车辆来源")
     private String carSourceName;
 
-    @ApiModelProperty(value = "厂牌车型")
+    @ApiModelProperty(value = "总厂牌序号")
+    private Long factoryBrandAuto;
+
+    @ApiModelProperty(value = "总厂牌")
     private String factoryBrandName;
 
-    /**
-     * 厂牌
-     */
-    @JsonIgnore
+    @ApiModelProperty(value = "厂牌序号")
+    private Long brandAuto;
+
+    @ApiModelProperty(value = "厂牌")
     private String brandName;
 
-    /**
-     * 车型
-     */
-    @JsonIgnore
+    @ApiModelProperty(value = "车型序号")
+    private Long clasenAuto;
+
+    @ApiModelProperty(value = "车型")
     private String clasenName;
 
     @ApiModelProperty(value = "车型代码")
     private String clasenCode;
+
+    @ApiModelProperty(value = "抵押地序号")
+    private Long mortgageAddr;
 
     @ApiModelProperty(value = "抵押地")
     private String mortgageAddrN;
 
     @ApiModelProperty(value = "出厂年月")
     @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
-    private Date cardt;
+    private Date carDT;
 
     @ApiModelProperty(value = "排气量")
     private Integer cc;
+
+    @ApiModelProperty(value = "排挡方式序号")
+    private Long bsType;
 
     @ApiModelProperty(value = "排挡方式")
     private String bsTypeName;
@@ -136,31 +154,34 @@ public class OrdersBackList implements Serializable {
     private String useKmN;
 
     @JsonIgnore
-    private Integer usekm;
+    private Integer useKm;
 
-    /**
-     * 燃油种类::ItemCode.ItemType=231
-     */
+    @ApiModelProperty(value = "燃油种类序号")
+    private Long oil;
+
     @ApiModelProperty(value = "燃油种类")
     private String oilName;
 
     @ApiModelProperty(value = "吨数")
     private String weight;
 
-    /**
-     * 车险性质别::ItemCode.ItemType=411
-     */
-    /*@JsonIgnore
-    private Integer insureType;*/
+    @ApiModelProperty(value = "车险性质别序号")
+    private Long insureType;
 
     @ApiModelProperty(value = "车险性质别")
     private String insureTypeName;
 
+    @ApiModelProperty(value = "车险座位类别序号")
+    private Long insurePercent;
+
     @ApiModelProperty(value = "车险座位类别")
-    private String insurePercntName;
+    private String insurePercentName;
 
     @ApiModelProperty(value = "座位数")
-    private Integer percnt;
+    private Integer percent;
+
+    @ApiModelProperty(value = "汽车产地序号")
+    private Long car;
 
     @ApiModelProperty(value = "汽车产地")
     private String carPlace;
@@ -215,10 +236,10 @@ public class OrdersBackList implements Serializable {
     @ApiModelProperty(value = "配件金额")
     private BigDecimal accessary = BigDecimal.valueOf(0);
 
-    @ApiModelProperty(value = "0否 1是")
+    @ApiModelProperty(value = "GPS安装 0否 1是")
     private Integer gps;
 
-    @ApiModelProperty(value = "GPS安装")
+    @ApiModelProperty(value = "GPS安装费")
     private BigDecimal gpsAmt = BigDecimal.valueOf(0);
 
     @ApiModelProperty(value = "加急费")
@@ -245,12 +266,11 @@ public class OrdersBackList implements Serializable {
     /**
      * 付款条件
      */
+    @ApiModelProperty(value = "付款周期编号")
+    private Long payMode;
 
-    /**
-     * 付款周期::ItemCode.ItemType=316
-     */
     @ApiModelProperty(value = "付款周期")
-    private Integer payMode;
+    private String payModeN;
 
     @ApiModelProperty(value = "付款天数")
     private Integer payDay;
@@ -260,7 +280,7 @@ public class OrdersBackList implements Serializable {
      */
 
     @ApiModelProperty(value = "年化利率(含税)")
-    private String rateTaxy;
+    private String rateTaxY;
 
     @ApiModelProperty(value = "退税年化利率")
     private String rentRateY;
