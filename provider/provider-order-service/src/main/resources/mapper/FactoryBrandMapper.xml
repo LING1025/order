@@ -15,4 +15,12 @@
     <!--@mbg.generated-->
     FactoryBrand_Auto, FactoryBrandName, CDT, CUser, MDT, MUser
   </sql>
+
+  <resultMap id="queryFactoryBrandName" extends="BaseResultMap" type="com.funtl.myshop.plus.provider.domain.FactoryBrandNameSelect">
+    <result column="FactoryBrand_Auto" jdbcType="BIGINT" property="factoryBrandAuto" />
+    <result column="FactoryBrandName" jdbcType="VARCHAR" property="factoryBrandName" />
+  </resultMap>
+  <select id="selectFactoryBrandName" resultMap="queryFactoryBrandName">
+    select FactoryBrand_Auto,FactoryBrandName from FactoryBrand Order by FactoryBrandName collate chinese_PRC_CS_AS_KS_WS asc
+  </select>
 </mapper>
