@@ -53,7 +53,7 @@
                   <option name="javaMapperPath" value="D:\twoWork\order\provider\provider-order-service\src\main\java" />
                   <option name="javaModelPacakge" value="com.funtl.myshop.plus.provider.domain" />
                   <option name="javaModelPath" value="$PROJECT_DIR$/provider/provider-order-api/src/main/java" />
-                  <option name="javaServiceInterfacePackage" value="com.funtl.myshop.plus.provider.service" />
+                  <option name="javaServiceInterfacePackage" value="com.funtl.myshop.plus.provider.api" />
                   <option name="javaServiceInterfacePath" value="$PROJECT_DIR$/provider/provider-order-api/src/main/java" />
                   <option name="javaServicePackage" value="com.funtl.myshop.plus.provider.service" />
                   <option name="javaServicePath" value="D:\twoWork\order\provider\provider-order-service\src\main\java" />
@@ -147,6 +147,46 @@
                   <option name="sequenceColumn" value="" />
                   <option name="sequenceId" value="" />
                   <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
+            <entry key="dbo:FactoryBrand">
+              <value>
+                <TableGenerateConfig>
+                  <option name="columnOverrideList">
+                    <list>
+                      <MyColumnOverride>
+                        <option name="columnName" value="FactoryBrand_Auto" />
+                        <option name="javaProperty" value="factoryBrandAuto" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="FactoryBrandName" />
+                        <option name="javaProperty" value="factoryBrandName" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="CDT" />
+                        <option name="javaProperty" value="cDT" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="CUser" />
+                        <option name="javaProperty" value="cUser" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="MDT" />
+                        <option name="javaProperty" value="mDT" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="MUser" />
+                        <option name="javaProperty" value="mUser" />
+                      </MyColumnOverride>
+                    </list>
+                  </option>
+                  <option name="generatedKey" value="FactoryBrand_Auto" />
+                  <option name="javaModelName" value="FactoryBrand" />
+                  <option name="moduleName" value="provider-order-api" />
+                  <option name="sequenceColumn" value="" />
+                  <option name="sequenceId" value="" />
+                  <option name="useActualColumnName" value="true" />
                 </TableGenerateConfig>
               </value>
             </entry>
@@ -1372,6 +1412,7 @@
             </entry>
           </map>
         </option>
+        <option name="useActualColumnNames" value="true" />
         <option name="xmlMapperPackage" value="mapper" />
         <option name="xmlMapperPath" value="D:\twoWork\order\provider\provider-order-service\src\main\resources" />
       </ProjectProfile>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.funtl.myshop.plus.provider.mapper.FactoryBrandMapper">
+  <resultMap id="BaseResultMap" type="com.funtl.myshop.plus.provider.domain.FactoryBrand">
+    <!--@mbg.generated-->
+    <!--@Table FactoryBrand-->
+    <id column="FactoryBrand_Auto" jdbcType="BIGINT" property="factoryBrandAuto" />
+    <result column="FactoryBrandName" jdbcType="VARCHAR" property="factoryBrandName" />
+    <result column="CDT" jdbcType="TIMESTAMP" property="cDT" />
+    <result column="CUser" jdbcType="BIGINT" property="cUser" />
+    <result column="MDT" jdbcType="TIMESTAMP" property="mDT" />
+    <result column="MUser" jdbcType="BIGINT" property="mUser" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    FactoryBrand_Auto, FactoryBrandName, CDT, CUser, MDT, MUser
+  </sql>
+</mapper>
