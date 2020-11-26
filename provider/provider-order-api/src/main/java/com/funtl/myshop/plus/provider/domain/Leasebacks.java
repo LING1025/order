@@ -142,7 +142,7 @@ public class Leasebacks implements Serializable {
 
     @ApiModelProperty(value = "出厂年月")
     @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
-    private Date carDT;
+    private Date cardt;
 
     @ApiModelProperty(value = "排气量")
     private Integer cc;
@@ -163,7 +163,7 @@ public class Leasebacks implements Serializable {
     private String useKmN;
 
     @JsonIgnore
-    private Integer useKm;
+    private Integer usekm;
 
     @ApiModelProperty(value = "燃油种类序号")
     private Long oil;
@@ -187,7 +187,7 @@ public class Leasebacks implements Serializable {
     private String insurePercentName;
 
     @ApiModelProperty(value = "座位数")
-    private Integer percent;
+    private Integer percnt;
 
     @ApiModelProperty(value = "汽车产地序号")
     private Long car;
@@ -289,7 +289,7 @@ public class Leasebacks implements Serializable {
      */
 
     @ApiModelProperty(value = "年化利率(含税)")
-    private String rateTaxY;
+    private String rateTaxYear;
 
     @ApiModelProperty(value = "退税年化利率")
     private String rentRateY;

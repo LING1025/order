@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.List;
 
 @Api(tags = "回租报价相关操作")
@@ -112,5 +113,57 @@ public class LeasebackController implements Serializable {
             return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "查无资料，请输入其它查询条件!", null);
         }
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", lists);
+    }
+
+    //贷款金额与贷款成数的计算公式
+    public static double calculatePMT(double rate, double nper, double pv) {
+        double v = (1 + (rate /100 / 12));
+        double t = (-(nper / 12) * 12);
+        double result = (pv * (rate /100 / 12)) / (1 - Math.pow(v, t));
+        return result;
+    }
+
+    @ApiOperation(value = "回租报价：单号获取数据")
+    @ApiImplicitParam(name = "ordersAuto", value = "试算单号", required = false, dataType = "long", paramType = "path")
+    @GetMapping(value = "queryLeasebacks")
+    public ResponseResult<Leasebacks> queryLeasebacks(@RequestParam(name = "ordersAuto",defaultValue = "0") Long ordersAuto){
+        Leasebacks leasebacks = ordersService.selectLeasebacks(ordersAuto);
+        if (leasebacks == null){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "查询条件无资料", null);
+        }
+
+        if (leasebacks.getTaxMode() == 5){
+            leasebacks.setTaxMode(6);
+        }
+        //已用里程
+        leasebacks.setUseKmN(leasebacks.getUsekm()+"公里");
+        //退税年化利率计算
+        double rentRateY = (calculatePMT(leasebacks.getRentRate().doubleValue(), leasebacks.getMm(), 1) * leasebacks.getMm()-1)*100*12/leasebacks.getMm();
+        //四舍五入保留两位小数
+        BigDecimal bg = new BigDecimal(rentRateY);
+        double f1 = bg.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+        leasebacks.setRentRateY(f1+"%");
+        //GPS安装
+        if(leasebacks.getGpsAmt().compareTo(BigDecimal.valueOf(0)) == 1){
+            leasebacks.setGps(1);
+        }else{
+            leasebacks.setGps(0);
+        }
+        //贷款金额与贷款成数的计算公式
+        double dFee = (leasebacks.getInsureRealAmt().add(leasebacks.getAccessary().add(leasebacks.getFeeAmt()
+                .add(leasebacks.getCarTax().add(leasebacks.getFinanceFee().add(leasebacks.getUrgentFee()
+                        .add(leasebacks.getOutFee().add(leasebacks.getCarExtensionAmt())))))))).doubleValue();
+        double p = ((leasebacks.getRentAmt().subtract(leasebacks.getStampTax())).doubleValue())*1.0/
+                ((leasebacks.getListPrice().subtract(leasebacks.getDisPrice())).doubleValue() + dFee);
+        Integer amtP = Math.round(leasebacks.getRentAmt().subtract(leasebacks.getStampTax()).intValue());
+        leasebacks.setAmtP(amtP + "(" + Math.round(p*100) + "%)");
+        //折价金额
+        leasebacks.setDisPriceN(leasebacks.getDisPrice()+"  "+leasebacks.getGetPrice());
+        //客户全称
+        leasebacks.setFName(leasebacks.getFName()+ " "+ leasebacks.getTradeItemAuto()+ " " + leasebacks.getCustomerStatus());
+        //厂牌车型
+        leasebacks.setFactoryBrandName(leasebacks.getFactoryBrandName() + " " + leasebacks.getBrandName() + " " + leasebacks.getClasenName());
+
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", leasebacks);
     }
 }

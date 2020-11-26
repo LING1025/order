@@ -688,9 +688,16 @@
     <result column="depName" jdbcType="VARCHAR" property="depName" />
     <result column="companyInc" jdbcType="BIGINT" property="companyInc" />
     <result column="carIncName" jdbcType="VARCHAR" property="companyIncN" />
+    <result column="orderType" jdbcType="BIGINT" property="orderType" />
     <result column="orderTypeName" jdbcType="VARCHAR" property="orderTypeName" />
+    <result column="custSource" jdbcType="BIGINT" property="custSource" />
     <result column="custSourceName" jdbcType="VARCHAR" property="custSourceName" />
+    <result column="carSource" jdbcType="BIGINT" property="carSource" />
     <result column="carSourceName" jdbcType="VARCHAR" property="carSourceName" />
+    <result column="oil" jdbcType="BIGINT" property="oil" />
+    <result column="factoryBrandAuto" jdbcType="BIGINT" property="factoryBrandAuto" />
+    <result column="brandAuto" jdbcType="BIGINT" property="brandAuto" />
+    <result column="clasenAuto" jdbcType="BIGINT" property="clasenAuto" />
     <result column="oilName" jdbcType="VARCHAR" property="oilName" />
     <result column="FactoryBrandName" jdbcType="VARCHAR" property="factoryBrandName" />
     <result column="BrandName" jdbcType="VARCHAR" property="brandName" />
@@ -703,11 +710,13 @@
     <result column="a3" jdbcType="VARCHAR" property="a3" />
     <result column="a4" jdbcType="VARCHAR" property="a4" />
     <result column="a5" jdbcType="VARCHAR" property="a5" />
+    <result column="bsType" jdbcType="BIGINT" property="bsType" />
     <result column="bsTypeName" jdbcType="VARCHAR" property="bsTypeName" />
     <result column="rateRate" jdbcType="VARCHAR" property="rateRate" />
     <result column="rentRateN" jdbcType="VARCHAR" property="rentRateN" />
-    <result column="rateTaxY" jdbcType="VARCHAR" property="rateTaxY" />
+    <result column="rateTaxYear" jdbcType="VARCHAR" property="rateTaxYear" />
     <result column="salesTax" jdbcType="DECIMAL" property="salesTax" />
+    <result column="mortgageAddr" jdbcType="BIGINT" property="mortgageAddr" />
     <result column="mortgageAddrN" jdbcType="VARCHAR" property="mortgageAddrN" />
     <result column="pushTel" jdbcType="VARCHAR" property="pushTel" />
     <result column="commissionRate" jdbcType="VARCHAR" property="commissionRate" />
@@ -716,12 +725,90 @@
     <result column="insureRealAmt" jdbcType="DECIMAL" property="insureRealAmt" />
     <result column="postTypeName" jdbcType="VARCHAR" property="postTypeName" />
     <result column="finalTax" jdbcType="DECIMAL" property="finalTax" />
+    <result column="insureType" jdbcType="BIGINT" property="insureType" />
+    <result column="insurePercent" jdbcType="BIGINT" property="insurePercent" />
     <result column="insureTypeName" jdbcType="VARCHAR" property="insureTypeName" />
     <result column="insurePercentName" jdbcType="VARCHAR" property="insurePercentName" />
     <result column="carPlace" jdbcType="VARCHAR" property="carPlace" />
     <result column="customerStatus" jdbcType="VARCHAR" property="customerStatus" />
+    <result column="payMode" jdbcType="BIGINT" property="payMode" />
+    <result column="payModeN" jdbcType="BIGINT" property="payModeN" />
   </resultMap>
   <select id="selectLeasebacks" resultMap="queryLeasebacks">
-
+    select
+	p.Num AS postType,
+    p.ItemName AS postTypeName,
+	a.Orders_Auto,a.Orders_Old,a.MM,
+    a.TradeItem_Auto,
+	c.FName AS fName,
+	b.Org_Auto,b.DepName,
+	b.User_Auto,b.FName AS salesname,
+    g.Num AS custSource ,g.ItemName AS custSourceName,
+	a.PushMan,isnull(a.PushTEL,'') AS pushTel,supplierBuyName = Supplier_Buy.FName,
+    a.CarDT,
+    l.FactoryBrand_Auto,l.FactoryBrandName,j.Brand_Auto,j.BrandName,k.Clasen_Auto,k.ClasenName,
+    a.CarColor,
+	h.Num AS carSource ,h.ItemName AS carSourceName,
+    a.ClasenCode,a.CC,i.Num AS oil,i.ItemName AS oilName,a.MakNo,
+    r.Num AS bsType,r.ItemName AS bsTypeName,
+	d.Inc_Auto AS companyInc,d.SName AS companyIncN,
+	a.IsBigTradeItem,
+	o.Num AS mortgageAddr ,o.ItemName AS mortgageAddrN,
+    (select isnull(convert(decimal(18,0),(sum(FeeAmt))),0) from OrdersFee where Orders_Auto=#{ordersAuto} and FeeType_Auto not in(2,16)) feeAmt,
+    (select isnull(convert(decimal(18,0),(sum(FeeAmt))),0) from OrdersFee where Orders_Auto=#{ordersAuto} and FeeType_Auto in(2)) gpsAmt,
+    (select isnull(convert(decimal(18,0),(sum(InsureRealAmt))),0) from OrdersInsureList where Orders_Auto = #{ordersAuto}) insureRealAmt,
+    convert(decimal(18,0),(a.ListPrice)) as ListPrice,
+    convert(decimal(18,0),(a.DisPrice)) as DisPrice,
+    convert(decimal(18,0),(a.GetPrice)) as GetPrice,
+    isnull(a.CarPriceRef,0) CarPriceRef,
+    convert(decimal(18,0),(a.Accessary)) as Accessary,
+    a.CarTax,a.PushMoney,
+    convert(decimal(18,0),(a.DptAmt)) as DptAmt,a.RentAmt,
+    a.CarExtensionAmt,a.OutFee,a.FinanceFee,a.UrgentFee,
+    a.StampTax,
+	s.Num AS payMode,s.ItemName AS payModeN,
+	a.PayDay,
+    a.RentAmtT,a.GrossMargin,a.Memo,
+    convert(varchar(10),convert(decimal(18,2),(a.IRR)))+'%' as irr,
+    convert(varchar(10),convert(decimal(18,2),(a.GrossMarginT)))+'%' as grossMarginT,
+    isnull(a.A1,'') AS a1,isnull(a.A2,'') AS a2,isnull(a.A3,'') AS a3,isnull(a.A4,'') AS a4,isnull(a.A5,'') AS a5,
+	a.MM2,a.UseKM,a.Weight,
+	m.Num AS insureType,m.ItemName AS insureTypeName,
+	n.Num As insurePercent,n.ItemName As insurePercentName,
+	a.Percnt,isnull(convert(decimal(18,0),a.Discount),0) as Discount,
+	q.Num as car,q.ItemName as carPlace,
+	convert(varchar(10),convert(decimal(18,2),(a.RateTaxY)))+'%' as rateTaxYear,
+	a.TaxMode,
+	convert(varchar(10),convert(decimal(18,2),(a.RateRate)))+'%' as rateRate,
+    a.TaxRate AS salesTax,
+    a.rentRate,
+	convert(varchar(10),convert(decimal(18,2),(a.rentRate)))+'%' as rentRateN,
+    convert(decimal(18,2),(a.FinalTax)) as finalTax,
+	f.Num AS orderType ,f.ItemName AS orderTypeName,
+    convert(varchar(10),convert(decimal(18,2),(a.commissionRate)))+'%' as commissionRate,
+    a.MAmt AS rentMAmt
+    ,isnull([dbo].[f_CustomerStatus](a.TradeItem_Auto),'') customerStatus
+	from
+    Orders a
+    left join v_Emp b on a.Sales_Auto = b.User_Auto
+    left join TradeItem(nolock) c On a.TradeItem_Auto = c.TradeItem_Auto
+    left join Inc d on a.Inc_Auto = d.Inc_Auto
+    left join Itemcode g on a.CustSource = g.Num and g.ItemType = 313
+    left join Itemcode h on a.CarSource = h.Num and h.ItemType = 503
+    left join Itemcode i on a.oil = i.Num and i.ItemType = 231
+    left join FactoryBrand l on a.FactoryBrand_Auto = l.FactoryBrand_Auto
+    left join Brand j on a.Brand_Auto = j.Brand_Auto
+    left join Clasen k on a.Clasen_Auto = k.Clasen_Auto
+    left join TradeItem Supplier_Buy (nolock) on a.Supplier_Buy=Supplier_Buy.TradeItem_Auto
+    left join ItemCode r on r.ItemType = 841 and r.Num = a.BsType
+    left join Itemcode m on a.InsureType = m.Num and m.ItemType = 411
+    left join Itemcode n on a.InsurePercnt = n.Num and n.ItemType = 410
+    left join ItemCode o on o.itemtype = 135 and o.num = a.MortgageAddr
+    left join Itemcode f on a.OrderType = f.Num and f.ItemType = 326
+    left join Itemcode p on a.PostType = p.Num and p.ItemType = 413
+    left join ItemCode q on q.itemtype = 227 and q.num = a.CarPlace
+	left join ItemCode s on s.itemtype = 316 and s.num = a.PayMode
+    where
+    a.Orders_Auto =  #{ordersAuto}
   </select>
 </mapper>

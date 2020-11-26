@@ -714,7 +714,7 @@
     <result column="bsTypeName" jdbcType="VARCHAR" property="bsTypeName" />
     <result column="rateRate" jdbcType="VARCHAR" property="rateRate" />
     <result column="rentRateN" jdbcType="VARCHAR" property="rentRateN" />
-    <result column="rateTaxY" jdbcType="VARCHAR" property="rateTaxY" />
+    <result column="rateTaxYear" jdbcType="VARCHAR" property="rateTaxYear" />
     <result column="salesTax" jdbcType="DECIMAL" property="salesTax" />
     <result column="mortgageAddr" jdbcType="BIGINT" property="mortgageAddr" />
     <result column="mortgageAddrN" jdbcType="VARCHAR" property="mortgageAddrN" />
@@ -731,8 +731,6 @@
     <result column="insurePercentName" jdbcType="VARCHAR" property="insurePercentName" />
     <result column="carPlace" jdbcType="VARCHAR" property="carPlace" />
     <result column="customerStatus" jdbcType="VARCHAR" property="customerStatus" />
-    <result column="CarDT" jdbcType="TIMESTAMP" property="carDT" />
-    <result column="UseKM" jdbcType="INTEGER" property="useKm" />
     <result column="payMode" jdbcType="BIGINT" property="payMode" />
     <result column="payModeN" jdbcType="BIGINT" property="payModeN" />
   </resultMap>
@@ -779,7 +777,7 @@
 	n.Num As insurePercent,n.ItemName As insurePercentName,
 	a.Percnt,isnull(convert(decimal(18,0),a.Discount),0) as Discount,
 	q.Num as car,q.ItemName as carPlace,
-	convert(varchar(10),convert(decimal(18,2),(a.RateTaxY)))+'%' as rateTaxY,
+	convert(varchar(10),convert(decimal(18,2),(a.RateTaxY)))+'%' as rateTaxYear,
 	a.TaxMode,
 	convert(varchar(10),convert(decimal(18,2),(a.RateRate)))+'%' as rateRate,
     a.TaxRate AS salesTax,
