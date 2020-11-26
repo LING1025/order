@@ -29,7 +29,7 @@
       @ItemType int = #{itemType},
       @num bigint = #{num}
 
-      if(@ItemType=413)--回租报价下拉选
+      if(@ItemType=413)--回租报价
       begin
       if(@num = 100)
       Select
@@ -46,6 +46,130 @@
       ItemCode
       Where
       Num != 1 and ItemType = @ItemType and Num = @num
+      Order By  Seq,Num
+      end
+
+
+      if(@ItemType=326)--业务类别
+      begin
+      if(@num = 100)
+      Select
+      Num,ItemName
+      From
+      ItemCode
+      Where
+      ItemType = @ItemType
+      Order By  Seq,Num
+      else
+      Select
+      Num,ItemName
+      From
+      ItemCode
+      Where
+      ItemType = @ItemType and Num = @num
+      Order By  Seq,Num
+      end
+
+      if(@ItemType=313)--客户来源
+      begin
+      if(@num = 100)
+      Select
+      Num,ItemName
+      From
+      ItemCode
+      Where
+      ItemType = @ItemType
+      Order By  Seq,Num
+      else
+      Select
+      Num,ItemName
+      From
+      ItemCode
+      Where
+      ItemType = @ItemType and Num = @num
+      Order By  Seq,Num
+      end
+
+      if(@ItemType=135)--抵押地
+      begin
+      if(@num = 100)
+      Select
+      Num,ItemName
+      From
+      ItemCode
+      Where
+      ItemType = @ItemType
+      Order By  Seq,Num
+      else
+      Select
+      Num,ItemName
+      From
+      ItemCode
+      Where
+      ItemType = @ItemType and Num = @num
+      Order By  Seq,Num
+      end
+
+
+      if(@ItemType=841)--排档方式
+      begin
+      if(@num = 100)
+      Select
+      Num,ItemName
+      From
+      ItemCode
+      Where
+      ItemType = @ItemType
+      Order By  Seq,Num
+      else
+      Select
+      Num,ItemName
+      From
+      ItemCode
+      Where
+      ItemType = @ItemType and Num = @num
+      Order By  Seq,Num
+      end
+
+
+      if(@ItemType=231)--燃油种类
+      begin
+      if(@num = 100)
+      Select
+      Num,ItemName
+      From
+      ItemCode
+      Where
+      ItemType = @ItemType
+      Order By  Seq,Num
+      else
+      Select
+      Num,ItemName
+      From
+      ItemCode
+      Where
+      ItemType = @ItemType and Num = @num
+      Order By  Seq,Num
+      end
+
+
+      if(@ItemType=316)--付款条件中的月份
+      begin
+      if(@num = 100)
+      Select
+      Num,ItemName
+      From
+      ItemCode
+      Where
+      ItemType = @ItemType
+      Order By  Seq,Num
+      else
+      Select
+      Num,ItemName
+      From
+      ItemCode
+      Where
+      ItemType = @ItemType and Num = @num
       Order By  Seq,Num
       end
     </select>

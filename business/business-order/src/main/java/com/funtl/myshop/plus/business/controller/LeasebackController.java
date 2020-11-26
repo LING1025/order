@@ -33,9 +33,9 @@ public class LeasebackController implements Serializable {
      * 回租报价
      */
 
-    @ApiOperation(value = "回租报价：下拉选")
+    @ApiOperation(value = "回租报价：下拉选1")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "itemType", value = "413回租报价", required = true, dataType = "int", paramType = "path"),
+            @ApiImplicitParam(name = "itemType", value = "413回租报价，326业务类别，313客户来源，135抵押地，841排档方式，231燃油种类，316付款条件中的月份", required = true, dataType = "int", paramType = "path"),
             @ApiImplicitParam(name = "num", value = "对应的num", required = false, dataType = "long", paramType = "path")
     })
     @GetMapping(value = "queryItemNames")
@@ -45,7 +45,7 @@ public class LeasebackController implements Serializable {
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", leasebackSelects);
     }
 
-    @ApiOperation(value = " 回租报价：查询按钮")
+    @ApiOperation(value = "回租报价：查询按钮")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "userAuto", value = "登录者userAuto", required = false, dataType = "long", paramType = "path"),
             @ApiImplicitParam(name = "mode", value = "1报价单号 2客户名称 3业务员", required = true, dataType = "int", paramType = "path"),
