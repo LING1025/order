@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 @Api(tags = "回租报价相关操作")
@@ -50,6 +51,9 @@ public class LeasebackController implements Serializable {
 
     @Reference(version = "1.0.0")
     private OrdersInsureYearsService ordersInsureYearsService;
+
+    @Reference(version = "1.0.0")
+    private OrdersFDetailService ordersFDetailService;
 
     /**
      * 回租报价
@@ -208,6 +212,62 @@ public class LeasebackController implements Serializable {
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", lists);
     }
 
+    @ApiOperation(value = " 回租报价：签核明细")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "ordersAuto", value = "试算单号", required = false, dataType = "long", paramType = "path")
+    })
+    @GetMapping(value = "querySignOffList")
+    public ResponseResult<List<SignOffList>> querySignOffList(@RequestParam(name = "ordersAuto",required = false) Long ordersAuto){
+        if (ordersAuto == null){
+            throw new BusinessException(BusinessStatus.PARAM_ERROR);        }
+        List<SignOffList> lists = ordersFDetailService.selectSignOffList(ordersAuto);
+        for(SignOffList signOffList : lists){
+            switch (signOffList.getOrdersStatus()){
+                case 23:
+                    signOffList.setOrdersStatusName("已审核");
+                    signOffList.setCreditPerson("系统自动审核");
+                    break;
+                case 22:
+                    signOffList.setOrdersStatusName("核准");
+                    break;
+                case 21:
+                    signOffList.setOrdersStatusName("已审核(跨签)");
+                    break;
+                case 1:
+                    signOffList.setOrdersStatusName("作废");
+                    break;
+                case 5:
+                    signOffList.setOrdersStatusName("驳回");
+                    break;
+                case 20:
+                    signOffList.setOrdersStatusName("已审核");
+                    break;
+                case 0:
+                    signOffList.setOrdersStatusName("未审核");
+                    break;
+                default:
+                    signOffList.setOrdersStatusName("");
+                    break;
+            }
+            if (signOffList.getIsAgent() == 1){
+                signOffList.setCreditPerson(signOffList.getCreditPerson() + "(代理)");
+            }
+            if(signOffList.getCdt() == null){
+                signOffList.setCdtTime("");
+            }
+            if(signOffList.getCdt() != null){
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                String dateString = formatter.format(signOffList.getCdt());
+                signOffList.setCdtTime(dateString);
+            }
+        }
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", lists);
+    }
+
+
+    /**
+     * 保险金额、保险明细先注释
+     */
     /*@ApiOperation(value = "回租报价：保险金额")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "ordersAuto", value = "试算单号", required = false, dataType = "long", paramType = "path")
@@ -233,4 +293,6 @@ public class LeasebackController implements Serializable {
         List<InsuranceTableList> lists = ordersInsureYearsService.selectByOrdersAutoAndYear(ordersAuto,insureYear);
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", lists);
     }*/
+
+
 }
