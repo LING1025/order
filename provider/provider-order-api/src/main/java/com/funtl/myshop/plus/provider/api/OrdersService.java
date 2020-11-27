@@ -2,7 +2,9 @@ package com.funtl.myshop.plus.provider.api;
 
 import com.funtl.myshop.plus.provider.domain.*;
 import com.funtl.myshop.plus.provider.dto.LeasebackQueryParam;
+import com.funtl.myshop.plus.provider.dto.SupplierNamesDto;
 import com.funtl.myshop.plus.provider.dto.SupplierQueryParam;
+import com.github.pagehelper.PageInfo;
 
 import java.util.List;
 
@@ -71,5 +73,5 @@ public interface OrdersService{
      * @param supplierQueryParam
      * @return
      */
-    List<SupplierNames> selectSupplierNames(SupplierQueryParam supplierQueryParam);
+    PageInfo<SupplierNamesDto> selectSupplierNames(SupplierQueryParam supplierQueryParam);
 }
