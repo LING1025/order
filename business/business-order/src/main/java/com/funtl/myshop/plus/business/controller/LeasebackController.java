@@ -1,5 +1,7 @@
 package com.funtl.myshop.plus.business.controller;
 
+import com.funtl.myshop.plus.business.BusinessException;
+import com.funtl.myshop.plus.business.BusinessStatus;
 import com.funtl.myshop.plus.commons.dto.ResponseResult;
 import com.funtl.myshop.plus.provider.api.*;
 import com.funtl.myshop.plus.provider.domain.*;
@@ -39,6 +41,15 @@ public class LeasebackController implements Serializable {
 
     @Reference(version = "1.0.0")
     private BrandService brandService;
+
+    @Reference(version = "1.0.0")
+    private OrdersStepwiseService ordersStepwiseService;
+
+    @Reference(version = "1.0.0")
+    private OrdersInsureListService ordersInsureListService;
+
+    @Reference(version = "1.0.0")
+    private OrdersInsureYearsService ordersInsureYearsService;
 
     /**
      * 回租报价
@@ -183,5 +194,43 @@ public class LeasebackController implements Serializable {
 //        leasebacks.setFName(leasebacks.getFName()+ " "+ leasebacks.getTradeItemAuto()+ " " + leasebacks.getCustomerStatus());
 
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", leasebacks);
+    }
+
+    @ApiOperation(value = "回租报价：阶梯式租金")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "ordersAuto", value = "试算单号", required = false, dataType = "long", paramType = "path")
+    })
+    @GetMapping(value = "queryStepwiseList")
+    public ResponseResult<List<StepwiseList>> queryStepwiseList(@RequestParam(name = "ordersAuto",required = false) Long ordersAuto){
+        if (ordersAuto == null){
+            throw new BusinessException(BusinessStatus.PARAM_ERROR);        }
+        List<StepwiseList> lists = ordersStepwiseService.selectByOrdersAuto(ordersAuto);
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", lists);
+    }
+
+    @ApiOperation(value = "回租报价：保险金额")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "ordersAuto", value = "试算单号", required = false, dataType = "long", paramType = "path")
+    })
+    @GetMapping(value = "queryInsuranceContentList")
+    public ResponseResult<List<InsuranceContentList>> queryInsuranceContentList(@RequestParam(name = "ordersAuto",required = false) Long ordersAuto){
+        if (ordersAuto == null){
+            throw new BusinessException(BusinessStatus.PARAM_ERROR);        }
+        List<InsuranceContentList> lists = ordersInsureListService.selectInsuranceContentList(ordersAuto);
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", lists);
+    }
+
+    @ApiOperation(value = "回租报价：保险金额点开后的保险明细")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "ordersAuto", value = "试算单号", required = false, dataType = "long", paramType = "path"),
+            @ApiImplicitParam(name = "insureYear", value = "年度", required = false, dataType = "int", paramType = "path")
+    })
+    @GetMapping(value = "queryInsuranceTableList")
+    public ResponseResult<List<InsuranceTableList>> queryInsuranceTableList(@RequestParam(name = "ordersAuto",required = false) Long ordersAuto,
+                                                                            @RequestParam(name = "insureYear",required = false) Integer insureYear){
+        if (ordersAuto == null || insureYear == null){
+            throw new BusinessException(BusinessStatus.PARAM_ERROR);        }
+        List<InsuranceTableList> lists = ordersInsureYearsService.selectByOrdersAutoAndYear(ordersAuto,insureYear);
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", lists);
     }
 }
