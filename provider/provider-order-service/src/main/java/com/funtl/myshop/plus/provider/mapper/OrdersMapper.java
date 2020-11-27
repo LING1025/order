@@ -1,6 +1,7 @@
 package com.funtl.myshop.plus.provider.mapper;
 
 import com.funtl.myshop.plus.provider.domain.*;
+import com.funtl.myshop.plus.provider.dto.FNamesQueryParam;
 import com.funtl.myshop.plus.provider.dto.LeasebackQueryParam;
 import com.funtl.myshop.plus.provider.dto.SupplierQueryParam;
 import org.apache.ibatis.annotations.Param;
@@ -26,4 +27,6 @@ public interface OrdersMapper extends MyMapper<Orders> {
     Leasebacks selectLeasebacks(@Param("ordersAuto") Long ordersAuto);
 
     List<SupplierNames> selectSupplierNames(@Param("params") SupplierQueryParam supplierQueryParam);
+
+    List<FNames> selectFNamesDto(@Param("params") FNamesQueryParam fNamesQueryParam);
 }

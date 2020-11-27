@@ -4,9 +4,7 @@ import javax.annotation.Resource;
 
 import com.funtl.myshop.plus.commons.utils.PageInfoUtils;
 import com.funtl.myshop.plus.provider.domain.*;
-import com.funtl.myshop.plus.provider.dto.LeasebackQueryParam;
-import com.funtl.myshop.plus.provider.dto.SupplierNamesDto;
-import com.funtl.myshop.plus.provider.dto.SupplierQueryParam;
+import com.funtl.myshop.plus.provider.dto.*;
 import com.funtl.myshop.plus.provider.mapper.OrdersMapper;
 import com.funtl.myshop.plus.provider.api.OrdersService;
 import com.github.pagehelper.PageInfo;
@@ -64,6 +62,13 @@ public class OrdersServiceImpl implements OrdersService{
     public PageInfo<SupplierNamesDto> selectSupplierNames(SupplierQueryParam supplierQueryParam) {
         PageInfo<SupplierNames> pageInfo = new PageInfo<>(ordersMapper.selectSupplierNames(supplierQueryParam));
         PageInfo<SupplierNamesDto> result = PageInfoUtils.pageInfo2PageInfoDTO(pageInfo,SupplierNamesDto.class);
+        return result;
+    }
+
+    @Override
+    public PageInfo<FNamesDto> selectFNamesDto(FNamesQueryParam fNamesQueryParam) {
+        PageInfo<FNames> pageInfo = new PageInfo<>(ordersMapper.selectFNamesDto(fNamesQueryParam));
+        PageInfo<FNamesDto> result = PageInfoUtils.pageInfo2PageInfoDTO(pageInfo,FNamesDto.class);
         return result;
     }
 

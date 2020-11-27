@@ -849,4 +849,37 @@
 
     END
   </select>
+
+  <!--回租报价：客户全称列表-->
+  <resultMap id="queryFNamesDto" type="com.funtl.myshop.plus.provider.domain.FNames">
+    <result column="TradeItem_Auto" jdbcType="BIGINT" property="tradeItemAuto" />
+    <result column="FName" jdbcType="VARCHAR" property="fName" />
+  </resultMap>
+  <select id="selectFNamesDto" resultMap="queryFNamesDto">
+    declare
+@UserID BigInt=#{params.salesAuto},--业代序号
+@SearchWord NvarChar(50)=#{params.searchWord},
+    @PageCount int=#{params.pageNum},--分页总数
+    @PageSize int =#{params.pageSize},--每页多少条数据
+    @PageIndex int=#{params.pageIndex}--当前要求的页码索引
+BEGIN
+declare @Count int --记录的总数
+declare @min int,@max int
+    Begin
+	  select @Count=count(*) from TradeItem a join Customer b on a.TradeItem_Auto=b.TradeItem_Auto
+	  set @PageCount=(@Count+@PageSize-1)/@PageSize
+      set @min=(@PageIndex-1)*@PageSize+1
+      set @max=(@PageSize*@PageIndex)
+        Select @SearchWord='%'+@SearchWord+'%'
+        Select ROW_NUMBER() OVER(ORDER BY FName) as sno,a.TradeItem_Auto,a.FName
+		into #a
+        from TradeItem a join Customer b on a.TradeItem_Auto=b.TradeItem_Auto
+        Where a.FName Like @SearchWord and (@UserID = 0 or b.Sales_Auto = @UserID)
+        Order by FName
+
+		select TradeItem_Auto,FName from #a where sno between @min and @max
+        drop table #a
+    End
+End
+  </select>
 </mapper>
