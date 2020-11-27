@@ -4,6 +4,9 @@ import com.funtl.myshop.plus.commons.dto.ResponseResult;
 import com.funtl.myshop.plus.provider.api.*;
 import com.funtl.myshop.plus.provider.domain.*;
 import com.funtl.myshop.plus.provider.dto.LeasebackQueryParam;
+import com.funtl.myshop.plus.provider.dto.SupplierNamesDto;
+import com.funtl.myshop.plus.provider.dto.SupplierQueryParam;
+import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -91,6 +94,26 @@ public class LeasebackController implements Serializable {
     public ResponseResult<List<ClasenNameSelect>> queryClasenName(@RequestParam(name = "brandAuto")Long brandAuto){
         List<ClasenNameSelect> list = brandService.selectClasenName(brandAuto);
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", list);
+    }
+
+    @ApiOperation(value = "回租报价：报价车商列表分页查询")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "searchWord", value = "查询条件", required = false, dataType = "String", paramType = "path"),
+            @ApiImplicitParam(name = "pageNum", value = "页码", required = false, dataType = "int", paramType = "path"),
+            @ApiImplicitParam(name = "pageSize", value = "笔数", required = false, dataType = "int", paramType = "path"),
+            @ApiImplicitParam(name = "pageIndex", value = "当前要求的页码索引", required = false, dataType = "int", paramType = "path")
+    })
+    @GetMapping(value = "querySupplierNames")
+    public ResponseResult<PageInfo<SupplierNamesDto>> querySupplierNames(@RequestParam(name = "searchWord", required = false) String searchWord,
+                                                                         @RequestParam(name = "pageNum", defaultValue = "0") Integer pageNum,
+                                                                         @RequestParam(name = "pageSize", defaultValue = "10") Integer pageSize,
+                                                                         @RequestParam(name = "pageIndex", defaultValue = "1") Integer pageIndex){
+        SupplierQueryParam supplierQueryParam = new SupplierQueryParam(3,searchWord,pageNum,pageSize,pageIndex);
+        PageInfo<SupplierNamesDto> pageInfo = ordersService.selectSupplierNames(supplierQueryParam);
+        if (pageInfo.getList().size() == 0){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "查无数据！", null);
+        }
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", pageInfo);
     }
 
     @ApiOperation(value = "回租报价：查询按钮")

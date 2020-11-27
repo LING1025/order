@@ -198,7 +198,7 @@ public class ClientController {
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", lists);
     }
 
-    @ApiOperation(value = "CRM:获取行程安排数据")
+    @ApiOperation(value = "CRM:获取行程安排数据分页查询")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "visitId", value = "拜访id", required = false, dataType = "long", paramType = "path"),
             @ApiImplicitParam(name = "kind", value = "查询类别：1客户名称 2联系人姓名", required = false, dataType = "int", paramType = "path"),
