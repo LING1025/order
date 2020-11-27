@@ -208,7 +208,7 @@ public class LeasebackController implements Serializable {
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", lists);
     }
 
-    @ApiOperation(value = "回租报价：保险金额")
+    /*@ApiOperation(value = "回租报价：保险金额")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "ordersAuto", value = "试算单号", required = false, dataType = "long", paramType = "path")
     })
@@ -232,5 +232,5 @@ public class LeasebackController implements Serializable {
             throw new BusinessException(BusinessStatus.PARAM_ERROR);        }
         List<InsuranceTableList> lists = ordersInsureYearsService.selectByOrdersAutoAndYear(ordersAuto,insureYear);
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", lists);
-    }
+    }*/
 }
