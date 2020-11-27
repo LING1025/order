@@ -16,5 +16,5 @@ public class SupplierNames implements Serializable {
     private String supplierBuyName;
 
     @ApiModelProperty(value = "状态")
-    private String IsOpen;
+    private String isOpen;
 }

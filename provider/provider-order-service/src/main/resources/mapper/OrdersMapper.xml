@@ -811,4 +811,42 @@
     where
     a.Orders_Auto =  #{ordersAuto}
   </select>
+
+  <!--回租报价：报价车商列表 -->
+  <resultMap id="querySupplierNames" type="com.funtl.myshop.plus.provider.domain.SupplierNames">
+    <result column="TradeItem_Auto" jdbcType="BIGINT" property="supplierBuy" />
+    <result column="SName" jdbcType="VARCHAR" property="supplierBuyName" />
+    <result column="IsOpen" jdbcType="VARCHAR" property="isOpen" />
+  </resultMap>
+  <select id="selectSupplierNames" resultMap="querySupplierNames">
+    --分页查询
+    declare
+    @Mode int = #{params.mode},
+    @SearchWord nvarchar(50)=#{params.searchWord},
+    @PageCount int=#{params.pageNum},--分页总数
+    @PageSize int =#{params.pageSize},--每页多少条数据
+    @PageIndex int=#{params.pageIndex}--当前要求的页码索引
+
+    BEGIN
+    declare @Count int --记录的总数
+    declare @min int,@max int
+
+    begin
+    select @Count=count(*) from dbo.f_GetSupplier(@Mode,@SearchWord)
+    set @PageCount=(@Count+@PageSize-1)/@PageSize
+    set @min=(@PageIndex-1)*@PageSize+1
+    set @max=(@PageSize*@PageIndex)
+    select
+    ROW_NUMBER() OVER(ORDER BY SName collate chinese_PRC_CS_AS_KS_WS) as sno,TradeItem_Auto,SName,IsOpen
+    into #a
+    from
+    dbo.f_GetSupplier(@Mode,@SearchWord)
+    --where IsOpen != '已停用'
+    where TradeItem_Auto != 0
+    select TradeItem_Auto,SName,IsOpen from #a where sno between @min and @max
+    drop table #a
+    end
+
+    END
+  </select>
 </mapper>
