@@ -52,5 +52,6 @@
       <if test="saleName != null and saleName != ''">
         AND FName LIKE '%${saleName}%'
       </if>
+        AND IsOn!=0
     </select>
 </mapper>
