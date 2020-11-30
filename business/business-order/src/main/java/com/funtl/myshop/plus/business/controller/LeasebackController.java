@@ -363,11 +363,11 @@ public class LeasebackController implements Serializable {
         }*/
         switch (copyOrdersParamDto.getPostType().intValue()){
             case 1:
-                if (){//todo:s_Credit_Order_CHK
+                /*if (){//todo:s_Credit_Order_CHK
 
                 }else{
                     return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "变更件原试算单号必须有授信!", null);
-                }
+                }*/
                 break;
             case 2:
                 break;
@@ -379,7 +379,6 @@ public class LeasebackController implements Serializable {
                 break;
             default:
                 return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "案件别错误，请重新选取！", null);
-                break;
         }
         if (copyOrdersParamDto.getSalesTax().compareTo(BigDecimal.valueOf(0)) == 0){
             return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "税别错误！", null);

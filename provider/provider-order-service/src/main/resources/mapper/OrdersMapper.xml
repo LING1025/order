@@ -779,7 +779,7 @@
 	q.Num as car,q.ItemName as carPlace,
     isnull(a.RateTaxY,0) as rateTaxYear,
 	a.TaxMode,
-	convert(varchar(10),convert(decimal(18,2),(a.RateRate)))+'%' as rateRate,
+    isnull(a.RateRate,0) as rateRate,
     a.TaxRate AS salesTax,
     a.rentRate,
 	convert(varchar(10),convert(decimal(18,2),(a.rentRate)))+'%' as rentRateN,

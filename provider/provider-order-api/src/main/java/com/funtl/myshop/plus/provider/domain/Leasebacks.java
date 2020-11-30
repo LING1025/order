@@ -298,7 +298,7 @@ public class Leasebacks implements Serializable {
     private BigDecimal grossMargin = BigDecimal.valueOf(0);
 
     @ApiModelProperty(value = "年利率(含税)")
-    private String rateRate;
+    private BigDecimal rateRate = BigDecimal.valueOf(0);
 
     @JsonIgnore
     private BigDecimal rentRate = BigDecimal.valueOf(0);
