@@ -8,8 +8,11 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 
 @Data
-@ApiModel(value = "回租报价：计算按钮数据")
+@ApiModel(value = "回租报价：分摊表数据")
 public class CountBtnParamDto implements Serializable {
+    @ApiModelProperty(value = "租赁期数")
+    private Integer mm;
+
     @ApiModelProperty(value = "本金")
     private BigDecimal capital;
 
