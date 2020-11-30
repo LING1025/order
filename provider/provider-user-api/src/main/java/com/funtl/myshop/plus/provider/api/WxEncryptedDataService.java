@@ -18,6 +18,6 @@ public interface WxEncryptedDataService{
      * 小程序已授权用户数据
      * @return
      */
-    List<SaleOpenIdList> selectSaleOpenId();
+    List<SaleOpenIdList> selectSaleOpenId(Long salesAuto);
 
 }

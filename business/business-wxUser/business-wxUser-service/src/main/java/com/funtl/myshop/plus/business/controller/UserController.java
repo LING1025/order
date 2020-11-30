@@ -9,13 +9,11 @@ import com.funtl.myshop.plus.provider.domain.VEmp;
 import com.funtl.myshop.plus.provider.domain.WxEncryptedData;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.beans.BeanUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -44,9 +42,13 @@ public class UserController {
     }
 
     @ApiOperation(value = "小程序已授权用户数据")
+    @ApiImplicitParam(name = "salesAuto", value = "业代序号", required = false, dataType = "long", paramType = "path")
     @GetMapping(value = "querySaleOpenId")
-    public ResponseResult<List<SaleOpenIdList>> querySaleOpenId(){
-        List<SaleOpenIdList> lists = wxEncryptedDataService.selectSaleOpenId();
+    public ResponseResult<List<SaleOpenIdList>> querySaleOpenId(@RequestParam(name = "salesAuto", required = false)Long salesAuto){
+        List<SaleOpenIdList> lists = wxEncryptedDataService.selectSaleOpenId(salesAuto);
+        if (lists.size() == 0){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"查无资料，请输入其它查询条件!",null);
+        }
         for (SaleOpenIdList saleOpenIdList : lists){
             VEmp vEmp = vEmpService.selectByUserAuto(saleOpenIdList.getSalesAuto());
             saleOpenIdList.setSaleName(vEmp.getFName());

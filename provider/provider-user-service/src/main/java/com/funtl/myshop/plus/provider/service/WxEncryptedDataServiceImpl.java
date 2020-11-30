@@ -25,7 +25,7 @@ public class WxEncryptedDataServiceImpl implements WxEncryptedDataService{
     }
 
     @Override
-    public List<SaleOpenIdList> selectSaleOpenId() {
-        return wxEncryptedDataMapper.selectSaleOpenId();
+    public List<SaleOpenIdList> selectSaleOpenId(Long salesAuto) {
+        return wxEncryptedDataMapper.selectSaleOpenId(salesAuto);
     }
 }

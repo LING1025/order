@@ -33,6 +33,15 @@
     <result column="OpenId" jdbcType="VARCHAR" property="openId" />
   </resultMap>
   <select id="selectSaleOpenId" resultMap="querySaleOpenId">
-    select User_Auto,OpenId from WxEncryptedData where User_Auto!=0
+    select
+    User_Auto,OpenId
+    from
+    WxEncryptedData
+    where
+    1=1
+    <if test="salesAuto != null and salesAuto != ''">
+      AND User_Auto = #{salesAuto}
+    </if>
+    AND User_Auto!=0
   </select>
 </mapper>
