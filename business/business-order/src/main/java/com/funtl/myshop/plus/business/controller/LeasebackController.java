@@ -3,6 +3,9 @@ package com.funtl.myshop.plus.business.controller;
 import com.funtl.myshop.plus.business.BusinessException;
 import com.funtl.myshop.plus.business.BusinessStatus;
 import com.funtl.myshop.plus.business.dto.CopyOrdersParamDto;
+import com.funtl.myshop.plus.business.dto.CrmArrangeInsertParamDto;
+import com.funtl.myshop.plus.business.dto.ShareBtn;
+import com.funtl.myshop.plus.business.dto.ShareBtnParamDto;
 import com.funtl.myshop.plus.commons.dto.ResponseResult;
 import com.funtl.myshop.plus.provider.api.*;
 import com.funtl.myshop.plus.provider.domain.*;
@@ -296,6 +299,14 @@ public class LeasebackController implements Serializable {
             }
         }
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", lists);
+    }
+
+    @ApiOperation(value = "分摊表下载数据")
+    @PostMapping(value = "getShareBtn")
+    public ResponseResult<ShareBtn> getShareBtn(@ApiParam(value = "回租报价：分摊表数据") @Valid @RequestBody ShareBtnParamDto shareBtnParamDto){
+        ShareBtn shareBtn = new ShareBtn();
+
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK, "分摊表下载数据", shareBtn);
     }
 
 
