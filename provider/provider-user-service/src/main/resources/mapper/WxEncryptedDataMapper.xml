@@ -28,4 +28,11 @@
     Id, OpenId, NickName, Gender, [Language], City, Province, Country, AvatarUrl, UnionId,
     [Timestamp], Appid, CDT, MDT, UserName, User_Auto, Token, TokenTime
   </sql>
+  <resultMap id="querySaleOpenId" type="com.funtl.myshop.plus.provider.domain.SaleOpenIdList">
+    <result column="User_Auto" jdbcType="BIGINT" property="salesAuto" />
+    <result column="OpenId" jdbcType="VARCHAR" property="openId" />
+  </resultMap>
+  <select id="selectSaleOpenId" resultMap="querySaleOpenId">
+    select User_Auto,OpenId from WxEncryptedData where User_Auto!=0
+  </select>
 </mapper>

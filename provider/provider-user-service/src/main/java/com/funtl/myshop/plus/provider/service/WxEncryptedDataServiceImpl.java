@@ -1,11 +1,15 @@
 package com.funtl.myshop.plus.provider.service;
 
 import javax.annotation.Resource;
+
+import com.funtl.myshop.plus.provider.domain.SaleOpenIdList;
 import com.funtl.myshop.plus.provider.mapper.WxEncryptedDataMapper;
 import com.funtl.myshop.plus.provider.domain.WxEncryptedData;
 import com.funtl.myshop.plus.provider.api.WxEncryptedDataService;
 import org.apache.dubbo.config.annotation.Service;
 import tk.mybatis.mapper.entity.Example;
+
+import java.util.List;
 
 @Service(version = "1.0.0")
 public class WxEncryptedDataServiceImpl implements WxEncryptedDataService{
@@ -18,5 +22,10 @@ public class WxEncryptedDataServiceImpl implements WxEncryptedDataService{
         Example example = new Example(WxEncryptedData.class);
         example.createCriteria().andEqualTo("openId",openId);
         return wxEncryptedDataMapper.selectOneByExample(example);
+    }
+
+    @Override
+    public List<SaleOpenIdList> selectSaleOpenId() {
+        return wxEncryptedDataMapper.selectSaleOpenId();
     }
 }

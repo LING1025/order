@@ -139,7 +139,13 @@
         <dependency>
             <groupId>com.funtl.myshop.plus</groupId>
             <artifactId>business-wxUser-feign</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>${project.parent.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.funtl.myshop.plus</groupId>
+            <artifactId>provider-order-api</artifactId>
+            <version>${project.parent.version}</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>
