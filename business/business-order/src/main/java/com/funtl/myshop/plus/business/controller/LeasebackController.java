@@ -397,14 +397,19 @@ public class LeasebackController implements Serializable {
         }
         //todo:判断上牌规费公司别是否一致,可能需要前端判断
         if (copyOrdersParamDto.getPushMoney().compareTo(BigDecimal.valueOf(0)) == 1){
-            if (copyOrdersParamDto.getRateRate() < 10.7){
+            if (copyOrdersParamDto.getRateRate().compareTo(BigDecimal.valueOf(10.7)) == -1 ){
                 return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "年利率(含税)小于10.7%，无法申请佣金！", null);
-            }else if (){
-
-            }else if (){
-
+            }else if (copyOrdersParamDto.getMm() < 24
+                    && ((copyOrdersParamDto.getRateRate().compareTo(BigDecimal.valueOf(10.7)) == 1 || copyOrdersParamDto.getRateRate().compareTo(BigDecimal.valueOf(10.7)) == 0)
+                    && copyOrdersParamDto.getRateRate().compareTo(BigDecimal.valueOf(13)) == -1)){
+                return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "24期以下，无法申请佣金！", null);
+            }else if (copyOrdersParamDto.getMm() < 12){
+                return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "12期以下，无法申请佣金！", null);
             }
         }
+        //todo:btnCount_Click
+        //todo:DoSave
+        //todo:新报价单也更新附件地址.
         //todo:新增成功后返回ordersAuto
         return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "保存失败", null);
     }
