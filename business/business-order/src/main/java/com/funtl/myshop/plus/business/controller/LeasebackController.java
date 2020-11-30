@@ -313,7 +313,7 @@ public class LeasebackController implements Serializable {
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", lists);
     }*/
 
-    @ApiOperation(value = "回租报价：复制试算报价单按钮(此接口如要测试请联系后端)")
+    @ApiOperation(value = "回租报价未完成：复制试算报价单按钮(此接口如要测试请联系后端)")
     @PostMapping(value = "copyOrders")
     public ResponseResult<Long> copyOrders(@ApiParam(value = "回租报价：复制试算报价单按钮数据") @Valid @RequestBody CopyOrdersParamDto copyOrdersParamDto){
         if (copyOrdersParamDto.getOrdersAuto() == 0){
