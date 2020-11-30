@@ -13,6 +13,20 @@ import java.util.Date;
 @Data
 @ApiModel(value = "回租报价：复制试算报价单按钮")
 public class CopyOrdersParamDto implements Serializable {
+    @ApiModelProperty(value = "框外面显示的第1个值")
+    private String status;
+
+    @ApiModelProperty(value = "框外面显示的第2个值")
+    private String msg;
+
+    @ApiModelProperty(value = "框外面显示的第3个值 车籍序号")
+    private Long carBaseAuto;
+
+    @ApiModelProperty(value = "框外面显示的第4个值 可抵扣 0否 1是")
+    private Integer chkListPrice;
+
+    @ApiModelProperty(value = "框外面显示的第5个值 计价租金")
+    private BigDecimal rateMAmt;
     /**
      * 基本信息
      */
@@ -26,7 +40,7 @@ public class CopyOrdersParamDto implements Serializable {
     private Long ordersOld;
 
     @ApiModelProperty(value = "试算单号")
-    private Long ordersAuto;
+    private Long ordersAuto=0L;
 
     @ApiModelProperty(value = "承办业代部门序号")
     private Long orgAuto;
@@ -283,7 +297,7 @@ public class CopyOrdersParamDto implements Serializable {
     private BigDecimal grossMargin = BigDecimal.valueOf(0);
 
     @ApiModelProperty(value = "年利率(含税)")
-    private String rateRate;
+    private double rateRate;
 
     @JsonIgnore
     private BigDecimal rentRate = BigDecimal.valueOf(0);

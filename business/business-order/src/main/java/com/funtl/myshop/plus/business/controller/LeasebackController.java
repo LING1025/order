@@ -2,21 +2,17 @@ package com.funtl.myshop.plus.business.controller;
 
 import com.funtl.myshop.plus.business.BusinessException;
 import com.funtl.myshop.plus.business.BusinessStatus;
+import com.funtl.myshop.plus.business.dto.CopyOrdersParamDto;
 import com.funtl.myshop.plus.commons.dto.ResponseResult;
 import com.funtl.myshop.plus.provider.api.*;
 import com.funtl.myshop.plus.provider.domain.*;
 import com.funtl.myshop.plus.provider.dto.*;
 import com.github.pagehelper.PageInfo;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.*;
 import org.apache.dubbo.config.annotation.Reference;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
@@ -317,5 +313,99 @@ public class LeasebackController implements Serializable {
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", lists);
     }*/
 
+    @ApiOperation(value = "回租报价：复制试算报价单按钮(此接口如要测试请联系后端)")
+    @PostMapping(value = "copyOrders")
+    public ResponseResult<Long> copyOrders(@ApiParam(value = "回租报价：复制试算报价单按钮数据") @Valid @RequestBody CopyOrdersParamDto copyOrdersParamDto){
+        if (copyOrdersParamDto.getOrdersAuto() == 0){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "复制前请先暂存!", null);
+        }
+        Orders orders = new Orders();
+        if (copyOrdersParamDto.getPostType() != 4){
+            orders.setCarBaseAuto(0L);
+            orders.setMakNo("");
+        }
+        orders.setPostType(0);
+        orders.setOrdersOld(copyOrdersParamDto.getOrdersAuto());
+        copyOrdersParamDto.setStatus("0");
+        if (copyOrdersParamDto.getCompanyInc() != 1){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "请选择公司别为格上租赁!", null);
+        }
+        if (copyOrdersParamDto.getBsType() == 0){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "请选择排档方式!", null);
+        }
+        if (copyOrdersParamDto.getClasenCode() == ""){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "请填写【车型代码】!", null);
+        }
+        if (copyOrdersParamDto.getCarColor() == ""){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "请填写【车色】!", null);
+        }
+        if (copyOrdersParamDto.getMortgageAddr() == 0){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "请选择抵押地!", null);
+        }
+        if (copyOrdersParamDto.getCarSource() == 4){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "不能承做外购二手车，请确认!", null);
+        }
+        //todo:判断上牌规费公司别是否一致,可能需要前端判断
+        if (copyOrdersParamDto.getOil() == 0){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "请选择该车燃油种类！", null);
+        }
+        if (copyOrdersParamDto.getCustSource() == 70){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "客户来源选取错误，请重新选取！", null);
+        }
+        if (copyOrdersParamDto.getPushMoney().compareTo(BigDecimal.valueOf(0)) == 1){
+            if (copyOrdersParamDto.getCustSource() != 230 && copyOrdersParamDto.getCustSource() != 240){
+                return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "客户来源选取错误，请重新选取！", null);
+            }
+        }
+        /*if (copyOrdersParamDto.getCustSource() == 10){
+            //todo:s_OrderCHK
+            copyOrdersParamDto.setCustSource(120L);
+        }*/
+        switch (copyOrdersParamDto.getPostType().intValue()){
+            case 1:
+                if (){//todo:s_Credit_Order_CHK
 
+                }else{
+                    return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "变更件原试算单号必须有授信!", null);
+                }
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+            case 4:
+                break;
+            case 0:
+                break;
+            default:
+                return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "案件别错误，请重新选取！", null);
+                break;
+        }
+        if (copyOrdersParamDto.getSalesTax().compareTo(BigDecimal.valueOf(0)) == 0){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "税别错误！", null);
+        }
+        if (copyOrdersParamDto.getInsurePercent() == 1 && copyOrdersParamDto.getPercnt() > 5){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "座位超过5人需选择保险6-10人座！", null);
+        }
+        if (copyOrdersParamDto.getPushMoney().compareTo(BigDecimal.valueOf(0)) == 1){
+            if (copyOrdersParamDto.getPushMan().length() == 0){
+                return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "请填写介绍人！", null);
+            }
+            if (copyOrdersParamDto.getPushTel().length() != 11){
+                return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "介绍人行动电话需为11码！", null);
+            }
+        }
+        //todo:判断上牌规费公司别是否一致,可能需要前端判断
+        if (copyOrdersParamDto.getPushMoney().compareTo(BigDecimal.valueOf(0)) == 1){
+            if (copyOrdersParamDto.getRateRate() < 10.7){
+                return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "年利率(含税)小于10.7%，无法申请佣金！", null);
+            }else if (){
+
+            }else if (){
+
+            }
+        }
+        //todo:新增成功后返回ordersAuto
+        return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "保存失败", null);
+    }
 }
