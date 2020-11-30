@@ -62,6 +62,9 @@ public class LeasebackController implements Serializable {
     public ResponseResult<List<LeasebackSelect>> queryItemNames(@RequestParam(name = "itemType")Integer itemType,
                                                                 @RequestParam(name = "num", defaultValue = "100")Long num){
         List<LeasebackSelect> leasebackSelects = itemCodeService.selectItemName(itemType,num);
+        if (leasebackSelects.size() == 0){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "查无资料，请输入其它查询条件!", null);
+        }
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", leasebackSelects);
     }
 
@@ -70,6 +73,9 @@ public class LeasebackController implements Serializable {
     @GetMapping(value = "queryOrgName")
     public ResponseResult<List<OrgNameSelect>> queryOrgName(@RequestParam(name = "userAuto")Long userAuto){
         List<OrgNameSelect> list = vEmp2RoleService.selectOrgName(userAuto);
+        if (list.size() == 0){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "查无资料，请输入其它查询条件!", null);
+        }
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", list);
     }
 
@@ -79,6 +85,9 @@ public class LeasebackController implements Serializable {
     public ResponseResult<List<FNameSelect>> queryFName(/*@RequestParam(name = "roleName")String roleName,*/
                                                         @RequestParam(name = "orgAuto")Long orgAuto){
         List<FNameSelect> list = vEmp2RoleService.selectFName("業務員",orgAuto);
+        if (list.size() == 0){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "查无资料，请输入其它查询条件!", null);
+        }
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", list);
     }
 
@@ -94,6 +103,9 @@ public class LeasebackController implements Serializable {
     @GetMapping(value = "queryBrandName")
     public ResponseResult<List<BrandNameSelect>> queryBrandName(@RequestParam(name = "factoryBrandAuto")Long factoryBrandAuto){
         List<BrandNameSelect> list = brandService.selectBrandName(factoryBrandAuto);
+        if (list.size() == 0){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "查无资料，请输入其它查询条件!", null);
+        }
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", list);
     }
 
@@ -102,6 +114,9 @@ public class LeasebackController implements Serializable {
     @GetMapping(value = "queryClasenName")
     public ResponseResult<List<ClasenNameSelect>> queryClasenName(@RequestParam(name = "brandAuto")Long brandAuto){
         List<ClasenNameSelect> list = brandService.selectClasenName(brandAuto);
+        if (list.size() == 0){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "查无资料，请输入其它查询条件!", null);
+        }
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", list);
     }
 

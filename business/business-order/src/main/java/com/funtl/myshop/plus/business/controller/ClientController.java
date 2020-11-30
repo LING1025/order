@@ -135,6 +135,9 @@ public class ClientController {
     public ResponseResult<CrmDetail> queryCrmDetail(@RequestParam(name = "rptVstAuto")Long rptVstAuto,
                                                     @RequestParam(name = "contName")String contName){
         CrmDetail crmDetail = rptVstService.selectByRptVstAuto(rptVstAuto,contName);
+        if (crmDetail == null){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"查无资料，请输入其它查询条件!",null);
+        }
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", crmDetail);
     }
 
@@ -147,6 +150,9 @@ public class ClientController {
     public ResponseResult<List<CustomerNameSelect>> queryByFName(@RequestParam(name = "fName", required = false)String fName,
                                                                  @RequestParam(name = "salesAuto")Long salesAuto){
         List<CustomerNameSelect> list = rptVstService.selectByFName(fName,salesAuto);
+        if (list.size() == 0){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"查无资料，请输入其它查询条件!",null);
+        }
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", list);
     }
 
@@ -159,6 +165,9 @@ public class ClientController {
     public ResponseResult<List<ContNameSelect>> queryByTradeItemAuto(@RequestParam(name = "tradeItemAuto", required = false)Long tradeItemAuto,
                                                                      @RequestParam(name = "contName", required = false)String contName){
         List<ContNameSelect> list = rptVstService.selectByTradeItemAuto(tradeItemAuto,contName);
+        if (list.size() == 0){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"查无资料，请输入其它查询条件!",null);
+        }
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", list);
     }
 
@@ -171,6 +180,9 @@ public class ClientController {
     public ResponseResult<List<CrmItemNameSelect>> queryItemNameAndNum(@RequestParam(name = "types")Integer types,
                                                                        @RequestParam(name = "num", defaultValue = "0")Integer num){
         List<CrmItemNameSelect> CrmItemNameSelects = rptVstService.selectByTypes(types,num);
+        if (CrmItemNameSelects.size() == 0){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"查无资料，请输入其它查询条件!",null);
+        }
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", CrmItemNameSelects);
     }
 
@@ -183,6 +195,9 @@ public class ClientController {
     public ResponseResult<List<AddressList>> queryAddressList(@RequestParam(name = "type")Integer type,
                                                               @RequestParam(name = "code",required = false)Long code){
         List<AddressList> lists = visitPlanService.selectByType(type,code);
+        if (lists.size() == 0){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"查无资料，请输入其它查询条件!",null);
+        }
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", lists);
     }
 
@@ -195,6 +210,9 @@ public class ClientController {
     public ResponseResult<List<SaleNameSelect>> querySaleNameSelect(@RequestParam(name = "salesAuto", required = false)Long salesAuto,
                                                                     @RequestParam(name = "saleName", required = false)String saleName){
         List<SaleNameSelect> lists = vEmpService.selectSaleName(salesAuto,saleName);
+        if (lists.size() == 0){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"查无资料，请输入其它查询条件!",null);
+        }
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", lists);
     }
 
@@ -218,6 +236,9 @@ public class ClientController {
                                                                       @RequestParam(name = "pageIndex", defaultValue = "1") Integer pageIndex){
         CrmArrangeQueryParam crmArrangeQueryParam = new CrmArrangeQueryParam(visitId,kind,searchWord,salesName,pageNum,pageSize,pageIndex);
         PageInfo<CrmArrangeDto> pageInfo = visitPlanService.selectCrmArrangeDto(crmArrangeQueryParam);
+        if (pageInfo.getList().size() == 0){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"查无资料，请输入其它查询条件!",null);
+        }
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", pageInfo);
     }
 

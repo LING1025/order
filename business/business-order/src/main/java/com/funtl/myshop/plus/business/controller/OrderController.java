@@ -74,6 +74,9 @@ public class OrderController {
     public ResponseResult<List<RolesList>> queryRoleList(@RequestParam(name = "userAuto",required = false) Long userAuto) {
         List<RoleList> lists1 = itemCodeService.selectByType(1062);
         List<RoleList> lists2 = aspnetUsersService.selectByUserAuto(userAuto);
+        if (lists2.size() == 0){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "查无资料，请输入其它查询条件!", null);
+        }
         List<RolesList> lists = Lists.newArrayList();
         for (RoleList roleList1 : lists1){
             for (RoleList roleList2 : lists2){
@@ -96,6 +99,9 @@ public class OrderController {
     public ResponseResult<List<AgentList>> queryAgentList(@RequestParam(name = "userAuto",required = false) Long userAuto){
         //代理人id查询
         List<AgentList> lists = creditAgentService.selectAgentList(userAuto);
+        if (lists.size() == 0){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"查无资料，请输入其它查询条件!",null);
+        }
         List<AgentList> agentLists = Lists.newArrayList();
         for(AgentList agentList : lists){
             VEmp vEmp = vEmpService.selectByUserAuto(agentList.getSelfUser());
@@ -123,6 +129,9 @@ public class OrderController {
         if (rolesAuto == null || userAuto == null){
             throw new BusinessException(BusinessStatus.PARAM_ERROR);        }
         List<MasterList> lists = ordersService.selectByRoleIds(rolesAuto,userAuto);
+        if (lists.size() == 0){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"查无资料，请输入其它查询条件!",null);
+        }
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", lists);
     }
 
@@ -137,6 +146,9 @@ public class OrderController {
         if (rolesAuto == null || userAuto == null){
             throw new BusinessException(BusinessStatus.PARAM_ERROR);        }
         List<MasterList> lists = ordersService.selectCrossList(rolesAuto,userAuto);
+        if (lists.size() == 0){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"查无资料，请输入其它查询条件!",null);
+        }
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", lists);
     }
 
@@ -294,9 +306,10 @@ public class OrderController {
     })
     @GetMapping(value = "queryStepwiseList")
     public ResponseResult<List<StepwiseList>> queryStepwiseList(@RequestParam(name = "ordersAuto",required = false) Long ordersAuto){
-        if (ordersAuto == null){
-            throw new BusinessException(BusinessStatus.PARAM_ERROR);        }
         List<StepwiseList> lists = ordersStepwiseService.selectByOrdersAuto(ordersAuto);
+        if (lists.size() == 0){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"查无资料，请输入其它查询条件!",null);
+        }
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", lists);
     }
 
@@ -306,9 +319,10 @@ public class OrderController {
     })
     @GetMapping(value = "queryInsuranceContentList")
     public ResponseResult<List<InsuranceContentList>> queryInsuranceContentList(@RequestParam(name = "ordersAuto",required = false) Long ordersAuto){
-        if (ordersAuto == null){
-            throw new BusinessException(BusinessStatus.PARAM_ERROR);        }
         List<InsuranceContentList> lists = ordersInsureListService.selectInsuranceContentList(ordersAuto);
+        if (lists.size() == 0){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"查无资料，请输入其它查询条件!",null);
+        }
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", lists);
     }
 
@@ -320,9 +334,10 @@ public class OrderController {
     @GetMapping(value = "queryInsuranceTableList")
     public ResponseResult<List<InsuranceTableList>> queryInsuranceTableList(@RequestParam(name = "ordersAuto",required = false) Long ordersAuto,
                                                                        @RequestParam(name = "insureYear",required = false) Integer insureYear){
-        if (ordersAuto == null || insureYear == null){
-            throw new BusinessException(BusinessStatus.PARAM_ERROR);        }
         List<InsuranceTableList> lists = ordersInsureYearsService.selectByOrdersAutoAndYear(ordersAuto,insureYear);
+        if (lists.size() == 0){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"查无资料，请输入其它查询条件!",null);
+        }
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", lists);
     }
 
@@ -332,9 +347,10 @@ public class OrderController {
     })
     @GetMapping(value = "querySignOffList")
     public ResponseResult<List<SignOffList>> querySignOffList(@RequestParam(name = "ordersAuto",required = false) Long ordersAuto){
-        if (ordersAuto == null){
-            throw new BusinessException(BusinessStatus.PARAM_ERROR);        }
         List<SignOffList> lists = ordersFDetailService.selectSignOffList(ordersAuto);
+        if (lists.size() == 0){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"查无资料，请输入其它查询条件!",null);
+        }
         for(SignOffList signOffList : lists){
             switch (signOffList.getOrdersStatus()){
                 case 23:
@@ -384,9 +400,10 @@ public class OrderController {
     })
     @GetMapping(value = "queryBudgetList")
     public ResponseResult<List<BudgetList>> queryBudgetList(@RequestParam(name = "ordersAuto",required = false) Long ordersAuto){
-        if (ordersAuto == null){
-            throw new BusinessException(BusinessStatus.PARAM_ERROR);        }
         List<BudgetList> lists = ordersBudgetService.selectBudgetList(ordersAuto);
+        if (lists.size() == 0){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"查无资料，请输入其它查询条件!",null);
+        }
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", lists);
     }
 
@@ -396,9 +413,10 @@ public class OrderController {
     })
     @GetMapping(value = "queryFeeList")
     public ResponseResult<List<FeeList>> queryFeeList(@RequestParam(name = "ordersAuto",required = false) Long ordersAuto){
-        if (ordersAuto == null){
-            throw new BusinessException(BusinessStatus.PARAM_ERROR);        }
         List<FeeList> lists = ordersFeeService.selectFeeList(ordersAuto);
+        if (lists.size() == 0){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"查无资料，请输入其它查询条件!",null);
+        }
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", lists);
     }
 
@@ -408,9 +426,10 @@ public class OrderController {
     })
     @GetMapping(value = "queryFeeBackList")
     public ResponseResult<List<FeeList>> queryFeeBackList(@RequestParam(name = "ordersAuto",required = false) Long ordersAuto){
-        if (ordersAuto == null){
-            throw new BusinessException(BusinessStatus.PARAM_ERROR);        }
         List<FeeList> lists = ordersFeeService.selectFeeBackList(ordersAuto);
+        if (lists.size() == 0){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"查无资料，请输入其它查询条件!",null);
+        }
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", lists);
     }
 
@@ -420,9 +439,10 @@ public class OrderController {
     })
     @GetMapping(value = "queryAccessoryList")
     public ResponseResult<List<AccessoryList>> queryAccessoryList(@RequestParam(name = "ordersAuto",required = false) Long ordersAuto){
-        if (ordersAuto == null){
-            throw new BusinessException(BusinessStatus.PARAM_ERROR);        }
         List<AccessoryList> lists = ordersAccessaryService.selectAccessoryList(ordersAuto);
+        if (lists.size() == 0){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"查无资料，请输入其它查询条件!",null);
+        }
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", lists);
     }
 
@@ -432,9 +452,10 @@ public class OrderController {
     })
     @GetMapping(value = "queryCommissionList")
     public ResponseResult<List<CommissionList>> queryCommissionList(@RequestParam(name = "ordersAuto",required = false) Long ordersAuto){
-        if (ordersAuto == null){
-            throw new BusinessException(BusinessStatus.PARAM_ERROR);        }
         List<CommissionList> lists = commissionService.selectCommissionList(ordersAuto);
+        if (lists.size() == 0){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"查无资料，请输入其它查询条件!",null);
+        }
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", lists);
     }
 
@@ -445,6 +466,9 @@ public class OrderController {
     @GetMapping(value = "queryCommissionRecordList")
     public ResponseResult<List<CommissionRecordList>> queryCommissionRecordList(@RequestParam(name = "ordersAuto",required = false) List<Long> ordersAuto){
         List<CommissionRecordList> lists = commissionService.selectRecord(ordersAuto);
+        if (lists.size() == 0){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"查无资料，请输入其它查询条件!",null);
+        }
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", lists);
     }
 
@@ -454,9 +478,10 @@ public class OrderController {
     })
     @GetMapping(value = "querySupplierList")
     public ResponseResult<List<SupplierList>> querySupplierList(@RequestParam(name = "ordersAuto",required = false) Long ordersAuto){
-        if (ordersAuto == null){
-            throw new BusinessException(BusinessStatus.PARAM_ERROR);        }
         List<SupplierList> lists = ordersService.selectSupplierList(ordersAuto);
+        if (lists.size() == 0){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"查无资料，请输入其它查询条件!",null);
+        }
         for(SupplierList supplierList : lists){
             if(supplierList.getBookDT() == null){
                 supplierList.setBookTime("");
@@ -476,9 +501,10 @@ public class OrderController {
     })
     @GetMapping(value = "queryClasenList")
     public ResponseResult<List<ClasenList>> queryClasenList(@RequestParam(name = "ordersAuto",required = false) Long ordersAuto){
-        if (ordersAuto == null){
-            throw new BusinessException(BusinessStatus.PARAM_ERROR);        }
         List<ClasenList> lists = orderService.selectClasenList(ordersAuto);
+        if (lists.size() == 0){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"查无资料，请输入其它查询条件!",null);
+        }
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", lists);
     }
 
@@ -490,9 +516,10 @@ public class OrderController {
     @GetMapping(value = "queryWorkFlowDoc")
     public ResponseResult<List<WorkFlowDoc>> queryWorkFlowDoc(@RequestParam(name = "docPostID",required = false) Long docPostID,
                                                               @RequestParam(name = "roleId",required = false) Integer roleId){
-        if (docPostID == null || roleId == null){
-            throw new BusinessException(BusinessStatus.PARAM_ERROR);        }
         List<WorkFlowDoc> lists = workFlowDocService.selectWorkFlowDoc(docPostID,roleId,1);
+        if (lists.size() == 0){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"查无资料，请输入其它查询条件!",null);
+        }
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", lists);
     }
 
