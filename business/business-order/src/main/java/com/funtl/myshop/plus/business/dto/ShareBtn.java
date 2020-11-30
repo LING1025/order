@@ -11,10 +11,10 @@ import java.math.BigDecimal;
 @ApiModel(value = "回租报价：分摊表下载数据")
 public class ShareBtn implements Serializable {
     @ApiModelProperty(value = "本金")
-    private BigDecimal capital;
+    private Double capital;
 
     @ApiModelProperty(value = "月租金")
-    private BigDecimal monthRent;
+    private Double monthRent;
 
     @ApiModelProperty(value = "摊还利息")
     private BigDecimal amortization;

@@ -21,4 +21,7 @@ public class ShareBtnParamDto implements Serializable {
 
     @ApiModelProperty(value = "年利率(含税)")
     private BigDecimal rateRate;
+
+    @ApiModelProperty(value = "月租金(含税)")
+    private BigDecimal rentMAmt;
 }

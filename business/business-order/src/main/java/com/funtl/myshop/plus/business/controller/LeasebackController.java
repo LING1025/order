@@ -11,6 +11,7 @@ import com.funtl.myshop.plus.provider.api.*;
 import com.funtl.myshop.plus.provider.domain.*;
 import com.funtl.myshop.plus.provider.dto.*;
 import com.github.pagehelper.PageInfo;
+import com.google.common.collect.Lists;
 import io.swagger.annotations.*;
 import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.web.bind.annotation.*;
@@ -303,10 +304,51 @@ public class LeasebackController implements Serializable {
 
     @ApiOperation(value = "分摊表下载数据")
     @PostMapping(value = "getShareBtn")
-    public ResponseResult<ShareBtn> getShareBtn(@ApiParam(value = "回租报价：分摊表数据") @Valid @RequestBody ShareBtnParamDto shareBtnParamDto){
-        ShareBtn shareBtn = new ShareBtn();
+    public ResponseResult<List<ShareBtn>> getShareBtn(@ApiParam(value = "回租报价：分摊表数据") @Valid @RequestBody ShareBtnParamDto shareBtnParamDto){
+        List<ShareBtn> list = Lists.newArrayList();
+        for (ShareBtn shareBtn : list){
+            BigDecimal dAmtSum = shareBtnParamDto.getRentAmt().subtract(shareBtnParamDto.getStampTax());
+            BigDecimal dRentRate = shareBtnParamDto.getRateRate();
+            Double dIncome = Double.valueOf(0);
+            //本金
+            shareBtn.setCapital(dAmtSum.doubleValue());
+            //月租金
+            shareBtn.setMonthRent(shareBtnParamDto.getRentMAmt().doubleValue());
+            for (Integer i=1; i <= shareBtnParamDto.getMm(); i++){
+                if (i == shareBtnParamDto.getMm()){
+                    //摊还利息//四舍五入保留两位小数
+                    Double amortization = shareBtnParamDto.getRentMAmt().doubleValue() * shareBtnParamDto.getMm()
+                            - (shareBtnParamDto.getRentAmt().doubleValue() - shareBtnParamDto.getStampTax().doubleValue())
+                            - dIncome;
+                    shareBtn.setAmortization(BigDecimal.valueOf(amortization).setScale(2, BigDecimal.ROUND_HALF_UP));
+                    //利息税额
+                    BigDecimal t = BigDecimal.valueOf(amortization).setScale(2, BigDecimal.ROUND_HALF_UP);
+                    Double tax = t.doubleValue() / 1.06 * 0.06;
+                    shareBtn.setTax(BigDecimal.valueOf(tax).setScale(2, BigDecimal.ROUND_HALF_UP));
+                    //摊还本金
+                    shareBtn.setAmortizeAmt(dAmtSum);
+                    //本金余额
+                    shareBtn.setBalance(BigDecimal.valueOf(0));
+                }else {
+                    dIncome += dAmtSum.doubleValue() * dRentRate.doubleValue() / 100 /12;
+                    BigDecimal b = new BigDecimal(dIncome);
+                    double dIncome2 = b.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+                    //摊还利息//四舍五入保留两位小数
+                    shareBtn.setAmortization(BigDecimal.valueOf(dIncome2));//因为计算公式相同，所以用这个值
+                    //利息税额
+                    Double tax2 = dIncome2 / 1.06 * 0.06;
+                    shareBtn.setTax(BigDecimal.valueOf(tax2).setScale(2, BigDecimal.ROUND_HALF_UP));
+                    //摊还本金
+                    shareBtn.setAmortizeAmt(shareBtnParamDto.getRentMAmt().subtract(BigDecimal.valueOf(dIncome2)));
+                    //本金余额
+                    dAmtSum = dAmtSum.setScale(2, BigDecimal.ROUND_HALF_UP).add(BigDecimal.valueOf(dIncome2)).subtract(shareBtnParamDto.getRentMAmt());
+                    shareBtn.setBalance(dAmtSum);
+                }
+            }
+            list.add(shareBtn);
+        }
 
-        return new ResponseResult<>(ResponseResult.CodeStatus.OK, "分摊表下载数据", shareBtn);
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK, "分摊表下载数据", list);
     }
 
 
