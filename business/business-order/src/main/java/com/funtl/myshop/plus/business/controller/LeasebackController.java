@@ -314,9 +314,9 @@ public class LeasebackController implements Serializable {
         for (Integer i = 1; i <= shareBtnParamDto.getMm(); i++) {
             ShareBtn shareBtn = new ShareBtn();
             //本金
-            shareBtn.setCapital(dAmtSum.doubleValue());
+            shareBtn.setCapital(dAmtSum.setScale(2, BigDecimal.ROUND_HALF_UP));
             //月租金
-            shareBtn.setMonthRent(shareBtnParamDto.getRentMAmt().doubleValue());
+            shareBtn.setMonthRent(shareBtnParamDto.getRentMAmt());
             if (i == shareBtnParamDto.getMm()) {
                 //摊还利息//四舍五入保留两位小数
                 Double amortization = shareBtnParamDto.getRentMAmt().doubleValue() * shareBtnParamDto.getMm()
@@ -328,22 +328,21 @@ public class LeasebackController implements Serializable {
                 Double tax = t.doubleValue() / 1.06 * 0.06;
                 shareBtn.setTax(BigDecimal.valueOf(tax).setScale(2, BigDecimal.ROUND_HALF_UP));
                 //摊还本金
-                shareBtn.setAmortizeAmt(dAmtSum);
+                shareBtn.setAmortizeAmt(dAmtSum.setScale(2, BigDecimal.ROUND_HALF_UP));
                 //本金余额
                 shareBtn.setBalance(BigDecimal.valueOf(0));
             } else {
-                Double dIncome1 = dAmtSum.doubleValue() * dRentRate.doubleValue() / 100 / 12;
-                BigDecimal b = new BigDecimal(dIncome1);
-                double dIncome2 = b.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+                Double d = dAmtSum.doubleValue() * dRentRate.doubleValue() / 100 / 12;
+                dIncome += BigDecimal.valueOf(d).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
                 //摊还利息//四舍五入保留两位小数
-                shareBtn.setAmortization(BigDecimal.valueOf(dIncome2));//因为计算公式相同，所以用这个值
+                shareBtn.setAmortization(BigDecimal.valueOf(d).setScale(2, BigDecimal.ROUND_HALF_UP));
                 //利息税额
-                Double tax2 = dIncome2 / 1.06 * 0.06;
+                Double tax2 = d / 1.06 * 0.06;
                 shareBtn.setTax(BigDecimal.valueOf(tax2).setScale(2, BigDecimal.ROUND_HALF_UP));
                 //摊还本金
-                shareBtn.setAmortizeAmt(shareBtnParamDto.getRentMAmt().subtract(BigDecimal.valueOf(dIncome2)));
+                shareBtn.setAmortizeAmt(shareBtnParamDto.getRentMAmt().subtract(BigDecimal.valueOf(d).setScale(2, BigDecimal.ROUND_HALF_UP)));
                 //本金余额
-                dAmtSum = dAmtSum.setScale(2, BigDecimal.ROUND_HALF_UP).add(BigDecimal.valueOf(dIncome2)).subtract(shareBtnParamDto.getRentMAmt());
+                dAmtSum = dAmtSum.add(BigDecimal.valueOf(d).setScale(2, BigDecimal.ROUND_HALF_UP)).subtract(shareBtnParamDto.getRentMAmt());
                 shareBtn.setBalance(dAmtSum);
             }
             list.add(shareBtn);
