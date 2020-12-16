@@ -1,0 +1,4 @@
+com\funtl\myshop\plus\business\controller\LicenseController.class
+com\funtl\myshop\plus\business\BusinessLicenseApplication.class
+com\funtl\myshop\plus\business\configure\LicenseResourceServerConfiguration.class
+com\funtl\myshop\plus\business\configure\Swagger2Config.class

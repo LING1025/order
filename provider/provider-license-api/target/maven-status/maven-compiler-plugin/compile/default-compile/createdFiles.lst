@@ -1,0 +1,8 @@
+com\funtl\myshop\plus\provider\dto\MessageQueryParam.class
+com\funtl\myshop\plus\provider\domain\CheckDetailList.class
+com\funtl\myshop\plus\provider\domain\MessageList.class
+com\funtl\myshop\plus\provider\domain\Order.class
+com\funtl\myshop\plus\provider\api\OrderService.class
+com\funtl\myshop\plus\provider\api\AccessaryAppService.class
+com\funtl\myshop\plus\provider\domain\AccessaryApp.class
+com\funtl\myshop\plus\provider\domain\ZjDetail.class

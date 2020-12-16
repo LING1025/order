@@ -1,2 +1,3 @@
 com\funtl\myshop\plus\provider\api\WxEncryptedDataService.class
+com\funtl\myshop\plus\provider\domain\SaleOpenIdList.class
 com\funtl\myshop\plus\provider\domain\WxEncryptedData.class

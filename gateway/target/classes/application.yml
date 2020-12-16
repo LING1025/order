@@ -81,15 +81,15 @@ spring:
           filters:
             - StripPrefix=1
 
-#server:
-#  port: 443
-#  ssl:
-#    enabled: true
-#    key-store: classpath:wxj.car-plus.com.cn.jks
-#    key-store-password: 094z45iweiqu6
-#    key-store-type: JKS
 server:
-  port: 9999
+  port: 443
+  ssl:
+    enabled: true
+    key-store: classpath:wxj.car-plus.com.cn.jks
+    key-store-password: 094z45iweiqu6
+    key-store-type: JKS
+#server:
+#  port: 9999
 
 
 # 配置日志级别，方别调试

@@ -1,0 +1,5 @@
+com\funtl\myshop\plus\provider\ProviderLicenseApplication.class
+com\funtl\myshop\plus\provider\service\OrderServiceImpl.class
+com\funtl\myshop\plus\provider\mapper\AccessaryAppMapper.class
+com\funtl\myshop\plus\provider\mapper\OrderMapper.class
+com\funtl\myshop\plus\provider\service\AccessaryAppServiceImpl.class
