@@ -74,6 +74,12 @@ spring:
             - Path=/api/leaseback/**
           filters:
             - StripPrefix=1
+        - id: BUSINESS-ORDER
+          uri: lb://business-order
+          predicates:
+            - Path=/api/carApply/**
+          filters:
+            - StripPrefix=1
         - id: BUSINESS-LICENSE
           uri: lb://business-license
           predicates:
