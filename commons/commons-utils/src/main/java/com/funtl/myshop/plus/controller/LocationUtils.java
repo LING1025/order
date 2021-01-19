@@ -1,7 +1,6 @@
 package com.funtl.myshop.plus.controller;
 
 
-import com.funtl.myshop.plus.dto.DistanceParams;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
@@ -105,17 +104,21 @@ public class LocationUtils {
 
     /**
      * 经纬度计算距离
-     * @param distanceParams
+     * /**mode
+     *      *计算方式，取值：
+     *      * driving：驾车
+     *      * walking：步行
+     *      * bicycling：自行车
+     *      */
      * @return
      * @throws Exception
      */
-    public static Map<String, Object> getDistance(DistanceParams distanceParams) throws Exception {
+    public static Map<String, Object> getDistance(String from,String to) throws Exception {
         Map<String, Object> resultMap = new HashMap<String, Object>();
 
-        String urlString = "https://apis.map.qq.com/ws/distance/v1/matrix/?mode="
-                + distanceParams.getMode()
-                +"&from="+ distanceParams.getFrom()
-                +"&to="+ distanceParams.getTo()
+        String urlString = "https://apis.map.qq.com/ws/distance/v1/matrix/?mode=driving"
+                +"&from="+ from
+                +"&to="+ to
                 + "&key=" + KEY;
         String result = "";
         try {
@@ -136,7 +139,9 @@ public class LocationUtils {
         }
 
         JSONObject jsonObject = JSONObject.fromObject(result).getJSONObject("result");
-        resultMap.put("result", jsonObject.toString());
+        JSONArray jsonArray = jsonObject.getJSONArray("rows");
+        resultMap.put("elements",jsonArray);
+//        resultMap.put("result", jsonObject.toString());
         return resultMap;
     }
 
@@ -154,12 +159,9 @@ public class LocationUtils {
         Map<String, Object> map2 = getLocations(region,keyword);
         System.out.println(map2);
 
-        DistanceParams distanceParams = new DistanceParams();
-        distanceParams.setMode("driving");
-        distanceParams.setFrom("31.288530854,120.666760427;31.288530854,120.666760427");
-        distanceParams.setTo("31.35458833,120.700719984;31.35458833,120.700719984");
-        distanceParams.setKey("SNABZ-2EICD-4PZ4A-PB5J4-2KYT2-TWBAK");
-        Map<String, Object> map3 = getDistance(distanceParams);
+        String from="31.288530854,120.666760427";
+        String to="31.35458833,120.700719984";
+        Map<String, Object> map3 = getDistance(from,to);
         System.out.println(map3);
     }
 
