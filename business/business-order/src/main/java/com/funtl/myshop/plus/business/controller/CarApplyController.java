@@ -2,16 +2,12 @@ package com.funtl.myshop.plus.business.controller;
 
 import com.funtl.myshop.plus.business.dto.GetLocation;
 import com.funtl.myshop.plus.commons.dto.ResponseResult;
-import com.funtl.myshop.plus.commons.utils.MapperUtils;
 import com.funtl.myshop.plus.controller.LocationUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -37,6 +33,22 @@ public class CarApplyController {
         getLocation.setCityCode((String) map.get("cityCode"));
         getLocation.setNationCode((String) map.get("nationCode"));
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", getLocation);
+    }
+
+    @ApiOperation(value = "关键词输入提示地址")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "region", value = "范围限制条件", required = true, dataType = "String", paramType = "path"),
+            @ApiImplicitParam(name = "keyword", value = "用户输入的关键词", required = true, dataType = "String", paramType = "path")
+    })
+    @GetMapping(value = "queryLocations")
+    public ResponseResult<Map<String, Object>> queryLocations(@RequestParam(name = "region")String region,
+                                                             @RequestParam(name = "keyword")String keyword) throws Exception {
+        Map<String, Object> map = LocationUtils.getLocations(region,keyword);
+
+//        List<LocationList> list = Lists.newArrayList();
+//        LocationList locationList = new LocationList();
+
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", map);
     }
 
 }

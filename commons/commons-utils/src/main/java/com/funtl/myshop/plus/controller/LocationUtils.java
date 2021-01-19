@@ -1,6 +1,7 @@
 package com.funtl.myshop.plus.controller;
 
 
+import com.funtl.myshop.plus.dto.DistanceParams;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
@@ -15,6 +16,13 @@ public class LocationUtils {
     //key
     private static final String KEY = "SNABZ-2EICD-4PZ4A-PB5J4-2KYT2-TWBAK";
 
+    /**
+     * 经纬度转地址
+     * @param lng
+     * @param lat
+     * @return
+     * @throws Exception
+     */
     public static Map<String, Object> getLocation(String lng, String lat) throws Exception {
 
         Map<String, Object> resultMap = new HashMap<String, Object>();
@@ -52,6 +60,87 @@ public class LocationUtils {
         return resultMap;
     }
 
+    /**
+     * 关键词输入提示地址
+     * @param
+     * @return
+     * @throws Exception
+     */
+    public static Map<String, Object> getLocations(String region,String keyword) throws Exception {
+        Map<String, Object> resultMap = new HashMap<String, Object>();
+
+        String urlString = "https://apis.map.qq.com/ws/place/v1/suggestion/?region="
+                + region
+                +"&keyword="+ keyword
+                + "&key=" + KEY;
+        String result = "";
+        try {
+            URL url = new URL(urlString);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setDoOutput(true);
+            // 腾讯地图使用GET
+            conn.setRequestMethod("GET");
+            BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
+            String line;
+            // 获取地址解析结果
+            while ((line = in.readLine()) != null) {
+                result += line + "\n";
+            }
+            in.close();
+        } catch (Exception e) {
+            e.getMessage();
+        }
+
+
+
+        JSONArray jsonArray = JSONObject.fromObject(result).getJSONArray("data");
+
+//        JSONObject jsonObject = jsonArray.getJSONObject(0);
+//        resultMap.put("address",jsonObject.get("address"));
+//        resultMap.put("location", jsonObject.get("location"));
+
+        resultMap.put("data", jsonArray);
+        return resultMap;
+    }
+
+    /**
+     * 经纬度计算距离
+     * @param distanceParams
+     * @return
+     * @throws Exception
+     */
+    public static Map<String, Object> getDistance(DistanceParams distanceParams) throws Exception {
+        Map<String, Object> resultMap = new HashMap<String, Object>();
+
+        String urlString = "https://apis.map.qq.com/ws/distance/v1/matrix/?mode="
+                + distanceParams.getMode()
+                +"&from="+ distanceParams.getFrom()
+                +"&to="+ distanceParams.getTo()
+                + "&key=" + KEY;
+        String result = "";
+        try {
+            URL url = new URL(urlString);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setDoOutput(true);
+            // 腾讯地图使用GET
+            conn.setRequestMethod("GET");
+            BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
+            String line;
+            // 获取地址解析结果
+            while ((line = in.readLine()) != null) {
+                result += line + "\n";
+            }
+            in.close();
+        } catch (Exception e) {
+            e.getMessage();
+        }
+
+        JSONObject jsonObject = JSONObject.fromObject(result).getJSONObject("result");
+        resultMap.put("result", jsonObject.toString());
+        return resultMap;
+    }
+
+
     public static void main(String[] args) throws Exception {
 
         // 测试
@@ -59,12 +148,19 @@ public class LocationUtils {
         String lat = "24.378622";//维度
         Map<String, Object> map = getLocation(lng, lat);
         System.out.println(map);
-        System.out.println("国   籍：" + map.get("nation"));
-        System.out.println("国家代码：" + map.get("nationCode"));
-        System.out.println("省   份：" + map.get("province"));
-        System.out.println("省份代码：" + map.get("provinceCode"));
-        System.out.println("城   市：" + map.get("city"));
-        System.out.println("城市代码：" + map.get("cityCode"));
+
+        String region="苏州";
+        String keyword="格上";
+        Map<String, Object> map2 = getLocations(region,keyword);
+        System.out.println(map2);
+
+        DistanceParams distanceParams = new DistanceParams();
+        distanceParams.setMode("driving");
+        distanceParams.setFrom("31.288530854,120.666760427;31.288530854,120.666760427");
+        distanceParams.setTo("31.35458833,120.700719984;31.35458833,120.700719984");
+        distanceParams.setKey("SNABZ-2EICD-4PZ4A-PB5J4-2KYT2-TWBAK");
+        Map<String, Object> map3 = getDistance(distanceParams);
+        System.out.println(map3);
     }
 
 }
