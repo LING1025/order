@@ -53,13 +53,15 @@ public class CarApplyController {
 
     @ApiOperation(value = "经纬度计算距离")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "from", value = "起点坐标（例如：from=39.071510,117.190091）", required = true, dataType = "String", paramType = "path"),
-            @ApiImplicitParam(name = "to", value = "终点坐标（例如：from=39.071510,117.190091）", required = true, dataType = "String", paramType = "path")
+            @ApiImplicitParam(name = "from", value = "起点坐标（例如：from=31.288530854,120.666760427）", required = true, dataType = "String", paramType = "path"),
+            @ApiImplicitParam(name = "to", value = "终点坐标（例如：from=31.35458833,120.700719984）", required = true, dataType = "String", paramType = "path")
     })
     @GetMapping(value = "queryDistance")
     public ResponseResult<Map<String, Object>> queryDistance(@RequestParam(name = "from")String from,
                                                               @RequestParam(name = "to")String to) throws Exception {
         Map<String, Object> map = LocationUtils.getDistance(from,to);
+        map.get("elements");
+        System.err.println(map);
 
 //        List<LocationList> list = Lists.newArrayList();
 //        LocationList locationList = new LocationList();

@@ -104,12 +104,12 @@ public class LocationUtils {
 
     /**
      * 经纬度计算距离
-     * /**mode
+     * **mode
      *      *计算方式，取值：
      *      * driving：驾车
      *      * walking：步行
      *      * bicycling：自行车
-     *      */
+     *      *
      * @return
      * @throws Exception
      */
