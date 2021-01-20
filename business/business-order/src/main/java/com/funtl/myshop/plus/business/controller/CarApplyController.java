@@ -2,16 +2,21 @@ package com.funtl.myshop.plus.business.controller;
 
 import com.funtl.myshop.plus.business.dto.Distance;
 import com.funtl.myshop.plus.business.dto.GetLocation;
+import com.funtl.myshop.plus.business.dto.Location;
+import com.funtl.myshop.plus.business.dto.LocationList;
 import com.funtl.myshop.plus.commons.dto.ResponseResult;
 import com.funtl.myshop.plus.commons.utils.MapperUtils;
 import com.funtl.myshop.plus.controller.LocationUtils;
+import com.google.common.collect.Lists;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 
@@ -19,6 +24,7 @@ import java.util.Map;
 @RestController
 @RequestMapping(value = "carApply")
 public class CarApplyController {
+    /*
     @ApiOperation(value = "经纬度转地址")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "lng", value = "经度", required = true, dataType = "String", paramType = "path"),
@@ -36,22 +42,33 @@ public class CarApplyController {
         getLocation.setCityCode((String) map.get("cityCode"));
         getLocation.setNationCode((String) map.get("nationCode"));
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", getLocation);
-    }
+    }*/
 
     @ApiOperation(value = "关键词输入提示地址")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "region", value = "范围限制条件", required = true, dataType = "String", paramType = "path"),
-            @ApiImplicitParam(name = "keyword", value = "用户输入的关键词", required = true, dataType = "String", paramType = "path")
+            @ApiImplicitParam(name = "region", value = "范围限制条件（例如：苏州）", required = true, dataType = "String", paramType = "path"),
+            @ApiImplicitParam(name = "keyword", value = "用户输入的关键词（例如：格上）", required = true, dataType = "String", paramType = "path")
     })
     @GetMapping(value = "queryLocations")
-    public ResponseResult<Map<String, Object>> queryLocations(@RequestParam(name = "region")String region,
+    public ResponseResult<List<LocationList>> queryLocations(@RequestParam(name = "region")String region,
                                                              @RequestParam(name = "keyword")String keyword) throws Exception {
         Map<String, Object> map = LocationUtils.getLocations(region,keyword);
-
-//        List<LocationList> list = Lists.newArrayList();
-//        LocationList locationList = new LocationList();
-
-        return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", map);
+        String k = map.get("data").toString();
+        JSONArray kObject = JSONArray.fromObject(k);
+        List<LocationList> list = Lists.newArrayList();
+        for (int i=0; i<kObject.size(); i++){
+            LocationList locationList = new LocationList();
+            locationList.setTitle(kObject.getJSONObject(i).getString("title"));
+            locationList.setAddress(kObject.getJSONObject(i).getString("address"));
+            List<Location> locations = Lists.newArrayList();
+            Location location = new Location();
+            location.setLat(kObject.getJSONObject(i).getJSONObject("location").getDouble("lat"));
+            location.setLng(kObject.getJSONObject(i).getJSONObject("location").getDouble("lng"));
+            locations.add(location);
+            locationList.setLocations(locations);
+            list.add(locationList);
+        }
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", list);
     }
 
     @ApiOperation(value = "经纬度计算距离")

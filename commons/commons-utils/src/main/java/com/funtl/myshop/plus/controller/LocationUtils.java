@@ -8,8 +8,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class LocationUtils {
     //key
@@ -157,9 +156,17 @@ public class LocationUtils {
         String region="苏州";
         String keyword="格上";
         Map<String, Object> map2 = getLocations(region,keyword);
-        System.out.println(map2);
+//        System.out.println(map2);
+        System.out.println(map2.get("data"));
+        String k = map2.get("data").toString();
+        String k1 = k.substring(1,k.length()-1);
+        System.out.println("k1>>>>"+k1);
+        JSONArray k1Object = JSONArray.fromObject(k);
+        System.out.println("k1Object:>>>>"+k1Object);
+        List<String> list = Arrays.asList("address","location");
 
-        String from="31.288530854,120.666760427";
+
+        /*String from="31.288530854,120.666760427";
         String to="31.35458833,120.700719984";
         Map<String, Object> map3 = getDistance(from,to);
         System.out.println(map3);
@@ -173,7 +180,8 @@ public class LocationUtils {
         System.out.println("s2>>>>"+s2);
         String s3 = s.split(",")[1];
         //substring:beginIndex -- 起始索引（包括）endIndex -- 结束索引（不包括）
-        System.out.println("s3>>>>"+s3.substring(11,s3.length()-1));//截取并删除最后一个字符
+        System.out.println("s3>>>>"+s3.substring(11,s3.length()-1));//截取并删除最后一个字符*/
+
     }
 
 }
