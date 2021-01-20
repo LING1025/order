@@ -1,12 +1,15 @@
 package com.funtl.myshop.plus.business.controller;
 
+import com.funtl.myshop.plus.business.dto.Distance;
 import com.funtl.myshop.plus.business.dto.GetLocation;
 import com.funtl.myshop.plus.commons.dto.ResponseResult;
+import com.funtl.myshop.plus.commons.utils.MapperUtils;
 import com.funtl.myshop.plus.controller.LocationUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import net.sf.json.JSONObject;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -57,16 +60,19 @@ public class CarApplyController {
             @ApiImplicitParam(name = "to", value = "终点坐标（例如：from=31.35458833,120.700719984）", required = true, dataType = "String", paramType = "path")
     })
     @GetMapping(value = "queryDistance")
-    public ResponseResult<Map<String, Object>> queryDistance(@RequestParam(name = "from")String from,
+    public ResponseResult<Distance> queryDistance(@RequestParam(name = "from")String from,
                                                               @RequestParam(name = "to")String to) throws Exception {
         Map<String, Object> map = LocationUtils.getDistance(from,to);
-        map.get("elements");
-        System.err.println(map);
-
-//        List<LocationList> list = Lists.newArrayList();
-//        LocationList locationList = new LocationList();
-
-        return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", map);
+        Distance distance = new Distance();
+        String s1 = map.get("elements").toString();
+        String s = s1.substring(14).replace("}]}]","}");
+        JSONObject jsonObject = JSONObject.fromObject(s);
+        Double d = jsonObject.getDouble("distance")/1000;//米转为公里
+        distance.setDistance(d);
+//        distance.setDistance(d+"公里");
+//        distance.setDistance(jsonObject.getDouble("distance"));
+//        distance.setDuration(jsonObject.getDouble("duration"));
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", distance);
     }
 
 }

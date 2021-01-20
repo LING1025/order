@@ -163,6 +163,17 @@ public class LocationUtils {
         String to="31.35458833,120.700719984";
         Map<String, Object> map3 = getDistance(from,to);
         System.out.println(map3);
+        System.out.println(map3.get("elements"));
+        String s1 = map3.get("elements").toString();
+        String s = s1.substring(14).replace("}]}]","}");
+        System.out.println("s:>>>>"+s);
+        JSONObject jsonObject = JSONObject.fromObject(s);
+        System.out.println("jsonObject:>>>>"+jsonObject);
+        String s2 = s.split(",")[0].split(":")[1];
+        System.out.println("s2>>>>"+s2);
+        String s3 = s.split(",")[1];
+        //substring:beginIndex -- 起始索引（包括）endIndex -- 结束索引（不包括）
+        System.out.println("s3>>>>"+s3.substring(11,s3.length()-1));//截取并删除最后一个字符
     }
 
 }
