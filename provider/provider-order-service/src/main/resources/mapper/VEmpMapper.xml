@@ -54,4 +54,25 @@
       </if>
         AND IsOn!=0
     </select>
+
+  <!--获取使用部门、使用人数据-->
+    <resultMap id="queryCarApply" type="com.funtl.myshop.plus.provider.domain.CarApplyList">
+      <result column="orgAuto" jdbcType="BIGINT" property="orgAuto" />
+      <result column="orgName" jdbcType="VARCHAR" property="orgName" />
+      <result column="userAuto" jdbcType="BIGINT" property="userAuto" />
+      <result column="username" jdbcType="VARCHAR" property="username" />
+    </resultMap>
+    <select id="selectCarApply" resultMap="queryCarApply">
+        declare
+        @User_Auto bigint = #{userAuto}
+        BEGIN
+        --根据登录者id查询部门（使用部门）
+        select Org_Auto,DepName from v_Emp where User_Auto=@User_Auto
+            declare
+            @org_auto bigint
+            set @org_auto=(select Org_Auto from v_Emp where User_Auto=@User_Auto)
+            --根据部门ID查询部门人员（使用人）
+            select User_Auto,FName from v_emp where Org_Auto=@org_auto and ison=1 --and User_Auto=@User_Auto
+        END
+    </select>
 </mapper>
