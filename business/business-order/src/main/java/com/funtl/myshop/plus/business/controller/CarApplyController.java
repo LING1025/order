@@ -7,6 +7,8 @@ import com.funtl.myshop.plus.business.dto.LocationList;
 import com.funtl.myshop.plus.commons.dto.ResponseResult;
 import com.funtl.myshop.plus.commons.utils.MapperUtils;
 import com.funtl.myshop.plus.controller.LocationUtils;
+import com.funtl.myshop.plus.provider.api.ItemCodeService;
+import com.funtl.myshop.plus.provider.domain.CarAreaList;
 import com.google.common.collect.Lists;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -14,6 +16,7 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
+import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,6 +27,9 @@ import java.util.Map;
 @RestController
 @RequestMapping(value = "carApply")
 public class CarApplyController {
+    @Reference(version = "1.0.0")
+    private ItemCodeService itemCodeService;
+
     /*
     @ApiOperation(value = "经纬度转地址")
     @ApiImplicitParams({
@@ -92,4 +98,11 @@ public class CarApplyController {
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", distance);
     }
 
+    @ApiOperation(value = "获取用车类别、牌照地区")
+    @ApiImplicitParam(name = "itemType", value = "用车类别：833,牌照地区：810",required = true,dataType ="int",paramType = "path")
+    @GetMapping(value = "queryCarArea")
+    public ResponseResult<List<CarAreaList>> queryCarArea(@RequestParam(name = "itemType") Integer itemType){
+        List<CarAreaList> lists = itemCodeService.selectCarArea(itemType);
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK,"查询成功",lists);
+    }
 }

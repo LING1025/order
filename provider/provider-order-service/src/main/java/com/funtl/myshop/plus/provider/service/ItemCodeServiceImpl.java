@@ -1,6 +1,8 @@
 package com.funtl.myshop.plus.provider.service;
 
 import javax.annotation.Resource;
+
+import com.funtl.myshop.plus.provider.domain.CarAreaList;
 import com.funtl.myshop.plus.provider.domain.ItemCode;
 import com.funtl.myshop.plus.provider.domain.ItemNameList;
 import com.funtl.myshop.plus.provider.domain.LeasebackSelect;
@@ -25,6 +27,11 @@ public class ItemCodeServiceImpl implements ItemCodeService{
     @Override
     public List<LeasebackSelect> selectItemName(Integer itemType,Long num) {
         return itemCodeMapper.selectItemName(itemType,num);
+    }
+
+    @Override
+    public List<CarAreaList> selectCarArea(Integer itemType) {
+        return itemCodeMapper.selectCarArea(itemType);
     }
 
 }

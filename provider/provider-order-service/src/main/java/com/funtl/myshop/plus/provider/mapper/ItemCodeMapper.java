@@ -1,5 +1,6 @@
 package com.funtl.myshop.plus.provider.mapper;
 
+import com.funtl.myshop.plus.provider.domain.CarAreaList;
 import com.funtl.myshop.plus.provider.domain.ItemCode;
 import com.funtl.myshop.plus.provider.domain.ItemNameList;
 import com.funtl.myshop.plus.provider.domain.LeasebackSelect;
@@ -13,4 +14,6 @@ public interface ItemCodeMapper extends MyMapper<ItemCode> {
     List<RoleList> selectByType(@Param("itemType") Integer itemType);
 
     List<LeasebackSelect> selectItemName(@Param("itemType") Integer itemType,@Param("num") Long num);
+
+    List<CarAreaList> selectCarArea(@Param("itemType") Integer itemType);
 }

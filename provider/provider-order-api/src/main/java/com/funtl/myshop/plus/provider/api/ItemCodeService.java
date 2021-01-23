@@ -1,5 +1,6 @@
 package com.funtl.myshop.plus.provider.api;
 
+import com.funtl.myshop.plus.provider.domain.CarAreaList;
 import com.funtl.myshop.plus.provider.domain.ItemCode;
 
 import com.funtl.myshop.plus.provider.domain.ItemNameList;
@@ -22,4 +23,11 @@ public interface ItemCodeService{
      * @return
      */
     List<LeasebackSelect> selectItemName(Integer itemType,Long num);
+
+    /**
+     * 根据itemType获取用车类别、牌照地区
+     * @param itemType
+     * @return
+     */
+    List<CarAreaList> selectCarArea(Integer itemType);
 }
