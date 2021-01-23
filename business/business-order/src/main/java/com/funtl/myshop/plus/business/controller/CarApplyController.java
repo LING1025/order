@@ -8,6 +8,8 @@ import com.funtl.myshop.plus.commons.dto.ResponseResult;
 import com.funtl.myshop.plus.commons.utils.MapperUtils;
 import com.funtl.myshop.plus.controller.LocationUtils;
 import com.funtl.myshop.plus.provider.api.ItemCodeService;
+import com.funtl.myshop.plus.provider.api.VEmpService;
+import com.funtl.myshop.plus.provider.domain.CarApplyList;
 import com.funtl.myshop.plus.provider.domain.CarAreaList;
 import com.google.common.collect.Lists;
 import io.swagger.annotations.Api;
@@ -29,6 +31,9 @@ import java.util.Map;
 public class CarApplyController {
     @Reference(version = "1.0.0")
     private ItemCodeService itemCodeService;
+
+    @Reference(version = "1.0.0")
+    private VEmpService vEmpService;
 
     /*
     @ApiOperation(value = "经纬度转地址")
@@ -103,6 +108,14 @@ public class CarApplyController {
     @GetMapping(value = "queryCarArea")
     public ResponseResult<List<CarAreaList>> queryCarArea(@RequestParam(name = "itemType") Integer itemType){
         List<CarAreaList> lists = itemCodeService.selectCarArea(itemType);
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK,"查询成功",lists);
+    }
+
+    @ApiOperation(value = "获取使用部门、使用人数据")
+    @ApiImplicitParam(name = "userAuto",value = "登录者userAuto",required = true,dataType = "long",paramType = "path")
+    @GetMapping(value = "queryCarApply")
+    public ResponseResult<List<CarApplyList>> queryCarApply(@RequestParam(name = "userAuto") Long userAuto){
+        List<CarApplyList> lists = vEmpService.selectCarApply(userAuto);
         return new ResponseResult<>(ResponseResult.CodeStatus.OK,"查询成功",lists);
     }
 }
