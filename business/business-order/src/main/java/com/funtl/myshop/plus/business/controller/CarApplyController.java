@@ -121,7 +121,7 @@ public class CarApplyController {
     }
 
     @ApiOperation(value = "获取使用人数据")
-    @ApiImplicitParam(name = "orgAuto",value = "orgAuto",required = true,dataType = "long",paramType = "path")
+    @ApiImplicitParam(name = "orgAuto",value = "使用部门序号",required = true,dataType = "long",paramType = "path")
     @GetMapping(value = "queryCarApply")
     public ResponseResult<List<CarApplyList>> queryCarApply(@RequestParam(name = "orgAuto") Long orgAuto){
         List<CarApplyList> lists = vEmpService.selectCarApply(orgAuto);
