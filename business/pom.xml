@@ -32,6 +32,5 @@
         <module>business-wxOauth2</module>
         <module>business-wxUser</module>
         <module>business-order</module>
-        <module>business-license</module>
     </modules>
 </project>

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding">
-    <file url="file://$PROJECT_DIR$/business/business-license/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/business/business-order/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/business/business-wxOauth2/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/business/business-wxUser/business-wxUser-feign/src/main/java" charset="UTF-8" />
@@ -13,8 +12,6 @@
     <file url="file://$PROJECT_DIR$/gateway/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/provider/provider-asp-api/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/provider/provider-asp-service/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/provider/provider-license-api/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/provider/provider-license-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/provider/provider-order-api/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/provider/provider-order-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/provider/provider-user-api/src/main/java" charset="UTF-8" />

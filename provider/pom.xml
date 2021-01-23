@@ -27,7 +27,5 @@
         <module>provider-order-service</module>
         <module>provider-asp-api</module>
         <module>provider-asp-service</module>
-        <module>provider-license-api</module>
-        <module>provider-license-service</module>
     </modules>
 </project>

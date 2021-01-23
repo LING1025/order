@@ -17,16 +17,13 @@
         <module name="configuration-feign" />
         <module name="business-order (1)" />
         <module name="provider-user-service" />
-        <module name="provider-license-api" />
         <module name="commons-utils" />
-        <module name="provider-license-service" />
+        <module name="provider-asp-service" />
         <module name="business-wxOauth2" />
-        <module name="business-license" />
         <module name="provider-user-service (1)" />
         <module name="provider-asp-api" />
         <module name="provider-order-api" />
         <module name="provider-user-api (1)" />
-        <module name="provider-asp-service" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>

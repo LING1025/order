@@ -28,9 +28,6 @@
         <option value="$PROJECT_DIR$/business/business-user/business-user-service/pom.xml" />
         <option value="$PROJECT_DIR$/provider/provider-asp-api/pom.xml" />
         <option value="$PROJECT_DIR$/provider/provider-asp-service/pom.xml" />
-        <option value="$PROJECT_DIR$/provider/provider-license-api/pom.xml" />
-        <option value="$PROJECT_DIR$/provider/provider-license-service/pom.xml" />
-        <option value="$PROJECT_DIR$/business/business-license/pom.xml" />
       </list>
     </option>
   </component>

@@ -80,10 +80,10 @@ spring:
             - Path=/api/carApply/**
           filters:
             - StripPrefix=1
-        - id: BUSINESS-LICENSE
-          uri: lb://business-license
+        - id: BUSINESS-ORDER
+          uri: lb://business-order
           predicates:
-            - Path=/api/request/**
+            - Path=/api/license/**
           filters:
             - StripPrefix=1
 

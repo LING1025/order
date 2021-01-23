@@ -21,7 +21,7 @@ import java.util.List;
 
 @Api(tags = "上牌管理模块相关操作")
 @RestController
-@RequestMapping(value = "request")
+@RequestMapping(value = "license")
 public class LicenseController {
     @Reference(version = "1.0.0")
     private OrderService orderService;
