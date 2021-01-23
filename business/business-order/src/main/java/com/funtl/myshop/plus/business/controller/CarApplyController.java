@@ -10,6 +10,7 @@ import com.funtl.myshop.plus.controller.LocationUtils;
 import com.funtl.myshop.plus.provider.api.ItemCodeService;
 import com.funtl.myshop.plus.provider.api.VEmpService;
 import com.funtl.myshop.plus.provider.domain.CarApplyList;
+import com.funtl.myshop.plus.provider.domain.CarApplyOrg;
 import com.funtl.myshop.plus.provider.domain.CarAreaList;
 import com.google.common.collect.Lists;
 import io.swagger.annotations.Api;
@@ -111,11 +112,19 @@ public class CarApplyController {
         return new ResponseResult<>(ResponseResult.CodeStatus.OK,"查询成功",lists);
     }
 
-    @ApiOperation(value = "获取使用部门、使用人数据")
-    @ApiImplicitParam(name = "userAuto",value = "登录者userAuto",required = true,dataType = "long",paramType = "path")
+    @ApiOperation(value = "获取使用部门数据")
+    @ApiImplicitParam(name = "userAuto",value = "登录者userAuto",required = false,dataType = "long",paramType = "path")
+    @GetMapping(value = "queryCarApplyOrg")
+    public ResponseResult<List<CarApplyOrg>> queryCarApplyOrg(@RequestParam(name = "userAuto",required = false) Long userAuto){
+        List<CarApplyOrg> lists = vEmpService.selectCarApplyOrg(userAuto);
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK,"查询成功",lists);
+    }
+
+    @ApiOperation(value = "获取使用人数据")
+    @ApiImplicitParam(name = "orgAuto",value = "orgAuto",required = true,dataType = "long",paramType = "path")
     @GetMapping(value = "queryCarApply")
-    public ResponseResult<List<CarApplyList>> queryCarApply(@RequestParam(name = "userAuto") Long userAuto){
-        List<CarApplyList> lists = vEmpService.selectCarApply(userAuto);
+    public ResponseResult<List<CarApplyList>> queryCarApply(@RequestParam(name = "orgAuto") Long orgAuto){
+        List<CarApplyList> lists = vEmpService.selectCarApply(orgAuto);
         return new ResponseResult<>(ResponseResult.CodeStatus.OK,"查询成功",lists);
     }
 }

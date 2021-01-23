@@ -1,6 +1,7 @@
 package com.funtl.myshop.plus.provider.api;
 
 import com.funtl.myshop.plus.provider.domain.CarApplyList;
+import com.funtl.myshop.plus.provider.domain.CarApplyOrg;
 import com.funtl.myshop.plus.provider.domain.SaleNameSelect;
 import com.funtl.myshop.plus.provider.domain.VEmp;
 
@@ -24,9 +25,16 @@ public interface VEmpService{
     List<SaleNameSelect> selectSaleName(Long salesAuto,String saleName);
 
     /**
-     * 获取使用部门、使用人数据
+     * 获取使用人数据
+     * @param orgAuto
+     * @return
+     */
+    List<CarApplyList> selectCarApply(Long orgAuto);
+
+    /**
+     * 获取使用部门数据
      * @param userAuto
      * @return
      */
-    List<CarApplyList> selectCarApply(Long userAuto);
+    List<CarApplyOrg> selectCarApplyOrg(Long userAuto);
 }

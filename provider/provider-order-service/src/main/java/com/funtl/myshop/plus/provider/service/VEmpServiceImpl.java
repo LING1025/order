@@ -3,6 +3,7 @@ package com.funtl.myshop.plus.provider.service;
 import javax.annotation.Resource;
 
 import com.funtl.myshop.plus.provider.domain.CarApplyList;
+import com.funtl.myshop.plus.provider.domain.CarApplyOrg;
 import com.funtl.myshop.plus.provider.domain.SaleNameSelect;
 import com.funtl.myshop.plus.provider.mapper.VEmpMapper;
 import com.funtl.myshop.plus.provider.domain.VEmp;
@@ -32,8 +33,13 @@ public class VEmpServiceImpl implements VEmpService{
     }
 
     @Override
-    public List<CarApplyList> selectCarApply(Long userAuto) {
-        return vEmpMapper.selectCarApply(userAuto);
+    public List<CarApplyList> selectCarApply(Long orgAuto) {
+        return vEmpMapper.selectCarApply(orgAuto);
+    }
+
+    @Override
+    public List<CarApplyOrg> selectCarApplyOrg(Long userAuto) {
+        return vEmpMapper.selectCarApplyOrg(userAuto);
     }
 
 }
