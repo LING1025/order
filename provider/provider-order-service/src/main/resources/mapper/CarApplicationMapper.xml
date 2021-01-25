@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.funtl.myshop.plus.provider.mapper.CarApplicationMapper">
+  <resultMap id="BaseResultMap" type="com.funtl.myshop.plus.provider.domain.CarApplication">
+    <!--@mbg.generated-->
+    <!--@Table CarApplication-->
+    <id column="CarApplication_Auto" jdbcType="BIGINT" property="carApplicationAuto" />
+    <result column="AppUser" jdbcType="INTEGER" property="appUser" />
+    <result column="AppDT" jdbcType="TIMESTAMP" property="appDT" />
+    <result column="AppType" jdbcType="INTEGER" property="appType" />
+    <result column="FeeType" jdbcType="INTEGER" property="feeType" />
+    <result column="FeeAmt" jdbcType="DECIMAL" property="feeAmt" />
+    <result column="WHType" jdbcType="INTEGER" property="wHType" />
+    <result column="PlanStartDT" jdbcType="TIMESTAMP" property="planStartDT" />
+    <result column="PlanEndDT" jdbcType="TIMESTAMP" property="planEndDT" />
+    <result column="Fname" jdbcType="VARCHAR" property="fName" />
+    <result column="UserName" jdbcType="VARCHAR" property="username" />
+    <result column="IsDriver" jdbcType="INTEGER" property="isDriver" />
+    <result column="DriverUser_Auto" jdbcType="VARCHAR" property="driverUserAuto" />
+    <result column="AppCarbase_Auto" jdbcType="BIGINT" property="appCarbaseAuto" />
+    <result column="SpecialMemo" jdbcType="VARCHAR" property="specialMemo" />
+    <result column="LicenceMemo" jdbcType="VARCHAR" property="licenceMemo" />
+    <result column="Carbase_Auto" jdbcType="BIGINT" property="carbaseAuto" />
+    <result column="StartDT" jdbcType="TIMESTAMP" property="startDT" />
+    <result column="OilGaugeOut" jdbcType="INTEGER" property="oilGaugeOut" />
+    <result column="MileageOut" jdbcType="DECIMAL" property="mileageOut" />
+    <result column="OilCardNum" jdbcType="VARCHAR" property="oilCardNum" />
+    <result column="EndDT" jdbcType="TIMESTAMP" property="endDT" />
+    <result column="OilGaugeIn" jdbcType="INTEGER" property="oilGaugeIn" />
+    <result column="MileageIn" jdbcType="DECIMAL" property="mileageIn" />
+    <result column="Memo" jdbcType="VARCHAR" property="memo" />
+    <result column="Status" jdbcType="INTEGER" property="status" />
+    <result column="CUser" jdbcType="INTEGER" property="cUser" />
+    <result column="CDT" jdbcType="TIMESTAMP" property="cDT" />
+    <result column="MUser" jdbcType="INTEGER" property="mUser" />
+    <result column="MDT" jdbcType="TIMESTAMP" property="mDT" />
+    <result column="OilKM" jdbcType="INTEGER" property="oilKM" />
+    <result column="OilKG" jdbcType="DECIMAL" property="oilKG" />
+    <result column="RoadFee" jdbcType="DECIMAL" property="roadFee" />
+    <result column="ParkingFee" jdbcType="DECIMAL" property="parkingFee" />
+    <result column="IsSave" jdbcType="INTEGER" property="isSave" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    CarApplication_Auto, AppUser, AppDT, AppType, FeeType, FeeAmt, WHType, PlanStartDT,
+    PlanEndDT, Fname, UserName, IsDriver, DriverUser_Auto, AppCarbase_Auto, SpecialMemo,
+    LicenceMemo, Carbase_Auto, StartDT, OilGaugeOut, MileageOut, OilCardNum, EndDT, OilGaugeIn,
+    MileageIn, Memo, [Status], CUser, CDT, MUser, MDT, OilKM, OilKG, RoadFee, ParkingFee,
+    IsSave
+  </sql>
+</mapper>

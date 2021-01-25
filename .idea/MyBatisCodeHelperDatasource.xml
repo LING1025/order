@@ -138,6 +138,158 @@
                 </TableGenerateConfig>
               </value>
             </entry>
+            <entry key="dbo:CarApplication">
+              <value>
+                <TableGenerateConfig>
+                  <option name="columnOverrideList">
+                    <list>
+                      <MyColumnOverride>
+                        <option name="columnName" value="CarApplication_Auto" />
+                        <option name="javaProperty" value="carApplicationAuto" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="AppUser" />
+                        <option name="javaProperty" value="appUser" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="AppDT" />
+                        <option name="javaProperty" value="appDT" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="AppType" />
+                        <option name="javaProperty" value="appType" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="FeeType" />
+                        <option name="javaProperty" value="feeType" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="FeeAmt" />
+                        <option name="javaProperty" value="feeAmt" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="WHType" />
+                        <option name="javaProperty" value="wHType" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="PlanStartDT" />
+                        <option name="javaProperty" value="planStartDT" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="PlanEndDT" />
+                        <option name="javaProperty" value="planEndDT" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="Fname" />
+                        <option name="javaProperty" value="fName" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="UserName" />
+                        <option name="javaProperty" value="username" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="IsDriver" />
+                        <option name="javaProperty" value="isDriver" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="DriverUser_Auto" />
+                        <option name="javaProperty" value="driverUserAuto" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="AppCarbase_Auto" />
+                        <option name="javaProperty" value="appCarbaseAuto" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="SpecialMemo" />
+                        <option name="javaProperty" value="specialMemo" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="LicenceMemo" />
+                        <option name="javaProperty" value="licenceMemo" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="Carbase_Auto" />
+                        <option name="javaProperty" value="carbaseAuto" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="StartDT" />
+                        <option name="javaProperty" value="startDT" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="OilGaugeOut" />
+                        <option name="javaProperty" value="oilGaugeOut" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="MileageOut" />
+                        <option name="javaProperty" value="mileageOut" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="OilCardNum" />
+                        <option name="javaProperty" value="oilCardNum" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="EndDT" />
+                        <option name="javaProperty" value="endDT" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="OilGaugeIn" />
+                        <option name="javaProperty" value="oilGaugeIn" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="MileageIn" />
+                        <option name="javaProperty" value="mileageIn" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="Memo" />
+                        <option name="javaProperty" value="memo" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="Status" />
+                        <option name="javaProperty" value="status" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="CUser" />
+                        <option name="javaProperty" value="cUser" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="CDT" />
+                        <option name="javaProperty" value="cDT" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="MUser" />
+                        <option name="javaProperty" value="mUser" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="MDT" />
+                        <option name="javaProperty" value="mDT" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="OilKM" />
+                        <option name="javaProperty" value="oilKM" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="OilKG" />
+                        <option name="javaProperty" value="oilKG" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="RoadFee" />
+                        <option name="javaProperty" value="roadFee" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="ParkingFee" />
+                        <option name="javaProperty" value="parkingFee" />
+                      </MyColumnOverride>
+                    </list>
+                  </option>
+                  <option name="generatedKey" value="CarApplication_Auto" />
+                  <option name="javaModelName" value="CarApplication" />
+                  <option name="moduleName" value="provider-order-api" />
+                  <option name="sequenceColumn" value="" />
+                  <option name="sequenceId" value="" />
+                  <option name="useActualColumnName" value="true" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
             <entry key="dbo:Commission">
               <value>
                 <TableGenerateConfig>
