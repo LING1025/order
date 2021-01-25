@@ -7,11 +7,14 @@ import com.funtl.myshop.plus.business.dto.LocationList;
 import com.funtl.myshop.plus.commons.dto.ResponseResult;
 import com.funtl.myshop.plus.commons.utils.MapperUtils;
 import com.funtl.myshop.plus.controller.LocationUtils;
+import com.funtl.myshop.plus.provider.api.CarApplicationService;
 import com.funtl.myshop.plus.provider.api.ItemCodeService;
 import com.funtl.myshop.plus.provider.api.VEmpService;
 import com.funtl.myshop.plus.provider.domain.CarApplyList;
 import com.funtl.myshop.plus.provider.domain.CarApplyOrg;
 import com.funtl.myshop.plus.provider.domain.CarAreaList;
+import com.funtl.myshop.plus.provider.domain.UserCarList;
+import com.funtl.myshop.plus.provider.dto.UseCarQueryParam;
 import com.google.common.collect.Lists;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -22,6 +25,7 @@ import net.sf.json.JSONObject;
 import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -35,6 +39,9 @@ public class CarApplyController {
 
     @Reference(version = "1.0.0")
     private VEmpService vEmpService;
+
+    @Reference(version = "1.0.0")
+    private CarApplicationService carApplicationService;
 
     /*
     @ApiOperation(value = "经纬度转地址")
@@ -125,6 +132,30 @@ public class CarApplyController {
     @GetMapping(value = "queryCarApply")
     public ResponseResult<List<CarApplyList>> queryCarApply(@RequestParam(name = "orgAuto") Long orgAuto){
         List<CarApplyList> lists = vEmpService.selectCarApply(orgAuto);
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK,"查询成功",lists);
+    }
+
+    @ApiOperation(value = "用车申请：获取申请列表数据")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "carApplicationAuto",value = "出车申请单号",required = false,dataType = "long",paramType = "path"),
+            @ApiImplicitParam(name = "username",value = "使用人",required = false,dataType = "String",paramType = "path"),
+            @ApiImplicitParam(name = "makNo",value = "车辆号码",required = false,dataType = "String",paramType = "path"),
+            @ApiImplicitParam(name = "planStartDT",value = "开始时间",required = false,dataType = "Date",paramType = "path"),
+            @ApiImplicitParam(name = "planEndDT",value = "结束时间",required = false,dataType = "Date",paramType = "path"),
+            @ApiImplicitParam(name = "statusN",value = "状态",required = false,dataType = "String",paramType = "path")
+    })
+    @GetMapping(value = "queryUserCar")
+    public ResponseResult<List<UserCarList>> queryUserCar(@RequestParam(name = "carApplicationAuto",required = false) Long carApplicationAuto,
+                                                          @RequestParam(name = "username",required = false) String username,
+                                                          @RequestParam(name = "planStartDT",required = false) Date planStartDT,
+                                                          @RequestParam(name = "planEndDT",required = false) Date planEndDT,
+                                                          @RequestParam(name = "makNo",required = false) String makNo,
+                                                          @RequestParam(name = "statusN",required = false) String statusN){
+        UseCarQueryParam useCarQueryParam = new UseCarQueryParam(carApplicationAuto,username,makNo,planStartDT,planEndDT,statusN);
+        List<UserCarList> lists = carApplicationService.selectUserCar(useCarQueryParam);
+        if (lists.size() == 0){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"暂无申请数据",null);
+        }
         return new ResponseResult<>(ResponseResult.CodeStatus.OK,"查询成功",lists);
     }
 }

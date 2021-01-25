@@ -2,15 +2,15 @@ package com.funtl.myshop.plus.provider.service;
 
 import com.funtl.myshop.plus.provider.domain.UserCarList;
 import com.funtl.myshop.plus.provider.dto.UseCarQueryParam;
-import org.springframework.stereotype.Service;
+
 import javax.annotation.Resource;
-import com.funtl.myshop.plus.provider.domain.CarApplication;
 import com.funtl.myshop.plus.provider.mapper.CarApplicationMapper;
 import com.funtl.myshop.plus.provider.api.CarApplicationService;
+import org.apache.dubbo.config.annotation.Service;
 
 import java.util.List;
 
-@Service
+@Service(version = "1.0.0")
 public class CarApplicationServiceImpl implements CarApplicationService{
 
     @Resource
