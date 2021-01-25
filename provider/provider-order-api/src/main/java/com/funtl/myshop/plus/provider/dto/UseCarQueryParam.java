@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -18,9 +19,11 @@ public class UseCarQueryParam implements Serializable {
 
     private String makNo;
 
-//    @JsonFormat(pattern = "yyyy-MM-dd HH:mm",timezone = "GMT+8")
+//    @JsonFormat(pattern = "yyyy-MM-dd HH:mm",timezone = "GMT+8")//把时间类型 转换成JSON格式类型，前提取出进行展示
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm")//会把字符串类型 按照格式yyyy-MM-dd HH:mm:ss 转换成时间类型
     private Date planStartDT;
 
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm")
     private Date planEndDT;
 
     private String statusN;
