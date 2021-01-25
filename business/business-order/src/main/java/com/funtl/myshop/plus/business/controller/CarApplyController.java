@@ -56,7 +56,7 @@ public class CarApplyController {
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", getLocation);
     }*/
 
-    @ApiOperation(value = "关键词输入提示地址")
+    @ApiOperation(value = "用车申请：关键词输入提示地址")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "region", value = "范围限制条件（例如：苏州）", required = true, dataType = "String", paramType = "path"),
             @ApiImplicitParam(name = "keyword", value = "用户输入的关键词（例如：格上）", required = true, dataType = "String", paramType = "path")
@@ -83,7 +83,7 @@ public class CarApplyController {
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", list);
     }
 
-    @ApiOperation(value = "经纬度计算距离")
+    @ApiOperation(value = "用车申请：经纬度计算距离")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "from", value = "起点坐标（例如：from=31.288530854,120.666760427）", required = true, dataType = "String", paramType = "path"),
             @ApiImplicitParam(name = "to", value = "终点坐标（例如：from=31.35458833,120.700719984）", required = true, dataType = "String", paramType = "path")
@@ -104,7 +104,7 @@ public class CarApplyController {
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", distance);
     }
 
-    @ApiOperation(value = "获取用车类别、牌照地区")
+    @ApiOperation(value = "用车申请：获取用车类别、牌照地区")
     @ApiImplicitParam(name = "itemType", value = "用车类别：833,牌照地区：810",required = true,dataType ="int",paramType = "path")
     @GetMapping(value = "queryCarArea")
     public ResponseResult<List<CarAreaList>> queryCarArea(@RequestParam(name = "itemType") Integer itemType){
@@ -112,7 +112,7 @@ public class CarApplyController {
         return new ResponseResult<>(ResponseResult.CodeStatus.OK,"查询成功",lists);
     }
 
-    @ApiOperation(value = "获取使用部门数据")
+    @ApiOperation(value = "用车申请：获取使用部门数据")
     @ApiImplicitParam(name = "userAuto",value = "登录者userAuto",required = false,dataType = "long",paramType = "path")
     @GetMapping(value = "queryCarApplyOrg")
     public ResponseResult<List<CarApplyOrg>> queryCarApplyOrg(@RequestParam(name = "userAuto",required = false) Long userAuto){
@@ -120,7 +120,7 @@ public class CarApplyController {
         return new ResponseResult<>(ResponseResult.CodeStatus.OK,"查询成功",lists);
     }
 
-    @ApiOperation(value = "获取使用人数据")
+    @ApiOperation(value = "用车申请：获取使用人数据")
     @ApiImplicitParam(name = "orgAuto",value = "使用部门序号",required = true,dataType = "long",paramType = "path")
     @GetMapping(value = "queryCarApply")
     public ResponseResult<List<CarApplyList>> queryCarApply(@RequestParam(name = "orgAuto") Long orgAuto){
