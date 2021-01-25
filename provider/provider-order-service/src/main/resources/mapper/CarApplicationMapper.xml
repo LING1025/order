@@ -48,4 +48,47 @@
     MileageIn, Memo, [Status], CUser, CDT, MUser, MDT, OilKM, OilKG, RoadFee, ParkingFee,
     IsSave
   </sql>
+  <!--用车申请：申请列表数据-->
+  <resultMap id="queryUserCar" extends="BaseResultMap" type="com.funtl.myshop.plus.provider.domain.UserCarList">
+    <result column="MakNo" jdbcType="VARCHAR" property="makNo" />
+    <result column="StatusN" jdbcType="VARCHAR" property="statusN" />
+    <result column="appUser" jdbcType="VARCHAR" property="appUser" />
+  </resultMap>
+  <select id="selectUserCar" resultMap="queryUserCar">
+        select c.CarApplication_Auto,v.FName appUser,i.ItemName, c.PlanStartDT,
+		c.PlanEndDT,
+		c.CDT,
+		c.UserName,cb.MakNo,
+		StatusN= case c.Status when 10 then '送件中'
+		when 5 then '驳回'
+		when 20 then '核准'
+		when 30 then '出车'
+		when 40 then '还车'
+		when -1 then '已删除' end
+		from CarApplication c
+		left join v_Emp v on c.AppUser=v.User_Auto
+		left join ItemCode i on i.Num=c.AppType and i.ItemType=833
+		left join CarBase cb on c.Carbase_Auto=cb.CarBase_Auto
+		where
+		1 = 1
+		<if test="param.carApplicationAuto != null and param.carApplicationAuto != '' ">
+          AND c.CarApplication_Auto = #{param.carApplicationAuto}
+        </if>
+		<if test="param.username != null and param.username != ''">
+          and  c.UserName = #{param.username}
+        </if>
+		<if test="param.makNo != null and param.makNo != ''">
+          and  cb.MakNo = #{param.makNo}
+        </if>
+		<if test="param.planStartDT != null">
+          and  c.PlanStartDT = #{param.planStartDT}
+        </if>
+		<if test="param.planEndDT != null">
+          and  c.PlanEndDT = #{param.planEndDT}
+        </if>
+		<if test="param.statusN">
+          and  i.ItemName = #{param.statusN}
+        </if>
+
+  </select>
 </mapper>

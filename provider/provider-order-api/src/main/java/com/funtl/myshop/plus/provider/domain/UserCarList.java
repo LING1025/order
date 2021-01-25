@@ -33,4 +33,7 @@ public class UserCarList implements Serializable {
 
     @ApiModelProperty(value = "车辆号码")
     private String makNo;
+
+    @ApiModelProperty(value = "状态")
+    private String statusN;
 }
