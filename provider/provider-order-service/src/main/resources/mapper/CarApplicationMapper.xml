@@ -20,7 +20,7 @@
     <result column="AppCarbase_Auto" jdbcType="BIGINT" property="appCarbaseAuto" />
     <result column="SpecialMemo" jdbcType="VARCHAR" property="specialMemo" />
     <result column="LicenceMemo" jdbcType="VARCHAR" property="licenceMemo" />
-    <result column="Carbase_Auto" jdbcType="BIGINT" property="carbaseAuto" />
+    <result column="Carbase_Auto" jdbcType="BIGINT" property="carBaseAuto" />
     <result column="StartDT" jdbcType="TIMESTAMP" property="startDT" />
     <result column="OilGaugeOut" jdbcType="INTEGER" property="oilGaugeOut" />
     <result column="MileageOut" jdbcType="DECIMAL" property="mileageOut" />
