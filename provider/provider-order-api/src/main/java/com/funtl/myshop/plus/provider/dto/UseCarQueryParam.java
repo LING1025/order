@@ -26,14 +26,14 @@ public class UseCarQueryParam implements Serializable {
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm")
     private Date planEndDT;
 
-    private String statusN;
+    private Integer status;
 
-    public UseCarQueryParam(Long carApplicationAuto, String username, String makNo, Date planStartDT, Date planEndDT, String statusN) {
+    public UseCarQueryParam(Long carApplicationAuto, String username, String makNo, Date planStartDT, Date planEndDT, Integer status) {
         this.carApplicationAuto = carApplicationAuto;
         this.username = username;
         this.makNo = makNo;
         this.planStartDT = planStartDT;
         this.planEndDT = planEndDT;
-        this.statusN = statusN;
+        this.status = status;
     }
 }

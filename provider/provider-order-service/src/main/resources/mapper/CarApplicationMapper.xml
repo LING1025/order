@@ -51,7 +51,6 @@
   <!--用车申请：申请列表数据-->
   <resultMap id="queryUserCar" extends="BaseResultMap" type="com.funtl.myshop.plus.provider.domain.UserCarList">
     <result column="MakNo" jdbcType="VARCHAR" property="makNo" />
-    <result column="StatusN" jdbcType="VARCHAR" property="statusN" />
     <result column="appUser" jdbcType="VARCHAR" property="appUser" />
   </resultMap>
   <select id="selectUserCar" resultMap="queryUserCar">
@@ -86,8 +85,8 @@
 		<if test="param.planEndDT != null">
           and  c.PlanEndDT = #{param.planEndDT}
         </if>
-		<if test="param.statusN">
-          and  i.ItemName = #{param.statusN}
+		<if test="param.status != null and param.status != ''">
+          and  c.Status = #{param.status}
         </if>
 
   </select>

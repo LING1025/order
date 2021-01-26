@@ -142,7 +142,7 @@ public class CarApplyController {
             @ApiImplicitParam(name = "makNo",value = "车辆号码",required = false,dataType = "String",paramType = "path"),
             @ApiImplicitParam(name = "planStartDT",value = "开始时间",required = false,dataType = "Date",paramType = "path"),
             @ApiImplicitParam(name = "planEndDT",value = "结束时间",required = false,dataType = "Date",paramType = "path"),
-            @ApiImplicitParam(name = "statusN",value = "状态",required = false,dataType = "String",paramType = "path")
+            @ApiImplicitParam(name = "status",value = "状态",required = false,dataType = "int",paramType = "path")
     })
     @GetMapping(value = "queryUserCar")
     public ResponseResult<List<UserCarList>> queryUserCar(@RequestParam(name = "carApplicationAuto",required = false) Long carApplicationAuto,
@@ -150,8 +150,8 @@ public class CarApplyController {
                                                           @RequestParam(name = "planStartDT",required = false) Date planStartDT,
                                                           @RequestParam(name = "planEndDT",required = false) Date planEndDT,
                                                           @RequestParam(name = "makNo",required = false) String makNo,
-                                                          @RequestParam(name = "statusN",required = false) String statusN){
-        UseCarQueryParam useCarQueryParam = new UseCarQueryParam(carApplicationAuto,username,makNo,planStartDT,planEndDT,statusN);
+                                                          @RequestParam(name = "statusN",required = false) Integer status){
+        UseCarQueryParam useCarQueryParam = new UseCarQueryParam(carApplicationAuto,username,makNo,planStartDT,planEndDT,status);
         List<UserCarList> lists = carApplicationService.selectUserCar(useCarQueryParam);
         if (lists.size() == 0){
             return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"暂无申请数据",null);
