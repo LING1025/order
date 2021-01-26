@@ -176,7 +176,7 @@ public class CarApplication implements Serializable {
     private Integer mUser;
 
     @Column(name = "MDT")
-    private Date mDT;
+    private Date mdt;
 
     /**
     * 加油里程

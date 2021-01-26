@@ -1,6 +1,7 @@
 package com.funtl.myshop.plus.provider.api;
 
 import com.funtl.myshop.plus.provider.domain.CarApplication;
+import com.funtl.myshop.plus.provider.domain.UseCarDoc;
 import com.funtl.myshop.plus.provider.domain.UserCarList;
 import com.funtl.myshop.plus.provider.dto.UseCarQueryParam;
 
@@ -15,4 +16,10 @@ public interface CarApplicationService{
      */
     List<UserCarList> selectUserCar(UseCarQueryParam useCarQueryParam);
 
+    /**
+     * 获取用车申请：签核明细数据
+     * @param carApplicationAuto
+     * @return
+     */
+    List<UseCarDoc> selectUseCarDoc(Long carApplicationAuto);
 }
