@@ -11,14 +11,14 @@ import java.util.Date;
 @Data
 @ApiModel(value = "用车申请：签核明细")
 public class UseCarDoc implements Serializable {
-    @ApiModelProperty(value = "出车申请单号")
-    private Long carApplicationAuto;
+//    @ApiModelProperty(value = "出车申请单号")
+//    private Long carApplicationAuto;
 
     @ApiModelProperty(value = "审核角色")
     private String roleName;
 
-    @ApiModelProperty(value = "序号")
-    private Integer appSeq;
+//    @ApiModelProperty(value = "序号")
+//    private Integer appSeq;
 
     @ApiModelProperty(value = "审核意见")
     private String memo;
@@ -26,17 +26,17 @@ public class UseCarDoc implements Serializable {
     @ApiModelProperty(value = "审核人员")
     private String checkName;
 
-    @ApiModelProperty(value = "审核状态")
-    private String statusN;
+//    @ApiModelProperty(value = "审核状态")
+//    private String statusN;
 
-    @ApiModelProperty(value = "申请时间")
-    @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd HH:mm")
-    private Date cdt;
+//    @ApiModelProperty(value = "申请时间")
+//    @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd HH:mm")
+//    private Date cdt;
 
     @ApiModelProperty(value = "审核时间")
     @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd HH:mm")
     private Date mdt;
 
-    @ApiModelProperty(value = "申请人")
-    private String appUserN;
+//    @ApiModelProperty(value = "申请人")
+//    private String appUserN;
 }

@@ -94,15 +94,15 @@
   </select>
 
     <resultMap id="queryUseCarDoc" type="com.funtl.myshop.plus.provider.domain.UseCarDoc">
-        <result column="carApplicationAuto" jdbcType="BIGINT" property="carApplicationAuto" />
+<!--        <result column="DocPostID" jdbcType="BIGINT" property="carApplicationAuto" />-->
         <result column="RoleName" jdbcType="VARCHAR" property="roleName" />
         <result column="Memo" jdbcType="VARCHAR" property="memo" />
         <result column="checkName" jdbcType="VARCHAR" property="checkName" />
         <result column="MDT" jdbcType="TIMESTAMP" property="mdt" />
-        <result column="AppSeq" jdbcType="INTEGER" property="appSeq" />
+        <!--<result column="AppSeq" jdbcType="INTEGER" property="appSeq" />
         <result column="statusN" jdbcType="VARCHAR" property="statusN" />
         <result column="CDT" jdbcType="TIMESTAMP" property="cdt" />
-        <result column="appUserN" jdbcType="VARCHAR" property="appUserN" />
+        <result column="appUserN" jdbcType="VARCHAR" property="appUserN" />-->
     </resultMap>
     <!--用车申请：签核明细数据-->
     <select id="selectUseCarDoc" resultMap="queryUseCarDoc">

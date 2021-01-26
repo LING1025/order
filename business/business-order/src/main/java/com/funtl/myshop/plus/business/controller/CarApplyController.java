@@ -10,10 +10,7 @@ import com.funtl.myshop.plus.controller.LocationUtils;
 import com.funtl.myshop.plus.provider.api.CarApplicationService;
 import com.funtl.myshop.plus.provider.api.ItemCodeService;
 import com.funtl.myshop.plus.provider.api.VEmpService;
-import com.funtl.myshop.plus.provider.domain.CarApplyList;
-import com.funtl.myshop.plus.provider.domain.CarApplyOrg;
-import com.funtl.myshop.plus.provider.domain.CarAreaList;
-import com.funtl.myshop.plus.provider.domain.UserCarList;
+import com.funtl.myshop.plus.provider.domain.*;
 import com.funtl.myshop.plus.provider.dto.UseCarQueryParam;
 import com.google.common.collect.Lists;
 import io.swagger.annotations.Api;
@@ -159,5 +156,11 @@ public class CarApplyController {
         return new ResponseResult<>(ResponseResult.CodeStatus.OK,"查询成功",lists);
     }
 
-
+    @ApiOperation(value = "用车申请：获取签核明细数据")
+    @ApiImplicitParam(name = "carApplicationAuto",value = "出车申请单号",required = false,dataType = "long",paramType = "path")
+    @GetMapping(value = "queryUseCarDoc")
+    public ResponseResult<List<UseCarDoc>> queryUseCarDoc(@RequestParam(name = "carApplicationAuto",required = false) Long carApplicationAuto){
+        List<UseCarDoc> list = carApplicationService.selectUseCarDoc(carApplicationAuto);
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK,"查询成功",list);
+    }
 }
