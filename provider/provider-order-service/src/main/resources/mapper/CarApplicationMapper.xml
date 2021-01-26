@@ -31,7 +31,7 @@
     <result column="Memo" jdbcType="VARCHAR" property="memo" />
     <result column="Status" jdbcType="INTEGER" property="status" />
     <result column="CUser" jdbcType="INTEGER" property="cUser" />
-    <result column="CDT" jdbcType="TIMESTAMP" property="cDT" />
+    <result column="CDT" jdbcType="TIMESTAMP" property="cdt" />
     <result column="MUser" jdbcType="INTEGER" property="mUser" />
     <result column="MDT" jdbcType="TIMESTAMP" property="mDT" />
     <result column="OilKM" jdbcType="INTEGER" property="oilKM" />
@@ -50,15 +50,17 @@
   </sql>
   <!--用车申请：申请列表数据-->
   <resultMap id="queryUserCar" extends="BaseResultMap" type="com.funtl.myshop.plus.provider.domain.UserCarList">
-    <result column="MakNo" jdbcType="VARCHAR" property="makNo" />
-    <result column="appUser" jdbcType="VARCHAR" property="appUser" />
+      <result column="MakNo" jdbcType="VARCHAR" property="makNo" />
+      <result column="appUserN" jdbcType="VARCHAR" property="appUserN" />
+      <result column="appTypeN" jdbcType="VARCHAR" property="appTypeN" />
+      <result column="statusN" jdbcType="VARCHAR" property="statusN" />
   </resultMap>
   <select id="selectUserCar" resultMap="queryUserCar">
-        select c.CarApplication_Auto,v.FName appUser,i.ItemName, c.PlanStartDT,
+        select c.CarApplication_Auto,v.FName appUserN,i.ItemName appTypeN, c.PlanStartDT,
 		c.PlanEndDT,
 		c.CDT,
 		c.UserName,cb.MakNo,
-		StatusN= case c.Status when 10 then '送件中'
+        statusN= case c.Status when 10 then '送件中'
 		when 5 then '驳回'
 		when 20 then '核准'
 		when 30 then '出车'

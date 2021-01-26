@@ -140,15 +140,15 @@ public class CarApplyController {
             @ApiImplicitParam(name = "carApplicationAuto",value = "出车申请单号",required = false,dataType = "long",paramType = "path"),
             @ApiImplicitParam(name = "username",value = "使用人",required = false,dataType = "String",paramType = "path"),
             @ApiImplicitParam(name = "makNo",value = "车辆号码",required = false,dataType = "String",paramType = "path"),
-            @ApiImplicitParam(name = "planStartDT",value = "开始时间",required = false,dataType = "Date",paramType = "path"),
-            @ApiImplicitParam(name = "planEndDT",value = "结束时间",required = false,dataType = "Date",paramType = "path"),
-            @ApiImplicitParam(name = "status",value = "状态",required = false,dataType = "int",paramType = "path")
+            @ApiImplicitParam(name = "planStartDT",value = "开始时间",required = false,dataType = "String",paramType = "path"),
+            @ApiImplicitParam(name = "planEndDT",value = "结束时间",required = false,dataType = "String",paramType = "path"),
+            @ApiImplicitParam(name = "status",value = "状态:-1取消、0暂存、5驳回、10送件、20核准、30出车、40还车",required = false,dataType = "int",paramType = "path")
     })
     @GetMapping(value = "queryUserCar")
     public ResponseResult<List<UserCarList>> queryUserCar(@RequestParam(name = "carApplicationAuto",required = false) Long carApplicationAuto,
                                                           @RequestParam(name = "username",required = false) String username,
-                                                          @RequestParam(name = "planStartDT",required = false) Date planStartDT,
-                                                          @RequestParam(name = "planEndDT",required = false) Date planEndDT,
+                                                          @RequestParam(name = "planStartDT",required = false) String planStartDT,
+                                                          @RequestParam(name = "planEndDT",required = false) String planEndDT,
                                                           @RequestParam(name = "makNo",required = false) String makNo,
                                                           @RequestParam(name = "statusN",required = false) Integer status){
         UseCarQueryParam useCarQueryParam = new UseCarQueryParam(carApplicationAuto,username,makNo,planStartDT,planEndDT,status);

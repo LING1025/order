@@ -170,7 +170,7 @@ public class CarApplication implements Serializable {
     private Integer cUser;
 
     @Column(name = "CDT")
-    private Date cDT;
+    private Date cdt;
 
     @Column(name = "MUser")
     private Integer mUser;
