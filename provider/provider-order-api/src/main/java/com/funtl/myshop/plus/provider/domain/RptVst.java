@@ -147,7 +147,7 @@ public class RptVst implements Serializable {
     @Column(name = "img1")
     private String img1;
 
-    /*@Column(name = "img2")
+    @Column(name = "img2")
     private String img2;
 
     @Column(name = "img3")
@@ -169,7 +169,7 @@ public class RptVst implements Serializable {
     private String img8;
 
     @Column(name = "img9")
-    private String img9;*/
+    private String img9;
 
     @Column(name = "vstRealAddr")
     private String vstRealAddr;
