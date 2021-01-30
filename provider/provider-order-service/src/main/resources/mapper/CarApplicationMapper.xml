@@ -39,6 +39,8 @@
     <result column="RoadFee" jdbcType="DECIMAL" property="roadFee" />
     <result column="ParkingFee" jdbcType="DECIMAL" property="parkingFee" />
     <result column="IsSave" jdbcType="INTEGER" property="isSave" />
+      <result column="IsHoliday" jdbcType="INTEGER" property="isHoliday" />
+      <result column="useCarTime" jdbcType="DECIMAL" property="useCarTime" />
   </resultMap>
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
@@ -46,7 +48,7 @@
     PlanEndDT, Fname, UserName, IsDriver, DriverUser_Auto, AppCarbase_Auto, SpecialMemo,
     LicenceMemo, Carbase_Auto, StartDT, OilGaugeOut, MileageOut, OilCardNum, EndDT, OilGaugeIn,
     MileageIn, Memo, [Status], CUser, CDT, MUser, MDT, OilKM, OilKG, RoadFee, ParkingFee,
-    IsSave
+    IsSave,IsHoliday,useCarTime
   </sql>
   <!--用车申请：申请列表数据-->
   <resultMap id="queryUserCar" extends="BaseResultMap" type="com.funtl.myshop.plus.provider.domain.UserCarList">

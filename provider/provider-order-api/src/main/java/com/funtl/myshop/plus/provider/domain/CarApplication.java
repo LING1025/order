@@ -208,5 +208,16 @@ public class CarApplication implements Serializable {
     @Column(name = "IsSave")
     private Integer isSave;
 
+    /**
+     * 是否假日用车：0否 1是
+     */
+    @Column(name = "IsHoliday")
+    private Integer isHoliday;
+
+    /**
+     * 用车时间:单位小时
+     */
+    @Column(name = "useCarTime")
+    private BigDecimal useCarTime;
     private static final long serialVersionUID = 1L;
 }
