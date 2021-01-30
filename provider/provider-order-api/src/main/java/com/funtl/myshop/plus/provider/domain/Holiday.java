@@ -22,6 +22,12 @@ public class Holiday implements Serializable {
     @JsonIgnore
     private Integer num;
 
+    /**
+     * 使用分钟
+     */
+    @JsonIgnore
+    private Integer useCarM;
+
     @ApiModelProperty(value = "用车时间:单位小时")
     private BigDecimal useCarTime;
 }

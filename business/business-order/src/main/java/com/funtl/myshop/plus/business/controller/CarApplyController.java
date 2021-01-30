@@ -22,6 +22,7 @@ import net.sf.json.JSONObject;
 import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -162,5 +163,27 @@ public class CarApplyController {
     public ResponseResult<List<UseCarDoc>> queryUseCarDoc(@RequestParam(name = "carApplicationAuto",required = false) Long carApplicationAuto){
         List<UseCarDoc> list = carApplicationService.selectUseCarDoc(carApplicationAuto);
         return new ResponseResult<>(ResponseResult.CodeStatus.OK,"查询成功",list);
+    }
+
+    @ApiOperation(value = "用车申请：判断是否假日用车、计算用车时间")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "startTime",value = "开始时间",required = true,dataType = "Date",paramType = "path"),
+            @ApiImplicitParam(name = "endTime",value = "结束时间",required = true,dataType = "Date",paramType = "path")
+    })
+    @GetMapping(value = "queryByTime")
+    public ResponseResult<Holiday> queryByTime(@RequestParam(name = "startTime") Date startTime,
+                                               @RequestParam(name = "endTime") Date endTime){
+        if (startTime.after(endTime)){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"开始时间必须大于结束时间",null);
+        }
+        Holiday holiday = carApplicationService.selectByTime(startTime, endTime);
+        if (holiday.getNum() > 0){
+            holiday.setIsHoliday(1);
+        }else {
+            holiday.setIsHoliday(0);
+        }
+        BigDecimal m = new BigDecimal(holiday.getUseCarM());
+        holiday.setUseCarTime(m.setScale(2, BigDecimal.ROUND_HALF_UP));
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK,"查询成功",holiday);
     }
 }
