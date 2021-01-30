@@ -181,7 +181,7 @@
     </resultMap>
     <select id="selectCarArea" resultMap="queryCarArea">
         declare
-        @type int=#{itemType}--833申请事由，用车类别,810车牌照地区
+        @type int=#{itemType}--833申请事由，用车类别,810车牌照地区,231车辆选择类别
         BEGIN
         if @type=833
         begin
@@ -191,6 +191,11 @@
         if @type=810
         begin
         select num,ItemName  from ItemCode where ItemType=810
+        end
+
+        if @type=231
+        begin
+        select num,ItemName  from ItemCode where ItemType=231
         end
         END
     </select>
