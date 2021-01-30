@@ -219,5 +219,6 @@ public class CarApplication implements Serializable {
      */
     @Column(name = "useCarTime")
     private BigDecimal useCarTime;
+
     private static final long serialVersionUID = 1L;
 }

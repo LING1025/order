@@ -124,4 +124,11 @@ begin
 		order by t1.CDT ,t1.AppSeq
 end
     </select>
+
+    <resultMap id="queryByTime" type="com.funtl.myshop.plus.provider.domain.Holiday">
+        <result column="num" jdbcType="INTEGER" property="num" />
+    </resultMap>
+    <select id="selectByTime" resultMap="queryByTime">
+        select num=count(*) from DocSystem.dbo.Holiday where HolidayDate between #{startTime} and #{endTime}
+    </select>
 </mapper>
