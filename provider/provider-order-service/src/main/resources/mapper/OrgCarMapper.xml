@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.funtl.myshop.plus.provider.mapper.OrgCarMapper">
+  <resultMap id="BaseResultMap" type="com.funtl.myshop.plus.provider.domain.OrgCar">
+    <!--@mbg.generated-->
+    <!--@Table Org_Car-->
+    <result column="Org_Auto" jdbcType="INTEGER" property="orgAuto" />
+    <result column="Carbase_Auto" jdbcType="BIGINT" property="carBaseAuto" />
+    <result column="IsOn" jdbcType="INTEGER" property="isOn" />
+    <result column="Status" jdbcType="INTEGER" property="status" />
+    <result column="CUser" jdbcType="INTEGER" property="cUser" />
+    <result column="CDT" jdbcType="TIMESTAMP" property="cdt" />
+    <result column="Muser" jdbcType="INTEGER" property="mUser" />
+    <result column="MDT" jdbcType="TIMESTAMP" property="MDT" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    Org_Auto, Carbase_Auto, IsOn, [Status], CUser, CDT, Muser, MDT
+  </sql>
+</mapper>

@@ -1150,6 +1150,50 @@
                 </TableGenerateConfig>
               </value>
             </entry>
+            <entry key="dbo:Org_Car">
+              <value>
+                <TableGenerateConfig>
+                  <option name="columnOverrideList">
+                    <list>
+                      <MyColumnOverride>
+                        <option name="columnName" value="Org_Auto" />
+                        <option name="javaProperty" value="orgAuto" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="Carbase_Auto" />
+                        <option name="javaProperty" value="carbaseAuto" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="IsOn" />
+                        <option name="javaProperty" value="isOn" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="Status" />
+                        <option name="javaProperty" value="status" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="CUser" />
+                        <option name="javaProperty" value="cUser" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="CDT" />
+                        <option name="javaProperty" value="cdt" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="Muser" />
+                        <option name="javaProperty" value="mUser" />
+                      </MyColumnOverride>
+                    </list>
+                  </option>
+                  <option name="generatedKey" value="" />
+                  <option name="javaModelName" value="OrgCar" />
+                  <option name="moduleName" value="provider-order-api" />
+                  <option name="sequenceColumn" value="" />
+                  <option name="sequenceId" value="" />
+                  <option name="useActualColumnName" value="true" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
             <entry key="dbo:RptVst">
               <value>
                 <TableGenerateConfig>
