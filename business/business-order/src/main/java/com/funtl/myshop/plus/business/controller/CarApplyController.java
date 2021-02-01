@@ -9,8 +9,10 @@ import com.funtl.myshop.plus.commons.utils.MapperUtils;
 import com.funtl.myshop.plus.controller.LocationUtils;
 import com.funtl.myshop.plus.provider.api.CarApplicationService;
 import com.funtl.myshop.plus.provider.api.ItemCodeService;
+import com.funtl.myshop.plus.provider.api.OrgCarService;
 import com.funtl.myshop.plus.provider.api.VEmpService;
 import com.funtl.myshop.plus.provider.domain.*;
+import com.funtl.myshop.plus.provider.dto.OrgCarQueryParam;
 import com.funtl.myshop.plus.provider.dto.UseCarQueryParam;
 import com.google.common.collect.Lists;
 import io.swagger.annotations.Api;
@@ -43,6 +45,9 @@ public class CarApplyController {
 
     @Reference(version = "1.0.0")
     private CarApplicationService carApplicationService;
+
+    @Reference(version = "1.0.0")
+    private OrgCarService orgCarService;
 
     /*
     @ApiOperation(value = "经纬度转地址")
@@ -193,5 +198,24 @@ public class CarApplyController {
         }
         System.err.println(holiday.getUseCarTime());
         return new ResponseResult<>(ResponseResult.CodeStatus.OK,"查询成功",holiday);
+    }
+
+    @ApiOperation(value = "用车申请：自动配车、用车审核：获取车辆列表")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "oilName",value = "动力方式",required = false,dataType = "String",paramType = "path"),
+            @ApiImplicitParam(name = "bsTypeN",value = "排挡方式",required = true,dataType = "String",paramType = "path"),
+            @ApiImplicitParam(name = "carArea",value = "牌照地区",required = true,dataType = "String",paramType = "path"),
+            @ApiImplicitParam(name = "mileage",value = "续航里程",required = true,dataType = "String",paramType = "path"),
+            @ApiImplicitParam(name = "type",value = "查询类别：1 自动配车 2获取车辆列表",required = true,dataType = "String",paramType = "path")
+    })
+    @GetMapping(value = "queryOrgCar")
+    public ResponseResult<List<OrgCarList>> queryOrgCar(@RequestParam(name = "oilName",required = false) String oilName,
+                                                        @RequestParam(name = "bsTypeN") String bsTypeN,
+                                                        @RequestParam(name = "carArea") String carArea,
+                                                        @RequestParam(name = "mileage") BigDecimal mileage,
+                                                        @RequestParam(name = "type") Integer type){
+        OrgCarQueryParam orgCarQueryParam = new OrgCarQueryParam(oilName,bsTypeN,carArea,mileage,type);
+        List<OrgCarList> lists = orgCarService.selectOrgCar(orgCarQueryParam);
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK,"查询成功",lists);
     }
 }
