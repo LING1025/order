@@ -17,4 +17,123 @@
     <!--@mbg.generated-->
     Org_Auto, Carbase_Auto, IsOn, [Status], CUser, CDT, Muser, MDT
   </sql>
+
+  <!--用车申请：自动配车、用车审核：获取车辆列表-->
+  <resultMap id="queryOrgCar" type="com.funtl.myshop.plus.provider.domain.OrgCarList">
+    <result column="Carbase_Auto" jdbcType="BIGINT" property="carBaseAuto" />
+    <result column="MakNo" jdbcType="VARCHAR" property="makNo" />
+    <result column="oilName" jdbcType="VARCHAR" property="oilName" />
+    <result column="residueDL" jdbcType="DECIMAL" property="residueDL" />
+    <result column="mileage" jdbcType="DECIMAL" property="mileage" />
+    <result column="CC" jdbcType="INTEGER" property="cc" />
+    <result column="BrandName" jdbcType="VARCHAR" property="brandName" />
+    <result column="ClasenName" jdbcType="VARCHAR" property="clasenName" />
+    <result column="CarColor" jdbcType="VARCHAR" property="carColor" />
+    <result column="bsTypeN" jdbcType="VARCHAR" property="bsTypeN" />
+    <result column="whTypeN1" jdbcType="VARCHAR" property="whTypeN1" />
+    <result column="whTypeN2" jdbcType="VARCHAR" property="whTypeN2" />
+  </resultMap>
+  <select id="selectOrgCar" resultMap="queryOrgCar">
+    declare
+@oilName varchar(20)=#{param.oilName}--动力方式
+,@bsTypeN varchar(10)=#{param.bsTypeN}--排挡方式
+,@carArea varchar(10)=#{param.carArea}--牌照地区
+,@mileage decimal(18,0)=#{param.mileage} --续航里程
+,@type int =#{param.type} --1 自动配车 2获取车辆列表
+BEGIN
+begin
+declare @carSName varchar(4)
+if(@carArea='江苏')
+set @carSName='苏'
+if(@carArea='安徽')
+set @carSName='皖'
+if(@carArea='浙江')
+set @carSName='浙'
+if(@carArea='广东')
+set @carSName='粤'
+if(@carArea='福建')
+set @carSName='闽'
+if(@carArea='山东')
+set @carSName='鲁'
+if(@carArea='湖南')
+set @carSName='湘'
+if(@carArea='上海')
+set @carSName='沪'
+if(@carArea='江西')
+set @carSName='赣'
+end
+
+if(@type=1)
+begin
+select
+		top 1 --自动配车
+		aa.*
+		from
+		(select o.Carbase_Auto
+		,c.MakNo
+		,i.ItemName oilName
+		,isnull(cse.residueDL,0) residueDL
+		,isnull(cse.mileage,0) mileage
+		,c.CC
+		,b.BrandName
+		,cn.ClasenName
+		,c.CarColor
+		,i2.ItemName bsTypeN
+		,i3.ItemName whTypeN1
+		,i3.ItemName whTypeN2
+		from Org_Car o
+		left join CarBase c on o.Carbase_Auto=c.CarBase_Auto
+		left join AspNet.dbo.Org og on o.Org_Auto=og.Org_Auto
+		left join Clasen cn on c.Clasen_Auto=cn.Clasen_Auto
+		left join Brand b on c.Brand_Auto=b.Brand_Auto
+		left join CarStatusEdit cse on cse.CarBase_Auto = o.Carbase_Auto
+		left join ItemCode i3 on i3.num = cse.WHType and i3.ItemType=826--仓库别
+		left join ItemCode i on i.num = c.oil and i.ItemType=231 --燃油种类
+		left join ItemCode i2 on i2.num = c.BSType and i2.ItemType=841 --变速类型
+		left join ItemCode i4 on i4.num = cse.CarStatus and i4.ItemType=825 --车状态：5在库
+		--left join ItemCode i5 on i5.num = cse.StorageStatus and i5.ItemType=885 --入库状态：24公务车，6主管用车
+		where o.[Status]=1 and o.IsOn=1 and o.Org_Auto=9999 and cse.CarStatus = 5 --and cse.StorageStatus in (24,6)
+		)aa
+		where (aa.oilName=@oilName or aa.oilName LIKE '%'+@oilName+'%') and aa.bsTypeN=@bsTypeN
+		and aa.MakNo LIKE '%'+@carSName+'%'
+		and aa.mileage>=@mileage
+end
+
+if(@type=2)
+begin
+select
+		aa.*
+		from
+		(select o.Carbase_Auto
+		,c.MakNo
+		,i.ItemName oilName
+		,isnull(cse.residueDL,0) residueDL
+		,isnull(cse.mileage,0) mileage
+		,c.CC
+		,b.BrandName
+		,cn.ClasenName
+		,c.CarColor
+		,i2.ItemName bsTypeN
+		,i3.ItemName whTypeN1
+		,i3.ItemName whTypeN2
+		from Org_Car o
+		left join CarBase c on o.Carbase_Auto=c.CarBase_Auto
+		left join AspNet.dbo.Org og on o.Org_Auto=og.Org_Auto
+		left join Clasen cn on c.Clasen_Auto=cn.Clasen_Auto
+		left join Brand b on c.Brand_Auto=b.Brand_Auto
+		left join CarStatusEdit cse on cse.CarBase_Auto = o.Carbase_Auto
+		left join ItemCode i3 on i3.num = cse.WHType and i3.ItemType=826--仓库别
+		left join ItemCode i on i.num = c.oil and i.ItemType=231 --燃油种类
+		left join ItemCode i2 on i2.num = c.BSType and i2.ItemType=841 --变速类型
+		left join ItemCode i4 on i4.num = cse.CarStatus and i4.ItemType=825 --车状态：5在库
+		--left join ItemCode i5 on i5.num = cse.StorageStatus and i5.ItemType=885 --入库状态：24公务车，6主管用车
+		where o.[Status]=1 and o.IsOn=1 and o.Org_Auto=9999 and cse.CarStatus = 5 --and cse.StorageStatus in (24,6)
+		)aa
+		where (aa.oilName=@oilName or aa.oilName LIKE '%'+@oilName+'%') and aa.bsTypeN=@bsTypeN
+		and aa.MakNo LIKE '%'+@carSName+'%'
+		and aa.mileage>=@mileage
+end
+
+END
+  </select>
 </mapper>
