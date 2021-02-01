@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 
 @Data
-@ApiModel(value = "用车审核：更改车辆")
+@ApiModel(value = "用车申请：自动配车、用车审核：获取车辆列表")
 public class OrgCarList implements Serializable {
     @ApiModelProperty(value = "汽车序号")
     private Long carBaseAuto;
