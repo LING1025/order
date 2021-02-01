@@ -216,6 +216,9 @@ public class CarApplyController {
                                                         @RequestParam(name = "type") Integer type){
         OrgCarQueryParam orgCarQueryParam = new OrgCarQueryParam(oilName,bsTypeN,carArea,mileage,type);
         List<OrgCarList> lists = orgCarService.selectOrgCar(orgCarQueryParam);
+        if (lists.size() == 0){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"暂无匹配车辆",null);
+        }
         return new ResponseResult<>(ResponseResult.CodeStatus.OK,"查询成功",lists);
     }
 }

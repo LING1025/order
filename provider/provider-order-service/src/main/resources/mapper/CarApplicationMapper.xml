@@ -83,10 +83,10 @@
 		<if test="param.makNo != null and param.makNo != ''">
           and  cb.MakNo = #{param.makNo}
         </if>
-		<if test="param.planStartDT != null">
+		<if test="param.planStartDT != null and param.planStartDT != ''">
           and  c.PlanStartDT = #{param.planStartDT}
         </if>
-		<if test="param.planEndDT != null">
+		<if test="param.planEndDT != null and param.planEndDT != '' ">
           and  c.PlanEndDT = #{param.planEndDT}
         </if>
 		<if test="param.status != null and param.status != ''">
