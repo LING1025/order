@@ -127,9 +127,12 @@ end
 
     <resultMap id="queryByTime" type="com.funtl.myshop.plus.provider.domain.Holiday">
         <result column="num" jdbcType="INTEGER" property="num" />
-        <result column="useCarM" jdbcType="INTEGER" property="useCarM" />
+        <result column="useCarTime" jdbcType="DECIMAL" property="useCarTime" />
     </resultMap>
     <select id="selectByTime" resultMap="queryByTime">
-        select num=count(*),,useCarM=DATEDIFF(minute,#{startTime},#{endTime}) from DocSystem.dbo.Holiday where HolidayDate between #{startTime} and #{endTime}
+        select
+        num=count(*),
+        useCarTime=cast(DATEDIFF(minute,#{startTime},#{endTime})*1./60 as decimal(18,1))
+        from DocSystem.dbo.Holiday where HolidayDate between #{startTime} and #{endTime}
     </select>
 </mapper>

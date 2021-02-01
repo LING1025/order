@@ -23,6 +23,9 @@ import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -167,23 +170,28 @@ public class CarApplyController {
 
     @ApiOperation(value = "用车申请：判断是否假日用车、计算用车时间")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "startTime",value = "开始时间",required = true,dataType = "Date",paramType = "path"),
-            @ApiImplicitParam(name = "endTime",value = "结束时间",required = true,dataType = "Date",paramType = "path")
+            @ApiImplicitParam(name = "startTime",value = "开始时间",required = true,dataType = "String",paramType = "path"),
+            @ApiImplicitParam(name = "endTime",value = "结束时间",required = true,dataType = "String",paramType = "path")
     })
     @GetMapping(value = "queryByTime")
-    public ResponseResult<Holiday> queryByTime(@RequestParam(name = "startTime") Date startTime,
-                                               @RequestParam(name = "endTime") Date endTime){
-        if (startTime.after(endTime)){
-            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"开始时间必须大于结束时间",null);
+    public ResponseResult<Holiday> queryByTime(@RequestParam(name = "startTime") String startTime,
+                                               @RequestParam(name = "endTime") String endTime) throws ParseException {
+        if(startTime == null || endTime == null){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"提示：使用时间不能为空",null);
         }
-        Holiday holiday = carApplicationService.selectByTime(startTime, endTime);
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        Date date1 = format.parse(startTime);
+        Date date2 = format.parse(endTime);
+        if (date1.after(date2)){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"开始时间必须小于结束时间",null);
+        }
+        Holiday holiday = carApplicationService.selectByTime(date1, date2);
         if (holiday.getNum() > 0){
             holiday.setIsHoliday(1);
         }else {
             holiday.setIsHoliday(0);
         }
-        BigDecimal m = new BigDecimal(holiday.getUseCarM());
-        holiday.setUseCarTime(m.setScale(2, BigDecimal.ROUND_HALF_UP));
+        System.err.println(holiday.getUseCarTime());
         return new ResponseResult<>(ResponseResult.CodeStatus.OK,"查询成功",holiday);
     }
 }
