@@ -3,6 +3,8 @@ package com.funtl.myshop.plus.provider.domain;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.persistence.Column;
@@ -219,6 +221,54 @@ public class CarApplication implements Serializable {
      */
     @Column(name = "useCarTime")
     private BigDecimal useCarTime;
+
+    /**
+     * 起始地
+     */
+    @Column(name = "startAddr")
+    private String startAddr;
+
+    /**
+     * 起始地纬度
+     */
+    @Column(name = "startAddrLat")
+    private String startAddrLat;
+
+    /**
+     * 起始地经度
+     */
+    @Column(name = "startAddrLng")
+    private String startAddrLng;
+
+    /**
+     * 目的地
+     */
+    @Column(name = "endAddr")
+    private String endAddr;
+
+    /**
+     * 目的地纬度
+     */
+    @Column(name = "endAddrLat")
+    private String endAddrLat;
+
+    /**
+     * 目的地经度
+     */
+    @Column(name = "endAddrLng")
+    private String endAddrLng;
+
+    /**
+     * 距离：公里
+     */
+    @Column(name = "distance")
+    private Double distance;
+
+    /**
+     * 牌照地区序号
+     */
+    @Column(name = "areaType")
+    private Integer areaType;
 
     private static final long serialVersionUID = 1L;
 }

@@ -41,6 +41,14 @@
     <result column="IsSave" jdbcType="INTEGER" property="isSave" />
       <result column="IsHoliday" jdbcType="INTEGER" property="isHoliday" />
       <result column="useCarTime" jdbcType="DECIMAL" property="useCarTime" />
+      <result column="startAddr" jdbcType="VARCHAR" property="startAddr" />
+      <result column="startAddrLat" jdbcType="VARCHAR" property="startAddrLat" />
+      <result column="startAddrLng" jdbcType="VARCHAR" property="startAddrLng" />
+      <result column="endAddr" jdbcType="VARCHAR" property="endAddr" />
+      <result column="endAddrLat" jdbcType="VARCHAR" property="endAddrLat" />
+      <result column="endAddrLng" jdbcType="VARCHAR" property="endAddrLng" />
+      <result column="distance" jdbcType="DECIMAL" property="distance" />
+      <result column="areaType" jdbcType="INTEGER" property="areaType" />
   </resultMap>
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
@@ -48,7 +56,8 @@
     PlanEndDT, Fname, UserName, IsDriver, DriverUser_Auto, AppCarbase_Auto, SpecialMemo,
     LicenceMemo, Carbase_Auto, StartDT, OilGaugeOut, MileageOut, OilCardNum, EndDT, OilGaugeIn,
     MileageIn, Memo, [Status], CUser, CDT, MUser, MDT, OilKM, OilKG, RoadFee, ParkingFee,
-    IsSave,IsHoliday,useCarTime
+    IsSave,IsHoliday,useCarTime,startAddr,startAddrLat,startAddrLng,endAddr,endAddrLat,
+      endAddrLng,distance,areaType
   </sql>
   <!--用车申请：申请列表数据-->
   <resultMap id="queryUserCar" extends="BaseResultMap" type="com.funtl.myshop.plus.provider.domain.UserCarList">
