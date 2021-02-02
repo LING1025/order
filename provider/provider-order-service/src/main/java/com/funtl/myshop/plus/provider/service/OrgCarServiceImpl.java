@@ -21,4 +21,9 @@ public class OrgCarServiceImpl implements OrgCarService{
     public List<OrgCarList> selectOrgCar(OrgCarQueryParam orgCarQueryParam) {
         return orgCarMapper.selectOrgCar(orgCarQueryParam);
     }
+
+    @Override
+    public Integer selectNum(Long carBaseAuto) {
+        return orgCarMapper.selectNum(carBaseAuto);
+    }
 }

@@ -91,12 +91,21 @@ select
 		left join ItemCode i on i.num = c.oil and i.ItemType=231 --燃油种类
 		left join ItemCode i2 on i2.num = c.BSType and i2.ItemType=841 --变速类型
 		left join ItemCode i4 on i4.num = cse.CarStatus and i4.ItemType=825 --车状态：5在库
-		--left join ItemCode i5 on i5.num = cse.StorageStatus and i5.ItemType=885 --入库状态：24公务车，6主管用车
-		where o.[Status]=1 and o.IsOn=1 and o.Org_Auto=9999 and cse.CarStatus = 5 --and cse.StorageStatus in (24,6)
+		where o.[Status]=1 and o.IsOn=1 and o.Org_Auto=9999
 		)aa
 		where (aa.oilName=@oilName or aa.oilName LIKE '%'+@oilName+'%') and aa.bsTypeN=@bsTypeN
 		and aa.MakNo LIKE '%'+@carSName+'%'
 		and aa.mileage>=@mileage
+	  and aa.Carbase_Auto not in
+	  (select
+	  distinct Carbase_Auto
+	  from
+	  CarApplication
+	  where
+	  Carbase_Auto!=0
+	  and
+	  ((Status in(10,20) and IsSave=0) or(Status in(10,20,30) and IsSave=1)))
+	  order by aa.Carbase_Auto desc
 end
 
 if(@type=2)
@@ -126,14 +135,41 @@ select
 		left join ItemCode i on i.num = c.oil and i.ItemType=231 --燃油种类
 		left join ItemCode i2 on i2.num = c.BSType and i2.ItemType=841 --变速类型
 		left join ItemCode i4 on i4.num = cse.CarStatus and i4.ItemType=825 --车状态：5在库
-		--left join ItemCode i5 on i5.num = cse.StorageStatus and i5.ItemType=885 --入库状态：24公务车，6主管用车
-		where o.[Status]=1 and o.IsOn=1 and o.Org_Auto=9999 and cse.CarStatus = 5 --and cse.StorageStatus in (24,6)
+		where o.[Status]=1 and o.IsOn=1 and o.Org_Auto=9999
 		)aa
 		where (aa.oilName=@oilName or aa.oilName LIKE '%'+@oilName+'%') and aa.bsTypeN=@bsTypeN
 		and aa.MakNo LIKE '%'+@carSName+'%'
 		and aa.mileage>=@mileage
+	  and aa.Carbase_Auto not in
+	  (select
+	  distinct Carbase_Auto
+	  from
+	  CarApplication
+	  where
+	  Carbase_Auto!=0
+	  and
+	  ((Status in(10,20) and IsSave=0) or(Status in(10,20,30) and IsSave=1)))
+	  order by aa.Carbase_Auto desc
 end
 
 END
   </select>
+    <select id="selectNum" resultType="java.lang.Integer">
+		--判断车子有没有被申请
+declare @CarBase_Auto bigint=22105
+begin
+declare @CSum int
+select
+@CSum=count(CarApplication_Auto) --如果@CSum>0,返回“当前车辆已被申请，请选择其他车辆”
+from
+CarApplication
+where @Carbase_Auto > 0
+and Carbase_Auto=@Carbase_Auto
+and ((Status in(10,20) and IsSave=0) or(Status in(10,20,30) and IsSave=1))
+--Status -1取消、0暂存、5驳回、10送件、20核准、30出车、40还车
+--IsSave 是否提前申请 1是  0否
+
+select @CSum num
+end
+	</select>
 </mapper>

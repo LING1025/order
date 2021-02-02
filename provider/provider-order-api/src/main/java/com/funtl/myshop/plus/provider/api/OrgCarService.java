@@ -15,4 +15,10 @@ public interface OrgCarService{
      */
     List<OrgCarList> selectOrgCar(OrgCarQueryParam orgCarQueryParam);
 
+    /**
+     * 判断车子有没有被申请(已在获取车辆列表处排除已申请车辆)
+     * @param carBaseAuto
+     * @return
+     */
+    Integer selectNum(Long carBaseAuto);
 }

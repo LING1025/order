@@ -10,4 +10,6 @@ import java.util.List;
 
 public interface OrgCarMapper extends MyMapper<OrgCar> {
     List<OrgCarList> selectOrgCar(@Param("param") OrgCarQueryParam orgCarQueryParam);
+
+    Integer selectNum(@Param("carBaseAuto") Long carBaseAuto);
 }

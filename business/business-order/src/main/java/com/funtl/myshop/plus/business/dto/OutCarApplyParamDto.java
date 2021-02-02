@@ -106,10 +106,10 @@ public class OutCarApplyParamDto implements Serializable {
     @ApiModelProperty(value = "汽车序号")
     private Long carBaseAuto;
 
-    @ApiModelProperty(value = "车状态:1预定 2出车 3入车 4作废 5在库 6审核中 7驳回")
+    /*@ApiModelProperty(value = "车状态:1预定 2出车 3入车 4作废 5在库 6审核中 7驳回 8被申请")
     private Integer carStatus;
 
-    /*@ApiModelProperty(value = "车牌号码")
+    @ApiModelProperty(value = "车牌号码")
     private String makNo;
 
     @ApiModelProperty(value = "燃油种类")
@@ -128,7 +128,7 @@ public class OutCarApplyParamDto implements Serializable {
     private String clasenName;
 
     @ApiModelProperty(value = "车色")
-    private String carColor;*/
+    private String carColor;
 
     @ApiModelProperty(value = "排档")
     private String bsTypeN;
@@ -137,6 +137,6 @@ public class OutCarApplyParamDto implements Serializable {
     private String whTypeN1;
 
     @ApiModelProperty(value = "还车仓库")
-    private String whTypeN2;
+    private String whTypeN2;*/
 
 }

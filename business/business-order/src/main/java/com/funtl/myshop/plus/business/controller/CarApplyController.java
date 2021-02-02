@@ -1,9 +1,6 @@
 package com.funtl.myshop.plus.business.controller;
 
-import com.funtl.myshop.plus.business.dto.Distance;
-import com.funtl.myshop.plus.business.dto.GetLocation;
-import com.funtl.myshop.plus.business.dto.Location;
-import com.funtl.myshop.plus.business.dto.LocationList;
+import com.funtl.myshop.plus.business.dto.*;
 import com.funtl.myshop.plus.commons.dto.ResponseResult;
 import com.funtl.myshop.plus.commons.utils.MapperUtils;
 import com.funtl.myshop.plus.controller.LocationUtils;
@@ -15,15 +12,13 @@ import com.funtl.myshop.plus.provider.domain.*;
 import com.funtl.myshop.plus.provider.dto.OrgCarQueryParam;
 import com.funtl.myshop.plus.provider.dto.UseCarQueryParam;
 import com.google.common.collect.Lists;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.*;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.ParseException;
@@ -219,5 +214,12 @@ public class CarApplyController {
             return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"暂无匹配车辆",null);
         }
         return new ResponseResult<>(ResponseResult.CodeStatus.OK,"查询成功",lists);
+    }
+
+    @ApiOperation(value = "暂存、送签(此接口如要测试请联系后端)")
+    @PostMapping(value = "applyInsert")
+    public ResponseResult<String> ApplyInsert(@ApiParam(value = "用车申请：新增数据")@Valid @RequestBody OutCarApplyParamDto outCarApplyParamDto){
+
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK,"保存成功",null);
     }
 }
