@@ -16,10 +16,10 @@ public class OrgCarList implements Serializable {
     @ApiModelProperty(value = "车牌号码")
     private String makNo;
 
-    @ApiModelProperty(value = "燃油种类")
+    @ApiModelProperty(value = "剩余电量")
     private BigDecimal residueDL;
 
-    @ApiModelProperty(value = "剩余电量")
+    @ApiModelProperty(value = "续航里程")
     private BigDecimal mileage;
 
     @ApiModelProperty(value = "燃油种类")
