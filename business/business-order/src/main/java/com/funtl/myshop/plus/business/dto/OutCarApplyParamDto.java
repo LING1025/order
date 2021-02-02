@@ -25,6 +25,12 @@ public class OutCarApplyParamDto implements Serializable {
     @ApiModelProperty(value = "用车类别：1公务车 2主管用车")
     private String appTypeN;
 
+    @ApiModelProperty(value = "使用部门序号")
+    private Long orgAuto;
+
+    @ApiModelProperty(value = "使用部门")
+    private String orgName;
+
     @ApiModelProperty(value = "申请人序号")
     private Long appUser;
 

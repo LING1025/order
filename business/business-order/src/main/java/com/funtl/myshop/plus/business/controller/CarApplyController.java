@@ -196,7 +196,6 @@ public class CarApplyController {
         }else {
             holiday.setIsHoliday(0);
         }
-        System.err.println(holiday.getUseCarTime());
         return new ResponseResult<>(ResponseResult.CodeStatus.OK,"查询成功",holiday);
     }
 

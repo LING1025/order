@@ -56,11 +56,13 @@
       <result column="appUserN" jdbcType="VARCHAR" property="appUserN" />
       <result column="appTypeN" jdbcType="VARCHAR" property="appTypeN" />
       <result column="statusN" jdbcType="VARCHAR" property="statusN" />
+      <result column="DepName" jdbcType="VARCHAR" property="orgName" />
   </resultMap>
   <select id="selectUserCar" resultMap="queryUserCar">
         select c.CarApplication_Auto,v.FName appUserN,i.ItemName appTypeN, c.PlanStartDT,
 		c.PlanEndDT,
 		c.CDT,
+        v.DepName,
 		c.UserName,cb.MakNo,
         statusN= case c.Status when 10 then '送件中'
 		when 5 then '驳回'

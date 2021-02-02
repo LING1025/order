@@ -17,6 +17,9 @@ public class UserCarList implements Serializable {
     @ApiModelProperty(value = "申请人")
     private String appUserN;
 
+    @ApiModelProperty(value = "使用部门")
+    private String orgName;
+
     @ApiModelProperty(value = "使用人")
     private String username;
 
