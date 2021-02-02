@@ -44,8 +44,7 @@ public class CarApplyController {
     @Reference(version = "1.0.0")
     private OrgCarService orgCarService;
 
-    /*
-    @ApiOperation(value = "经纬度转地址")
+    /*@ApiOperation(value = "经纬度转地址")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "lng", value = "经度", required = true, dataType = "String", paramType = "path"),
             @ApiImplicitParam(name = "lat", value = "纬度", required = true, dataType = "String", paramType = "path")
@@ -55,12 +54,7 @@ public class CarApplyController {
                                                         @RequestParam(name = "lat")String lat) throws Exception {
         Map<String, Object> map = LocationUtils.getLocation(lng, lat);
         GetLocation getLocation = new GetLocation();
-        getLocation.setProvince((String) map.get("province"));
-        getLocation.setNation((String) map.get("nation"));
-        getLocation.setCity((String) map.get("city"));
-        getLocation.setProvinceCode((String) map.get("provinceCode"));
-        getLocation.setCityCode((String) map.get("cityCode"));
-        getLocation.setNationCode((String) map.get("nationCode"));
+        getLocation.setAddress((String) map.get("address"));
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", getLocation);
     }*/
 

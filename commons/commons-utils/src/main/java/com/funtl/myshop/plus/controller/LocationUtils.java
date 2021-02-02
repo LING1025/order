@@ -26,7 +26,7 @@ public class LocationUtils {
         Map<String, Object> resultMap = new HashMap<String, Object>();
 
         // 参数解释：lng：经度，lat：维度。KEY：腾讯地图key，get_poi：返回状态。1返回，0不返回
-        String urlString = "http://apis.map.qq.com/ws/geocoder/v1/?location=" + lat + "," + lng + "&key=" + KEY + "&get_poi=1";
+        String urlString = "https://apis.map.qq.com/ws/geocoder/v1/?location=" + lat + "," + lng + "&key=" + KEY + "&get_poi=1";
         String result = "";
         try {
             URL url = new URL(urlString);
@@ -47,14 +47,17 @@ public class LocationUtils {
 
         // 转JSON格式
         JSONObject jsonObject = JSONObject.fromObject(result).getJSONObject("result");
+        //地址描述
+        resultMap.put("address",jsonObject.get("address"));
+
         // 获取地址（行政区划信息） 包含有国籍，省份，城市
-        JSONObject adInfo = jsonObject.getJSONObject("ad_info");
-        resultMap.put("nation", adInfo.get("nation"));
-        resultMap.put("nationCode", adInfo.get("nation_code"));
-        resultMap.put("province", adInfo.get("province"));
-        resultMap.put("provinceCode", adInfo.get("adcode"));
-        resultMap.put("city", adInfo.get("city"));
-        resultMap.put("cityCode", adInfo.get("city_code"));
+//        JSONObject adInfo = jsonObject.getJSONObject("ad_info");
+//        resultMap.put("nation", adInfo.get("nation"));
+//        resultMap.put("nationCode", adInfo.get("nation_code"));
+//        resultMap.put("province", adInfo.get("province"));
+//        resultMap.put("provinceCode", adInfo.get("adcode"));
+//        resultMap.put("city", adInfo.get("city"));
+//        resultMap.put("cityCode", adInfo.get("city_code"));
         return resultMap;
     }
 
@@ -148,8 +151,8 @@ public class LocationUtils {
     public static void main(String[] args) throws Exception {
 
         // 测试
-        String lng = "111.546112";//经度
-        String lat = "24.378622";//维度
+        String lng = "116.30749";//经度
+        String lat = "39.984154";//维度
         Map<String, Object> map = getLocation(lng, lat);
         System.out.println(map);
 
