@@ -53,22 +53,22 @@ public class OutCarApplyParamDto implements Serializable {
     private String startAddr;
 
     @ApiModelProperty(value = "起始地纬度")
-    private BigDecimal startAddrLat;
+    private String startAddrLat;
 
     @ApiModelProperty(value = "起始地经度")
-    private BigDecimal startAddrLng;
+    private String startAddrLng;
 
     @ApiModelProperty(value = "目的地")
     private String endAddr;
 
     @ApiModelProperty(value = "目的地纬度")
-    private BigDecimal endAddrLat;
+    private String endAddrLat;
 
     @ApiModelProperty(value = "目的地经度")
-    private BigDecimal endAddrLng;
+    private String endAddrLng;
 
     @ApiModelProperty(value = "距离：公里")
-    private String distance;
+    private Double distance;
 
     @ApiModelProperty(value = "使用时间：开始时间")
     @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd HH:mm")
