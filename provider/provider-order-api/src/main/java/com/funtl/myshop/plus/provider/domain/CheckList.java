@@ -9,8 +9,8 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Data
-@ApiModel(value = "用车申请：申请列表数据")
-public class UserCarList implements Serializable {
+@ApiModel(value = "用车审核：获取审核数据")
+public class CheckList implements Serializable {
     @ApiModelProperty(value = "用车申请单号")
     private Long carApplicationAuto;
 

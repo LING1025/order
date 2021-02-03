@@ -11,7 +11,7 @@ import java.util.Date;
 @Data
 @ApiModel(value = "用车申请：签核明细")
 public class UseCarDoc implements Serializable {
-    @ApiModelProperty(value = "出车申请单号")
+    @ApiModelProperty(value = "用车申请单号")
     private Long carApplicationAuto;
 
     @ApiModelProperty(value = "审核角色")

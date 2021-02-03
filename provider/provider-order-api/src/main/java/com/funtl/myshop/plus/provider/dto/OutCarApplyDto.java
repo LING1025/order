@@ -14,7 +14,7 @@ import java.util.Date;
 @ApiModel(value = "用车申请：新增数据")
 public class OutCarApplyDto implements Serializable {
     /**
-     * 出车申请单号
+     * 用车申请单号
      */
     @JsonIgnore
     private Long carApplicationAuto = 0L;

@@ -139,7 +139,7 @@ public class CarApplyController {
 
     @ApiOperation(value = "用车申请：获取申请列表数据")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "carApplicationAuto",value = "出车申请单号",required = false,dataType = "long",paramType = "path"),
+            @ApiImplicitParam(name = "carApplicationAuto",value = "用车申请单号",required = false,dataType = "long",paramType = "path"),
             @ApiImplicitParam(name = "username",value = "使用人",required = false,dataType = "String",paramType = "path"),
             @ApiImplicitParam(name = "makNo",value = "车辆号码",required = false,dataType = "String",paramType = "path"),
             @ApiImplicitParam(name = "planStartDT",value = "开始时间",required = false,dataType = "String",paramType = "path"),
@@ -162,7 +162,7 @@ public class CarApplyController {
     }
 
     @ApiOperation(value = "用车申请：获取签核明细数据")
-    @ApiImplicitParam(name = "carApplicationAuto",value = "出车申请单号",required = false,dataType = "long",paramType = "path")
+    @ApiImplicitParam(name = "carApplicationAuto",value = "用车申请单号",required = false,dataType = "long",paramType = "path")
     @GetMapping(value = "queryUseCarDoc")
     public ResponseResult<List<UseCarDoc>> queryUseCarDoc(@RequestParam(name = "carApplicationAuto",required = false) Long carApplicationAuto){
         List<UseCarDoc> list = carApplicationService.selectUseCarDoc(carApplicationAuto);
