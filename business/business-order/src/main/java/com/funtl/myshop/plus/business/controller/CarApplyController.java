@@ -6,10 +6,7 @@ import com.funtl.myshop.plus.business.dto.*;
 import com.funtl.myshop.plus.commons.dto.ResponseResult;
 import com.funtl.myshop.plus.commons.utils.MapperUtils;
 import com.funtl.myshop.plus.controller.LocationUtils;
-import com.funtl.myshop.plus.provider.api.CarApplicationService;
-import com.funtl.myshop.plus.provider.api.ItemCodeService;
-import com.funtl.myshop.plus.provider.api.OrgCarService;
-import com.funtl.myshop.plus.provider.api.VEmpService;
+import com.funtl.myshop.plus.provider.api.*;
 import com.funtl.myshop.plus.provider.domain.*;
 import com.funtl.myshop.plus.provider.dto.OrgCarQueryParam;
 import com.funtl.myshop.plus.provider.dto.OutCarApplyDto;
@@ -47,6 +44,12 @@ public class CarApplyController {
 
     @Reference(version = "1.0.0")
     private OrgCarService orgCarService;
+
+    @Reference(version = "1.0.0")
+    private CreditAgentService creditAgentService;
+
+    @Reference(version = "1.0.0")
+    private AspnetUsersService aspnetUsersService;
 
     /*@ApiOperation(value = "经纬度转地址")
     @ApiImplicitParams({
@@ -227,5 +230,32 @@ public class CarApplyController {
             return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"送件失败",null);
         }
         return new ResponseResult<>(ResponseResult.CodeStatus.OK,"送件成功",null);
+    }
+
+    @ApiOperation(value = "用车审核：选择代理人")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userAuto", value = "代理人id", required = false, dataType = "long", paramType = "path")
+    })
+    @GetMapping(value = "queryAgentList")
+    public ResponseResult<List<AgentList>> queryAgentList(@RequestParam(name = "userAuto",required = false) Long userAuto){
+        //代理人id查询
+        List<AgentList> lists = creditAgentService.selectAgentList(userAuto);
+        if (lists.size() == 0){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"查无资料，请输入其它查询条件!",null);
+        }
+        List<AgentList> agentLists = Lists.newArrayList();
+        for(AgentList agentList : lists){
+            VEmp vEmp = vEmpService.selectByUserAuto(agentList.getSelfUser());
+            if(vEmp != null){
+                AspnetUsers aspnetUsers = aspnetUsersService.selectByAppId("73663109-dda2-4c2d-8311-337946b5c373",vEmp.getUserId());
+                if(aspnetUsers != null) {
+                    AgentList agentList1 = new AgentList();
+                    agentList1.setSelfUser(agentList.getSelfUser());
+                    agentList1.setSelfName(vEmp.getFName() + "_" + vEmp.getDepName());
+                    agentLists.add(agentList1);
+                }
+            }
+        }
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", agentLists);
     }
 }
