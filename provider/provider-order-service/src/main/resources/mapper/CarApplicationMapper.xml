@@ -146,4 +146,7 @@ end
         useCarTime=cast(DATEDIFF(minute,#{startTime},#{endTime})*1./60 as decimal(18,1))
         from DocSystem.dbo.Holiday where HolidayDate between #{startTime} and #{endTime}
     </select>
+    <insert id="applyInsert">
+
+    </insert>
 </mapper>

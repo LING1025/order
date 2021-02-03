@@ -3,6 +3,7 @@ package com.funtl.myshop.plus.provider.service;
 import com.funtl.myshop.plus.provider.domain.Holiday;
 import com.funtl.myshop.plus.provider.domain.UseCarDoc;
 import com.funtl.myshop.plus.provider.domain.UserCarList;
+import com.funtl.myshop.plus.provider.dto.OutCarApplyDto;
 import com.funtl.myshop.plus.provider.dto.UseCarQueryParam;
 
 import javax.annotation.Resource;
@@ -33,5 +34,10 @@ public class CarApplicationServiceImpl implements CarApplicationService{
     @Override
     public Holiday selectByTime(Date startTime, Date endTime) {
         return carApplicationMapper.selectByTime(startTime,endTime);
+    }
+
+    @Override
+    public Integer applyInsert(OutCarApplyDto outCarApplyDto) {
+        return carApplicationMapper.applyInsert(outCarApplyDto);
     }
 }

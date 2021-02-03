@@ -210,7 +210,7 @@ public class CarApplyController {
         return new ResponseResult<>(ResponseResult.CodeStatus.OK,"查询成功",lists);
     }
 
-    @ApiOperation(value = "暂存、送签(此接口如要测试请联系后端)")
+    @ApiOperation(value = "用车申请：送件(此接口如要测试请联系后端)")
     @PostMapping(value = "applyInsert")
     public ResponseResult<String> ApplyInsert(@ApiParam(value = "用车申请：新增数据")@Valid @RequestBody OutCarApplyParamDto outCarApplyParamDto){
 

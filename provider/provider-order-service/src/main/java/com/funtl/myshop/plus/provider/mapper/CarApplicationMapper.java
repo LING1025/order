@@ -4,6 +4,7 @@ import com.funtl.myshop.plus.provider.domain.CarApplication;
 import com.funtl.myshop.plus.provider.domain.Holiday;
 import com.funtl.myshop.plus.provider.domain.UseCarDoc;
 import com.funtl.myshop.plus.provider.domain.UserCarList;
+import com.funtl.myshop.plus.provider.dto.OutCarApplyDto;
 import com.funtl.myshop.plus.provider.dto.UseCarQueryParam;
 import org.apache.ibatis.annotations.Param;
 import tk.mybatis.mapper.MyMapper;
@@ -17,4 +18,6 @@ public interface CarApplicationMapper extends MyMapper<CarApplication> {
     List<UseCarDoc> selectUseCarDoc(@Param("carApplicationAuto") Long carApplicationAuto);
 
     Holiday selectByTime(@Param("startTime") Date startTime, @Param("endTime") Date endTime);
+
+    Integer applyInsert(@Param("param") OutCarApplyDto outCarApplyDto);
 }

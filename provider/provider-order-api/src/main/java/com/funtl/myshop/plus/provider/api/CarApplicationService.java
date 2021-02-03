@@ -4,6 +4,7 @@ import com.funtl.myshop.plus.provider.domain.CarApplication;
 import com.funtl.myshop.plus.provider.domain.Holiday;
 import com.funtl.myshop.plus.provider.domain.UseCarDoc;
 import com.funtl.myshop.plus.provider.domain.UserCarList;
+import com.funtl.myshop.plus.provider.dto.OutCarApplyDto;
 import com.funtl.myshop.plus.provider.dto.UseCarQueryParam;
 
 import java.util.Date;
@@ -32,4 +33,11 @@ public interface CarApplicationService{
      * @return
      */
     Holiday selectByTime(Date startTime,Date endTime);
+
+    /**
+     * 用车申请：送件
+     * @param outCarApplyDto
+     * @return
+     */
+    Integer applyInsert(OutCarApplyDto outCarApplyDto);
 }
