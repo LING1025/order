@@ -30,6 +30,7 @@
     <result column="ClasenName" jdbcType="VARCHAR" property="clasenName" />
     <result column="CarColor" jdbcType="VARCHAR" property="carColor" />
     <result column="bsTypeN" jdbcType="VARCHAR" property="bsTypeN" />
+	  <result column="WHType" jdbcType="INTEGER" property="whType" />
     <result column="whTypeN1" jdbcType="VARCHAR" property="whTypeN1" />
     <result column="whTypeN2" jdbcType="VARCHAR" property="whTypeN2" />
   </resultMap>
@@ -79,6 +80,7 @@ select
 		,cn.ClasenName
 		,c.CarColor
 		,i2.ItemName bsTypeN
+	  	,cse.WHType
 		,i3.ItemName whTypeN1
 		,i3.ItemName whTypeN2
 		from Org_Car o
@@ -123,6 +125,7 @@ select
 		,cn.ClasenName
 		,c.CarColor
 		,i2.ItemName bsTypeN
+	  	,cse.WHType
 		,i3.ItemName whTypeN1
 		,i3.ItemName whTypeN2
 		from Org_Car o

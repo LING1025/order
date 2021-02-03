@@ -40,6 +40,9 @@ public class OrgCarList implements Serializable {
     @ApiModelProperty(value = "排档")
     private String bsTypeN;
 
+    @ApiModelProperty(value = "还车仓库序号")
+    private Integer whType;
+
     @ApiModelProperty(value = "取车仓库")
     private String whTypeN1;
 
