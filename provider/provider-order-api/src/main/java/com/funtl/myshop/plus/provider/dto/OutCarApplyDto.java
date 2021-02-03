@@ -103,8 +103,8 @@ public class OutCarApplyDto implements Serializable {
      * 状态
      * -1取消、0暂存、5驳回、10送件、20核准、30出车、40还车
      */
-    @ApiModelProperty(value = "状态:10送件")
-    private Integer status;
+//    @ApiModelProperty(value = "状态:10送件")
+//    private Integer status;
 
     @ApiModelProperty(value = "汽车序号")
     private Long carBaseAuto;

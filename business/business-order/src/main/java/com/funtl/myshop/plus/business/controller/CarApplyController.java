@@ -1,5 +1,7 @@
 package com.funtl.myshop.plus.business.controller;
 
+import com.funtl.myshop.plus.business.BusinessException;
+import com.funtl.myshop.plus.business.BusinessStatus;
 import com.funtl.myshop.plus.business.dto.*;
 import com.funtl.myshop.plus.commons.dto.ResponseResult;
 import com.funtl.myshop.plus.commons.utils.MapperUtils;
@@ -10,12 +12,14 @@ import com.funtl.myshop.plus.provider.api.OrgCarService;
 import com.funtl.myshop.plus.provider.api.VEmpService;
 import com.funtl.myshop.plus.provider.domain.*;
 import com.funtl.myshop.plus.provider.dto.OrgCarQueryParam;
+import com.funtl.myshop.plus.provider.dto.OutCarApplyDto;
 import com.funtl.myshop.plus.provider.dto.UseCarQueryParam;
 import com.google.common.collect.Lists;
 import io.swagger.annotations.*;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.apache.dubbo.config.annotation.Reference;
+import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -213,7 +217,15 @@ public class CarApplyController {
     @ApiOperation(value = "用车申请：送件(此接口如要测试请联系后端)")
     @PostMapping(value = "applyInsert")
     public ResponseResult<String> ApplyInsert(@ApiParam(value = "用车申请：新增数据")@Valid @RequestBody OutCarApplyParamDto outCarApplyParamDto){
-
-        return new ResponseResult<>(ResponseResult.CodeStatus.OK,"保存成功",null);
+        if (outCarApplyParamDto.getPlanStartDT().after(outCarApplyParamDto.getPlanEndDT())){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"开始时间必须小于结束时间",null);
+        }
+        OutCarApplyDto outCarApplyDto = new OutCarApplyDto();
+        BeanUtils.copyProperties(outCarApplyParamDto,outCarApplyDto);
+        Integer i = carApplicationService.applyInsert(outCarApplyDto);
+        if (i == 0){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"送件失败",null);
+        }
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK,"送件成功",null);
     }
 }
