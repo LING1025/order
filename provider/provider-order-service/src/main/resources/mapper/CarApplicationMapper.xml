@@ -324,7 +324,7 @@ end
         <result column="MakNo" jdbcType="VARCHAR" property="makNo" />
         <result column="appUserN" jdbcType="VARCHAR" property="appUserN" />
         <result column="appTypeN" jdbcType="VARCHAR" property="appTypeN" />
-        <result column="statusN" jdbcType="VARCHAR" property="statusN" />
+        <result column="StatusN" jdbcType="VARCHAR" property="statusN" />
         <result column="DepName" jdbcType="VARCHAR" property="orgName" />
     </resultMap>
     <!--用车审核：获取审核数据 -->

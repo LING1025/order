@@ -8,6 +8,7 @@ import com.funtl.myshop.plus.commons.utils.MapperUtils;
 import com.funtl.myshop.plus.controller.LocationUtils;
 import com.funtl.myshop.plus.provider.api.*;
 import com.funtl.myshop.plus.provider.domain.*;
+import com.funtl.myshop.plus.provider.dto.CheckQueryParam;
 import com.funtl.myshop.plus.provider.dto.OrgCarQueryParam;
 import com.funtl.myshop.plus.provider.dto.OutCarApplyDto;
 import com.funtl.myshop.plus.provider.dto.UseCarQueryParam;
@@ -257,5 +258,33 @@ public class CarApplyController {
             }
         }
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", agentLists);
+    }
+
+    @ApiOperation(value = "用车审核：获取审核数据")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "loginAuto",value = "操作人userAuto",required = true,dataType = "long",paramType = "path"),
+            @ApiImplicitParam(name = "carApplicationAuto",value = "用车申请单号",required = false,dataType = "long",paramType = "path"),
+            @ApiImplicitParam(name = "username",value = "使用人",required = false,dataType = "String",paramType = "path"),
+            @ApiImplicitParam(name = "appUserN",value = "申请人",required = false,dataType = "String",paramType = "path"),
+            @ApiImplicitParam(name = "makNo",value = "车辆号码",required = false,dataType = "String",paramType = "path"),
+            @ApiImplicitParam(name = "planStartDT",value = "开始时间",required = false,dataType = "String",paramType = "path"),
+            @ApiImplicitParam(name = "planEndDT",value = "结束时间",required = false,dataType = "String",paramType = "path"),
+            @ApiImplicitParam(name = "status",value = "状态：送件中、核准",required = false,dataType = "String",paramType = "path")
+    })
+    @GetMapping(value = "queryCheckList")
+    public ResponseResult<List<CheckList>> queryCheckList(@RequestParam(name = "loginAuto") Long loginAuto,
+                                                          @RequestParam(name = "carApplicationAuto",required = false) Long carApplicationAuto,
+                                                          @RequestParam(name = "username",required = false) String username,
+                                                          @RequestParam(name = "appUserN",required = false) String appUserN,
+                                                          @RequestParam(name = "planStartDT",required = false) String planStartDT,
+                                                          @RequestParam(name = "planEndDT",required = false) String planEndDT,
+                                                          @RequestParam(name = "makNo",required = false) String makNo,
+                                                          @RequestParam(name = "statusN",required = false) String statusN){
+        CheckQueryParam checkQueryParam = new CheckQueryParam(loginAuto,carApplicationAuto,username,appUserN,makNo,planStartDT,planEndDT,statusN);
+        List<CheckList> lists = carApplicationService.selectCheckList(checkQueryParam);
+        if (lists.size() == 0){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"暂无数据",null);
+        }
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK,"查询成功",lists);
     }
 }
