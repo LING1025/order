@@ -17,6 +17,9 @@ public class UseCarDoc implements Serializable {
     @ApiModelProperty(value = "审核角色")
     private String roleName;
 
+    @ApiModelProperty(value = "权限id")
+    private Long roleId;
+
     @ApiModelProperty(value = "审核等级序号")
     private Integer appSeq;
 

@@ -108,6 +108,7 @@
 
     <resultMap id="queryUseCarDoc" type="com.funtl.myshop.plus.provider.domain.UseCarDoc">
         <result column="DocPostID" jdbcType="BIGINT" property="carApplicationAuto" />
+        <result column="RoleID" jdbcType="BIGINT" property="roleId" />
         <result column="RoleName" jdbcType="VARCHAR" property="roleName" />
         <result column="Memo" jdbcType="VARCHAR" property="memo" />
         <result column="checkName" jdbcType="VARCHAR" property="checkName" />
@@ -122,7 +123,7 @@
         declare
         @DocPostID bigint=#{carApplicationAuto}
 begin
-		select t1.DocPostID,t2.RoleName,t1.AppSeq,t1.Memo,
+		select t1.DocPostID,t2.RoleID,t2.RoleName,t1.AppSeq,t1.Memo,
 		checkName=case t1.IsAgent when 0 then t3.FName when 1 then t3.FName+'(代)' end
 		,statusN = case t1.[Status] when 20 then '核准'when 5 then '驳回' when 0 then '' when 25 then '驳回' end,
 		t1.MDT,t1.CDT,t4.FName appUserN
