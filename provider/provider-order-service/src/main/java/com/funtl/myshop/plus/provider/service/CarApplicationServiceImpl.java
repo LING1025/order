@@ -1,8 +1,10 @@
 package com.funtl.myshop.plus.provider.service;
 
+import com.funtl.myshop.plus.provider.domain.CheckList;
 import com.funtl.myshop.plus.provider.domain.Holiday;
 import com.funtl.myshop.plus.provider.domain.UseCarDoc;
 import com.funtl.myshop.plus.provider.domain.UserCarList;
+import com.funtl.myshop.plus.provider.dto.CheckQueryParam;
 import com.funtl.myshop.plus.provider.dto.OutCarApplyDto;
 import com.funtl.myshop.plus.provider.dto.UseCarQueryParam;
 
@@ -39,5 +41,10 @@ public class CarApplicationServiceImpl implements CarApplicationService{
     @Override
     public Integer applyInsert(OutCarApplyDto outCarApplyDto) {
         return carApplicationMapper.applyInsert(outCarApplyDto);
+    }
+
+    @Override
+    public List<CheckList> selectCheckList(CheckQueryParam checkQueryParam) {
+        return carApplicationMapper.selectCheckList(checkQueryParam);
     }
 }

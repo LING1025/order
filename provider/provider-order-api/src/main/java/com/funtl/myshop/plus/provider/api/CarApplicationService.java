@@ -1,9 +1,7 @@
 package com.funtl.myshop.plus.provider.api;
 
-import com.funtl.myshop.plus.provider.domain.CarApplication;
-import com.funtl.myshop.plus.provider.domain.Holiday;
-import com.funtl.myshop.plus.provider.domain.UseCarDoc;
-import com.funtl.myshop.plus.provider.domain.UserCarList;
+import com.funtl.myshop.plus.provider.domain.*;
+import com.funtl.myshop.plus.provider.dto.CheckQueryParam;
 import com.funtl.myshop.plus.provider.dto.OutCarApplyDto;
 import com.funtl.myshop.plus.provider.dto.UseCarQueryParam;
 
@@ -40,4 +38,11 @@ public interface CarApplicationService{
      * @return
      */
     Integer applyInsert(OutCarApplyDto outCarApplyDto);
+
+    /**
+     * 用车审核：获取审核数据
+     * @param checkQueryParam
+     * @return
+     */
+    List<CheckList> selectCheckList(CheckQueryParam checkQueryParam);
 }

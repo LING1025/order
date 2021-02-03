@@ -1,9 +1,7 @@
 package com.funtl.myshop.plus.provider.mapper;
 
-import com.funtl.myshop.plus.provider.domain.CarApplication;
-import com.funtl.myshop.plus.provider.domain.Holiday;
-import com.funtl.myshop.plus.provider.domain.UseCarDoc;
-import com.funtl.myshop.plus.provider.domain.UserCarList;
+import com.funtl.myshop.plus.provider.domain.*;
+import com.funtl.myshop.plus.provider.dto.CheckQueryParam;
 import com.funtl.myshop.plus.provider.dto.OutCarApplyDto;
 import com.funtl.myshop.plus.provider.dto.UseCarQueryParam;
 import org.apache.ibatis.annotations.Param;
@@ -20,4 +18,6 @@ public interface CarApplicationMapper extends MyMapper<CarApplication> {
     Holiday selectByTime(@Param("startTime") Date startTime, @Param("endTime") Date endTime);
 
     Integer applyInsert(@Param("param") OutCarApplyDto outCarApplyDto);
+
+    List<CheckList> selectCheckList(@Param("param") CheckQueryParam checkQueryParam);
 }
