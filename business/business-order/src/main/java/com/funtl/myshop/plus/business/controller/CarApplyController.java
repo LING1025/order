@@ -8,10 +8,7 @@ import com.funtl.myshop.plus.commons.utils.MapperUtils;
 import com.funtl.myshop.plus.controller.LocationUtils;
 import com.funtl.myshop.plus.provider.api.*;
 import com.funtl.myshop.plus.provider.domain.*;
-import com.funtl.myshop.plus.provider.dto.CheckQueryParam;
-import com.funtl.myshop.plus.provider.dto.OrgCarQueryParam;
-import com.funtl.myshop.plus.provider.dto.OutCarApplyDto;
-import com.funtl.myshop.plus.provider.dto.UseCarQueryParam;
+import com.funtl.myshop.plus.provider.dto.*;
 import com.google.common.collect.Lists;
 import io.swagger.annotations.*;
 import net.sf.json.JSONArray;
@@ -302,4 +299,23 @@ public class CarApplyController {
         return new ResponseResult<>(ResponseResult.CodeStatus.OK,"查询成功",checkOne);
     }
 
+    @ApiOperation(value = "用车审核：核准、驳回(此接口如要测试请联系后端)")
+    @PostMapping(value = "useCarCheckInsert")
+    public ResponseResult<String> UseCarCheckInsert(@ApiParam(value = "用车审核：核准、驳回数据")@Valid @RequestBody UseCarCheckParamDto useCarCheckParamDto){
+        UseCarCheckDto useCarCheckDto = new UseCarCheckDto();
+        BeanUtils.copyProperties(useCarCheckParamDto,useCarCheckDto);
+        Integer i = carApplicationService.useCarCheckInsert(useCarCheckDto);
+        if (i == 0){
+            if (useCarCheckDto.getAppStatus()==20){
+                return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"核准失败",null);
+            }
+            if (useCarCheckDto.getAppStatus()==5){
+                return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"驳回失败",null);
+            }
+        }
+        if (useCarCheckDto.getAppStatus()==20){
+            return new ResponseResult<>(ResponseResult.CodeStatus.OK,"核准成功",null);
+        }
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK,"驳回成功",null);
+    }
 }
