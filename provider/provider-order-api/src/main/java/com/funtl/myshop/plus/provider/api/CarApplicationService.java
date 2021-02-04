@@ -3,6 +3,7 @@ package com.funtl.myshop.plus.provider.api;
 import com.funtl.myshop.plus.provider.domain.*;
 import com.funtl.myshop.plus.provider.dto.CheckQueryParam;
 import com.funtl.myshop.plus.provider.dto.OutCarApplyDto;
+import com.funtl.myshop.plus.provider.dto.UseCarCheckDto;
 import com.funtl.myshop.plus.provider.dto.UseCarQueryParam;
 
 import java.util.Date;
@@ -52,4 +53,11 @@ public interface CarApplicationService{
      * @return
      */
     CheckOne selectCheckOne(Long carApplicationAuto);
+
+    /**
+     * 用车审核：核准、驳回
+     * @param useCarCheckDto
+     * @return
+     */
+    Integer useCarCheckInsert(UseCarCheckDto useCarCheckDto);
 }

@@ -3,6 +3,7 @@ package com.funtl.myshop.plus.provider.service;
 import com.funtl.myshop.plus.provider.domain.*;
 import com.funtl.myshop.plus.provider.dto.CheckQueryParam;
 import com.funtl.myshop.plus.provider.dto.OutCarApplyDto;
+import com.funtl.myshop.plus.provider.dto.UseCarCheckDto;
 import com.funtl.myshop.plus.provider.dto.UseCarQueryParam;
 
 import javax.annotation.Resource;
@@ -48,5 +49,10 @@ public class CarApplicationServiceImpl implements CarApplicationService{
     @Override
     public CheckOne selectCheckOne(Long carApplicationAuto) {
         return carApplicationMapper.selectCheckOne(carApplicationAuto);
+    }
+
+    @Override
+    public Integer useCarCheckInsert(UseCarCheckDto useCarCheckDto) {
+        return carApplicationMapper.useCarCheckInsert(useCarCheckDto);
     }
 }

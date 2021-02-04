@@ -451,4 +451,69 @@ select c.CarApplication_Auto,v.FName appUserN,i.ItemName appTypeN, c.PlanStartDT
         left join [Portal].[dbo].[Portal_Roles] t2  on t1.RoleID=t2.RoleID
 		where c.CarApplication_Auto=#{carApplicationAuto}
     </select>
+
+    <!--用车审核：核准、驳回-->
+    <insert id="useCarCheckInsert">
+        declare
+@UserId bigint=#{param.loginUserID},
+@CarApplication_Auto bigint=#{param.carApplicationAuto},
+@AppSeq int=#{param.appSeq},--等级
+@AppStatus int=#{param.appStatus},--5驳回 20核准
+@DocType int=10,
+@RoleID int=#{param.roleId},
+@Memo varchar(50)=#{param.memo}
+BEGIN
+	if(@AppStatus=5)--出车申请驳回--
+	begin
+		update DocSystem.dbo.WorkFlowDoc
+		set InActiveList=-1
+		where DocPostID=@CarApplication_Auto and DocType=@DocType
+
+		update DocSystem.dbo.WorkFlowDoc
+		set [Status]=5,MDT=GETDATE(),MUser=@UserId,Memo=@Memo,IsAgent=0
+		where DocPostID=@CarApplication_Auto and AppSeq=@AppSeq and DocType=@DocType  and status=0
+
+		update CarApplication
+		set [Status]=@AppStatus,
+		MUser=@UserId,
+		MDT=getdate()
+		where CarApplication_Auto=@CarApplication_Auto
+
+		delete DocSystem.dbo.WorkFlowDoc where DocPostID=@CarApplication_Auto and Status=0 and DocType=@DocType
+
+
+	end
+	if(@AppStatus=20)--出车核准--
+		begin
+			declare @MaxAppSeq int,@OilGaugeIn int,@Legend decimal,
+			@CarStatusEdit_Auto int,@CarBase_Auto int,@User_Auto int,@AppType int,@IsSalesDep int
+
+
+			select  @CarStatusEdit_Auto=Max(CarStatusEdit_Auto),@CarBase_Auto=CarBase_Auto,@OilGaugeIn=OilGaugeIn,@Legend=Legend from CarStatusEdit  where CarBase_Auto=@CarApplication_Auto group by CarBase_Auto,OilGaugeIn,Legend
+
+			select @User_Auto=AppUser,@AppType=AppType from CarApplication where CarApplication_Auto=@CarApplication_Auto
+
+			select IsSalesDep from v_Emp where User_Auto=@User_Auto   --是否为业务
+
+			update DocSystem.dbo.WorkFlowDoc
+			set [Status]=20,MDT=GETDATE(),MUser=@UserId,Memo=@Memo,IsAgent=0
+			where DocPostID=@CarApplication_Auto and AppSeq=@AppSeq and DocType=@DocType   and status=0
+
+
+			select @MaxAppSeq=isnull(MAX(AppSeq),0)
+			from DocSystem.dbo.WorkFlowDoc
+			where DocPostID=@CarApplication_Auto and DocType=@DocType and InActiveList=1
+			if(@MaxAppSeq=@AppSeq)--最后一个审核--
+			begin
+					update CarApplication
+					set [Status]=20,
+					StartDT=getdate(),
+					MUser=@UserId,
+					MDT=getdate()
+					where CarApplication_Auto=@CarApplication_Auto
+			end
+
+		end
+END
+    </insert>
 </mapper>
