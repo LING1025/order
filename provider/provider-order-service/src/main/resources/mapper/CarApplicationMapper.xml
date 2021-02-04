@@ -389,5 +389,6 @@ select c.CarApplication_Auto,v.FName appUserN,i.ItemName appTypeN, c.PlanStartDT
             AND aa.StatusN=#{param.statusN}
         </if>
 		order by aa.CarApplication_Auto desc
+        end
     </select>
 </mapper>
