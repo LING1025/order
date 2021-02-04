@@ -447,6 +447,8 @@ select c.CarApplication_Auto,v.FName appUserN,i.ItemName appTypeN, c.PlanStartDT
 		left join Brand b on cb.Brand_Auto=b.Brand_Auto
 		left join ItemCode i4 on i4.num = cb.BSType and i4.ItemType=841 --变速类型
 		left join ItemCode i5 on i5.num = cse.WHType and i5.ItemType=826--仓库别
+        left join DocSystem.dbo.WorkFlowDoc  t1 on c.CarApplication_Auto=t1.DocPostID  and t1.DocType=10
+        left join [Portal].[dbo].[Portal_Roles] t2  on t1.RoleID=t2.RoleID
 		where c.CarApplication_Auto=#{carApplicationAuto}
     </select>
 </mapper>
