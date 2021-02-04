@@ -167,6 +167,9 @@ public class CarApplyController {
     @GetMapping(value = "queryUseCarDoc")
     public ResponseResult<List<UseCarDoc>> queryUseCarDoc(@RequestParam(name = "carApplicationAuto",required = false) Long carApplicationAuto){
         List<UseCarDoc> list = carApplicationService.selectUseCarDoc(carApplicationAuto);
+        if (list.size() == 0){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"暂无数据",null);
+        }
         return new ResponseResult<>(ResponseResult.CodeStatus.OK,"查询成功",list);
     }
 
@@ -287,4 +290,16 @@ public class CarApplyController {
         }
         return new ResponseResult<>(ResponseResult.CodeStatus.OK,"查询成功",lists);
     }
+
+    @ApiOperation(value = "用车审核：选取审核明细")
+    @ApiImplicitParam(name = "carApplicationAuto",value = "用车申请单号",required = true,dataType = "long",paramType = "path")
+    @GetMapping(value = "queryCheckOne")
+    public ResponseResult<CheckOne> queryCheckOne(@RequestParam(name = "carApplicationAuto") Long carApplicationAuto){
+        CheckOne checkOne = carApplicationService.selectCheckOne(carApplicationAuto);
+        if (checkOne == null){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"暂无数据",null);
+        }
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK,"查询成功",checkOne);
+    }
+
 }
