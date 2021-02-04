@@ -106,6 +106,7 @@
 
   </select>
 
+    <!--用车申请：签核明细数据-->
     <resultMap id="queryUseCarDoc" type="com.funtl.myshop.plus.provider.domain.UseCarDoc">
         <result column="DocPostID" jdbcType="BIGINT" property="carApplicationAuto" />
         <result column="RoleID" jdbcType="BIGINT" property="roleId" />
@@ -118,7 +119,6 @@
         <result column="CDT" jdbcType="TIMESTAMP" property="cdt" />
         <result column="appUserN" jdbcType="VARCHAR" property="appUserN" />
     </resultMap>
-    <!--用车申请：签核明细数据-->
     <select id="selectUseCarDoc" resultMap="queryUseCarDoc">
         declare
         @DocPostID bigint=#{carApplicationAuto}
@@ -137,6 +137,7 @@ begin
 end
     </select>
 
+    <!--用车申请：用车时间-->
     <resultMap id="queryByTime" type="com.funtl.myshop.plus.provider.domain.Holiday">
         <result column="num" jdbcType="INTEGER" property="num" />
         <result column="useCarTime" jdbcType="DECIMAL" property="useCarTime" />
@@ -147,6 +148,7 @@ end
         useCarTime=cast(DATEDIFF(minute,#{startTime},#{endTime})*1./60 as decimal(18,1))
         from DocSystem.dbo.Holiday where HolidayDate between #{startTime} and #{endTime}
     </select>
+
     <!--用车申请：送件-->
     <insert id="applyInsert">
         declare
@@ -320,6 +322,7 @@ end
         END
     </insert>
 
+    <!--用车审核：获取审核数据 -->
     <resultMap id="queryCheckList" extends="BaseResultMap" type="com.funtl.myshop.plus.provider.domain.CheckList">
         <result column="MakNo" jdbcType="VARCHAR" property="makNo" />
         <result column="appUserN" jdbcType="VARCHAR" property="appUserN" />
@@ -327,7 +330,6 @@ end
         <result column="StatusN" jdbcType="VARCHAR" property="statusN" />
         <result column="DepName" jdbcType="VARCHAR" property="orgName" />
     </resultMap>
-    <!--用车审核：获取审核数据 -->
     <select id="selectCheckList" resultMap="queryCheckList">
         declare
 @UserAuto bigint = #{param.loginAuto}
@@ -390,5 +392,57 @@ select c.CarApplication_Auto,v.FName appUserN,i.ItemName appTypeN, c.PlanStartDT
         </if>
 		order by aa.CarApplication_Auto desc
         end
+    </select>
+
+    <!--用车审核：选取审核明细-->
+    <resultMap id="queryCheckOne" extends="BaseResultMap" type="com.funtl.myshop.plus.provider.domain.CheckOne">
+        <result column="MakNo" jdbcType="VARCHAR" property="makNo" />
+        <result column="appUserN" jdbcType="VARCHAR" property="appUserN" />
+        <result column="appTypeN" jdbcType="VARCHAR" property="appTypeN" />
+        <result column="DepName" jdbcType="VARCHAR" property="orgName" />
+        <result column="Carbase_Auto" jdbcType="BIGINT" property="carBaseAuto" />
+        <result column="MakNo" jdbcType="VARCHAR" property="makNo" />
+        <result column="oilName" jdbcType="VARCHAR" property="oilName" />
+        <result column="residueDL" jdbcType="DECIMAL" property="residueDL" />
+        <result column="mileage" jdbcType="DECIMAL" property="mileage" />
+        <result column="BrandName" jdbcType="VARCHAR" property="brandName" />
+        <result column="ClasenName" jdbcType="VARCHAR" property="clasenName" />
+        <result column="CarColor" jdbcType="VARCHAR" property="carColor" />
+        <result column="bsTypeN" jdbcType="VARCHAR" property="bsTypeN" />
+        <result column="whTypeN1" jdbcType="VARCHAR" property="whTypeN1" />
+        <result column="whTypeN2" jdbcType="VARCHAR" property="whTypeN2" />
+    </resultMap>
+    <select id="selectCheckOne" resultMap="queryCheckOne">
+        select c.CarApplication_Auto,v.FName appUserN,i.ItemName appTypeN, c.PlanStartDT,
+		c.PlanEndDT,
+		v.DepName,
+		c.UserName,
+		c.startAddr
+		,c.endAddr
+		,i2.ItemName areaTypeN
+		,c.LicenceMemo
+		,cb.CarBase_Auto
+		,cb.MakNo
+		,i3.ItemName oilName
+		,isnull(cse.residueDL,0) residueDL
+		,isnull(cse.mileage,0) mileage
+		,b.BrandName
+		,cn.ClasenName
+		,cb.CarColor
+		,i4.ItemName bsTypeN
+		,i5.ItemName whTypeN1
+		,i5.ItemName whTypeN2
+		from CarApplication c
+		left join v_Emp v on c.AppUser=v.User_Auto
+		left join ItemCode i on i.Num=c.AppType and i.ItemType=833
+		left join CarBase cb on c.Carbase_Auto=cb.CarBase_Auto
+		left join ItemCode i2 on i2.Num=c.areaType and i2.ItemType=810
+		left join ItemCode i3 on i3.num = cb.oil and i3.ItemType=231 --燃油种类
+		left join CarStatusEdit cse on cse.CarBase_Auto = c.Carbase_Auto
+		left join Clasen cn on cb.Clasen_Auto=cn.Clasen_Auto
+		left join Brand b on cb.Brand_Auto=b.Brand_Auto
+		left join ItemCode i4 on i4.num = cb.BSType and i4.ItemType=841 --变速类型
+		left join ItemCode i5 on i5.num = cse.WHType and i5.ItemType=826--仓库别
+		where c.CarApplication_Auto=#{carApplicationAuto}
     </select>
 </mapper>

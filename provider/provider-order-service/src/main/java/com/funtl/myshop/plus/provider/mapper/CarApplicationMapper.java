@@ -20,4 +20,6 @@ public interface CarApplicationMapper extends MyMapper<CarApplication> {
     Integer applyInsert(@Param("param") OutCarApplyDto outCarApplyDto);
 
     List<CheckList> selectCheckList(@Param("param") CheckQueryParam checkQueryParam);
+
+    CheckOne selectCheckOne(@Param("carApplicationAuto") Long carApplicationAuto);
 }

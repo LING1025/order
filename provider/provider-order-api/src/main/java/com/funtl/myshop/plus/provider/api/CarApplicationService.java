@@ -45,4 +45,11 @@ public interface CarApplicationService{
      * @return
      */
     List<CheckList> selectCheckList(CheckQueryParam checkQueryParam);
+
+    /**
+     * 用车审核：选取审核明细
+     * @param carApplicationAuto
+     * @return
+     */
+    CheckOne selectCheckOne(Long carApplicationAuto);
 }
