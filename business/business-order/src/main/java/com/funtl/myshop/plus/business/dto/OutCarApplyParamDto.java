@@ -109,6 +109,9 @@ public class OutCarApplyParamDto implements Serializable {
     @ApiModelProperty(value = "汽车序号")
     private Long carBaseAuto;
 
+    @ApiModelProperty(value = "排挡方式")
+    private String bsTypeN;
+
     /*@ApiModelProperty(value = "车状态:1预定 2出车 3入车 4作废 5在库 6审核中 7驳回 8被申请")
     private Integer carStatus;
 
