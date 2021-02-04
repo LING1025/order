@@ -128,4 +128,10 @@ public class CheckOne implements Serializable {
 
     @ApiModelProperty(value = "还车仓库")
     private String whTypeN2;
+
+    @ApiModelProperty(value = "权限id")
+    private Long roleId;
+
+    @ApiModelProperty(value = "审核等级序号")
+    private Integer appSeq;
 }

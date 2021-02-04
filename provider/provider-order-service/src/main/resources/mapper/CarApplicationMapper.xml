@@ -411,6 +411,8 @@ select c.CarApplication_Auto,v.FName appUserN,i.ItemName appTypeN, c.PlanStartDT
         <result column="bsTypeN" jdbcType="VARCHAR" property="bsTypeN" />
         <result column="whTypeN1" jdbcType="VARCHAR" property="whTypeN1" />
         <result column="whTypeN2" jdbcType="VARCHAR" property="whTypeN2" />
+        <result column="AppSeq" jdbcType="INTEGER" property="appSeq" />
+        <result column="RoleID" jdbcType="BIGINT" property="roleId" />
     </resultMap>
     <select id="selectCheckOne" resultMap="queryCheckOne">
         select c.CarApplication_Auto,v.FName appUserN,i.ItemName appTypeN, c.PlanStartDT,
@@ -432,6 +434,8 @@ select c.CarApplication_Auto,v.FName appUserN,i.ItemName appTypeN, c.PlanStartDT
 		,i4.ItemName bsTypeN
 		,i5.ItemName whTypeN1
 		,i5.ItemName whTypeN2
+        ,t1.AppSeq
+        ,t2.RoleID
 		from CarApplication c
 		left join v_Emp v on c.AppUser=v.User_Auto
 		left join ItemCode i on i.Num=c.AppType and i.ItemType=833
