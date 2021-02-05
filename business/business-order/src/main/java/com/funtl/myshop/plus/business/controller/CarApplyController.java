@@ -159,7 +159,7 @@ public class CarApplyController {
         return new ResponseResult<>(ResponseResult.CodeStatus.OK,"查询成功",lists);
     }
 
-    @ApiOperation(value = "用车申请：获取签核明细数据")
+    @ApiOperation(value = "用车审核：获取签核明细数据")
     @ApiImplicitParam(name = "carApplicationAuto",value = "用车申请单号",required = false,dataType = "long",paramType = "path")
     @GetMapping(value = "queryUseCarDoc")
     public ResponseResult<List<UseCarDoc>> queryUseCarDoc(@RequestParam(name = "carApplicationAuto",required = false) Long carApplicationAuto){
@@ -224,6 +224,19 @@ public class CarApplyController {
         if (outCarApplyParamDto.getPlanStartDT().after(outCarApplyParamDto.getPlanEndDT())){
             return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"开始时间必须小于结束时间",null);
         }
+        ApplyJudge applyJudge = carApplicationService.selectSC(outCarApplyParamDto.getAppUser());
+        ApplyJudge applyJudge2 = carApplicationService.selectNum(outCarApplyParamDto.getAppUser(),new Date());
+        if (applyJudge.getChiefId() < 2) {
+            if (applyJudge.getIsSalesDep()==1 && outCarApplyParamDto.getAppType()==1 && outCarApplyParamDto.getCarBaseAuto() == 0) {
+                return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"公务车申请时车号不能为空",null);
+            }
+            if (applyJudge.getIsSalesDep()==1 && outCarApplyParamDto.getAppType()==1 && applyJudge.getChiefId()<=1) {
+                if (applyJudge2.getNum() < 1){
+                    return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"行程安排未申请或未签核",null);
+                }
+            }
+        }
+
         OutCarApplyDto outCarApplyDto = new OutCarApplyDto();
         BeanUtils.copyProperties(outCarApplyParamDto,outCarApplyDto);
         Integer i = carApplicationService.applyInsert(outCarApplyDto);

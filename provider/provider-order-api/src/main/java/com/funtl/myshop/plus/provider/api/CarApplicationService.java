@@ -60,4 +60,18 @@ public interface CarApplicationService{
      * @return
      */
     Integer useCarCheckInsert(UseCarCheckDto useCarCheckDto);
+
+    /**
+     * 查isSalesDep、ChiefId值
+     * @param loginUserID
+     * @return
+     */
+    ApplyJudge selectSC(Long loginUserID);
+
+    /**
+     * 判断业务人员有没有申请拜访客户
+     * @param loginUserID,appDT
+     * @return
+     */
+    ApplyJudge selectNum(Long loginUserID,Date appDT);
 }

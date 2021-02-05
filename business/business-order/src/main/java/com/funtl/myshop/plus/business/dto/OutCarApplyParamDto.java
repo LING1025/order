@@ -107,7 +107,7 @@ public class OutCarApplyParamDto implements Serializable {
 //    private Integer status;
 
     @ApiModelProperty(value = "汽车序号")
-    private Long carBaseAuto;
+    private Long carBaseAuto=0L;
 
     @ApiModelProperty(value = "排挡方式")
     private String bsTypeN;

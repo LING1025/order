@@ -516,4 +516,41 @@ BEGIN
 		end
 END
     </insert>
+
+    <!--查isSalesDep值-->
+    <resultMap id="querySC" type="com.funtl.myshop.plus.provider.domain.ApplyJudge">
+        <result column="IsSalesDep" jdbcType="INTEGER" property="isSalesDep" />
+        <result column="ChiefId" jdbcType="INTEGER" property="chiefId" />
+    </resultMap>
+    <select id="selectSC" resultMap="querySC">
+        declare
+        @LoginUserID int=#{loginUserID}--登录者id
+        BEGIN
+            declare
+            @IsSalesDep int,
+            @ChiefId int
+            --select FName,IsSalesDep from v_Emp where User_Auto=@LoginUserID
+
+            set @IsSalesDep=(select IsSalesDep from v_Emp where User_Auto=@LoginUserID)
+            set @ChiefId=(select isnull(p.ChiefId,0)ChiefId from Promoter p left join v_Emp v on v.FName=p.Name where v.User_Auto=@LoginUserID)
+            select IsSalesDep=@IsSalesDep,ChiefId=isnull(@ChiefId,0)
+        END
+    </select>
+
+    <!--查ChiefId值-->
+    <resultMap id="queryNum" type="com.funtl.myshop.plus.provider.domain.ApplyJudge">
+        <result column="num" jdbcType="INTEGER" property="num" />
+    </resultMap>
+    <select id="selectNum" resultMap="queryNum">
+        declare
+        @LoginUserID int=#{loginUserID},--登录者id
+        @AppDT datetime=#{appDT} --申请日期默认当天
+        BEGIN
+        declare @VisitID bigint
+
+        select @VisitID=max(VisitID) from VisitPlan where CUser=@LoginUserID and (datediff(d,getdate(),VstDate)=datediff(d,getdate(),@AppDT))
+
+        select num=count(*) from DocSystem.dbo.WorkFlowDoc where DocPostID=@VisitID and DocType=17 and InActiveList=1 and [Status]=20
+        END
+    </select>
 </mapper>

@@ -25,4 +25,8 @@ public interface CarApplicationMapper extends MyMapper<CarApplication> {
     CheckOne selectCheckOne(@Param("carApplicationAuto") Long carApplicationAuto);
 
     Integer useCarCheckInsert(@Param("param") UseCarCheckDto useCarCheckDto);
+
+    ApplyJudge selectSC(@Param("loginUserID") Long loginUserID);
+
+    ApplyJudge selectNum(@Param("loginUserID") Long loginUserID, @Param("appDT") Date appDT);
 }

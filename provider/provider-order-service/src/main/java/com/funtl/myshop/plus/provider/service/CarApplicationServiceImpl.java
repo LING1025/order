@@ -55,4 +55,14 @@ public class CarApplicationServiceImpl implements CarApplicationService{
     public Integer useCarCheckInsert(UseCarCheckDto useCarCheckDto) {
         return carApplicationMapper.useCarCheckInsert(useCarCheckDto);
     }
+
+    @Override
+    public ApplyJudge selectSC(Long loginUserID) {
+        return carApplicationMapper.selectSC(loginUserID);
+    }
+
+    @Override
+    public ApplyJudge selectNum(Long loginUserID,Date appDT) {
+        return carApplicationMapper.selectNum(loginUserID,appDT);
+    }
 }
