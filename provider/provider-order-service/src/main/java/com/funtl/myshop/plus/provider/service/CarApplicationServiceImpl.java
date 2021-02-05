@@ -65,4 +65,9 @@ public class CarApplicationServiceImpl implements CarApplicationService{
     public ApplyJudge selectNum(Long loginUserID,Date appDT) {
         return carApplicationMapper.selectNum(loginUserID,appDT);
     }
+
+    @Override
+    public ApplyJudge test(OutCarApplyDto outCarApplyDto) {
+        return carApplicationMapper.test(outCarApplyDto);
+    }
 }

@@ -157,7 +157,7 @@ end
         @WHType int=#{param.whType},--仓库别
         @PlanStartDT datetime=#{param.planStartDT},
         @PlanEndDT datetime=#{param.planEndDT},
-        @Fname nvarchar(50)=#{param.appUser},--申请人
+        @Fname nvarchar(50)=#{param.appUserN},--申请人
         @UserName nvarchar(50)=#{param.username},--使用人
         @IsDriver int=#{param.isDriver},
         @DriverUser_Auto int=0,
@@ -551,6 +551,184 @@ END
         select @VisitID=max(VisitID) from VisitPlan where CUser=@LoginUserID and (datediff(d,getdate(),VstDate)=datediff(d,getdate(),@AppDT))
 
         select num=count(*) from DocSystem.dbo.WorkFlowDoc where DocPostID=@VisitID and DocType=17 and InActiveList=1 and [Status]=20
+        END
+    </select>
+
+    <!--用车申请报错信息-->
+    <resultMap id="queryErrorN" type="com.funtl.myshop.plus.provider.domain.ApplyJudge">
+        <result column="errorN" jdbcType="VARCHAR" property="errorN" />
+    </resultMap>
+    <select id="test" resultMap="querySC">
+        declare
+        @AppUser bigint=#{param.appUser},--申请人id
+        @AppType int=#{param.appType},--用车类别
+        @WHType int=#{param.whType},--仓库别
+        @PlanStartDT datetime=#{param.planStartDT},
+        @PlanEndDT datetime=#{param.planEndDT},
+        @Fname nvarchar(50)=#{param.appUserN},--申请人
+        @UserName nvarchar(50)=#{param.username},--使用人
+        @IsDriver int=#{param.isDriver},
+        @DriverUser_Auto int=0,
+        @LicenceMemo nvarchar(200)=#{param.licenceMemo},
+        @Carbase_Auto bigint=#{param.carBaseAuto},--车籍序号
+        @Status int=10,--送件
+        @CUser int=#{param.appUser}, --申请人id,及创建人id
+        @startAddr varchar(50)=#{param.startAddr},
+        @startAddrLat varchar(50)=#{param.startAddrLat},
+        @startAddrLng varchar(50)=#{param.startAddrLng},
+        @endAddr varchar(50)=#{param.endAddr},
+        @endAddrLat varchar(50)=#{param.endAddrLat},
+        @endAddrLng varchar(50)=#{param.endAddrLng},
+        @distance decimal(18,3)=#{param.distance},
+        @isHoliday int=#{param.isHoliday},
+        @useCarTime decimal(18,1)=#{param.useCarTime},
+        @areaType int =#{param.areaType}
+        BEGIN
+        SET NOCOUNT ON;
+        Declare @WorkFlow_Auto bigint
+        Declare @Title nvarchar(10)
+        Declare @UpUnit Nvarchar(20)
+        Declare @UnitId NVarChar(6)
+        Declare @OldUnitId NVarChar(6)
+        Declare @ChiefId varchar(2)
+        Declare @SerialNo bigint
+        Declare @sType int
+        Declare @sChiefFlag int
+        declare @EmpId nvarchar(7)
+        declare @IsSalesDep int
+        declare @NAme nvarchar(20)
+        declare @CNum int --判断实习组长是否能签核
+        declare @error varchar(50)
+
+        begin
+        select @IsSalesDep=IsSalesDep,@NAme=FName from v_Emp where User_Auto=@AppUser
+
+        select @EmpId=EmpId from DocSystem.dbo.v_User where UserID= @AppUser
+
+        Select top 1 @UnitId=a.UnitId,
+        @OldUnitId=a.UnitId,@UpUnit=b.UpUnit ,@ChiefId=ChiefId,@Title=Title
+        from dbo.Unit a (NoLock)
+        Inner Join dbo.Promoter b (NoLock) on a.UnitId = b.UnitId
+        Where EmpId = @EmpId
+
+
+
+        if(@UpUnit='华南营业二部三课（中山/佛山）' or @UpUnit='华东营业二部三课（南京）' or (@UpUnit='华东营业三部' and @UnitId='11676') or @UnitId='11293')  --11676 临沂课
+        begin
+        set @sChiefFlag = 1
+        end
+        else if(@UnitId='11500' and @ChiefId=1)--联办  组长
+        begin
+        set @sChiefFlag =0
+        end
+        else
+        begin
+        --组长
+        set @sChiefFlag = Case When @OldUnitId in (Select top 1 Matter from DocSystem.dbo.IdCode (NoLock) Where cboKind = N'代理部门') Then 1
+        Else IsNull((Select top 1 Cast(Max(a.ChiefId) as int)
+        from DocSystem.dbo.Promoter  a (NoLock) Inner Join DocSystem.dbo.Unit b (NoLock) on a.UnitId = b.UnitId
+        Where b.UnitId = @OldUnitId And a.ChiefId = '1' And a.Title != N'离职'),0) End
+
+        end
+
+        declare @Zuzhang bigint
+        select @Zuzhang=User_Auto from v_Emp where DepCode=(select DepCode from v_Emp where User_Auto=@CUser) and IsOn=1 and TitleLevel=60
+
+        select @CNum=count(a.RoleID) from Portal.dbo.Portal_Roles a where   a.RoleID  in (select b.RoleID from Portal.dbo.Portal_UserRoles b  where b.UserID=@Zuzhang) and      (a.RoleName like'%组长%' or a.RoleName like'%組長%' )
+        if @CNum!=0 or @sChiefFlag=1
+        begin
+        set @sChiefFlag=1
+        end
+        else
+        begin
+        set @sChiefFlag=0
+        end
+
+        set @WorkFlow_Auto =(Select top 1 KindId from DocSystem.dbo.IdCode a  (NoLock)
+        Inner Join DocSystem.dbo.Unit b on a.Matter = b.UnitName
+        Where cboKind = N'请假签核'
+        And UnitId = @UnitId)
+        If @WorkFlow_Auto Is Null
+        Begin
+        set @WorkFlow_Auto =(Select top 1 KindId from DocSystem.dbo.IdCode a  (NoLock)
+        Inner Join DocSystem.dbo.Unit b on a.Matter = b.UnitName
+        Where cboKind = N'请假签核'
+        And UnitName = @UpUnit)
+        End
+
+        If IsNull(@WorkFlow_Auto,0) = 0 or IsNull((Select WorkFlow_Auto from DocSystem.dbo.WorkFlow (NoLock) Where WorkFlow_Auto = @WorkFlow_Auto),0) = 0
+        Begin
+        --RAISERROR (N'查无签核流程设定!请联系系统管理员!',16,1)
+        set @error='查无签核流程设定!请联系系统管理员!'
+        select errorN=@error
+        End
+        Else
+        Begin
+        declare @IsSave int
+        if @Carbase_Auto > 0 and exists (select * from CarApplication where Carbase_Auto=@Carbase_Auto and Status=30 and IsSave=0)
+        set @IsSave=1
+        else
+        set @IsSave=0
+
+        if(@AppType!=2)--非主管用车
+        begin
+        Insert Into CarApplication(AppUser,AppDT,AppType,FeeType,WHType,PlanStartDT,PlanEndDT,Fname,
+        UserName,IsDriver,DriverUser_Auto,LicenceMemo,Carbase_Auto,[Status],CUser,CDT,IsSave,
+        startAddr,startAddrLat,startAddrLng,endAddr,endAddrLat,endAddrLng,distance,IsHoliday,useCarTime,areaType)
+        Values(@AppUser,getdate(),@AppType,1,@WHType,@PlanStartDT,@PlanEndDT,@Fname,@UserName,@IsDriver,@DriverUser_Auto,
+        @LicenceMemo,@Carbase_Auto,@Status,@CUser,getdate(),@IsSave,
+        @startAddr,@startAddrLat,@startAddrLng,@endAddr,@endAddrLat,@endAddrLng,@distance,@IsHoliday,@useCarTime,@areaType)
+
+
+        declare @CarApplication_Auto bigint
+        select @CarApplication_Auto=MAX(CarApplication_Auto) from CarApplication where CUser=@CUser
+
+        if(@EmpId='17075' or @EmpId='17160')--时长征   一般出车 王春阳审核  长沙张文翔 马骁审核    主任级
+        begin
+        set @sType =dbo.f_GetOutcarFlowType(@ChiefId,@AppType,@sChiefFlag,1,@PlanStartDT,@PlanEndDT,@IsSalesDep)
+        end
+        else
+        begin
+        set @sType =dbo.f_GetOutcarFlowType(@ChiefId,@AppType,@sChiefFlag,DocSystem.dbo.f_GetHasChiefd2(@empid),@PlanStartDT,@PlanEndDT,@IsSalesDep)
+        --下面一句是正式库的
+        --set @sType =dbo.f_GetOutcarFlowType(@ChiefId,@AppType,@sChiefFlag,DocSystem.dbo.f_GetHasChiefd2_2(@empid),@PlanStartDT,@PlanEndDT,@IsSalesDep)
+
+        end
+
+
+        Exec s_OutcarApplyFlow @WorkFlow_Auto,@CarApplication_Auto,@EmpId,0,@CUser,@sType,0
+
+
+        ----外出签核核准的   申请出车自动核准到出车状态
+        if(@IsSalesDep=1 and @AppType=1)
+        begin
+        declare @VisitID bigint,@CheckUser int
+        select @VisitID=VisitID,@CheckUser=MUser from VisitPlan where CUser=@CUser and (datediff(d,getdate(),VstDate)=datediff(d,getdate(),getdate())) and [Status]=20
+
+        update DocSystem.dbo.WorkFlowDoc
+        set [Status]=20,MDT=GETDATE(),MUser=@CheckUser,Memo='ok',IsAgent=0
+        where DocPostID=@CarApplication_Auto  and DocType=10   and status=0
+
+        update CarApplication
+        set [Status]=20,
+        StartDT=getdate(),
+        MUser=@CheckUser,
+        MDT=getdate()
+        where CarApplication_Auto=@CarApplication_Auto
+        end
+        end
+        else   --主管用车
+        begin
+        Insert Into CarApplication(AppUser,AppDT,AppType,FeeType,WHType,PlanStartDT,PlanEndDT,Fname,
+        UserName,IsDriver,DriverUser_Auto,LicenceMemo,Carbase_Auto,[Status],CUser,CDT,IsSave,
+        startAddr,startAddrLat,startAddrLng,endAddr,endAddrLat,endAddrLng,distance,IsHoliday,useCarTime,areaType)
+        Values(@AppUser,getdate(),@AppType,1,@WHType,@PlanStartDT,@PlanEndDT,@Fname,@UserName,@IsDriver,@DriverUser_Auto,
+        @LicenceMemo,@Carbase_Auto,20,@CUser,getdate(),@IsSave,
+        @startAddr,@startAddrLat,@startAddrLng,@endAddr,@endAddrLat,@endAddrLng,@distance,@IsHoliday,@useCarTime,@areaType)
+        end
+        End
+        end
+
         END
     </select>
 </mapper>

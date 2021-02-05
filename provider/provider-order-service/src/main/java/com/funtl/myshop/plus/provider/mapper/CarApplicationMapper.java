@@ -29,4 +29,6 @@ public interface CarApplicationMapper extends MyMapper<CarApplication> {
     ApplyJudge selectSC(@Param("loginUserID") Long loginUserID);
 
     ApplyJudge selectNum(@Param("loginUserID") Long loginUserID, @Param("appDT") Date appDT);
+
+    ApplyJudge test(@Param("param") OutCarApplyDto outCarApplyDto);
 }

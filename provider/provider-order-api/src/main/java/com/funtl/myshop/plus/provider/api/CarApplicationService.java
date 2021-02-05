@@ -74,4 +74,6 @@ public interface CarApplicationService{
      * @return
      */
     ApplyJudge selectNum(Long loginUserID,Date appDT);
+
+    ApplyJudge test(OutCarApplyDto outCarApplyDto);
 }

@@ -14,4 +14,9 @@ public class ApplyJudge implements Serializable {
     private Integer isSalesDep;
 
     private Integer num;
+
+    /**
+     * 用车申请报错信息
+     */
+    private String errorN;
 }
