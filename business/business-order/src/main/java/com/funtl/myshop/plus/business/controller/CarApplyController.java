@@ -343,4 +343,16 @@ public class CarApplyController {
         }
         return new ResponseResult<>(ResponseResult.CodeStatus.OK,"驳回成功",null);
     }
+
+    @ApiOperation(value = "用车审核：更改车辆(此接口如要测试请联系后端)")
+    @PutMapping(value = "carChangeUpdate")
+    public ResponseResult<String> CarChangeUpdate(@ApiParam(value = "用车审核：更改车辆数据")@Valid @RequestBody CarChangeParamDto carChangeParamDto){
+        CarChangeDto carChangeDto = new CarChangeDto();
+        BeanUtils.copyProperties(carChangeParamDto,carChangeDto);
+        Integer i = carApplicationService.carChangeUpdate(carChangeDto);
+        if (i == 0){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"更改失败",null);
+        }
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK,"更改成功",null);
+    }
 }

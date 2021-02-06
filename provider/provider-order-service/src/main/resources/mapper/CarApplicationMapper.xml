@@ -668,7 +668,7 @@ END
     </select>
 
     <!--用车审核：更改车辆-->
-    <update id="CarChangeUpdate">
+    <update id="carChangeUpdate">
         declare
         @CarApplicationAuto bigint=#{param.carApplicationAuto},
         @CarBaseAuto bigint=#{param.carBaseAuto},

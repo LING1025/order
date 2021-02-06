@@ -69,7 +69,7 @@ public class CarApplicationServiceImpl implements CarApplicationService{
     }
 
     @Override
-    public Integer CarChangeUpdate(CarChangeDto carChangeDto) {
-        return carApplicationMapper.CarChangeUpdate(carChangeDto);
+    public Integer carChangeUpdate(CarChangeDto carChangeDto) {
+        return carApplicationMapper.carChangeUpdate(carChangeDto);
     }
 }

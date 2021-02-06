@@ -29,5 +29,5 @@ public interface CarApplicationMapper extends MyMapper<CarApplication> {
 
     ApplyJudge selectErrorN(@Param("param") OutCarApplyDto outCarApplyDto);
 
-    Integer CarChangeUpdate(@Param("param") CarChangeDto carChangeDto);
+    Integer carChangeUpdate(@Param("param") CarChangeDto carChangeDto);
 }
