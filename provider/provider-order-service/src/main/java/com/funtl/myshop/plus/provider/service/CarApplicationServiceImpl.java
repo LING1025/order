@@ -1,10 +1,7 @@
 package com.funtl.myshop.plus.provider.service;
 
 import com.funtl.myshop.plus.provider.domain.*;
-import com.funtl.myshop.plus.provider.dto.CheckQueryParam;
-import com.funtl.myshop.plus.provider.dto.OutCarApplyDto;
-import com.funtl.myshop.plus.provider.dto.UseCarCheckDto;
-import com.funtl.myshop.plus.provider.dto.UseCarQueryParam;
+import com.funtl.myshop.plus.provider.dto.*;
 
 import javax.annotation.Resource;
 import com.funtl.myshop.plus.provider.mapper.CarApplicationMapper;
@@ -69,5 +66,10 @@ public class CarApplicationServiceImpl implements CarApplicationService{
     @Override
     public ApplyJudge selectErrorN(OutCarApplyDto outCarApplyDto) {
         return carApplicationMapper.selectErrorN(outCarApplyDto);
+    }
+
+    @Override
+    public Integer CarChangeUpdate(CarChangeDto carChangeDto) {
+        return carApplicationMapper.CarChangeUpdate(carChangeDto);
     }
 }

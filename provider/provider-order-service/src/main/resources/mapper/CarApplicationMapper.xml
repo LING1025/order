@@ -666,4 +666,27 @@ END
 
         END
     </select>
+
+    <!--用车审核：更改车辆-->
+    <update id="CarChangeUpdate">
+        declare
+        @CarApplicationAuto bigint=#{param.carApplicationAuto},
+        @CarBaseAuto bigint=#{param.carBaseAuto},
+        @loginUserID bigint=#{param.loginUserID}
+        begin
+            declare @WHType int,
+            @Memo varchar(50)
+            set @WHType=
+            (select
+            WHType
+            from
+            CarStatusEdit
+            where CarBase_Auto=@CarBaseAuto)
+            set @Memo=convert(varchar(10),@loginUserID)+'用车审核更改车辆'+convert(varchar(10),GETDATE(),120)
+            update
+            CarApplication
+            set Carbase_Auto=@CarBaseAuto,WHType=@WHType,MUser=@loginUserID,Memo=@Memo,MDT=GETDATE()
+            where CarApplication_Auto=@CarApplicationAuto
+        end
+    </update>
 </mapper>

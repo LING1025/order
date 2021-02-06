@@ -1,10 +1,7 @@
 package com.funtl.myshop.plus.provider.api;
 
 import com.funtl.myshop.plus.provider.domain.*;
-import com.funtl.myshop.plus.provider.dto.CheckQueryParam;
-import com.funtl.myshop.plus.provider.dto.OutCarApplyDto;
-import com.funtl.myshop.plus.provider.dto.UseCarCheckDto;
-import com.funtl.myshop.plus.provider.dto.UseCarQueryParam;
+import com.funtl.myshop.plus.provider.dto.*;
 
 import java.util.Date;
 import java.util.List;
@@ -81,4 +78,11 @@ public interface CarApplicationService{
      * @return
      */
     ApplyJudge selectErrorN(OutCarApplyDto outCarApplyDto);
+
+    /**
+     * 用车审核：更改车辆
+     * @param carChangeDto
+     * @return
+     */
+    Integer CarChangeUpdate(CarChangeDto carChangeDto);
 }

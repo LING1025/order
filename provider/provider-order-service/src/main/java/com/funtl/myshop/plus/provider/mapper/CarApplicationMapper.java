@@ -1,10 +1,7 @@
 package com.funtl.myshop.plus.provider.mapper;
 
 import com.funtl.myshop.plus.provider.domain.*;
-import com.funtl.myshop.plus.provider.dto.CheckQueryParam;
-import com.funtl.myshop.plus.provider.dto.OutCarApplyDto;
-import com.funtl.myshop.plus.provider.dto.UseCarCheckDto;
-import com.funtl.myshop.plus.provider.dto.UseCarQueryParam;
+import com.funtl.myshop.plus.provider.dto.*;
 import org.apache.ibatis.annotations.Param;
 import tk.mybatis.mapper.MyMapper;
 
@@ -31,4 +28,6 @@ public interface CarApplicationMapper extends MyMapper<CarApplication> {
     ApplyJudge selectNum(@Param("loginUserID") Long loginUserID, @Param("appDT") Date appDT);
 
     ApplyJudge selectErrorN(@Param("param") OutCarApplyDto outCarApplyDto);
+
+    Integer CarChangeUpdate(@Param("param") CarChangeDto carChangeDto);
 }
