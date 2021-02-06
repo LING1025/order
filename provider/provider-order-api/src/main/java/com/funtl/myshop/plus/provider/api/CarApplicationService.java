@@ -75,5 +75,10 @@ public interface CarApplicationService{
      */
     ApplyJudge selectNum(Long loginUserID,Date appDT);
 
-    ApplyJudge test(OutCarApplyDto outCarApplyDto);
+    /**
+     * 判断查无签核流程设定!请联系系统管理员!
+     * @param outCarApplyDto
+     * @return
+     */
+    ApplyJudge selectErrorN(OutCarApplyDto outCarApplyDto);
 }

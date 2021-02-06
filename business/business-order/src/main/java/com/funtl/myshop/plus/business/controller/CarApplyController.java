@@ -241,40 +241,21 @@ public class CarApplyController {
         OutCarApplyDto outCarApplyDto = new OutCarApplyDto();
         BeanUtils.copyProperties(outCarApplyParamDto,outCarApplyDto);
 
+        //捕获空指针异常
+        try{
+            //判断查无签核流程设定!请联系系统管理员!
+            ApplyJudge applyJudge3 = carApplicationService.selectErrorN(outCarApplyDto);
+            if (applyJudge3.getErrorN() != null){
+                return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,applyJudge3.getErrorN(),null);
+            }
+        }catch (NullPointerException e){
+            e.printStackTrace();
+        }
         Integer i = carApplicationService.applyInsert(outCarApplyDto);
         if (i == 0){
             return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"送件失败",null);
         }
         return new ResponseResult<>(ResponseResult.CodeStatus.OK,"送件成功",null);
-    }
-
-    @ApiOperation(value = "用车申请：送件(此接口如要测试请联系后端)")
-    @PostMapping(value = "test")
-    public ResponseResult<String> test(@ApiParam(value = "用车申请：新增数据")@Valid @RequestBody OutCarApplyParamDto outCarApplyParamDto){
-        if (outCarApplyParamDto.getPlanStartDT().after(outCarApplyParamDto.getPlanEndDT())){
-            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"开始时间必须小于结束时间",null);
-        }
-        ApplyJudge applyJudge = carApplicationService.selectSC(outCarApplyParamDto.getAppUser());
-        ApplyJudge applyJudge2 = carApplicationService.selectNum(outCarApplyParamDto.getAppUser(),new Date());
-        if (applyJudge.getChiefId() < 2) {
-            if (applyJudge.getIsSalesDep()==1 && outCarApplyParamDto.getAppType()==1 && outCarApplyParamDto.getCarBaseAuto() == 0) {
-                return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"公务车申请时车号不能为空",null);
-            }
-            if (applyJudge.getIsSalesDep()==1 && outCarApplyParamDto.getAppType()==1 && applyJudge.getChiefId()<=1) {
-                if (applyJudge2.getNum() < 1){
-                    return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"行程安排未申请或未签核",null);
-                }
-            }
-        }
-
-        OutCarApplyDto outCarApplyDto = new OutCarApplyDto();
-        BeanUtils.copyProperties(outCarApplyParamDto,outCarApplyDto);
-        ApplyJudge applyJudge3 = carApplicationService.test(outCarApplyDto);
-        if (applyJudge3.getErrorN() != null){
-            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"送件失败",applyJudge3.getErrorN());
-        }else {
-            return new ResponseResult<>(ResponseResult.CodeStatus.OK,"送件成功",null);
-        }
     }
 
     @ApiOperation(value = "用车审核：选择代理人")

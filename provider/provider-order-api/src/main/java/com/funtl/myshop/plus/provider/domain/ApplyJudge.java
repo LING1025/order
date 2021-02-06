@@ -18,5 +18,5 @@ public class ApplyJudge implements Serializable {
     /**
      * 用车申请报错信息
      */
-    private String errorN;
+    private String errorN="";
 }

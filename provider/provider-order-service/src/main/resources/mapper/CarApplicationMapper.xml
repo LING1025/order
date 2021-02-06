@@ -558,7 +558,7 @@ END
     <resultMap id="queryErrorN" type="com.funtl.myshop.plus.provider.domain.ApplyJudge">
         <result column="errorN" jdbcType="VARCHAR" property="errorN" />
     </resultMap>
-    <select id="test" resultMap="querySC">
+    <select id="selectErrorN" resultMap="querySC">
         declare
         @AppUser bigint=#{param.appUser},--申请人id
         @AppType int=#{param.appType},--用车类别
@@ -661,71 +661,6 @@ END
         --RAISERROR (N'查无签核流程设定!请联系系统管理员!',16,1)
         set @error='查无签核流程设定!请联系系统管理员!'
         select errorN=@error
-        End
-        Else
-        Begin
-        declare @IsSave int
-        if @Carbase_Auto > 0 and exists (select * from CarApplication where Carbase_Auto=@Carbase_Auto and Status=30 and IsSave=0)
-        set @IsSave=1
-        else
-        set @IsSave=0
-
-        if(@AppType!=2)--非主管用车
-        begin
-        Insert Into CarApplication(AppUser,AppDT,AppType,FeeType,WHType,PlanStartDT,PlanEndDT,Fname,
-        UserName,IsDriver,DriverUser_Auto,LicenceMemo,Carbase_Auto,[Status],CUser,CDT,IsSave,
-        startAddr,startAddrLat,startAddrLng,endAddr,endAddrLat,endAddrLng,distance,IsHoliday,useCarTime,areaType)
-        Values(@AppUser,getdate(),@AppType,1,@WHType,@PlanStartDT,@PlanEndDT,@Fname,@UserName,@IsDriver,@DriverUser_Auto,
-        @LicenceMemo,@Carbase_Auto,@Status,@CUser,getdate(),@IsSave,
-        @startAddr,@startAddrLat,@startAddrLng,@endAddr,@endAddrLat,@endAddrLng,@distance,@IsHoliday,@useCarTime,@areaType)
-
-
-        declare @CarApplication_Auto bigint
-        select @CarApplication_Auto=MAX(CarApplication_Auto) from CarApplication where CUser=@CUser
-
-        if(@EmpId='17075' or @EmpId='17160')--时长征   一般出车 王春阳审核  长沙张文翔 马骁审核    主任级
-        begin
-        set @sType =dbo.f_GetOutcarFlowType(@ChiefId,@AppType,@sChiefFlag,1,@PlanStartDT,@PlanEndDT,@IsSalesDep)
-        end
-        else
-        begin
-        set @sType =dbo.f_GetOutcarFlowType(@ChiefId,@AppType,@sChiefFlag,DocSystem.dbo.f_GetHasChiefd2(@empid),@PlanStartDT,@PlanEndDT,@IsSalesDep)
-        --下面一句是正式库的
-        --set @sType =dbo.f_GetOutcarFlowType(@ChiefId,@AppType,@sChiefFlag,DocSystem.dbo.f_GetHasChiefd2_2(@empid),@PlanStartDT,@PlanEndDT,@IsSalesDep)
-
-        end
-
-
-        Exec s_OutcarApplyFlow @WorkFlow_Auto,@CarApplication_Auto,@EmpId,0,@CUser,@sType,0
-
-
-        ----外出签核核准的   申请出车自动核准到出车状态
-        if(@IsSalesDep=1 and @AppType=1)
-        begin
-        declare @VisitID bigint,@CheckUser int
-        select @VisitID=VisitID,@CheckUser=MUser from VisitPlan where CUser=@CUser and (datediff(d,getdate(),VstDate)=datediff(d,getdate(),getdate())) and [Status]=20
-
-        update DocSystem.dbo.WorkFlowDoc
-        set [Status]=20,MDT=GETDATE(),MUser=@CheckUser,Memo='ok',IsAgent=0
-        where DocPostID=@CarApplication_Auto  and DocType=10   and status=0
-
-        update CarApplication
-        set [Status]=20,
-        StartDT=getdate(),
-        MUser=@CheckUser,
-        MDT=getdate()
-        where CarApplication_Auto=@CarApplication_Auto
-        end
-        end
-        else   --主管用车
-        begin
-        Insert Into CarApplication(AppUser,AppDT,AppType,FeeType,WHType,PlanStartDT,PlanEndDT,Fname,
-        UserName,IsDriver,DriverUser_Auto,LicenceMemo,Carbase_Auto,[Status],CUser,CDT,IsSave,
-        startAddr,startAddrLat,startAddrLng,endAddr,endAddrLat,endAddrLng,distance,IsHoliday,useCarTime,areaType)
-        Values(@AppUser,getdate(),@AppType,1,@WHType,@PlanStartDT,@PlanEndDT,@Fname,@UserName,@IsDriver,@DriverUser_Auto,
-        @LicenceMemo,@Carbase_Auto,20,@CUser,getdate(),@IsSave,
-        @startAddr,@startAddrLat,@startAddrLng,@endAddr,@endAddrLat,@endAddrLng,@distance,@IsHoliday,@useCarTime,@areaType)
-        end
         End
         end
 

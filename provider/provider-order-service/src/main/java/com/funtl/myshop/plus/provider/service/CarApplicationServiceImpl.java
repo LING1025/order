@@ -67,7 +67,7 @@ public class CarApplicationServiceImpl implements CarApplicationService{
     }
 
     @Override
-    public ApplyJudge test(OutCarApplyDto outCarApplyDto) {
-        return carApplicationMapper.test(outCarApplyDto);
+    public ApplyJudge selectErrorN(OutCarApplyDto outCarApplyDto) {
+        return carApplicationMapper.selectErrorN(outCarApplyDto);
     }
 }
