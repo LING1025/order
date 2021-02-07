@@ -161,8 +161,6 @@ end
         @Fname nvarchar(50)=#{param.appUserN},--申请人
         @UserName nvarchar(50)=#{param.username},--使用人
         @userAuto bigint=#{param.userAuto},--使用人序号
-        @orgName nvarchar(50)=#{param.orgName},--使用人部门
-        @orgAuto bigint=#{param.orgAuto},--使用人部门序号
         @IsDriver int=#{param.isDriver},
         @DriverUser_Auto int=0,
         @LicenceMemo nvarchar(200)=#{param.licenceMemo},
@@ -269,11 +267,11 @@ end
         Insert Into CarApplication(AppUser,AppDT,AppType,FeeType,WHType,PlanStartDT,PlanEndDT,Fname,
         UserName,IsDriver,DriverUser_Auto,LicenceMemo,Carbase_Auto,[Status],CUser,CDT,IsSave,
         startAddr,startAddrLat,startAddrLng,endAddr,endAddrLat,endAddrLng,distance,IsHoliday,
-        useCarTime,areaType,UserAuto,orgAuto,orgName)
+        useCarTime,areaType,UserAuto)
         Values(@AppUser,getdate(),@AppType,1,@WHType,@PlanStartDT,@PlanEndDT,@Fname,@UserName,@IsDriver,@DriverUser_Auto,
         @LicenceMemo,@Carbase_Auto,@Status,@CUser,getdate(),@IsSave,
         @startAddr,@startAddrLat,@startAddrLng,@endAddr,@endAddrLat,@endAddrLng,@distance,@IsHoliday,@useCarTime,@areaType,
-        @UserAuto,@orgAuto,@orgName)
+        @UserAuto)
 
 
         declare @CarApplication_Auto bigint
@@ -318,11 +316,11 @@ end
         Insert Into CarApplication(AppUser,AppDT,AppType,FeeType,WHType,PlanStartDT,PlanEndDT,Fname,
         UserName,IsDriver,DriverUser_Auto,LicenceMemo,Carbase_Auto,[Status],CUser,CDT,IsSave,
         startAddr,startAddrLat,startAddrLng,endAddr,endAddrLat,endAddrLng,distance,IsHoliday,
-        useCarTime,areaType,UserAuto,orgAuto,orgName)
+        useCarTime,areaType,UserAuto)
         Values(@AppUser,getdate(),@AppType,1,@WHType,@PlanStartDT,@PlanEndDT,@Fname,@UserName,@IsDriver,@DriverUser_Auto,
         @LicenceMemo,@Carbase_Auto,20,@CUser,getdate(),@IsSave,
         @startAddr,@startAddrLat,@startAddrLng,@endAddr,@endAddrLat,@endAddrLng,@distance,@IsHoliday,@useCarTime,@areaType,
-        @UserAuto,@orgAuto,@orgName)
+        @UserAuto)
         end
         End
         end
