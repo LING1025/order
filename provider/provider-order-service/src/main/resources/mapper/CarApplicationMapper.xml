@@ -72,7 +72,7 @@
         select c.CarApplication_Auto,v.FName appUserN,i.ItemName appTypeN, c.PlanStartDT,
 		c.PlanEndDT,
 		c.CDT,
-        v.DepName,
+        v2.DepName,
 		c.UserName,cb.MakNo,
         statusN= case c.Status when 10 then '送件中'
 		when 5 then '驳回'
@@ -81,7 +81,8 @@
 		when 40 then '还车'
 		when -1 then '已删除' end
 		from CarApplication c
-		left join v_Emp v on c.AppUser=v.User_Auto
+        left join v_Emp v on c.AppUser=v.User_Auto--申请人
+        left join v_Emp v2 on c.UserAuto=v2.User_Auto--使用人
 		left join ItemCode i on i.Num=c.AppType and i.ItemType=833
 		left join CarBase cb on c.Carbase_Auto=cb.CarBase_Auto
 		where
