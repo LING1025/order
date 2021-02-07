@@ -73,6 +73,12 @@ public class CarApplication implements Serializable {
     private String fName;
 
     /**
+     * 使用人序号
+     */
+    @Column(name = "UserAuto")
+    private Long userAuto;
+
+    /**
     * 使用人
     */
     @Column(name = "UserName")

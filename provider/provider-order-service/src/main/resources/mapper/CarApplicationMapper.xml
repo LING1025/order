@@ -14,7 +14,8 @@
     <result column="PlanStartDT" jdbcType="TIMESTAMP" property="planStartDT" />
     <result column="PlanEndDT" jdbcType="TIMESTAMP" property="planEndDT" />
     <result column="Fname" jdbcType="VARCHAR" property="fName" />
-    <result column="UserName" jdbcType="VARCHAR" property="username" />
+      <result column="UserAuto" jdbcType="BIGINT" property="userAuto" />
+      <result column="UserName" jdbcType="VARCHAR" property="username" />
     <result column="IsDriver" jdbcType="INTEGER" property="isDriver" />
     <result column="DriverUser_Auto" jdbcType="VARCHAR" property="driverUserAuto" />
     <result column="AppCarbase_Auto" jdbcType="BIGINT" property="appCarbaseAuto" />
