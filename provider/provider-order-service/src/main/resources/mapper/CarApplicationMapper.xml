@@ -779,6 +779,8 @@ select c.CarApplication_Auto,v.FName appUserN,i.ItemName appTypeN, c.PlanStartDT
 		,i4.ItemName bsTypeN
 		,i5.ItemName whTypeN1
 		,i5.ItemName whTypeN2
+        ,t1.AppSeq
+        ,t2.RoleID
 		from CarApplication c
 		left join v_Emp v on c.AppUser=v.User_Auto--申请人
         left join v_Emp v2 on c.UserAuto=v2.User_Auto--使用人
@@ -792,6 +794,8 @@ select c.CarApplication_Auto,v.FName appUserN,i.ItemName appTypeN, c.PlanStartDT
 		left join ItemCode i4 on i4.num = cb.BSType and i4.ItemType=841 --变速类型
 		left join ItemCode i5 on i5.num = cse.WHType and i5.ItemType=826--仓库别
 		left join DocSystem.dbo.Employee e on v.UserName=e.Account collate Chinese_PRC_CI_AS
+        left join DocSystem.dbo.WorkFlowDoc  t1 on c.CarApplication_Auto=t1.DocPostID  and t1.DocType=10
+        left join [Portal].[dbo].[Portal_Roles] t2  on t1.RoleID=t2.RoleID
 		where c.[Status]in(10,20) and v.IsOn=1 and e.[Status]='任用'
 		and e.Inc_Auto in(select V1 from ItemCode i3 inner join CarStationManager cm on i3.Num=cm.Station and cm.User_auto=@LoginUserID where i3.ItemType=826 and cm.Status=1)
 	)aa

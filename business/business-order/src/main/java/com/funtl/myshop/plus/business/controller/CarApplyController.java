@@ -383,4 +383,19 @@ public class CarApplyController {
         }
         return new ResponseResult<>(ResponseResult.CodeStatus.OK,"查询成功",lists);
     }
+
+    @ApiOperation(value = "车辆安排：获取具体申请明细")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "loginUserID",value = "登录人userAuto",required = true,dataType = "long",paramType = "path"),
+            @ApiImplicitParam(name = "carApplicationAuto",value = "用车申请单号",required = true,dataType = "long",paramType = "path")
+    })
+    @GetMapping(value = "queryArrangeOne")
+    public ResponseResult<CheckOne> queryArrangeOne(@RequestParam(name = "loginUserID") Long loginUserID,
+                                                    @RequestParam(name = "carApplicationAuto") Long carApplicationAuto){
+        CheckOne checkOne = carApplicationService.selectArrangeOne(loginUserID, carApplicationAuto);
+        if (checkOne == null){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"暂无数据",null);
+        }
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK,"查询成功",checkOne);
+    }
 }
