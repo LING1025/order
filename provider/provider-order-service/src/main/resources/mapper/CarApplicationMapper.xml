@@ -83,6 +83,7 @@
         statusN= case c.Status when 10 then '送件中'
 		when 5 then '驳回'
 		when 20 then '核准'
+        when 21 then '待取车'
 		when 30 then '出车'
 		when 40 then '还车'
 		when -1 then '已删除' end
@@ -816,7 +817,7 @@ end
         @CarApplication_Auto bigint=#{param.carApplicationAuto},
         @isGive int = #{param.isGive}
         begin
-        update CarApplication set giveKeyUser=@giveKeyUser,giveKeyDT=GETDATE(),IsGive=@isGive where CarApplication_Auto=@CarApplication_Auto
+        update CarApplication set giveKeyUser=@giveKeyUser,giveKeyDT=GETDATE(),IsGive=@isGive,[Status]=21 where CarApplication_Auto=@CarApplication_Auto
         end
     </update>
 

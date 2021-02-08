@@ -169,7 +169,7 @@ public class CarApplication implements Serializable {
     private String memo;
 
     /**
-    * '-1取消、0暂存、5驳回、10送件、20核准、30出车、40还车
+    * '-1取消、0暂存、5驳回、10送件、20核准、30出车、40还车、21待取车
     */
     @Column(name = "Status")
     private Integer status;
