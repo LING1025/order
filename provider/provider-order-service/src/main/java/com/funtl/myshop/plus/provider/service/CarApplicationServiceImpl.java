@@ -84,7 +84,7 @@ public class CarApplicationServiceImpl implements CarApplicationService{
     }
 
     @Override
-    public Integer giveKeyInsert(GiveKeyDto giveKeyDto) {
-        return carApplicationMapper.giveKeyInsert(giveKeyDto);
+    public Integer giveKeyUpdate(GiveKeyDto giveKeyDto) {
+        return carApplicationMapper.giveKeyUpdate(giveKeyDto);
     }
 }

@@ -106,5 +106,5 @@ public interface CarApplicationService{
      * @param giveKeyDto
      * @return
      */
-    Integer giveKeyInsert(GiveKeyDto giveKeyDto);
+    Integer giveKeyUpdate(GiveKeyDto giveKeyDto);
 }

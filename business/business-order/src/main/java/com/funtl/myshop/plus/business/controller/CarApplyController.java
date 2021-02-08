@@ -398,4 +398,17 @@ public class CarApplyController {
         }
         return new ResponseResult<>(ResponseResult.CodeStatus.OK,"查询成功",checkOne);
     }
+
+    @ApiOperation(value = "车辆安排：发放钥匙(此接口如要测试请联系后端)")
+    @PutMapping(value = "giveKeyUpdate")
+    public ResponseResult<String> GiveKeyUpdate(@ApiParam(value = "车辆安排：发放钥匙数据")@Valid @RequestBody GiveKeyParamDto giveKeyParamDto){
+        GiveKeyDto giveKeyDto = new GiveKeyDto();
+        BeanUtils.copyProperties(giveKeyParamDto,giveKeyDto);
+        Integer i = carApplicationService.giveKeyUpdate(giveKeyDto);
+        if (i == 0){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"发放失败",null);
+        }
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK,"发放成功",null);
+    }
+
 }

@@ -810,7 +810,7 @@ end
     </select>
 
     <!--车辆安排：发放钥匙-->
-    <update id="giveKeyInsert">
+    <update id="giveKeyUpdate">
         declare
         @giveKeyUser bigint=#{param.giveKeyUser},
         @CarApplication_Auto bigint=#{param.carApplicationAuto},
