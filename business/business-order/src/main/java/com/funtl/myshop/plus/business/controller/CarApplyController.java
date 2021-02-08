@@ -151,7 +151,7 @@ public class CarApplyController {
                                                           @RequestParam(name = "planStartDT",required = false) String planStartDT,
                                                           @RequestParam(name = "planEndDT",required = false) String planEndDT,
                                                           @RequestParam(name = "makNo",required = false) String makNo,
-                                                          @RequestParam(name = "statusN",required = false) Integer status){
+                                                          @RequestParam(name = "status",required = false) Integer status){
         UseCarQueryParam useCarQueryParam = new UseCarQueryParam(carApplicationAuto,username,makNo,planStartDT,planEndDT,status);
         List<UserCarList> lists = carApplicationService.selectUserCar(useCarQueryParam);
         if (lists.size() == 0){
