@@ -50,6 +50,12 @@
       <result column="endAddrLng" jdbcType="VARCHAR" property="endAddrLng" />
       <result column="distance" jdbcType="DECIMAL" property="distance" />
       <result column="areaType" jdbcType="INTEGER" property="areaType" />
+      <result column="IsGive" jdbcType="INTEGER" property="isGive" />
+      <result column="IsGet" jdbcType="INTEGER" property="isGet" />
+      <result column="giveKeyUser" jdbcType="BIGINT" property="giveKeyUser" />
+      <result column="giveKeyDT" jdbcType="TIMESTAMP" property="giveKeyDT" />
+      <result column="getKeyUser" jdbcType="BIGINT" property="getKeyUser" />
+      <result column="getKeyDT" jdbcType="TIMESTAMP" property="getKeyDT" />
   </resultMap>
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
@@ -58,7 +64,7 @@
     LicenceMemo, Carbase_Auto, StartDT, OilGaugeOut, MileageOut, OilCardNum, EndDT, OilGaugeIn,
     MileageIn, Memo, [Status], CUser, CDT, MUser, MDT, OilKM, OilKG, RoadFee, ParkingFee,
     IsSave,IsHoliday,useCarTime,startAddr,startAddrLat,startAddrLng,endAddr,endAddrLat,
-      endAddrLng,distance,areaType
+      endAddrLng,distance,areaType,IsGive,IsGet,giveKeyUser,giveKeyDT,getKeyUser,getKeyDT
   </sql>
   <!--用车申请：申请列表数据-->
   <resultMap id="queryUserCar" extends="BaseResultMap" type="com.funtl.myshop.plus.provider.domain.UserCarList">

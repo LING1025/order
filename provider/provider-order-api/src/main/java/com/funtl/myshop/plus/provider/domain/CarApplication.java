@@ -276,5 +276,41 @@ public class CarApplication implements Serializable {
     @Column(name = "areaType")
     private Integer areaType;
 
+    /**
+     * 是否发放钥匙 ：0否 1是
+     */
+    @Column(name = "IsGive")
+    private Integer isGive;
+
+    /**
+     * 是否领取钥匙 ：0否 1是
+     */
+    @Column(name = "IsGet")
+    private Integer isGet;
+
+    /**
+     * 发放钥匙人
+     */
+    @Column(name = "giveKeyUser")
+    private Long giveKeyUser;
+
+    /**
+     * 发放钥匙时间
+     */
+    @Column(name = "giveKeyDT")
+    private Date giveKeyDT;
+
+    /**
+     * 领取钥匙人
+     */
+    @Column(name = "getKeyUser")
+    private Long getKeyUser;
+
+    /**
+     * 领取钥匙时间
+     */
+    @Column(name = "getKeyDT")
+    private Date getKeyDT;
+
     private static final long serialVersionUID = 1L;
 }
