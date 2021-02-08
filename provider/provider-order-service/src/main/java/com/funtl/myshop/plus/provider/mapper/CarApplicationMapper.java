@@ -36,4 +36,6 @@ public interface CarApplicationMapper extends MyMapper<CarApplication> {
     CheckOne selectArrangeOne(@Param("loginUserID") Long loginUserID, @Param("carApplicationAuto") Long carApplicationAuto);
 
     Integer giveKeyUpdate(@Param("param") GiveKeyDto giveKeyDto);
+
+    Integer getKeyUpdate(@Param("param") GetKeyDto getKeyDto);
 }

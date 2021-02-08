@@ -819,4 +819,15 @@ end
         update CarApplication set giveKeyUser=@giveKeyUser,giveKeyDT=GETDATE(),IsGive=@isGive where CarApplication_Auto=@CarApplication_Auto
         end
     </update>
+
+    <!--车辆安排：领取钥匙-->
+    <update id="getKeyUpdate" >
+        declare
+        @getKeyUser bigint=#{param.getKeyUser},
+        @CarApplication_Auto bigint=#{param.carApplicationAuto},
+        @isGet int = #{param.isGet}
+        begin
+        update CarApplication set getKeyUser=@getKeyUser,getKeyDT=GETDATE(),isGet=@isGet where CarApplication_Auto=@CarApplication_Auto
+        end
+    </update>
 </mapper>

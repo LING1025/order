@@ -107,4 +107,11 @@ public interface CarApplicationService{
      * @return
      */
     Integer giveKeyUpdate(GiveKeyDto giveKeyDto);
+
+    /**
+     * 车辆安排：领取钥匙
+     * @param getKeyDto
+     * @return
+     */
+    Integer getKeyUpdate(GetKeyDto getKeyDto);
 }
