@@ -74,7 +74,7 @@ public class CarApplicationServiceImpl implements CarApplicationService{
     }
 
     @Override
-    public List<CheckList> selectCarArrange(Long loginUserID) {
-        return carApplicationMapper.selectCarArrange(loginUserID);
+    public List<CheckList> selectCarArrange(CheckQueryParam checkQueryParam) {
+        return carApplicationMapper.selectCarArrange(checkQueryParam);
     }
 }

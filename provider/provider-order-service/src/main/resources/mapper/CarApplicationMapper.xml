@@ -702,9 +702,12 @@ END
     <!--车辆安排：获取申请列表-->
     <select id="selectCarArrange" resultMap="queryCheckList">
     declare
-    @LoginUserID bigint=#{loginUserID}
+    @LoginUserID bigint=#{param.loginAuto}
 	begin
-	select
+      select
+        aa.*
+      from
+	(select
 	c.CarApplication_Auto,c.UserName,
 	v2.DepName,v.FName appUserN,c.CDT,i1.ItemName AppTypeN,
 	StatusN=case c.Status when 10 then '送件中' when 20 then '核准' end ,
@@ -719,7 +722,31 @@ END
 	left join DocSystem.dbo.Employee e on v.UserName=e.Account collate Chinese_PRC_CI_AS
 	where c.[Status]in(10,20) and v.IsOn=1 and e.[Status]='任用'
 	and e.Inc_Auto in(select V1 from ItemCode i3 inner join CarStationManager cm on i3.Num=cm.Station and cm.User_auto=@LoginUserID where i3.ItemType=826 and cm.Status=1)
-	order by c.Status desc
-	end
+        )aa
+        where
+        1 = 1
+        <if test="param.carApplicationAuto != null and param.carApplicationAuto != ''">
+            AND aa.CarApplication_Auto=#{param.carApplicationAuto}
+        </if>
+        <if test="param.username != null and param.username != ''">
+            AND aa.UserName=#{param.username}
+        </if>
+        <if test="param.appUserN != null and param.appUserN != ''">
+            AND aa.appUserN=#{param.appUserN}
+        </if>
+        <if test="param.makNo != null and param.makNo != ''">
+            AND  aa.MakNo = #{param.makNo}
+        </if>
+        <if test="param.planStartDT != null and param.planStartDT != ''">
+            AND  aa.PlanStartDT = #{param.planStartDT}
+        </if>
+        <if test="param.planEndDT != null and param.planEndDT != '' ">
+            AND  aa.PlanEndDT = #{param.planEndDT}
+        </if>
+        <if test="param.statusN != null and param.statusN != ''">
+            AND aa.StatusN=#{param.statusN}
+        </if>
+        order by aa.CarApplication_Auto desc
+    end
     </select>
 </mapper>

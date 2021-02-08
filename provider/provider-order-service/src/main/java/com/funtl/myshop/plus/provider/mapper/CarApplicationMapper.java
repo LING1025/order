@@ -31,5 +31,5 @@ public interface CarApplicationMapper extends MyMapper<CarApplication> {
 
     Integer carChangeUpdate(@Param("param") CarChangeDto carChangeDto);
 
-    List<CheckList> selectCarArrange(@Param("loginUserID") Long loginUserID);
+    List<CheckList> selectCarArrange(@Param("param") CheckQueryParam checkQueryParam);
 }

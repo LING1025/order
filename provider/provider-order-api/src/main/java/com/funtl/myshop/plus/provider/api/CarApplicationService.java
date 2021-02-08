@@ -88,8 +88,8 @@ public interface CarApplicationService{
 
     /**
      * 车辆安排：获取申请列表
-     * @param loginUserID
+     * @param checkQueryParam
      * @return
      */
-    List<CheckList> selectCarArrange(Long loginUserID);
+    List<CheckList> selectCarArrange(CheckQueryParam checkQueryParam);
 }

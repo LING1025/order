@@ -136,7 +136,7 @@ public class CarApplyController {
         return new ResponseResult<>(ResponseResult.CodeStatus.OK,"查询成功",lists);
     }
 
-    @ApiOperation(value = "用车申请：获取申请列表数据")
+    @ApiOperation(value = "用车申请：获取申请列表")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "carApplicationAuto",value = "用车申请单号",required = false,dataType = "long",paramType = "path"),
             @ApiImplicitParam(name = "username",value = "使用人",required = false,dataType = "String",paramType = "path"),
@@ -285,7 +285,7 @@ public class CarApplyController {
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", agentLists);
     }
 
-    @ApiOperation(value = "用车审核：获取审核数据")
+    @ApiOperation(value = "用车审核：获取审核列表")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "loginAuto",value = "操作人userAuto",required = true,dataType = "long",paramType = "path"),
             @ApiImplicitParam(name = "carApplicationAuto",value = "用车申请单号",required = false,dataType = "long",paramType = "path"),
@@ -354,5 +354,33 @@ public class CarApplyController {
             return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"更改失败",null);
         }
         return new ResponseResult<>(ResponseResult.CodeStatus.OK,"更改成功",null);
+    }
+
+    @ApiOperation(value = "车辆安排：获取申请列表")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "loginAuto",value = "操作人userAuto",required = true,dataType = "long",paramType = "path"),
+            @ApiImplicitParam(name = "carApplicationAuto",value = "用车申请单号",required = false,dataType = "long",paramType = "path"),
+            @ApiImplicitParam(name = "username",value = "使用人",required = false,dataType = "String",paramType = "path"),
+            @ApiImplicitParam(name = "appUserN",value = "申请人",required = false,dataType = "String",paramType = "path"),
+            @ApiImplicitParam(name = "makNo",value = "车辆号码",required = false,dataType = "String",paramType = "path"),
+            @ApiImplicitParam(name = "planStartDT",value = "开始时间",required = false,dataType = "String",paramType = "path"),
+            @ApiImplicitParam(name = "planEndDT",value = "结束时间",required = false,dataType = "String",paramType = "path"),
+            @ApiImplicitParam(name = "statusN",value = "状态：送件中、核准",required = false,dataType = "String",paramType = "path")
+    })
+    @GetMapping(value = "queryCarArrange")
+    public ResponseResult<List<CheckList>> queryCarArrange(@RequestParam(name = "loginAuto") Long loginAuto,
+                                                          @RequestParam(name = "carApplicationAuto",required = false) Long carApplicationAuto,
+                                                          @RequestParam(name = "username",required = false) String username,
+                                                          @RequestParam(name = "appUserN",required = false) String appUserN,
+                                                          @RequestParam(name = "planStartDT",required = false) String planStartDT,
+                                                          @RequestParam(name = "planEndDT",required = false) String planEndDT,
+                                                          @RequestParam(name = "makNo",required = false) String makNo,
+                                                          @RequestParam(name = "statusN",required = false) String statusN){
+        CheckQueryParam checkQueryParam = new CheckQueryParam(loginAuto,carApplicationAuto,username,appUserN,makNo,planStartDT,planEndDT,statusN);
+        List<CheckList> lists = carApplicationService.selectCarArrange(checkQueryParam);
+        if (lists.size() == 0){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"暂无数据",null);
+        }
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK,"查询成功",lists);
     }
 }
