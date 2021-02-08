@@ -828,7 +828,7 @@ end
         @CarApplication_Auto bigint=#{param.carApplicationAuto},
         @isGet int = #{param.isGet}
         begin
-        update CarApplication set getKeyUser=@getKeyUser,getKeyDT=GETDATE(),isGet=@isGet where CarApplication_Auto=@CarApplication_Auto
+        update CarApplication set getKeyUser=@getKeyUser,getKeyDT=GETDATE(),isGet=@isGet,[Status]=30 where CarApplication_Auto=@CarApplication_Auto
         end
     </update>
 </mapper>
