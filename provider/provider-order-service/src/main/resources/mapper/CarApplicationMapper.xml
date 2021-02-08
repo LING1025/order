@@ -698,4 +698,28 @@ END
             where CarApplication_Auto=@CarApplicationAuto
         end
     </update>
+
+    <!--车辆安排：获取申请列表-->
+    <select id="selectCarArrange" resultMap="queryCheckList">
+    declare
+    @LoginUserID bigint=#{loginUserID}
+	begin
+	select
+	c.CarApplication_Auto,c.UserName,
+	v2.DepName,v.FName appUserN,c.CDT,i1.ItemName AppTypeN,
+	StatusN=case c.Status when 10 then '送件中' when 20 then '核准' end ,
+	c.PlanStartDT,
+	c.PlanEndDT,
+	cb.MakNo
+	from CarApplication c
+	left join v_Emp v on c.AppUser=v.User_Auto--申请人
+    left join v_Emp v2 on c.UserAuto=v2.User_Auto--使用人
+	left join ItemCode i1 on c.AppType=i1.Num and i1.ItemType=833
+	left join CarBase cb on c.Carbase_Auto=cb.CarBase_Auto
+	left join DocSystem.dbo.Employee e on v.UserName=e.Account collate Chinese_PRC_CI_AS
+	where c.[Status]in(10,20) and v.IsOn=1 and e.[Status]='任用'
+	and e.Inc_Auto in(select V1 from ItemCode i3 inner join CarStationManager cm on i3.Num=cm.Station and cm.User_auto=@LoginUserID where i3.ItemType=826 and cm.Status=1)
+	order by c.Status desc
+	end
+    </select>
 </mapper>

@@ -9,7 +9,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Data
-@ApiModel(value = "用车审核：获取审核数据")
+@ApiModel(value = "用车审核：获取审核数据；车辆安排：获取申请列表数据")
 public class CheckList implements Serializable {
     @ApiModelProperty(value = "用车申请单号")
     private Long carApplicationAuto;

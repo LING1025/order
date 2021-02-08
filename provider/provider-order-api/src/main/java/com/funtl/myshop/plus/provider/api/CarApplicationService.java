@@ -85,4 +85,11 @@ public interface CarApplicationService{
      * @return
      */
     Integer carChangeUpdate(CarChangeDto carChangeDto);
+
+    /**
+     * 车辆安排：获取申请列表
+     * @param loginUserID
+     * @return
+     */
+    List<CheckList> selectCarArrange(Long loginUserID);
 }

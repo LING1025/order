@@ -72,4 +72,9 @@ public class CarApplicationServiceImpl implements CarApplicationService{
     public Integer carChangeUpdate(CarChangeDto carChangeDto) {
         return carApplicationMapper.carChangeUpdate(carChangeDto);
     }
+
+    @Override
+    public List<CheckList> selectCarArrange(Long loginUserID) {
+        return carApplicationMapper.selectCarArrange(loginUserID);
+    }
 }
