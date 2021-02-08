@@ -749,4 +749,53 @@ END
         order by aa.CarApplication_Auto desc
     end
     </select>
+
+    <!--车辆安排：获取具体申请明细-->
+    <select id="selectArrangeOne" resultMap="queryCheckOne">
+        declare
+@LoginUserID bigint=#{loginUserID},
+@CarApplication_Auto bigint=#{carApplicationAuto}
+begin
+select
+aa.*
+from
+(
+select c.CarApplication_Auto,v.FName appUserN,i.ItemName appTypeN, c.PlanStartDT,
+		c.PlanEndDT,
+		v2.DepName,
+		c.UserName,
+		c.startAddr
+		,c.endAddr
+		,i2.ItemName areaTypeN
+		,c.LicenceMemo
+		,cb.CarBase_Auto
+		,cb.MakNo
+		,i3.ItemName oilName
+		,isnull(cse.residueDL,0) residueDL
+		,isnull(cse.mileage,0) mileage
+		,b.BrandName
+		,cn.ClasenName
+		,cb.CarColor
+		,i4.ItemName bsTypeN
+		,i5.ItemName whTypeN1
+		,i5.ItemName whTypeN2
+		from CarApplication c
+		left join v_Emp v on c.AppUser=v.User_Auto--申请人
+        left join v_Emp v2 on c.UserAuto=v2.User_Auto--使用人
+		left join ItemCode i on i.Num=c.AppType and i.ItemType=833
+		left join CarBase cb on c.Carbase_Auto=cb.CarBase_Auto
+		left join ItemCode i2 on i2.Num=c.areaType and i2.ItemType=810
+		left join ItemCode i3 on i3.num = cb.oil and i3.ItemType=231 --燃油种类
+		left join CarStatusEdit cse on cse.CarBase_Auto = c.Carbase_Auto
+		left join Clasen cn on cb.Clasen_Auto=cn.Clasen_Auto
+		left join Brand b on cb.Brand_Auto=b.Brand_Auto
+		left join ItemCode i4 on i4.num = cb.BSType and i4.ItemType=841 --变速类型
+		left join ItemCode i5 on i5.num = cse.WHType and i5.ItemType=826--仓库别
+		left join DocSystem.dbo.Employee e on v.UserName=e.Account collate Chinese_PRC_CI_AS
+		where c.[Status]in(10,20) and v.IsOn=1 and e.[Status]='任用'
+		and e.Inc_Auto in(select V1 from ItemCode i3 inner join CarStationManager cm on i3.Num=cm.Station and cm.User_auto=@LoginUserID where i3.ItemType=826 and cm.Status=1)
+	)aa
+	where aa.CarApplication_Auto=@CarApplication_Auto
+end
+    </select>
 </mapper>

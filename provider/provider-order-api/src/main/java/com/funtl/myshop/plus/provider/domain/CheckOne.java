@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 @Data
-@ApiModel(value = "用车审核：选取审核明细")
+@ApiModel(value = "用车审核：选取审核明细；车辆安排：获取具体申请明细")
 public class CheckOne implements Serializable {
     /**
      * 用车申请单号

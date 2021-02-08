@@ -92,4 +92,12 @@ public interface CarApplicationService{
      * @return
      */
     List<CheckList> selectCarArrange(CheckQueryParam checkQueryParam);
+
+    /**
+     * 车辆安排：获取具体申请明细
+     * @param loginUserID
+     * @param carApplicationAuto
+     * @return
+     */
+    CheckOne selectArrangeOne(Long loginUserID,Long carApplicationAuto);
 }
