@@ -808,4 +808,15 @@ select c.CarApplication_Auto,v.FName appUserN,i.ItemName appTypeN, c.PlanStartDT
 	where aa.CarApplication_Auto=@CarApplication_Auto
 end
     </select>
+
+    <!--车辆安排：发放钥匙-->
+    <update id="giveKeyInsert">
+        declare
+        @giveKeyUser bigint=#{param.giveKeyUser},
+        @CarApplication_Auto bigint=#{param.carApplicationAuto},
+        @isGive int = #{param.isGive}
+        begin
+        update CarApplication set giveKeyUser=@giveKeyUser,giveKeyDT=GETDATE(),IsGive=@isGive where CarApplication_Auto=@CarApplication_Auto
+        end
+    </update>
 </mapper>

@@ -100,4 +100,11 @@ public interface CarApplicationService{
      * @return
      */
     CheckOne selectArrangeOne(Long loginUserID,Long carApplicationAuto);
+
+    /**
+     * 车辆安排：发放钥匙
+     * @param giveKeyDto
+     * @return
+     */
+    Integer giveKeyInsert(GiveKeyDto giveKeyDto);
 }

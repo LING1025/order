@@ -82,4 +82,9 @@ public class CarApplicationServiceImpl implements CarApplicationService{
     public CheckOne selectArrangeOne(Long loginUserID, Long carApplicationAuto) {
         return carApplicationMapper.selectArrangeOne(loginUserID,carApplicationAuto);
     }
+
+    @Override
+    public Integer giveKeyInsert(GiveKeyDto giveKeyDto) {
+        return carApplicationMapper.giveKeyInsert(giveKeyDto);
+    }
 }
