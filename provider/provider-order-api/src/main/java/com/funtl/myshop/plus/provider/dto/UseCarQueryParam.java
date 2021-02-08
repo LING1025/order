@@ -15,6 +15,11 @@ public class UseCarQueryParam implements Serializable {
 
     private Long carApplicationAuto;
 
+    /**
+     * 申请人序号
+     */
+    private Long appUser;
+
     private String username;
 
     private String makNo;
@@ -27,14 +32,15 @@ public class UseCarQueryParam implements Serializable {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm",timezone = "GMT+8")
     private String planEndDT;
 
-    private Integer status;
+    private String statusN;
 
-    public UseCarQueryParam(Long carApplicationAuto, String username, String makNo, String planStartDT, String planEndDT, Integer status) {
+    public UseCarQueryParam(Long carApplicationAuto, Long appUser, String username, String makNo, String planStartDT, String planEndDT, String statusN) {
         this.carApplicationAuto = carApplicationAuto;
+        this.appUser = appUser;
         this.username = username;
         this.makNo = makNo;
         this.planStartDT = planStartDT;
         this.planEndDT = planEndDT;
-        this.status = status;
+        this.statusN = statusN;
     }
 }
