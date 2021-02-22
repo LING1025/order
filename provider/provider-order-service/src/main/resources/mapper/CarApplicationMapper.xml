@@ -174,7 +174,6 @@ end
         @WHType int=#{param.whType},--仓库别
         @PlanStartDT datetime=#{param.planStartDT},
         @PlanEndDT datetime=#{param.planEndDT},
-        @Fname nvarchar(50)=#{param.appUserN},--申请人
         @UserName nvarchar(50)=#{param.username},--使用人
         @userAuto bigint=#{param.userAuto},--使用人序号
         @IsDriver int=#{param.isDriver},
@@ -280,11 +279,11 @@ end
 
         if(@AppType != 2)--非主管用车
         begin
-        Insert Into CarApplication(AppUser,AppDT,AppType,FeeType,WHType,PlanStartDT,PlanEndDT,Fname,
+        Insert Into CarApplication(AppUser,AppDT,AppType,FeeType,WHType,PlanStartDT,PlanEndDT,
         UserName,IsDriver,DriverUser_Auto,LicenceMemo,Carbase_Auto,[Status],CUser,CDT,IsSave,
         startAddr,startAddrLat,startAddrLng,endAddr,endAddrLat,endAddrLng,distance,IsHoliday,
         useCarTime,areaType,UserAuto)
-        Values(@AppUser,getdate(),@AppType,1,@WHType,@PlanStartDT,@PlanEndDT,@Fname,@UserName,@IsDriver,@DriverUser_Auto,
+        Values(@AppUser,getdate(),@AppType,1,@WHType,@PlanStartDT,@PlanEndDT,@UserName,@IsDriver,@DriverUser_Auto,
         @LicenceMemo,@Carbase_Auto,@Status,@CUser,getdate(),@IsSave,
         @startAddr,@startAddrLat,@startAddrLng,@endAddr,@endAddrLat,@endAddrLng,@distance,@IsHoliday,@useCarTime,@areaType,
         @UserAuto)
@@ -329,11 +328,11 @@ end
         end
         else   --主管用车
         begin
-        Insert Into CarApplication(AppUser,AppDT,AppType,FeeType,WHType,PlanStartDT,PlanEndDT,Fname,
+        Insert Into CarApplication(AppUser,AppDT,AppType,FeeType,WHType,PlanStartDT,PlanEndDT,
         UserName,IsDriver,DriverUser_Auto,LicenceMemo,Carbase_Auto,[Status],CUser,CDT,IsSave,
         startAddr,startAddrLat,startAddrLng,endAddr,endAddrLat,endAddrLng,distance,IsHoliday,
         useCarTime,areaType,UserAuto)
-        Values(@AppUser,getdate(),@AppType,1,@WHType,@PlanStartDT,@PlanEndDT,@Fname,@UserName,@IsDriver,@DriverUser_Auto,
+        Values(@AppUser,getdate(),@AppType,1,@WHType,@PlanStartDT,@PlanEndDT,@UserName,@IsDriver,@DriverUser_Auto,
         @LicenceMemo,@Carbase_Auto,20,@CUser,getdate(),@IsSave,
         @startAddr,@startAddrLat,@startAddrLng,@endAddr,@endAddrLat,@endAddrLng,@distance,@IsHoliday,@useCarTime,@areaType,
         @UserAuto)
