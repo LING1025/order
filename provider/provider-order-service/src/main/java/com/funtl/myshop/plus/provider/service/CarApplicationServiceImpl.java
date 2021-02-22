@@ -92,4 +92,9 @@ public class CarApplicationServiceImpl implements CarApplicationService{
     public Integer getKeyUpdate(GetKeyDto getKeyDto) {
         return carApplicationMapper.getKeyUpdate(getKeyDto);
     }
+
+    @Override
+    public CarApplication selectByCarApplicationAuto(Long carApplicationAuto) {
+        return carApplicationMapper.selectByPrimaryKey(carApplicationAuto);
+    }
 }

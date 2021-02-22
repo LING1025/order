@@ -114,4 +114,11 @@ public interface CarApplicationService{
      * @return
      */
     Integer getKeyUpdate(GetKeyDto getKeyDto);
+
+    /**
+     * 根据主键id获取用车申请信息
+     * @param carApplicationAuto
+     * @return
+     */
+    CarApplication selectByCarApplicationAuto(Long carApplicationAuto);
 }
