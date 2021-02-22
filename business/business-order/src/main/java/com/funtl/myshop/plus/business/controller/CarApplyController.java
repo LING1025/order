@@ -424,4 +424,23 @@ public class CarApplyController {
         }
         return new ResponseResult<>(ResponseResult.CodeStatus.OK,"领取成功",null);
     }
+
+    @ApiOperation(value = "用车申请：撤销(此接口如要测试请联系后端)")
+    @PutMapping(value = "deleteApply")
+    public ResponseResult<String> deleteApply(@ApiParam(value = "用车申请：撤销") @Valid @RequestBody RepealApplyParamDto repealApplyParamDto){
+        CarApplication carApplication = carApplicationService.selectByCarApplicationAuto(repealApplyParamDto.getCarApplicationAuto());
+        if (carApplication.getStatus() < 10){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"未送件无需撤销",null);
+        }
+        if (carApplication.getStatus() >= 30){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"车辆已使用不可撤销",null);
+        }
+        RepealApplyDto repealApplyDto = new RepealApplyDto();
+        BeanUtils.copyProperties(repealApplyParamDto,repealApplyDto);
+        Integer i = carApplicationService.deleteByCarApplicationAuto(repealApplyDto);
+        if (i == 0){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"撤销失败",null);
+        }
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK,"撤销成功",null);
+    }
 }
