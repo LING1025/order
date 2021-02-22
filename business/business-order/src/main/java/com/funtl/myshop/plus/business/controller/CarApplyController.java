@@ -136,7 +136,7 @@ public class CarApplyController {
         return new ResponseResult<>(ResponseResult.CodeStatus.OK,"查询成功",lists);
     }
 
-    @ApiOperation(value = "用车申请：获取申请列表")
+    @ApiOperation(value = "用车申请、车辆归还：获取申请列表")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "carApplicationAuto",value = "用车申请单号",required = false,dataType = "long",paramType = "path"),
             @ApiImplicitParam(name = "appUser",value = "申请人序号(登录人userAuto)",required = true,dataType = "long",paramType = "path"),
@@ -160,6 +160,21 @@ public class CarApplyController {
             return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"暂无申请数据",null);
         }
         return new ResponseResult<>(ResponseResult.CodeStatus.OK,"查询成功",lists);
+    }
+
+    @ApiOperation(value = "用车申请、车辆归还：获取具体申请明细")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "loginUserID",value = "登录人userAuto",required = true,dataType = "long",paramType = "path"),
+            @ApiImplicitParam(name = "carApplicationAuto",value = "用车申请单号",required = true,dataType = "long",paramType = "path")
+    })
+    @GetMapping(value = "queryApplyAndBack")
+    public ResponseResult<CheckOne> queryApplyAndBack(@RequestParam(name = "loginUserID") Long loginUserID,
+                                                    @RequestParam(name = "carApplicationAuto") Long carApplicationAuto){
+        CheckOne checkOne = carApplicationService.selectApplyAndBack(loginUserID, carApplicationAuto);
+        if (checkOne == null){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"暂无数据",null);
+        }
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK,"查询成功",checkOne);
     }
 
     @ApiOperation(value = "用车审核：获取签核明细数据")

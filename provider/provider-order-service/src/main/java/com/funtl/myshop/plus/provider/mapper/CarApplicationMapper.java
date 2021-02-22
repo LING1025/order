@@ -42,4 +42,6 @@ public interface CarApplicationMapper extends MyMapper<CarApplication> {
     Integer deleteByCarApplicationAuto(@Param("param") RepealApplyDto repealApplyDto);
 
     Integer giveBack(@Param("param") GiveBackKeyDto giveBackKeyDto);
+
+    CheckOne selectApplyAndBack(@Param("loginUserID") Long loginUserID, @Param("carApplicationAuto") Long carApplicationAuto);
 }

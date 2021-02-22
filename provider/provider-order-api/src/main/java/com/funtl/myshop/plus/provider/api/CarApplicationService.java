@@ -9,11 +9,19 @@ import java.util.List;
 public interface CarApplicationService{
 
     /**
-     * 获取用车申请：申请列表数据
+     * 用车申请、车辆归还：获取申请列表数据
      * @param useCarQueryParam
      * @return
      */
     List<UserCarList> selectUserCar(UseCarQueryParam useCarQueryParam);
+
+    /**
+     * 用车申请、车辆归还：获取具体申请明细
+     * @param loginUserID
+     * @param carApplicationAuto
+     * @return
+     */
+    CheckOne selectApplyAndBack(Long loginUserID,Long carApplicationAuto);
 
     /**
      * 获取用车申请：签核明细数据

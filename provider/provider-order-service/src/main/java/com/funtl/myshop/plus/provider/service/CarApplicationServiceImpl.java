@@ -24,6 +24,11 @@ public class CarApplicationServiceImpl implements CarApplicationService{
     }
 
     @Override
+    public CheckOne selectApplyAndBack(Long loginUserID, Long carApplicationAuto) {
+        return carApplicationMapper.selectApplyAndBack(loginUserID,carApplicationAuto);
+    }
+
+    @Override
     public List<UseCarDoc> selectUseCarDoc(Long carApplicationAuto) {
         return carApplicationMapper.selectUseCarDoc(carApplicationAuto);
     }
