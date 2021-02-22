@@ -145,6 +145,18 @@ public class CarApplication implements Serializable {
     private String oilCardNum;
 
     /**
+     * 钥匙是否归还：0否 1是
+     */
+    @Column(name = "IsBack")
+    private Integer isBack;
+
+    /**
+     * 归还钥匙人
+     */
+    @Column(name = "giveBackUser")
+    private Long giveBackUser;
+
+    /**
     * 入车时间
     */
     @Column(name = "EndDT")

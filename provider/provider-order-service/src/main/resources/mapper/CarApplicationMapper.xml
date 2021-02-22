@@ -26,6 +26,8 @@
     <result column="OilGaugeOut" jdbcType="INTEGER" property="oilGaugeOut" />
     <result column="MileageOut" jdbcType="DECIMAL" property="mileageOut" />
     <result column="OilCardNum" jdbcType="VARCHAR" property="oilCardNum" />
+      <result column="IsBack" jdbcType="INTEGER" property="isBack" />
+      <result column="giveBackUser" jdbcType="BIGINT" property="giveBackUser" />
     <result column="EndDT" jdbcType="TIMESTAMP" property="endDT" />
     <result column="OilGaugeIn" jdbcType="INTEGER" property="oilGaugeIn" />
     <result column="MileageIn" jdbcType="DECIMAL" property="mileageIn" />
@@ -61,7 +63,8 @@
     <!--@mbg.generated-->
     CarApplication_Auto, AppUser, AppDT, AppType, FeeType, FeeAmt, WHType, PlanStartDT,
     PlanEndDT, Fname, UserName, IsDriver, DriverUser_Auto, AppCarbase_Auto, SpecialMemo,
-    LicenceMemo, Carbase_Auto, StartDT, OilGaugeOut, MileageOut, OilCardNum, EndDT, OilGaugeIn,
+    LicenceMemo, Carbase_Auto, StartDT, OilGaugeOut, MileageOut, OilCardNum, EndDT,
+      IsBack,giveBackUser, OilGaugeIn,
     MileageIn, Memo, [Status], CUser, CDT, MUser, MDT, OilKM, OilKG, RoadFee, ParkingFee,
     IsSave,IsHoliday,useCarTime,startAddr,startAddrLat,startAddrLng,endAddr,endAddrLat,
       endAddrLng,distance,areaType,IsGive,IsGet,giveKeyUser,giveKeyDT,getKeyUser,getKeyDT
