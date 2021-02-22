@@ -97,4 +97,9 @@ public class CarApplicationServiceImpl implements CarApplicationService{
     public CarApplication selectByCarApplicationAuto(Long carApplicationAuto) {
         return carApplicationMapper.selectByPrimaryKey(carApplicationAuto);
     }
+
+    @Override
+    public Integer deleteByCarApplicationAuto(RepealApplyDto repealApplyDto) {
+        return carApplicationMapper.deleteByCarApplicationAuto(repealApplyDto);
+    }
 }

@@ -38,4 +38,6 @@ public interface CarApplicationMapper extends MyMapper<CarApplication> {
     Integer giveKeyUpdate(@Param("param") GiveKeyDto giveKeyDto);
 
     Integer getKeyUpdate(@Param("param") GetKeyDto getKeyDto);
+
+    Integer deleteByCarApplicationAuto(@Param("param") RepealApplyDto repealApplyDto);
 }

@@ -121,4 +121,11 @@ public interface CarApplicationService{
      * @return
      */
     CarApplication selectByCarApplicationAuto(Long carApplicationAuto);
+
+    /**
+     * 用车申请：撤销
+     * @param repealApplyDto
+     * @return
+     */
+    Integer deleteByCarApplicationAuto(RepealApplyDto repealApplyDto);
 }

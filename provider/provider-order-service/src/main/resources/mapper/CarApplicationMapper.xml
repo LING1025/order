@@ -837,4 +837,14 @@ end
         update CarApplication set getKeyUser=@getKeyUser,getKeyDT=GETDATE(),isGet=@isGet,[Status]=30 where CarApplication_Auto=@CarApplication_Auto
         end
     </update>
+
+    <!--用车申请：撤销-->
+    <update id="deleteByCarApplicationAuto">
+        declare
+        @CarApplication_Auto bigint = #{param.carApplicationAuto},
+        @LoginUserID bigint = #{param.loginUserID}
+        begin
+        update CarApplication set [Status]=-1,MUser=@LoginUserID,MDT=GETDATE() where CarApplication_Auto=@CarApplication_Auto
+        end
+    </update>
 </mapper>
