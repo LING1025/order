@@ -823,7 +823,7 @@ end
         @CarApplication_Auto bigint=#{param.carApplicationAuto},
         @isGive int = #{param.isGive}
         begin
-        update CarApplication set giveKeyUser=@giveKeyUser,giveKeyDT=GETDATE(),IsGive=@isGive,[Status]=21 where CarApplication_Auto=@CarApplication_Auto
+        update CarApplication set giveKeyUser=@giveKeyUser,giveKeyDT=GETDATE(),IsGive=@isGive,[Status]=21 ,MUser=@giveKeyUser,MDT=GETDATE() where CarApplication_Auto=@CarApplication_Auto
         end
     </update>
 
@@ -834,7 +834,7 @@ end
         @CarApplication_Auto bigint=#{param.carApplicationAuto},
         @isGet int = #{param.isGet}
         begin
-        update CarApplication set getKeyUser=@getKeyUser,getKeyDT=GETDATE(),isGet=@isGet,[Status]=30 where CarApplication_Auto=@CarApplication_Auto
+        update CarApplication set getKeyUser=@getKeyUser,getKeyDT=GETDATE(),StartDT=GETDATE(),isGet=@isGet,[Status]=30,MUser=@getKeyUser,MDT=GETDATE() where CarApplication_Auto=@CarApplication_Auto
         end
     </update>
 
