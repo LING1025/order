@@ -128,4 +128,11 @@ public interface CarApplicationService{
      * @return
      */
     Integer deleteByCarApplicationAuto(RepealApplyDto repealApplyDto);
+
+    /**
+     * 车辆归还：归还钥匙
+     * @param giveBackKeyDto
+     * @return
+     */
+    Integer giveBack(GiveBackKeyDto giveBackKeyDto);
 }

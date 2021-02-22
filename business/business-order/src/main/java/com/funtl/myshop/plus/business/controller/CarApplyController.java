@@ -427,7 +427,7 @@ public class CarApplyController {
 
     @ApiOperation(value = "用车申请：撤销(此接口如要测试请联系后端)")
     @PutMapping(value = "deleteApply")
-    public ResponseResult<String> deleteApply(@ApiParam(value = "用车申请：撤销") @Valid @RequestBody RepealApplyParamDto repealApplyParamDto){
+    public ResponseResult<String> DeleteApply(@ApiParam(value = "用车申请：撤销") @Valid @RequestBody RepealApplyParamDto repealApplyParamDto){
         CarApplication carApplication = carApplicationService.selectByCarApplicationAuto(repealApplyParamDto.getCarApplicationAuto());
         if (carApplication.getStatus() < 10){
             return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"未送件无需撤销",null);
@@ -442,5 +442,11 @@ public class CarApplyController {
             return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"撤销失败",null);
         }
         return new ResponseResult<>(ResponseResult.CodeStatus.OK,"撤销成功",null);
+    }
+
+    @ApiOperation(value = "车辆归还：归还钥匙(此接口如要测试请联系后端)")
+    @PutMapping(value = "giveBackKey")
+    public ResponseResult<String> GiveBackKey(@ApiParam(value = "车辆归还：归还钥匙数据") @Valid @RequestBody GiveBackKeyParamDto giveBackKeyParamDto){
+
     }
 }

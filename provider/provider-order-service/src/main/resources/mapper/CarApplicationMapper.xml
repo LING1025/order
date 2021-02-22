@@ -850,4 +850,18 @@ end
         update CarApplication set [Status]=-1,MUser=@LoginUserID,MDT=GETDATE() where CarApplication_Auto=@CarApplication_Auto
         end
     </update>
+
+    <!--车辆归还：归还钥匙-->
+    <update id="giveBack">
+        declare
+        @giveBackUser bigint=#{param.giveBackUser},
+        @CarApplication_Auto bigint=#{param.carApplicationAuto},
+        @IsBack int =#{param.isBack}
+        begin
+        update
+		CarApplication
+		set giveBackUser=@giveBackUser,EndDT=GETDATE(),IsBack=@IsBack,[Status]=40,MUser=@giveBackUser,MDT=GETDATE()
+		where CarApplication_Auto=@CarApplication_Auto
+        end
+    </update>
 </mapper>

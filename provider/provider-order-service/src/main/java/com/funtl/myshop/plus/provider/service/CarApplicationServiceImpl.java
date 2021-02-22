@@ -102,4 +102,9 @@ public class CarApplicationServiceImpl implements CarApplicationService{
     public Integer deleteByCarApplicationAuto(RepealApplyDto repealApplyDto) {
         return carApplicationMapper.deleteByCarApplicationAuto(repealApplyDto);
     }
+
+    @Override
+    public Integer giveBack(GiveBackKeyDto giveBackKeyDto) {
+        return carApplicationMapper.giveBack(giveBackKeyDto);
+    }
 }
