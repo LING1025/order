@@ -354,5 +354,64 @@ public class CarApplication implements Serializable {
     @Column(name = "behindImg")
     private String behindImg;
 
+    /**
+     * 起始里程拍照时间
+     */
+    @Column(name = "time1")
+    private Date time1;
+
+    /**
+     * 归还里程拍照时间
+     */
+    @Column(name = "time2")
+    private Date time2;
+
+    /**
+     * 车身左侧拍照时间
+     */
+    @Column(name = "time3")
+    private Date time3;
+
+    /**
+     * 车身右侧拍照时间
+     */
+    @Column(name = "time4")
+    private Date time4;
+
+    /**
+     * 车身后部拍照时间
+     */
+    @Column(name = "time5")
+    private Date time5;
+
+    /**
+     * 起始里程拍照地址
+     */
+    @Column(name = "address1")
+    private String address1;
+
+    /**
+     * 归还里程拍照地址
+     */
+    @Column(name = "address2")
+    private String address2;
+
+    /**
+     * 车身左侧拍照地址
+     */
+    @Column(name = "address3")
+    private String address3;
+
+    /**
+     * 车身右侧拍照地址
+     */
+    @Column(name = "address4")
+    private String address4;
+
+    /**
+     * 车身后部拍照地址
+     */
+    @Column(name = "address5")
+    private String address5;
     private static final long serialVersionUID = 1L;
 }

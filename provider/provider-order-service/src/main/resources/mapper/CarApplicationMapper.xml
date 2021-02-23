@@ -63,6 +63,16 @@
       <result column="leftImg" jdbcType="VARCHAR" property="leftImg" />
       <result column="rightImg" jdbcType="VARCHAR" property="rightImg" />
       <result column="behindImg" jdbcType="VARCHAR" property="behindImg" />
+      <result column="time1" jdbcType="TIMESTAMP" property="time1" />
+      <result column="time2" jdbcType="TIMESTAMP" property="time2" />
+      <result column="time3" jdbcType="TIMESTAMP" property="time3" />
+      <result column="time4" jdbcType="TIMESTAMP" property="time4" />
+      <result column="time5" jdbcType="TIMESTAMP" property="time5" />
+      <result column="address1" jdbcType="VARCHAR" property="address1" />
+      <result column="address2" jdbcType="VARCHAR" property="address2" />
+      <result column="address3" jdbcType="VARCHAR" property="address3" />
+      <result column="address4" jdbcType="VARCHAR" property="address4" />
+      <result column="address5" jdbcType="VARCHAR" property="address5" />
   </resultMap>
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
@@ -73,7 +83,8 @@
     MileageIn, Memo, [Status], CUser, CDT, MUser, MDT, OilKM, OilKG, RoadFee, ParkingFee,
     IsSave,IsHoliday,useCarTime,startAddr,startAddrLat,startAddrLng,endAddr,endAddrLat,
       endAddrLng,distance,areaType,IsGive,IsGet,giveKeyUser,giveKeyDT,getKeyUser,getKeyDT,
-      startImg,endImg,leftImg,rightImg,behindImg
+      startImg,endImg,leftImg,rightImg,behindImg,time1,time2,time3,time4,time5,
+      address1,address2,address3,address4,address5
   </sql>
   <!--用车申请、车辆归还：获取申请列表数据-->
   <resultMap id="queryUserCar" extends="BaseResultMap" type="com.funtl.myshop.plus.provider.domain.UserCarList">
