@@ -139,7 +139,7 @@ public class CarApplyController {
     @ApiOperation(value = "用车申请、车辆领取、车辆归还：获取申请列表")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "carApplicationAuto",value = "用车申请单号",required = false,dataType = "long",paramType = "path"),
-            @ApiImplicitParam(name = "appUser",value = "申请人序号(登录人userAuto)",required = true,dataType = "long",paramType = "path"),
+            @ApiImplicitParam(name = "appUser",value = "登录人userAuto",required = true,dataType = "long",paramType = "path"),
             @ApiImplicitParam(name = "username",value = "使用人",required = false,dataType = "String",paramType = "path"),
             @ApiImplicitParam(name = "makNo",value = "车辆号码",required = false,dataType = "String",paramType = "path"),
             @ApiImplicitParam(name = "planStartDT",value = "开始时间",required = false,dataType = "String",paramType = "path"),
