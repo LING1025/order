@@ -471,5 +471,22 @@ public class CarApplyController {
         return new ResponseResult<>(ResponseResult.CodeStatus.OK,"归还成功",null);
     }
 
-
+    @ApiOperation(value = "车辆归还：提交实时拍照数据(此接口如要测试请联系后端)")
+    @PutMapping(value = "updatePhoto")
+    public ResponseResult<String> updatePhoto(@ApiParam(value = "车辆归还：实时拍照数据") @Valid @RequestBody CarPhotoParamDto carPhotoParamDto){
+        if (carPhotoParamDto.getLoginUserID() == 0){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"登录人userAuto未赋值",null);
+        }
+        if (carPhotoParamDto.getCarApplicationAuto() == 0){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"用车申请单号未赋值",null);
+        }
+        CarApplication carApplication = new CarApplication();
+        BeanUtils.copyProperties(carPhotoParamDto,carApplication);
+        carApplication.setMUser(carPhotoParamDto.getLoginUserID().intValue());
+        Integer i = carApplicationService.takePhoto(carApplication);
+        if (i == 0){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"提交失败",null);
+        }
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK,"提交成功",null);
+    }
 }
