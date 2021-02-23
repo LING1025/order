@@ -489,4 +489,18 @@ public class CarApplyController {
         }
         return new ResponseResult<>(ResponseResult.CodeStatus.OK,"提交成功",null);
     }
+
+    @ApiOperation(value = "车辆归还：判断是否逾期")
+    @ApiImplicitParam(name = "carApplicationAuto",value = "用车申请单号",required = true,dataType = "Long",paramType = "path")
+    @GetMapping(value = "queryIsOver")
+    public ResponseResult<Integer> queryIsOver(@RequestParam(name = "carApplicationAuto") Long carApplicationAuto) {
+        CarApplication carApplication = carApplicationService.selectByCarApplicationAuto(carApplicationAuto);
+        if (carApplication == null){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"此单号不存在",null);
+        }
+        if (carApplication.getPlanEndDT().before(new Date())){ //若当前时间大于结束时间则超时
+            return new ResponseResult<>(ResponseResult.CodeStatus.OK,"已逾期",1);
+        }
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK,"未逾期",0);
+    }
 }
