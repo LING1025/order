@@ -783,7 +783,12 @@ END
     </select>
 
     <!--车辆安排：获取具体申请明细-->
-    <select id="selectArrangeOne" resultMap="queryCheckOne">
+    <resultMap id="queryKey" extends="queryCheckOne" type="com.funtl.myshop.plus.provider.domain.CheckOne">
+        <result column="IsBack" jdbcType="INTEGER" property="isBack" />
+        <result column="IsGive" jdbcType="INTEGER" property="isGive" />
+        <result column="IsGet" jdbcType="INTEGER" property="isGet" />
+    </resultMap>
+    <select id="selectArrangeOne" resultMap="queryKey">
         declare
 @LoginUserID bigint=#{loginUserID},
 @CarApplication_Auto bigint=#{carApplicationAuto}
@@ -813,6 +818,9 @@ select c.CarApplication_Auto,v.FName appUserN,i.ItemName appTypeN, c.PlanStartDT
 		,i5.ItemName whTypeN2
         ,t1.AppSeq
         ,t2.RoleID
+        ,isnull(c.IsGive,0) IsGive
+        ,isnull(c.IsGet,0) IsGet
+        ,isnull(c.IsBack,0) IsBack
 		from CarApplication c
 		left join v_Emp v on c.AppUser=v.User_Auto--申请人
         left join v_Emp v2 on c.UserAuto=v2.User_Auto--使用人
@@ -882,11 +890,6 @@ end
     </update>
 
     <!--用车申请、车辆领取、车辆归还：获取具体申请明细-->
-    <resultMap id="queryKey" extends="queryCheckOne" type="com.funtl.myshop.plus.provider.domain.CheckOne">
-        <result column="IsBack" jdbcType="INTEGER" property="isBack" />
-        <result column="IsGive" jdbcType="INTEGER" property="isGive" />
-        <result column="IsGet" jdbcType="INTEGER" property="isGet" />
-    </resultMap>
     <select id="selectApplyAndBack" resultMap="queryKey">
         declare
 @LoginUserID bigint=#{loginUserID},
