@@ -144,5 +144,54 @@ public class CheckOne implements Serializable {
     @ApiModelProperty(value = "钥匙是否归还：0否 1是")
     private Integer isBack;
 
+    @ApiModelProperty(value = "仪表盘起始里程图片")
+    private String startImg;
+
+    @ApiModelProperty(value = "仪表盘归还里程图片")
+    private String endImg;
+
+    @ApiModelProperty(value = "车身照左侧")
+    private String leftImg;
+
+    @ApiModelProperty(value = "车身照右侧")
+    private String rightImg;
+
+    @ApiModelProperty(value = "车身照后部")
+    private String behindImg;
+
+    @ApiModelProperty(value = "起始里程拍照时间")
+    @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd HH:mm")
+    private Date time1;
+
+    @ApiModelProperty(value = "归还里程拍照时间")
+    @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd HH:mm")
+    private Date time2;
+
+    @ApiModelProperty(value = "车身左侧拍照时间")
+    @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd HH:mm")
+    private Date time3;
+
+    @ApiModelProperty(value = "车身右侧拍照时间")
+    @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd HH:mm")
+    private Date time4;
+
+    @ApiModelProperty(value = "车身后部拍照时间")
+    @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd HH:mm")
+    private Date time5;
+
+    @ApiModelProperty(value = "起始里程拍照地址")
+    private String address1;
+
+    @ApiModelProperty(value = "归还里程拍照地址")
+    private String address2;
+
+    @ApiModelProperty(value = "车身左侧拍照地址")
+    private String address3;
+
+    @ApiModelProperty(value = "车身右侧拍照地址")
+    private String address4;
+
+    @ApiModelProperty(value = "车身后部拍照地址")
+    private String address5;
 
 }
