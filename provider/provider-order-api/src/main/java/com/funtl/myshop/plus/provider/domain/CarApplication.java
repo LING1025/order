@@ -324,5 +324,35 @@ public class CarApplication implements Serializable {
     @Column(name = "getKeyDT")
     private Date getKeyDT;
 
+    /**
+     * 仪表盘起始里程图片
+     */
+    @Column(name = "startImg")
+    private String startImg;
+
+    /**
+     * 仪表盘归还里程图片
+     */
+    @Column(name = "endImg")
+    private String endImg;
+
+    /**
+     * 车身照左侧
+     */
+    @Column(name = "leftImg")
+    private String leftImg;
+
+    /**
+     * 车身照右侧
+     */
+    @Column(name = "rightImg")
+    private String rightImg;
+
+    /**
+     * 车身照后部
+     */
+    @Column(name = "behindImg")
+    private String behindImg;
+
     private static final long serialVersionUID = 1L;
 }
