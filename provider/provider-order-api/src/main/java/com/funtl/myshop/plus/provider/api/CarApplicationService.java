@@ -143,4 +143,11 @@ public interface CarApplicationService{
      * @return
      */
     Integer giveBack(GiveBackKeyDto giveBackKeyDto);
+
+    /**
+     * 车辆归还：实时拍照
+     * @param carApplication
+     * @return
+     */
+    Integer takePhoto(CarApplication carApplication);
 }

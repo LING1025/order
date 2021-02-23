@@ -112,4 +112,11 @@ public class CarApplicationServiceImpl implements CarApplicationService{
     public Integer giveBack(GiveBackKeyDto giveBackKeyDto) {
         return carApplicationMapper.giveBack(giveBackKeyDto);
     }
+
+    @Override
+    public Integer takePhoto(CarApplication carApplication) {
+        return carApplicationMapper.updateByPrimaryKeySelective(carApplication);
+    }
+
+
 }
