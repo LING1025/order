@@ -428,9 +428,9 @@ public class CarApplyController {
         return new ResponseResult<>(ResponseResult.CodeStatus.OK,"发放成功",null);
     }
 
-    @ApiOperation(value = "车辆安排：领取钥匙(此接口如要测试请联系后端)")
+    @ApiOperation(value = "车辆领取：领取钥匙(此接口如要测试请联系后端)")
     @PutMapping(value = "getKeyUpdate")
-    public ResponseResult<String> GetKeyUpdate(@ApiParam(value = "车辆安排：领取钥匙数据")@Valid @RequestBody GetKeyParamDto getKeyParamDto){
+    public ResponseResult<String> GetKeyUpdate(@ApiParam(value = "车辆领取：领取钥匙数据")@Valid @RequestBody GetKeyParamDto getKeyParamDto){
         GetKeyDto getKeyDto = new GetKeyDto();
         BeanUtils.copyProperties(getKeyParamDto,getKeyDto);
         Integer i = carApplicationService.getKeyUpdate(getKeyDto);

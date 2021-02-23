@@ -9,14 +9,14 @@ import java.util.List;
 public interface CarApplicationService{
 
     /**
-     * 用车申请、车辆归还：获取申请列表数据
+     * 用车申请、车辆领取、车辆归还：获取申请列表数据
      * @param useCarQueryParam
      * @return
      */
     List<UserCarList> selectUserCar(UseCarQueryParam useCarQueryParam);
 
     /**
-     * 用车申请、车辆归还：获取具体申请明细
+     * 用车申请、车辆领取、车辆归还：获取具体申请明细
      * @param loginUserID
      * @param carApplicationAuto
      * @return
@@ -117,7 +117,7 @@ public interface CarApplicationService{
     Integer giveKeyUpdate(GiveKeyDto giveKeyDto);
 
     /**
-     * 车辆安排：领取钥匙
+     * 车辆领取：领取钥匙
      * @param getKeyDto
      * @return
      */

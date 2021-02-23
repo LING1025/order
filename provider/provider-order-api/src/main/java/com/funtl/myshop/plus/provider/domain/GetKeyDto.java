@@ -7,7 +7,7 @@ import lombok.Data;
 import java.io.Serializable;
 
 @Data
-@ApiModel(value = "车辆安排：领取钥匙数据")
+@ApiModel(value = "车辆领取：领取钥匙数据")
 public class GetKeyDto implements Serializable {
     @ApiModelProperty(value = "领取钥匙人")
     private Long getKeyUser;

@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 @Data
-@ApiModel(value = "用车审核：选取审核明细；车辆安排：获取具体申请明细")
+@ApiModel(value = "用车审核：选取审核明细；用车申请、车辆领取、车辆归还：获取具体申请明细")
 public class CheckOne implements Serializable {
     /**
      * 用车申请单号
@@ -134,4 +134,15 @@ public class CheckOne implements Serializable {
 
     @ApiModelProperty(value = "审核等级序号")
     private Integer appSeq;
+
+    @ApiModelProperty(value = "是否发放钥匙 ：0否 1是")
+    private Integer isGive;
+
+    @ApiModelProperty(value = "是否领取钥匙 ：0否 1是")
+    private Integer isGet;
+
+    @ApiModelProperty(value = "钥匙是否归还：0否 1是")
+    private Integer isBack;
+
+
 }
