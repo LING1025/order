@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.funtl.myshop.plus.provider.mapper.PurchaseMapper">
+  <resultMap id="BaseResultMap" type="com.funtl.myshop.plus.provider.domain.Purchase">
+    <!--@mbg.generated-->
+    <!--@Table Purchase-->
+    <id column="Purchase_Auto" jdbcType="BIGINT" property="purchaseAuto" />
+    <result column="Purchase_Name" jdbcType="VARCHAR" property="purchaseName" />
+    <result column="PurchaseRequisition_Auto" jdbcType="BIGINT" property="purchaseRequisitionAuto" />
+    <result column="Type" jdbcType="INTEGER" property="type" />
+    <result column="RR_Auto" jdbcType="BIGINT" property="rrAuto" />
+    <result column="Purchase_Specifications" jdbcType="VARCHAR" property="purchaseSpecifications" />
+    <result column="Purchase_Application" jdbcType="VARCHAR" property="purchaseApplication" />
+    <result column="Purchase_Price" jdbcType="DECIMAL" property="purchasePrice" />
+    <result column="Purchase_Amount" jdbcType="INTEGER" property="purchaseAmount" />
+    <result column="Purchase_Remark" jdbcType="VARCHAR" property="purchaseRemark" />
+    <result column="Purchase_TotalAmt" jdbcType="DECIMAL" property="purchaseTotalAmt" />
+    <result column="Cuser" jdbcType="BIGINT" property="cuser" />
+    <result column="CDT" jdbcType="TIMESTAMP" property="cdt" />
+    <result column="Muser" jdbcType="BIGINT" property="muser" />
+    <result column="MDT" jdbcType="TIMESTAMP" property="mdt" />
+    <result column="UseDep" jdbcType="BIGINT" property="useDep" />
+    <result column="FeeType" jdbcType="INTEGER" property="feeType" />
+    <result column="PurchaseInvType" jdbcType="INTEGER" property="purchaseInvType" />
+    <result column="InvNO" jdbcType="VARCHAR" property="invNo" />
+    <result column="TaxAmt" jdbcType="DECIMAL" property="taxAmt" />
+    <result column="NOTaxAmt" jdbcType="DECIMAL" property="noTaxAmt" />
+    <result column="ZJPurchase_Auto" jdbcType="BIGINT" property="zjPurchaseAuto" />
+    <result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
+    <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
+    <result column="fee_time" jdbcType="TIMESTAMP" property="feeTime" />
+    <result column="img" jdbcType="VARCHAR" property="img" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    Purchase_Auto, Purchase_Name, PurchaseRequisition_Auto, [Type], RR_Auto, Purchase_Specifications,
+    Purchase_Application, Purchase_Price, Purchase_Amount, Purchase_Remark, Purchase_TotalAmt,
+    Cuser, CDT, Muser, MDT, UseDep, FeeType, PurchaseInvType, InvNO, TaxAmt, NOTaxAmt,
+    ZJPurchase_Auto, start_time, end_time, fee_time, img
+  </sql>
+</mapper>

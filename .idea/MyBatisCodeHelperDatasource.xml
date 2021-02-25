@@ -1194,6 +1194,50 @@
                 </TableGenerateConfig>
               </value>
             </entry>
+            <entry key="dbo:Purchase">
+              <value>
+                <TableGenerateConfig>
+                  <option name="columnOverrideList">
+                    <list>
+                      <MyColumnOverride>
+                        <option name="columnName" value="PurchaseRequisition_Auto" />
+                        <option name="javaProperty" value="purchaseRequisitionAuto" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="UseDep" />
+                        <option name="javaProperty" value="useDep" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="FeeType" />
+                        <option name="javaProperty" value="feeType" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="InvNO" />
+                        <option name="javaProperty" value="invNo" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="TaxAmt" />
+                        <option name="javaProperty" value="taxAmt" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="NOTaxAmt" />
+                        <option name="javaProperty" value="noTaxAmt" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="ZJPurchase_Auto" />
+                        <option name="javaProperty" value="zjPurchaseAuto" />
+                      </MyColumnOverride>
+                    </list>
+                  </option>
+                  <option name="generatedKey" value="Purchase_Auto" />
+                  <option name="javaModelName" value="Purchase" />
+                  <option name="moduleName" value="provider-order-api" />
+                  <option name="sequenceColumn" value="" />
+                  <option name="sequenceId" value="" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
             <entry key="dbo:PurchaseRequest">
               <value>
                 <TableGenerateConfig>
@@ -1780,7 +1824,6 @@
             </entry>
           </map>
         </option>
-        <option name="useActualColumnNames" value="true" />
         <option name="xmlMapperPackage" value="mapper" />
         <option name="xmlMapperPath" value="D:\twoWork\order\provider\provider-order-service\src\main\resources" />
       </ProjectProfile>
