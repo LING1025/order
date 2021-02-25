@@ -1194,6 +1194,134 @@
                 </TableGenerateConfig>
               </value>
             </entry>
+            <entry key="dbo:PurchaseRequest">
+              <value>
+                <TableGenerateConfig>
+                  <option name="columnOverrideList">
+                    <list>
+                      <MyColumnOverride>
+                        <option name="columnName" value="PurchaseRequest_Auto" />
+                        <option name="javaProperty" value="purchaseRequestAuto" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="Inc_Auto" />
+                        <option name="javaProperty" value="incAuto" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="Invoice_Number" />
+                        <option name="javaProperty" value="invoiceNumber" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="RequestUser" />
+                        <option name="javaProperty" value="requestUser" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="Request_Type" />
+                        <option name="javaProperty" value="requestType" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="RequestDT" />
+                        <option name="javaProperty" value="requestDT" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="RequestAmt" />
+                        <option name="javaProperty" value="requestAmt" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="PayRequestAmt" />
+                        <option name="javaProperty" value="payRequestAmt" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="Is_ZJ" />
+                        <option name="javaProperty" value="isZJ" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="ZJAmt" />
+                        <option name="javaProperty" value="zJAmt" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="ZJpay_Type" />
+                        <option name="javaProperty" value="zJpayType" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="Pay_Type" />
+                        <option name="javaProperty" value="payType" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="CyberBank_Type" />
+                        <option name="javaProperty" value="cyberBankType" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="Payee" />
+                        <option name="javaProperty" value="payee" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="Payee_Account" />
+                        <option name="javaProperty" value="payeeAccount" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="BankName" />
+                        <option name="javaProperty" value="bankName" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="Remark" />
+                        <option name="javaProperty" value="remark" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="Status" />
+                        <option name="javaProperty" value="status" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="Is_RR" />
+                        <option name="javaProperty" value="isRR" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="Cuser" />
+                        <option name="javaProperty" value="cuser" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="CDT" />
+                        <option name="javaProperty" value="cdt" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="Muser" />
+                        <option name="javaProperty" value="muser" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="MDT" />
+                        <option name="javaProperty" value="mdt" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="LKInc_Auto" />
+                        <option name="javaProperty" value="lKIncAuto" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="IsBatch" />
+                        <option name="javaProperty" value="isBatch" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="BankType" />
+                        <option name="javaProperty" value="bankType" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="InvType" />
+                        <option name="javaProperty" value="invType" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="Is_Eas" />
+                        <option name="javaProperty" value="isEas" />
+                      </MyColumnOverride>
+                    </list>
+                  </option>
+                  <option name="generatedKey" value="PurchaseRequest_Auto" />
+                  <option name="javaModelName" value="PurchaseRequest" />
+                  <option name="moduleName" value="provider-order-api" />
+                  <option name="sequenceColumn" value="" />
+                  <option name="sequenceId" value="" />
+                  <option name="useActualColumnName" value="true" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
             <entry key="dbo:RptVst">
               <value>
                 <TableGenerateConfig>
