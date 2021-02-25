@@ -40,4 +40,7 @@
     Payee_Account, BankName, Remark, [Status], Is_RR, Cuser, CDT, Muser, MDT, LKInc_Auto,
     IsBatch, BankType, InvType, Is_Eas
   </sql>
+    <select id="selectInc" resultType="com.funtl.myshop.plus.provider.domain.RequestInc">
+
+    </select>
 </mapper>
