@@ -40,7 +40,20 @@
     Payee_Account, BankName, Remark, [Status], Is_RR, Cuser, CDT, Muser, MDT, LKInc_Auto,
     IsBatch, BankType, InvType, Is_Eas
   </sql>
-    <select id="selectInc" resultType="com.funtl.myshop.plus.provider.domain.RequestInc">
 
+    <!--根据用车请款人获取公司别-->
+  <resultMap id="queryInc" type="com.funtl.myshop.plus.provider.domain.RequestInc">
+    <result column="userAuto" jdbcType="BIGINT" property="userAuto" />
+    <result column="IncAuto" jdbcType="BIGINT" property="IncAuto" />
+  </resultMap>
+    <select id="selectInc" resultMap="queryInc">
+    select
+    a.User_Auto
+    ,b.Inc_Auto --公司别序号
+    from
+    v_Emp a
+    left join DocSystem.dbo.Employee b on b.Account = a.UserName collate Chinese_PRC_CI_AS
+    left join Inc c on c.Inc_Auto = b.Inc_Auto
+    where a.IsOn=1 and b.[Status]='任用' and a.User_Auto=#{userAuto}
     </select>
 </mapper>
