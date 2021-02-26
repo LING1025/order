@@ -24,4 +24,9 @@ public class PurchaseRequestServiceImpl implements PurchaseRequestService{
         Integer i = purchaseRequestMapper.insertUseGeneratedKeys(purchaseRequest);
         return i == 1 ? purchaseRequest.getPurchaseRequestAuto() : 0;
     }
+
+    @Override
+    public Integer deleteById(Long purchaseRequestAuto) {
+        return purchaseRequestMapper.deleteByPrimaryKey(purchaseRequestAuto);
+    }
 }

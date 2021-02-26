@@ -18,4 +18,11 @@ public interface PurchaseRequestService{
      * @return
      */
     Long insert(PurchaseRequest purchaseRequest);
+
+    /**
+     * 删除用车请款数据
+     * @param purchaseRequestAuto
+     * @return
+     */
+    Integer deleteById(Long purchaseRequestAuto);
 }

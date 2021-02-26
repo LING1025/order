@@ -549,7 +549,8 @@ public class CarApplyController {
         purchase.setPurchaseTotalAmt(userCarRequestParamDto.getRequestAmt());
         purchase.setUseDep(requestInc.getUseDep());
         Long i2 = purchaseService.insert(purchase);
-        if (i == 0){
+        if (i2 == 0){
+            purchaseRequestService.deleteById(i);
             return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"用车请款物品明细插入失败",null);
         }
         return new ResponseResult<>(ResponseResult.CodeStatus.OK,"请款成功",null);
