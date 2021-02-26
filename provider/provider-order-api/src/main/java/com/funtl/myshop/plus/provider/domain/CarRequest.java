@@ -22,6 +22,9 @@ public class CarRequest implements Serializable {
     @JsonIgnore
     private Long IncAuto;
 
+    @ApiModelProperty(value = "发票号码")
+    private String invoiceNumber;
+
     @ApiModelProperty(value = "请款人账号")
     private Long requestUser;
 
@@ -35,7 +38,7 @@ public class CarRequest implements Serializable {
      * 请款日期
      */
     @JsonIgnore
-    private Date requestDT;
+    private Date requestDT=new Date();
 
     /**
      * 请款金额(发票金额)
@@ -43,8 +46,11 @@ public class CarRequest implements Serializable {
     @ApiModelProperty(value = "请款金额(发票金额)")
     private BigDecimal requestAmt;
 
+    /**
+     * 实际请款金额(请款总金额-暂借款金额)
+     */
     @JsonIgnore
-    private Integer status=10;//10送件中
+    private BigDecimal payRequestAmt=requestAmt;
 
     /**
      * 是否暂借(0:不1:是)
@@ -57,12 +63,6 @@ public class CarRequest implements Serializable {
      */
     @JsonIgnore
     private BigDecimal zJAmt=BigDecimal.valueOf(0);
-
-    /**
-     * 实际请款金额(请款总金额-暂借款金额)
-     */
-    @JsonIgnore
-    private BigDecimal payRequestAmt;
 
     /**
      * 暂借付款别
@@ -81,4 +81,25 @@ public class CarRequest implements Serializable {
      */
     @ApiModelProperty(value = "网银:1中行 2建行 3星展 4瑞穗 5其他")
     private Integer cyBerBankType=0;
+
+    @JsonIgnore
+    private Integer status=10;//10审核中
+
+    /**
+     * 与请款关联(0:否;1:是)
+     */
+    @JsonIgnore
+    private Integer isRR=1;
+
+    /**
+     * 创建人
+     */
+    @JsonIgnore
+    private Long cuser=requestUser;
+
+    /**
+     * 创建时间
+     */
+    @JsonIgnore
+    private Date cdt=new Date();
 }
