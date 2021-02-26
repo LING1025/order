@@ -1,5 +1,6 @@
 package com.funtl.myshop.plus.business.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -43,12 +44,15 @@ public class UserCarRequestParamDto implements Serializable {
     private String feeTypeName;
 
     @ApiModelProperty(value = "开始时间")
+    @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd HH:mm")
     private Date startTime;
 
     @ApiModelProperty(value = "结束时间")
+    @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd HH:mm")
     private Date endTime;
 
     @ApiModelProperty(value = "费用时间")
+    @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd HH:mm")
     private Date feeTime;
 
     @ApiModelProperty(value = "附件图片")
