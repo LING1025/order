@@ -14,7 +14,6 @@ import java.util.Date;
  * 用车请款信息
  */
 @Data
-@ApiModel(value = "用车请款信息")
 public class CarRequest implements Serializable {
     /**
      * 请款人公司别

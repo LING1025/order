@@ -413,5 +413,96 @@ public class CarApplication implements Serializable {
      */
     @Column(name = "address5")
     private String address5;
+
+    /**
+     * 途经地1
+     */
+    @Column(name = "passAddr1")
+    private String passAddr1;
+
+    /**
+     * 途经地1纬度
+     */
+    @Column(name = "passAddrLat1")
+    private String passAddrLat1;
+
+    /**
+     * 途经地1经度
+     */
+    @Column(name = "passAddrLng1")
+    private String passAddrLng1;
+
+    /**
+     * 途经地2
+     */
+    @Column(name = "passAddr2")
+    private String passAddr2;
+
+    /**
+     * 途经地2纬度
+     */
+    @Column(name = "passAddrLat2")
+    private String passAddrLat2;
+
+    /**
+     * 途经地2经度
+     */
+    @Column(name = "passAddrLng2")
+    private String passAddrLng2;
+
+    /**
+     * 途经地3
+     */
+    @Column(name = "passAddr3")
+    private String passAddr3;
+
+    /**
+     * 途经地3纬度
+     */
+    @Column(name = "passAddrLat3")
+    private String passAddrLat3;
+
+    /**
+     * 途经地3经度
+     */
+    @Column(name = "passAddrLng3")
+    private String passAddrLng3;
+
+    /**
+     * 途经地4
+     */
+    @Column(name = "passAddr4")
+    private String passAddr4;
+
+    /**
+     * 途经地4纬度
+     */
+    @Column(name = "passAddrLat4")
+    private String passAddrLat4;
+
+    /**
+     * 途经地4经度
+     */
+    @Column(name = "passAddrLng4")
+    private String passAddrLng4;
+
+    /**
+     * 途经地5
+     */
+    @Column(name = "passAddr5")
+    private String passAddr5;
+
+    /**
+     * 途经地5纬度
+     */
+    @Column(name = "passAddrLat5")
+    private String passAddrLat5;
+
+    /**
+     * 途经地5经度
+     */
+    @Column(name = "passAddrLng5")
+    private String passAddrLng5;
+
     private static final long serialVersionUID = 1L;
 }
