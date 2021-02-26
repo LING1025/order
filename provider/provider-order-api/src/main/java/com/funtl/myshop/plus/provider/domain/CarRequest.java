@@ -39,9 +39,6 @@ public class CarRequest implements Serializable {
     @JsonIgnore
     private Date requestDT=new Date();
 
-    /**
-     * 请款金额(发票金额)
-     */
     @ApiModelProperty(value = "请款金额(发票金额)")
     private BigDecimal requestAmt;
 

@@ -85,8 +85,11 @@ public class CarFeeRequest implements Serializable {
     @JsonIgnore
     private Long useDep;
 
-    @ApiModelProperty(value = "费用别")
+    @ApiModelProperty(value = "费用别序号：1过路费 2停车费 3加油费 40充电费(汽车)")
     private Integer feeType;
+
+    @ApiModelProperty(value = "费用别")
+    private String feeTypeName;
 
     @ApiModelProperty(value = "开始时间")
     private Date startTime;
