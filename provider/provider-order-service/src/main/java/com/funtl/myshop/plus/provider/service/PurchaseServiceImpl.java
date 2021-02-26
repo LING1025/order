@@ -13,4 +13,9 @@ public class PurchaseServiceImpl implements PurchaseService{
     private PurchaseMapper purchaseMapper;
 
 
+    @Override
+    public Long insert(Purchase purchase) {
+        Integer i = purchaseMapper.insertUseGeneratedKeys(purchase);
+        return i == 1 ? purchase.getPurchaseAuto() : 0;
+    }
 }

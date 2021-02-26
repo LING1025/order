@@ -16,7 +16,7 @@ import java.util.Date;
  */
 @Data
 public class CarFeeRequest implements Serializable {
-    @ApiModelProperty(value = "请款人账号")
+    @ApiModelProperty(value = "请款人序号")
     private Long requestUser;
 
     /**

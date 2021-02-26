@@ -50,6 +50,12 @@ public class CarApplyController {
     @Reference(version = "1.0.0")
     private AspnetUsersService aspnetUsersService;
 
+    @Reference(version = "1.0.0")
+    private PurchaseRequestService purchaseRequestService;
+
+    @Reference(version = "1.0.0")
+    private PurchaseService purchaseService;
+
     /*@ApiOperation(value = "经纬度转地址")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "lng", value = "经度", required = true, dataType = "String", paramType = "path"),
@@ -502,5 +508,50 @@ public class CarApplyController {
             return new ResponseResult<>(ResponseResult.CodeStatus.OK,"已逾期",1);
         }
         return new ResponseResult<>(ResponseResult.CodeStatus.OK,"未逾期",0);
+    }
+
+    @ApiOperation(value = "车辆归还：用车费用请款(此接口如要测试请联系后端)")
+    @PostMapping(value = "insertUseCarFee")
+    public ResponseResult<String> insertUseCarFee(@ApiParam(value = "车辆归还：用车费用请款数据") @Valid @RequestBody UserCarRequestParamDto userCarRequestParamDto){
+        if (userCarRequestParamDto.getRequestUser() == 0){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"请款人序号必填",null);
+        }
+        userCarRequestParamDto.setCuser(userCarRequestParamDto.getRequestUser());
+        userCarRequestParamDto.setCdt(new Date());
+
+        RequestInc requestInc = purchaseRequestService.selectInc(userCarRequestParamDto.getRequestUser());
+        if (requestInc == null){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"此请款人信息不存在",null);
+        }
+        PurchaseRequest purchaseRequest = new PurchaseRequest();
+        BeanUtils.copyProperties(userCarRequestParamDto,purchaseRequest);
+        purchaseRequest.setIncAuto(requestInc.getIncAuto());
+        purchaseRequest.setRequestType(1);
+        purchaseRequest.setRequestDT(new Date());
+        purchaseRequest.setPayRequestAmt(userCarRequestParamDto.getRequestAmt());
+        purchaseRequest.setIsZJ(0);
+        purchaseRequest.setZJAmt(BigDecimal.valueOf(0));
+        purchaseRequest.setZjPayType(0);
+        purchaseRequest.setStatus(10);
+        Long i = purchaseRequestService.insert(purchaseRequest);
+        if (i == 0){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"用车请款数据插入失败",null);
+        }
+
+        Purchase purchase = new Purchase();
+        BeanUtils.copyProperties(userCarRequestParamDto,purchase);
+        purchase.setRrAuto(i);
+        purchase.setPurchaseName(userCarRequestParamDto.getFeeTypeName());
+        purchase.setPurchaseRequisitionAuto(0L);
+        purchase.setType(1);
+        purchase.setPurchasePrice(userCarRequestParamDto.getRequestAmt());
+        purchase.setPurchaseAmount(1);
+        purchase.setPurchaseTotalAmt(userCarRequestParamDto.getRequestAmt());
+        purchase.setUseDep(requestInc.getUseDep());
+        Long i2 = purchaseService.insert(purchase);
+        if (i == 0){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"用车请款物品明细插入失败",null);
+        }
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK,"请款成功",null);
     }
 }

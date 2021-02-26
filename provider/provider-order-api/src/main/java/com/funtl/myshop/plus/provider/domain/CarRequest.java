@@ -24,7 +24,7 @@ public class CarRequest implements Serializable {
     @ApiModelProperty(value = "发票号码")
     private String invoiceNumber;
 
-    @ApiModelProperty(value = "请款人账号")
+    @ApiModelProperty(value = "请款人序号")
     private Long requestUser;
 
     /**

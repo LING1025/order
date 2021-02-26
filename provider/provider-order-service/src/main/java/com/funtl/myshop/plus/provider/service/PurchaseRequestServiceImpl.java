@@ -18,4 +18,10 @@ public class PurchaseRequestServiceImpl implements PurchaseRequestService{
     public RequestInc selectInc(Long userAuto) {
         return purchaseRequestMapper.selectInc(userAuto);
     }
+
+    @Override
+    public Long insert(PurchaseRequest purchaseRequest) {
+        Integer i = purchaseRequestMapper.insertUseGeneratedKeys(purchaseRequest);
+        return i == 1 ? purchaseRequest.getPurchaseRequestAuto() : 0;
+    }
 }

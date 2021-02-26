@@ -12,4 +12,10 @@ public interface PurchaseRequestService{
      */
     RequestInc selectInc(Long userAuto);
 
+    /**
+     * 插入用车请款数据
+     * @param purchaseRequest
+     * @return
+     */
+    Long insert(PurchaseRequest purchaseRequest);
 }

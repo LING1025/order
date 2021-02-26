@@ -1,5 +1,6 @@
 package com.funtl.myshop.plus.business.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -9,13 +10,13 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 @Data
-@ApiModel(value = "用车费用请款数据")
+@ApiModel(value = "车辆归还：用车费用请款数据")
 public class UserCarRequestParamDto implements Serializable {
     @ApiModelProperty(value = "发票号码")
     private String invoiceNumber;
 
-    @ApiModelProperty(value = "请款人账号")
-    private Long requestUser;
+    @ApiModelProperty(value = "请款人序号")
+    private Long requestUser=0L;
 
     @ApiModelProperty(value = "请款金额(发票金额)")
     private BigDecimal requestAmt;
@@ -52,4 +53,16 @@ public class UserCarRequestParamDto implements Serializable {
 
     @ApiModelProperty(value = "附件图片")
     private String img;
+
+    /**
+     * 创建人
+     */
+    @JsonIgnore
+    private Long cuser;
+
+    /**
+     * 创建时间
+     */
+    @JsonIgnore
+    private Date cdt=;
 }
