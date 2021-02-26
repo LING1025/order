@@ -194,4 +194,19 @@ public class CheckOne implements Serializable {
     @ApiModelProperty(value = "车身后部拍照地址")
     private String address5;
 
+    @ApiModelProperty(value = "途经地1")
+    private String passAddr1;
+
+    @ApiModelProperty(value = "途经地2")
+    private String passAddr2;
+
+    @ApiModelProperty(value = "途经地3")
+    private String passAddr3;
+
+    @ApiModelProperty(value = "途经地4")
+    private String passAddr4;
+
+    @ApiModelProperty(value = "途经地5")
+    private String passAddr5;
+
 }

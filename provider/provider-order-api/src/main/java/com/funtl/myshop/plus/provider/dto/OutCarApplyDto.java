@@ -6,6 +6,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import javax.persistence.Column;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -111,4 +112,49 @@ public class OutCarApplyDto implements Serializable {
 
     @ApiModelProperty(value = "排挡方式")
     private String bsTypeN;
+
+    @ApiModelProperty(value = "途经地1")
+    private String passAddr1;
+
+    @ApiModelProperty(value = "途经地1纬度")
+    private String passAddrLat1;
+
+    @ApiModelProperty(value = "途经地1经度")
+    private String passAddrLng1;
+
+    @ApiModelProperty(value = "途经地2")
+    private String passAddr2;
+
+    @ApiModelProperty(value = "途经地2纬度")
+    private String passAddrLat2;
+
+    @ApiModelProperty(value = "途经地2经度")
+    private String passAddrLng2;
+
+    @ApiModelProperty(value = "途经地3")
+    private String passAddr3;
+
+    @ApiModelProperty(value = "途经地3纬度")
+    private String passAddrLat3;
+
+    @ApiModelProperty(value = "途经地3经度")
+    private String passAddrLng3;
+
+    @ApiModelProperty(value = "途经地4")
+    private String passAddr4;
+
+    @ApiModelProperty(value = "途经地4纬度")
+    private String passAddrLat4;
+
+    @ApiModelProperty(value = "途经地4经度")
+    private String passAddrLng4;
+
+    @ApiModelProperty(value = "途经地5")
+    private String passAddr5;
+
+    @ApiModelProperty(value = "途经地5纬度")
+    private String passAddrLat5;
+
+    @ApiModelProperty(value = "途经地5经度")
+    private String passAddrLng5;
 }
