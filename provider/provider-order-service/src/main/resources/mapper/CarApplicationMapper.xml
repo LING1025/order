@@ -225,7 +225,22 @@ end
         @distance decimal(18,3)=#{param.distance},
         @isHoliday int=#{param.isHoliday},
         @useCarTime decimal(18,1)=#{param.useCarTime},
-        @areaType int =#{param.areaType}
+        @areaType int =#{param.areaType},
+        @passAddr1 varchar(50)=#{param.passAddr1},
+        @passAddrLat1 varchar(50)=#{param.passAddrLat1},
+        @passAddrLng1 varchar(50)=#{param.passAddrLng1},
+        @passAddr2 varchar(50)=#{param.passAddr2},
+        @passAddrLat2 varchar(50)=#{param.passAddrLat2},
+        @passAddrLng2 varchar(50)=#{param.passAddrLng2},
+        @passAddr3 varchar(50)=#{param.passAddr3},
+        @passAddrLat3 varchar(50)=#{param.passAddrLat3},
+        @passAddrLng3 varchar(50)=#{param.passAddrLng3},
+        @passAddr4 varchar(50)=#{param.passAddr4},
+        @passAddrLat4 varchar(50)=#{param.passAddrLat4},
+        @passAddrLng4 varchar(50)=#{param.passAddrLng4},
+        @passAddr5 varchar(50)=#{param.passAddr5},
+        @passAddrLat5 varchar(50)=#{param.passAddrLat5},
+        @passAddrLng5 varchar(50)=#{param.passAddrLng5}
 
         BEGIN
         SET NOCOUNT ON;
@@ -316,11 +331,17 @@ end
         Insert Into CarApplication(AppUser,AppDT,AppType,FeeType,WHType,PlanStartDT,PlanEndDT,
         UserName,IsDriver,DriverUser_Auto,LicenceMemo,Carbase_Auto,[Status],CUser,CDT,IsSave,
         startAddr,startAddrLat,startAddrLng,endAddr,endAddrLat,endAddrLng,distance,IsHoliday,
-        useCarTime,areaType,UserAuto)
+        useCarTime,areaType,UserAuto,
+        passAddr1,passAddrLat1,passAddrLng1,
+        passAddr2,passAddrLat2,passAddrLng2,passAddr3,passAddrLat3,passAddrLng3,passAddr4,
+        passAddrLat4,passAddrLng4,passAddr5,passAddrLat5,passAddrLng5)
         Values(@AppUser,getdate(),@AppType,1,@WHType,@PlanStartDT,@PlanEndDT,@UserName,@IsDriver,@DriverUser_Auto,
         @LicenceMemo,@Carbase_Auto,@Status,@CUser,getdate(),@IsSave,
         @startAddr,@startAddrLat,@startAddrLng,@endAddr,@endAddrLat,@endAddrLng,@distance,@IsHoliday,@useCarTime,@areaType,
-        @UserAuto)
+        @UserAuto,
+        @passAddr1,@passAddrLat1,@passAddrLng1,
+        @passAddr2,@passAddrLat2,@passAddrLng2,@passAddr3,@passAddrLat3,@passAddrLng3,@passAddr4,
+        @passAddrLat4,@passAddrLng4,@passAddr5,@passAddrLat5,@passAddrLng5)
 
 
         declare @CarApplication_Auto bigint
@@ -365,11 +386,17 @@ end
         Insert Into CarApplication(AppUser,AppDT,AppType,FeeType,WHType,PlanStartDT,PlanEndDT,
         UserName,IsDriver,DriverUser_Auto,LicenceMemo,Carbase_Auto,[Status],CUser,CDT,IsSave,
         startAddr,startAddrLat,startAddrLng,endAddr,endAddrLat,endAddrLng,distance,IsHoliday,
-        useCarTime,areaType,UserAuto)
+        useCarTime,areaType,UserAuto,
+        passAddr1,passAddrLat1,passAddrLng1,
+        passAddr2,passAddrLat2,passAddrLng2,passAddr3,passAddrLat3,passAddrLng3,passAddr4,
+        passAddrLat4,passAddrLng4,passAddr5,passAddrLat5,passAddrLng5)
         Values(@AppUser,getdate(),@AppType,1,@WHType,@PlanStartDT,@PlanEndDT,@UserName,@IsDriver,@DriverUser_Auto,
         @LicenceMemo,@Carbase_Auto,20,@CUser,getdate(),@IsSave,
         @startAddr,@startAddrLat,@startAddrLng,@endAddr,@endAddrLat,@endAddrLng,@distance,@IsHoliday,@useCarTime,@areaType,
-        @UserAuto)
+        @UserAuto,
+        @passAddr1,@passAddrLat1,@passAddrLng1,
+        @passAddr2,@passAddrLat2,@passAddrLng2,@passAddr3,@passAddrLat3,@passAddrLng3,@passAddr4,
+        @passAddrLat4,@passAddrLng4,@passAddr5,@passAddrLat5,@passAddrLng5)
         end
         End
         end
