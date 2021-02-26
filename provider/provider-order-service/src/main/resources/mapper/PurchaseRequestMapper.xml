@@ -45,11 +45,13 @@
   <resultMap id="queryInc" type="com.funtl.myshop.plus.provider.domain.RequestInc">
     <result column="userAuto" jdbcType="BIGINT" property="userAuto" />
     <result column="IncAuto" jdbcType="BIGINT" property="IncAuto" />
+    <result column="Org_Auto" jdbcType="BIGINT" property="useDep" />
   </resultMap>
     <select id="selectInc" resultMap="queryInc">
     select
     a.User_Auto
     ,b.Inc_Auto --公司别序号
+    ,a.Org_Auto --使用部门
     from
     v_Emp a
     left join DocSystem.dbo.Employee b on b.Account = a.UserName collate Chinese_PRC_CI_AS

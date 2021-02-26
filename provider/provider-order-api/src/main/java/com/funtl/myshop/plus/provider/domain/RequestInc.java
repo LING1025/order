@@ -19,4 +19,9 @@ public class RequestInc implements Serializable {
      * 用车请款人所属公司别
      */
     private Long IncAuto;
+
+    /**
+     * 使用部门
+     */
+    private Long useDep;
 }
