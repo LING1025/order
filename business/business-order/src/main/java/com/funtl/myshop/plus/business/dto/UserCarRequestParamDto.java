@@ -64,5 +64,5 @@ public class UserCarRequestParamDto implements Serializable {
      * 创建时间
      */
     @JsonIgnore
-    private Date cdt=;
+    private Date cdt;
 }
