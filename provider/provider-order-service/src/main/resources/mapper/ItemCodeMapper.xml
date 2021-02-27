@@ -174,14 +174,14 @@
       end
     </select>
 
-    <!--获取用车类别、牌照地区-->
+    <!--获取用车类别、牌照地区、车辆选择、事由说明-->
     <resultMap id="queryCarArea"  type="com.funtl.myshop.plus.provider.domain.CarAreaList">
         <result column="num" jdbcType="BIGINT" property="areaNum" />
         <result column="ItemName" jdbcType="VARCHAR" property="areaName" />
     </resultMap>
     <select id="selectCarArea" resultMap="queryCarArea">
         declare
-        @type int=#{itemType}--833申请事由，用车类别,810车牌照地区,231车辆选择类别
+        @type int=#{itemType}--833申请事由，用车类别,810车牌照地区,231车辆选择类别,865事由说明
         BEGIN
         if @type=833
         begin
@@ -198,6 +198,12 @@
         if @type=231
         begin
         select num,ItemName  from ItemCode where ItemType=231
+        end
+        if @type=865
+        begin
+        select num=0,ItemName='==请选择=='
+        union all
+        select num,ItemName  from ItemCode where ItemType=865
         end
         END
     </select>
