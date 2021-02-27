@@ -13,6 +13,9 @@ import java.util.Date;
 @Data
 @ApiModel(value = "车辆归还：用车费用请款数据")
 public class UserCarRequestParamDto implements Serializable {
+    @ApiModelProperty(value = "用车申请序号")
+    private Long carApplicationAuto=0L;
+
     @ApiModelProperty(value = "发票号码")
     private String invoiceNumber;
 

@@ -157,5 +157,11 @@ public class PurchaseRequest implements Serializable {
     @Column(name = "Is_Eas")
     private Integer isEas;
 
+    /**
+     * 用车申请序号
+     */
+    @Column(name = "Is_Eas")
+    private Long carApplicationAuto;
+
     private static final long serialVersionUID = 1L;
 }

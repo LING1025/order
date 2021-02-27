@@ -32,13 +32,14 @@
     <result column="BankType" jdbcType="INTEGER" property="bankType" />
     <result column="InvType" jdbcType="INTEGER" property="invType" />
     <result column="Is_Eas" jdbcType="INTEGER" property="isEas" />
+    <result column="CarApplication_Auto" jdbcType="BIGINT" property="carApplicationAuto" />
   </resultMap>
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
     PurchaseRequest_Auto, Inc_Auto, Invoice_Number, RequestUser, Request_Type, RequestDT,
     RequestAmt, PayRequestAmt, Is_ZJ, ZJAmt, ZJpay_Type, Pay_Type, CyberBank_Type, Payee,
     Payee_Account, BankName, Remark, [Status], Is_RR, Cuser, CDT, Muser, MDT, LKInc_Auto,
-    IsBatch, BankType, InvType, Is_Eas
+    IsBatch, BankType, InvType, Is_Eas,CarApplication_Auto
   </sql>
 
     <!--根据用车请款人获取公司别-->
