@@ -187,7 +187,7 @@
         begin
         select num=0,ItemName='==请选择=='
         union all
-        select num,ItemName  from ItemCode where ItemType=833  --and num in (1,2)
+        select num,ItemName  from ItemCode where ItemType=833  and num in (1,2)
         end
 
         if @type=810
