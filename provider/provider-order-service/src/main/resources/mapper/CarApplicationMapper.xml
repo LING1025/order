@@ -450,7 +450,7 @@ select c.CarApplication_Auto,v.FName appUserN,i.ItemName appTypeN, c.PlanStartDT
     where
     a.ApplicationId='73663109-dda2-4c2d-8311-337946b5c373'
     and a.User_Auto= @UserAuto
-		)
+		)  and c.Status in (10,20)
 		)aa
 		where
         1 = 1
