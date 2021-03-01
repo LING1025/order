@@ -450,7 +450,7 @@ select c.CarApplication_Auto,v.FName appUserN,i.ItemName appTypeN, c.PlanStartDT
     where
     a.ApplicationId='73663109-dda2-4c2d-8311-337946b5c373'
     and a.User_Auto= @UserAuto
-		)  and c.Status in (10,20)
+		)  and c.Status in (10,20) and (c.CDT between #{param.planStartDT} and #{param.planEndDT})
 		)aa
 		where
         1 = 1
@@ -466,12 +466,12 @@ select c.CarApplication_Auto,v.FName appUserN,i.ItemName appTypeN, c.PlanStartDT
         <if test="param.makNo != null and param.makNo != ''">
             AND  aa.MakNo = #{param.makNo}
         </if>
-        <if test="param.planStartDT != null and param.planStartDT != ''">
-            AND  aa.PlanStartDT = #{param.planStartDT}
-        </if>
-        <if test="param.planEndDT != null and param.planEndDT != '' ">
-            AND  aa.PlanEndDT = #{param.planEndDT}
-        </if>
+<!--        <if test="param.planStartDT != null and param.planStartDT != ''">-->
+<!--            AND  aa.PlanStartDT = #{param.planStartDT}-->
+<!--        </if>-->
+<!--        <if test="param.planEndDT != null and param.planEndDT != '' ">-->
+<!--            AND  aa.PlanEndDT = #{param.planEndDT}-->
+<!--        </if>-->
         <if test="param.statusN != null and param.statusN != ''">
             AND aa.StatusN=#{param.statusN}
         </if>
