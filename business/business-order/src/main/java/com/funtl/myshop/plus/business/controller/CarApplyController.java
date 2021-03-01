@@ -538,6 +538,7 @@ public class CarApplyController {
         purchaseRequest.setZJAmt(BigDecimal.valueOf(0));//暂借金额
         purchaseRequest.setZjPayType(0);//暂借付款别
         purchaseRequest.setStatus(10);//状态10审核中
+        purchaseRequest.setIsRR(1);//与请款关联(0:否;1:是)
         Long i = purchaseRequestService.insert(purchaseRequest);
         if (i == 0){
             return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"用车请款数据插入失败",null);

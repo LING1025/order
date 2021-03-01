@@ -160,7 +160,7 @@ public class PurchaseRequest implements Serializable {
     /**
      * 用车申请序号
      */
-    @Column(name = "Is_Eas")
+    @Column(name = "CarApplication_Auto")
     private Long carApplicationAuto;
 
     private static final long serialVersionUID = 1L;

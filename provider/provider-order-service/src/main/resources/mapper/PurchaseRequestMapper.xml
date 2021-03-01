@@ -44,8 +44,8 @@
 
     <!--根据用车请款人获取公司别-->
   <resultMap id="queryInc" type="com.funtl.myshop.plus.provider.domain.RequestInc">
-    <result column="userAuto" jdbcType="BIGINT" property="userAuto" />
-    <result column="IncAuto" jdbcType="BIGINT" property="IncAuto" />
+    <result column="User_Auto" jdbcType="BIGINT" property="userAuto" />
+    <result column="Inc_Auto" jdbcType="BIGINT" property="IncAuto" />
     <result column="Org_Auto" jdbcType="BIGINT" property="useDep" />
   </resultMap>
     <select id="selectInc" resultMap="queryInc">
