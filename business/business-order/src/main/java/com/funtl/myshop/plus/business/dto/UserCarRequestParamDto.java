@@ -72,4 +72,7 @@ public class UserCarRequestParamDto implements Serializable {
      */
     @JsonIgnore
     private Date cdt;
+
+    @ApiModelProperty(value = "累计费用金额")
+    private BigDecimal useCarAmt;
 }
