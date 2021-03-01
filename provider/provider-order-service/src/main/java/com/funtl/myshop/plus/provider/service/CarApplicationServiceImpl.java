@@ -118,5 +118,10 @@ public class CarApplicationServiceImpl implements CarApplicationService{
         return carApplicationMapper.updateByPrimaryKeySelective(carApplication);
     }
 
+    @Override
+    public Integer updateById(CarApplication carApplication) {
+        return carApplicationMapper.updateByPrimaryKeySelective(carApplication);
+    }
+
 
 }

@@ -504,5 +504,11 @@ public class CarApplication implements Serializable {
     @Column(name = "passAddrLng5")
     private String passAddrLng5;
 
+    /**
+     * 用车累计费用金额
+     */
+    @Column(name = "useCarAmt")
+    private BigDecimal useCarAmt;
+
     private static final long serialVersionUID = 1L;
 }

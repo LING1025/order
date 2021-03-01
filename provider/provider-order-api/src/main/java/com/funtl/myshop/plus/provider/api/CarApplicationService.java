@@ -150,4 +150,11 @@ public interface CarApplicationService{
      * @return
      */
     Integer takePhoto(CarApplication carApplication);
+
+    /**
+     * 根据主键修改申请信息
+     * @param carApplication
+     * @return
+     */
+    Integer updateById(CarApplication carApplication);
 }
