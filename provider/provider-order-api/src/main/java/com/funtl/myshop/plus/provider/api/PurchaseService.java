@@ -9,4 +9,11 @@ public interface PurchaseService{
      */
     Long insert(Purchase purchase);
 
+    /**
+     * 删除用车请款物品明细数据
+     * @param purchaseAuto
+     * @return
+     */
+    Integer deleteById(Long purchaseAuto);
+
 }

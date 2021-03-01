@@ -568,6 +568,7 @@ public class CarApplyController {
         Integer i3 = carApplicationService.updateById(carApplication);
         if (i3 == 0){
             purchaseRequestService.deleteById(i);
+            purchaseService.deleteById(i2);
             return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"用车累计费用金额修改失败",null);
         }
         return new ResponseResult<>(ResponseResult.CodeStatus.OK,"请款成功",null);

@@ -18,4 +18,9 @@ public class PurchaseServiceImpl implements PurchaseService{
         Integer i = purchaseMapper.insertUseGeneratedKeys(purchase);
         return i == 1 ? purchase.getPurchaseAuto() : 0;
     }
+
+    @Override
+    public Integer deleteById(Long purchaseAuto) {
+        return purchaseMapper.deleteByPrimaryKey(purchaseAuto);
+    }
 }
