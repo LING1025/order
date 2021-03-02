@@ -515,7 +515,7 @@ public class CarApplyController {
     public ResponseResult<String> insertUseCarFee(@ApiParam(value = "车辆归还：用车费用请款数据") @Valid @RequestBody UserCarRequestParamDto userCarRequestParamDto){
         CarApplication carApplication = carApplicationService.selectByCarApplicationAuto(userCarRequestParamDto.getCarApplicationAuto());
         if (carApplication == null) {
-            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"此用车申请信息不存在",null);
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "此用车申请信息不存在", null);
         }
         if (userCarRequestParamDto.getRequestUser() == 0){
             return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"请款人序号必填",null);
@@ -562,15 +562,25 @@ public class CarApplyController {
             return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"用车请款物品明细插入失败",null);
         }
 
-        carApplication.setMUser(userCarRequestParamDto.getRequestUser().intValue());
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK,"请款成功",null);
+    }
+    @ApiOperation(value = "车辆归还：用车累计费用金额(此接口如要测试请联系后端)")
+    @PutMapping(value = "updateRequestFee")
+    public ResponseResult<String> updateRequestFee(@ApiParam(value = "车辆归还：用车费用请款数据") @Valid @RequestBody RequestAmtParamDto requestAmtParamDto) {
+        CarApplication carApplication = carApplicationService.selectByCarApplicationAuto(requestAmtParamDto.getCarApplicationAuto());
+        if (carApplication == null) {
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL, "此用车申请信息不存在", null);
+        }
+        if (requestAmtParamDto.getRequestUser() == 0){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"请款人序号必填",null);
+        }
+        carApplication.setMUser(requestAmtParamDto.getRequestUser().intValue());
         carApplication.setMdt(new Date());
-        carApplication.setUseCarAmt(userCarRequestParamDto.getUseCarAmt());
+        carApplication.setUseCarAmt(requestAmtParamDto.getUseCarAmt());
         Integer i3 = carApplicationService.updateById(carApplication);
         if (i3 == 0){
-            purchaseRequestService.deleteById(i);
-            purchaseService.deleteById(i2);
-            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"用车累计费用金额修改失败",null);
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"保存失败",null);
         }
-        return new ResponseResult<>(ResponseResult.CodeStatus.OK,"请款成功",null);
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK,"保存成功",null);
     }
 }
