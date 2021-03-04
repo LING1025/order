@@ -35,11 +35,23 @@ public class OrgCarQueryParam implements Serializable {
      */
     private Integer type;
 
-    public OrgCarQueryParam(String oilName, String bsTypeN, String carArea, BigDecimal mileage, Integer type) {
+    /**
+     * 使用人序号
+     */
+    private Long userAuto;
+
+    /**
+     * 用车类别序号：1公务车 2主管用车
+     */
+    private Integer appType;
+
+    public OrgCarQueryParam(String oilName, String bsTypeN, String carArea, BigDecimal mileage, Integer type, Long userAuto, Integer appType) {
         this.oilName = oilName;
         this.bsTypeN = bsTypeN;
         this.carArea = carArea;
         this.mileage = mileage;
         this.type = type;
+        this.userAuto = userAuto;
+        this.appType = appType;
     }
 }
