@@ -28,19 +28,19 @@ public class UserCarRequestParamDto implements Serializable {
     /**
      * 付款别:ItemType899
      */
-    @ApiModelProperty(value = "付款别:1现金 2转账支票 3现金支票 4网银")
+    @ApiModelProperty(value = "付款别:0==请选择== 1现金 2转账支票 3现金支票 4网银")
     private Integer payType=1;
 
     /**
      * 网银::ItemType897
      */
-    @ApiModelProperty(value = "网银:1中行 2建行 3星展 4瑞穗 5其他")
+    @ApiModelProperty(value = "网银:0==请选择== 1中行 2建行 3星展 4瑞穗 5其他")
     private Integer cyBerBankType=0;
 
     @ApiModelProperty(value = "费用明细")
     private String purchaseRemark;
 
-    @ApiModelProperty(value = "费用别序号：1过路费 2停车费 3加油费 40充电费(汽车)")
+    @ApiModelProperty(value = "费用别序号：0==请选择== 1过路费 2停车费 3加油费 40充电费(汽车)")
     private Integer feeType;
 
     @ApiModelProperty(value = "费用别")
