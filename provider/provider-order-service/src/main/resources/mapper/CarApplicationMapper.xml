@@ -497,6 +497,7 @@ select c.CarApplication_Auto,v.FName appUserN,i.ItemName appTypeN, c.PlanStartDT
         select c.CarApplication_Auto,v.FName appUserN,i.ItemName appTypeN, c.PlanStartDT,
 		c.PlanEndDT,
 		v2.DepName,
+        c.UserAuto,
 		c.UserName,
 		c.startAddr
 		,c.endAddr
@@ -837,6 +838,7 @@ from
 select c.CarApplication_Auto,v.FName appUserN,i.ItemName appTypeN, c.PlanStartDT,
 		c.PlanEndDT,
 		v2.DepName,
+        c.UserAuto,
 		c.UserName,
 		c.startAddr
 		,c.endAddr
@@ -957,6 +959,7 @@ from
 select c.CarApplication_Auto,v.FName appUserN,i.ItemName appTypeN, c.PlanStartDT,
 		c.PlanEndDT,
 		v2.DepName,
+        c.UserAuto,
 		c.UserName,
 		c.startAddr
 		,c.endAddr

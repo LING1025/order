@@ -37,8 +37,8 @@ public class CheckOne implements Serializable {
     @ApiModelProperty(value = "申请人")
     private String appUserN;
 
-//    @ApiModelProperty(value = "使用人序号")
-//    private Long userAuto;
+    @ApiModelProperty(value = "使用人序号")
+    private Long userAuto;
 
     @ApiModelProperty(value = "使用人")
     private String username;
