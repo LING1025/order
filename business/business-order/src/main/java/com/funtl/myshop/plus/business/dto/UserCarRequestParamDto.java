@@ -17,7 +17,7 @@ public class UserCarRequestParamDto implements Serializable {
     private Long carApplicationAuto=0L;
 
     @ApiModelProperty(value = "发票号码")
-    private String invoiceNumber;
+    private String invoiceNumber="0";
 
     @ApiModelProperty(value = "请款人序号")
     private Long requestUser=0L;
@@ -29,7 +29,7 @@ public class UserCarRequestParamDto implements Serializable {
      * 付款别:ItemType899
      */
     @ApiModelProperty(value = "付款别:1现金 2转账支票 3现金支票 4网银")
-    private Integer payType;
+    private Integer payType=1;
 
     /**
      * 网银::ItemType897
