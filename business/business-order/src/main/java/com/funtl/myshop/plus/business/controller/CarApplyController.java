@@ -605,4 +605,29 @@ public class CarApplyController {
         }
         return new ResponseResult<>(ResponseResult.CodeStatus.OK,"查询成功",lists);
     }
+
+    @ApiOperation(value = "车辆归还：删除费用列表中具体数据")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "requestUser",value = "请款人序号",required = true,dataType = "Long",paramType = "path"),
+            @ApiImplicitParam(name = "purchaseRequestAuto",value = "请款单号",required = true,dataType = "Long",paramType = "path")
+    })
+    @PutMapping(value = "delete")
+    public ResponseResult<PurchaseRequest> delete(@RequestParam(name = "requestUser",defaultValue = "0") Long requestUser,
+                                                  @RequestParam(name = "purchaseRequestAuto",defaultValue = "0") Long purchaseRequestAuto){
+        if (requestUser == 0L || purchaseRequestAuto == 0L){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"请输入请款人序号和请款单号",null);
+        }
+        PurchaseRequest purchaseRequest = purchaseRequestService.selectById(purchaseRequestAuto);
+        if (purchaseRequest == null){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"请款单号不存在",null);
+        }
+        purchaseRequest.setStatus(-1);
+        purchaseRequest.setMuser(requestUser);
+        purchaseRequest.setMdt(new Date());
+        Integer i = purchaseRequestService.update(purchaseRequest);
+        if (i == 1){
+            return new ResponseResult<>(ResponseResult.CodeStatus.OK,"删除成功",null);
+        }
+        return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"删除失败",null);
+    }
 }

@@ -43,4 +43,9 @@ public class PurchaseRequestServiceImpl implements PurchaseRequestService{
         return purchaseRequestMapper.updateByPrimaryKeySelective(purchaseRequest);
     }
 
+    @Override
+    public PurchaseRequest selectById(Long purchaseRequestAuto) {
+        return purchaseRequestMapper.selectByPrimaryKey(purchaseRequestAuto);
+    }
+
 }

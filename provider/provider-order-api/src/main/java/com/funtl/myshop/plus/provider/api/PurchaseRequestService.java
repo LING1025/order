@@ -45,5 +45,10 @@ public interface PurchaseRequestService{
      */
     Integer update(PurchaseRequest purchaseRequest);
 
-
+    /**
+     * 根据主键查询
+     * @param purchaseRequestAuto
+     * @return
+     */
+    PurchaseRequest selectById(Long purchaseRequestAuto);
 }
