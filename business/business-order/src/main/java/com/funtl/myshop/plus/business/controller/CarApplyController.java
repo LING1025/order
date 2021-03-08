@@ -587,4 +587,22 @@ public class CarApplyController {
         }
         return new ResponseResult<>(ResponseResult.CodeStatus.OK,"保存成功",null);
     }
+
+    @ApiOperation(value = "车辆归还：费用列表")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "requestUser",value = "请款人序号",required = true,dataType = "Long",paramType = "path"),
+            @ApiImplicitParam(name = "carApplicationAuto",value = "用车申请单号",required = true,dataType = "Long",paramType = "path")
+    })
+    @GetMapping(value = "queryPurchaseFeeList")
+    public ResponseResult<List<PurchaseFeeList>> queryPurchaseFeeList(@RequestParam(name = "requestUser",defaultValue = "0") Long requestUser,
+                                                                @RequestParam(name = "carApplicationAuto",defaultValue = "0") Long carApplicationAuto){
+        if (requestUser == 0L || carApplicationAuto == 0L){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"请输入请款人序号和用车申请单号",null);
+        }
+        List<PurchaseFeeList> lists = purchaseRequestService.selectPurchaseFeeList(requestUser,carApplicationAuto);
+        if (lists.size() == 0){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"暂无请款数据",null);
+        }
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK,"查询成功",lists);
+    }
 }

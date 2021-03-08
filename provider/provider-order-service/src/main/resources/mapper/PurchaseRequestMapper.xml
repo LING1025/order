@@ -85,13 +85,8 @@
       left join ItemCode i on i.Num=p.FeeType and i.ItemType=903
       left join v_Emp v on v.User_Auto = pr.RequestUser
       where
-      1 = 1
-      <if test="requestUser != null and requestUser != ''">
-        and  pr.RequestUser=#{requestUser}
-      </if>
-      <if test="carApplicationAuto != null and carApplicationAuto != ''">
-        and CarApplication_Auto=#{carApplicationAuto}
-      </if>
+      pr.RequestUser=#{requestUser}
+      and CarApplication_Auto=#{carApplicationAuto}
       and pr.Status != -1
       order by pr.PurchaseRequest_Auto desc
     </select>
