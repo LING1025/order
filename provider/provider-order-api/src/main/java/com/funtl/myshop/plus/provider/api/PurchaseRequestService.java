@@ -1,7 +1,10 @@
 package com.funtl.myshop.plus.provider.api;
 
+import com.funtl.myshop.plus.provider.domain.PurchaseFeeList;
 import com.funtl.myshop.plus.provider.domain.PurchaseRequest;
 import com.funtl.myshop.plus.provider.domain.RequestInc;
+
+import java.util.List;
 
 public interface PurchaseRequestService{
 
@@ -25,4 +28,12 @@ public interface PurchaseRequestService{
      * @return
      */
     Integer deleteById(Long purchaseRequestAuto);
+
+    /**
+     * 车辆归还：费用列表数据
+     * @param requestUser
+     * @param carApplicationAuto
+     * @return
+     */
+    List<PurchaseFeeList> selectPurchaseFeeList(Long requestUser,Long carApplicationAuto);
 }

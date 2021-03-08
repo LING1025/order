@@ -59,4 +59,40 @@
     left join Inc c on c.Inc_Auto = b.Inc_Auto
     where a.IsOn=1 and b.[Status]='任用' and a.User_Auto=#{userAuto}
     </select>
+
+  <!--车辆归还：费用列表数据-->
+  <resultMap id="queryPurchaseFeeList" type="com.funtl.myshop.plus.provider.domain.PurchaseFeeList">
+    <result column="PurchaseRequest_Auto" jdbcType="BIGINT" property="purchaseRequestAuto" />
+    <result column="CarApplication_Auto" jdbcType="BIGINT" property="carApplicationAuto" />
+    <result column="RequestAmt" jdbcType="DECIMAL" property="requestAmt" />
+    <result column="feeTypeName" jdbcType="VARCHAR" property="feeTypeName" />
+    <result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
+    <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
+    <result column="Purchase_Auto" jdbcType="BIGINT" property="purchaseAuto" />
+  </resultMap>
+    <select id="selectPurchaseFeeList" resultMap="queryPurchaseFeeList">
+      select
+      pr.PurchaseRequest_Auto
+      ,pr.CarApplication_Auto
+      ,i.ItemName feeTypeName
+      ,pr.RequestAmt
+      ,p.start_time
+      ,p.end_time
+      ,p.Purchase_Auto
+      from
+      PurchaseRequest pr
+      left join Purchase p on p.RR_Auto=pr.PurchaseRequest_Auto
+      left join ItemCode i on i.Num=p.FeeType and i.ItemType=903
+      left join v_Emp v on v.User_Auto = pr.RequestUser
+      where
+      1 = 1
+      <if test="requestUser != null and requestUser != ''">
+        and  pr.RequestUser=#{requestUser}
+      </if>
+      <if test="carApplicationAuto != null and carApplicationAuto != ''">
+        and CarApplication_Auto=#{carApplicationAuto}
+      </if>
+      and pr.Status != -1
+      order by pr.PurchaseRequest_Auto desc
+    </select>
 </mapper>

@@ -2,11 +2,14 @@ package com.funtl.myshop.plus.provider.service;
 
 import javax.annotation.Resource;
 
+import com.funtl.myshop.plus.provider.domain.PurchaseFeeList;
 import com.funtl.myshop.plus.provider.domain.RequestInc;
 import com.funtl.myshop.plus.provider.mapper.PurchaseRequestMapper;
 import com.funtl.myshop.plus.provider.domain.PurchaseRequest;
 import com.funtl.myshop.plus.provider.api.PurchaseRequestService;
 import org.apache.dubbo.config.annotation.Service;
+
+import java.util.List;
 
 @Service(version = "1.0.0")
 public class PurchaseRequestServiceImpl implements PurchaseRequestService{
@@ -28,5 +31,10 @@ public class PurchaseRequestServiceImpl implements PurchaseRequestService{
     @Override
     public Integer deleteById(Long purchaseRequestAuto) {
         return purchaseRequestMapper.deleteByPrimaryKey(purchaseRequestAuto);
+    }
+
+    @Override
+    public List<PurchaseFeeList> selectPurchaseFeeList(Long requestUser, Long carApplicationAuto) {
+        return purchaseRequestMapper.selectPurchaseFeeList(requestUser,carApplicationAuto);
     }
 }
