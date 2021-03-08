@@ -15,5 +15,4 @@ public interface PurchaseService{
      * @return
      */
     Integer deleteById(Long purchaseAuto);
-
 }

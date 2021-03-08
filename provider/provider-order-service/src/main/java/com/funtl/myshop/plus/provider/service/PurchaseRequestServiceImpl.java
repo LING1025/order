@@ -37,4 +37,10 @@ public class PurchaseRequestServiceImpl implements PurchaseRequestService{
     public List<PurchaseFeeList> selectPurchaseFeeList(Long requestUser, Long carApplicationAuto) {
         return purchaseRequestMapper.selectPurchaseFeeList(requestUser,carApplicationAuto);
     }
+
+    @Override
+    public Integer update(PurchaseRequest purchaseRequest) {
+        return purchaseRequestMapper.updateByPrimaryKeySelective(purchaseRequest);
+    }
+
 }

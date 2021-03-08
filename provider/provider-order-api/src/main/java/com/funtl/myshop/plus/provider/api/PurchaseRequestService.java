@@ -1,5 +1,6 @@
 package com.funtl.myshop.plus.provider.api;
 
+import com.funtl.myshop.plus.provider.domain.Purchase;
 import com.funtl.myshop.plus.provider.domain.PurchaseFeeList;
 import com.funtl.myshop.plus.provider.domain.PurchaseRequest;
 import com.funtl.myshop.plus.provider.domain.RequestInc;
@@ -36,4 +37,13 @@ public interface PurchaseRequestService{
      * @return
      */
     List<PurchaseFeeList> selectPurchaseFeeList(Long requestUser,Long carApplicationAuto);
+
+    /**
+     * 修改
+     * @param purchaseRequest
+     * @return
+     */
+    Integer update(PurchaseRequest purchaseRequest);
+
+
 }
