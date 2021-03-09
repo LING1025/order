@@ -69,6 +69,7 @@
     <result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
     <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
     <result column="Purchase_Auto" jdbcType="BIGINT" property="purchaseAuto" />
+    <result column="Purchase_Remark" jdbcType="VARCHAR" property="purchaseRemark" />
   </resultMap>
     <select id="selectPurchaseFeeList" resultMap="queryPurchaseFeeList">
       select
@@ -79,6 +80,7 @@
       ,p.start_time
       ,p.end_time
       ,p.Purchase_Auto
+      ,p.Purchase_Remark
       from
       PurchaseRequest pr
       left join Purchase p on p.RR_Auto=pr.PurchaseRequest_Auto

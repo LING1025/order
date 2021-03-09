@@ -35,4 +35,7 @@ public class PurchaseFeeList implements Serializable {
 
     @ApiModelProperty(value = "请款物品序号")
     private Long purchaseAuto;
+
+    @ApiModelProperty(value = "费用明细")
+    private String purchaseRemark;
 }
