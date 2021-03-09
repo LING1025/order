@@ -51,4 +51,12 @@ public interface PurchaseRequestService{
      * @return
      */
     PurchaseRequest selectById(Long purchaseRequestAuto);
+
+    /**
+     * 请款送签
+     * @param purchaseRequestAuto
+     * @param requestUser
+     * @return
+     */
+    Integer flowInsert(Long purchaseRequestAuto,Long requestUser);
 }
