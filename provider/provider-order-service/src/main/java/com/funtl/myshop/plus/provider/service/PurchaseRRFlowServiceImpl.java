@@ -12,4 +12,8 @@ public class PurchaseRRFlowServiceImpl implements PurchaseRRFlowService{
     @Resource
     private PurchaseRRFlowMapper purchaseRRFlowMapper;
 
+    @Override
+    public Integer flowInsert(Long purchaseRequestAuto, Long requestUser) {
+        return purchaseRRFlowMapper.flowInsert(purchaseRequestAuto,requestUser);
+    }
 }

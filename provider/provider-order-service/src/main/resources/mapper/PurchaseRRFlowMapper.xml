@@ -25,4 +25,330 @@
     PurchaseRRFlow_Auto, RR_Auto, AppSeq, AppUserID, LevNow, [Status], IsAgent, AgentUserID,
     Memo, AppDT, CUser, CDT, Reject, [Type], AppRole
   </sql>
+  <!--请款送签-->
+  <insert id="flowInsert">
+    declare
+    @UserId bigint=#{requestUser},
+    @PurchaseRequest_Auto bigint=#{purchaseRequestAuto},
+    @AppMemo nvarchar(500),
+    @Appstatus int,
+    @IsAgent int=0,
+    @PurchaseRRFlow_Auto bigint,
+    @AgentUserID bigint,
+    @utype int=1
+
+    --2019/12/31  审核流程修改 1000&lt;金额&lt;5000由副总核决  金额>=5000由总经理核决 营业副总和内勤副总平行
+    --2018/02/23  审核流程修改  1000&lt;金额&lt;=5000由副总核决  金额>5000由总经理核决
+    --2017 取消现金出纳、财务主管审核
+    --请购请款审核人类别(0:总经理室;1:处主管；2：管理部主管;3：财务主管；4：现金出纳；5：网银出纳；6：财务授权1；7：财务授权2；8：部门验收；9：现金会计；10：应付会计;11:副总)
+
+    begin tran PurchaseRequestInfo_P
+    declare @Manager bigint,@Manager_R nvarchar(50)
+
+    ---送签
+    if(@utype=1)
+    begin
+    declare @PayRequestAmt decimal(18,2),@OrgGroup_Auto bigint,@RequestUser bigint,@Num int
+    , @MaxLev int,@Request_Type int,@Inc_Auto int ,@CheckUser bigint,@PayType int
+    ,@CheckUser_R nvarchar(50),@num_Y int, @ChuManager bigint,@LKInc_Auto int,@RequestAmt decimal(18,2)
+    ,@GernalManager nvarchar(50),@GernalManager_R nvarchar(50),@TitleLevel int
+
+    select @PayRequestAmt=PayRequestAmt,@RequestUser=RequestUser,@Inc_Auto=Inc_Auto
+    ,@Request_Type=Request_Type,@PayType=Pay_Type ,@LKInc_Auto=LKInc_Auto,@RequestAmt=RequestAmt
+    from PurchaseRequest
+    where  PurchaseRequest_Auto=@PurchaseRequest_Auto
+    select @TitleLevel=isnull((select TitleLevel from v_emp where User_Auto=@RequestUser),0)
+
+    --若重复送签先删除已送签未审核数据 以免产生重复审核数据----
+    delete t2
+    from PurchaseRequest t1,PurchaseRRFlow t2
+    where t1.PurchaseRequest_Auto=t2.RR_Auto
+    and t2.Type=1
+    and t2.Reject=0
+    and t2.[Type]=1 and t2.[Status]=0
+    and t1.PurchaseRequest_Auto=@PurchaseRequest_Auto
+    if (@@ERROR!=0)
+    begin
+    goto error
+    end
+
+    select @OrgGroup_Auto=OrgGroup_Auto from OrgGroupEmp where User_Auto=@RequestUser
+    --select  @Manager=PurchaseRR_Flower,@Manager_R='总经理' from PurchaseRR_Flower where PurchaseRR_Type=0 and Inc_Auto=@Inc_Auto--总经理
+    select  @Manager=isnull((select PurchaseRR_Flower from PurchaseRR_Flower where PurchaseRR_Type=0 and Inc_Auto=@Inc_Auto),0),@Manager_R='总经理'--总经理
+    if(@Manager=0)
+    begin
+    select @Manager=PurchaseRR_Flower,@Manager_R='总经理' from PurchaseRR_Flower where PurchaseRR_Type=0 and Inc_Auto=1
+    end
+    ------资讯类-------
+    if(@Request_Type=2)
+    begin
+    insert into PurchaseRRFlow(RR_Auto,AppSeq,AppUserID,LevNow,Status,IsAgent,AgentUserID,CUser,[Type],AppRole)
+    select @PurchaseRequest_Auto RR_Auto,1 AppSeq,User_Auto AppUserID,0 LevNow
+    ,0 Status,0 IsAgent,0 AgentUserID,@UserId CUser,1 [Type],'资讯主管'AppRole
+    from v_Emp
+    where DepCode='14300' and TitleLevel=30 and IsOn=1
+    end
+
+    select @Num=COUNT(OrgGroup_Check_Auto)
+    from OrgGroup_Check
+    where OrgGroup_Auto=@OrgGroup_Auto
+    and Check_Type=@Request_Type
+    select @MaxLev=0
+    select @OrgGroup_Auto=OrgGroup_Auto from OrgGroupEmp where User_Auto=@RequestUser
+    select @Num=COUNT(OrgGroup2Emp_Auto)
+    from OrgGroup2Emp
+    where OrgGroup_Auto=@OrgGroup_Auto
+    and User_Auto!=@RequestUser
+    -----部门审核
+    if(@Num>0)
+    begin
+    select User_Auto,identity(int,1,1) appseq
+    into #a
+    from OrgGroup2Emp
+    where OrgGroup_Auto=@OrgGroup_Auto
+    and User_Auto!=@RequestUser
+    order by ACLType
+    if(@Request_Type=2)
+    begin
+    insert into PurchaseRRFlow(RR_Auto,AppSeq,AppUserID,LevNow,Status,IsAgent,AgentUserID,CUser,[Type],AppRole)
+    select @PurchaseRequest_Auto RR_Auto,appseq+1 AppSeq,User_Auto AppUserID,0 LevNow
+    ,0 Status,0 IsAgent,0 AgentUserID,@UserId CUser,1 [Type],'主管'AppRole
+    from #a
+    if (@@ERROR!=0 or @@ROWCOUNT=0)
+    begin
+    goto error
+    end
+    end
+    else
+    begin
+    insert into PurchaseRRFlow(RR_Auto,AppSeq,AppUserID,LevNow,Status,IsAgent,AgentUserID,CUser,[Type],AppRole)
+    select @PurchaseRequest_Auto RR_Auto,appseq AppSeq,User_Auto AppUserID,0 LevNow
+    ,0 Status,0 IsAgent,0 AgentUserID,@UserId CUser,1 [Type],'主管'AppRole
+    from #a
+    if (@@ERROR!=0 or @@ROWCOUNT=0)
+    begin
+    goto error
+    end
+    end
+    select @MaxLev=MAX(AppSeq)
+    from   PurchaseRRFlow
+    where  RR_Auto=@PurchaseRequest_Auto  and Reject=0  and [Type]=1
+    group by  RR_Auto,[Type]
+    end
+
+    declare @WangYinCasher bigint,@CaiWuManager bigint,@YingFuKuaiji bigint,@XianjinCasher bigint
+    ,@WangYinCasher_R nvarchar(50),@CaiWuManager_R nvarchar(50),@YingFuKuaiji_R  nvarchar(50),@XianjinCasher_R nvarchar(50)
+    select @CaiWuManager=PurchaseRR_Flower,@CaiWuManager_R='财务主管' from PurchaseRR_Flower where PurchaseRR_Type=3 and Inc_Auto=@Inc_Auto--财务主管
+    select @YingFuKuaiji=PurchaseRR_Flower,@YingFuKuaiji_R='应付会计' from PurchaseRR_Flower where PurchaseRR_Type=10 and Inc_Auto=@Inc_Auto--应付会计
+    select @WangYinCasher=PurchaseRR_Flower,@WangYinCasher_R='网银出纳' from PurchaseRR_Flower where PurchaseRR_Type=5 and Inc_Auto=@Inc_Auto--网银出纳
+    select @XianjinCasher=PurchaseRR_Flower,@XianjinCasher_R='现金出纳' from PurchaseRR_Flower where PurchaseRR_Type=4 and Inc_Auto=@LKInc_Auto--现金出纳
+
+    --暂借金额小于请款金额
+    if(@PayRequestAmt>0)
+    begin
+    if(@TitleLevel=30 or @TitleLevel=21 or @TitleLevel=31)
+    begin
+    select @MaxLev=@MaxLev+1
+    --    if not exists(select OrgGroup2Emp_Auto from OrgGroup2Emp where OrgGroup_Auto=@OrgGroup_Auto  and User_Auto=@Manager)
+    -- begin
+    --        insert into PurchaseRRFlow(RR_Auto,AppSeq,AppUserID,LevNow,Status,IsAgent,AgentUserID,CUser,[Type],AppRole)
+    --		select @PurchaseRequest_Auto RR_Auto,@MaxLev AppSeq,@Manager AppUserID,0 LevNow
+    --		,0 Status,0 IsAgent,0 AgentUserID,@UserId CUser,1 [Type],@Manager_R AppRole     --总经理
+    --	if (@@ERROR!=0 or @@ROWCOUNT=0)
+    --	begin
+    --	goto error
+    --	end
+    --	select  @MaxLev=@MaxLev+1
+    --end
+    insert into PurchaseRRFlow(RR_Auto,AppSeq,AppUserID,LevNow,Status,IsAgent,AgentUserID,CUser,[Type],AppRole)
+    select @PurchaseRequest_Auto RR_Auto,@MaxLev AppSeq,@YingFuKuaiji AppUserID,0 LevNow
+    ,0 Status,0 IsAgent,0 AgentUserID,@UserId CUser,1 [Type],@YingFuKuaiji_R AppRole ---应付会计
+    if (@@ERROR!=0 or @@ROWCOUNT=0)
+    begin
+    goto error
+    end
+    select  @MaxLev=@MaxLev+1
+    if(@PayType=4 or @PayType=3)-----网银、现金支票
+    begin
+    insert into PurchaseRRFlow(RR_Auto,AppSeq,AppUserID,LevNow,Status,IsAgent,AgentUserID,CUser,[Type],AppRole)
+    select @PurchaseRequest_Auto RR_Auto,@MaxLev AppSeq,@WangYinCasher AppUserID,0 LevNow
+    ,0 Status,0 IsAgent,0 AgentUserID,@UserId CUser,1 [Type],@WangYinCasher_R AppRole  --网银会计
+    if (@@ERROR!=0 or @@ROWCOUNT=0)
+    begin
+    goto error
+    end
+    end
+    end
+    else
+    begin
+    --判断是否为业务员 大于1000金额需要处主管审核
+    select @num_Y=COUNT(t1.OrgGroup_TManager_Auto)
+    from OrgGroup_TManager t1,OrgGroupEmp t2
+    where t2.OrgGroup_Auto=t1.OrgGroup_Auto
+    and t2.User_Auto=@RequestUser
+    if(@num_Y>0)
+    begin
+    select  @GernalManager=TManager_Auto,@GernalManager_R='副总经理' --营业副总
+    from OrgGroup_TManager t1,OrgGroupEmp t2
+    where t2.OrgGroup_Auto=t1.OrgGroup_Auto
+    and t2.User_Auto=@RequestUser
+    end
+    else
+    begin
+    select  @GernalManager=isnull((select PurchaseRR_Flower from PurchaseRR_Flower where PurchaseRR_Type=11 and Inc_Auto=@Inc_Auto),0),@GernalManager_R='副总经理' --副总经理
+    end
+    if(@GernalManager=0)
+    begin
+    select @GernalManager=PurchaseRR_Flower,@GernalManager_R='副总经理' from PurchaseRR_Flower where PurchaseRR_Type=11 and Inc_Auto=1
+    end
+    select @MaxLev=@MaxLev+1
+    if(@Request_Type!=4)
+    begin
+    if(@PayType=4 or @PayType=3)-----网银、现金支票
+    begin
+    if(@PayRequestAmt &lt;=1000)
+    begin
+    insert into PurchaseRRFlow(RR_Auto,AppSeq,AppUserID,LevNow,Status,IsAgent,AgentUserID,CUser,[Type],AppRole)
+    select @PurchaseRequest_Auto RR_Auto,@MaxLev AppSeq,@YingFuKuaiji AppUserID,0 LevNow
+    ,0 Status,0 IsAgent,0 AgentUserID,@UserId CUser,1 [Type],@YingFuKuaiji_R AppRole ---应付会计
+    union all
+    select @PurchaseRequest_Auto RR_Auto,@MaxLev+1 AppSeq,@WangYinCasher AppUserID,0 LevNow
+    ,0 Status,0 IsAgent,0 AgentUserID,@UserId CUser,1 [Type],@WangYinCasher_R AppRole  --网银会计
+    if (@@ERROR!=0 or @@ROWCOUNT=0)
+    begin
+    goto error
+    end
+    end
+    if(@PayRequestAmt>1000 and @PayRequestAmt &lt;5000) --副总核决--
+    begin
+    insert into PurchaseRRFlow(RR_Auto,AppSeq,AppUserID,LevNow,Status,IsAgent,AgentUserID,CUser,[Type],AppRole)
+    select @PurchaseRequest_Auto RR_Auto,@MaxLev AppSeq,@GernalManager AppUserID,0 LevNow
+    ,0 Status,0 IsAgent,0 AgentUserID,@UserId CUser,1 [Type],@GernalManager_R AppRole     --副总
+    union all
+    select @PurchaseRequest_Auto RR_Auto,@MaxLev+1 AppSeq,@YingFuKuaiji AppUserID,0 LevNow
+    ,0 Status,0 IsAgent,0 AgentUserID,@UserId CUser,1 [Type],@YingFuKuaiji_R AppRole ---应付会计
+    union all
+    select @PurchaseRequest_Auto RR_Auto,@MaxLev+2 AppSeq,@WangYinCasher AppUserID,0 LevNow
+    ,0 Status,0 IsAgent,0 AgentUserID,@UserId CUser,1 [Type],@WangYinCasher_R AppRole  --网银会计
+    --end
+    if (@@ERROR!=0 or @@ROWCOUNT=0)
+    begin
+    goto error
+    end
+    end
+    if(@PayRequestAmt>=5000) --总经理核决--
+    begin
+    insert into PurchaseRRFlow(RR_Auto,AppSeq,AppUserID,LevNow,Status,IsAgent,AgentUserID,CUser,[Type],AppRole)
+    select @PurchaseRequest_Auto RR_Auto,@MaxLev AppSeq,@GernalManager AppUserID,0 LevNow
+    ,0 Status,0 IsAgent,0 AgentUserID,@UserId CUser,1 [Type],@GernalManager_R AppRole     --副总
+    union all
+    select @PurchaseRequest_Auto RR_Auto,@MaxLev+1 AppSeq,@Manager AppUserID,0 LevNow
+    ,0 Status,0 IsAgent,0 AgentUserID,@UserId CUser,1 [Type],@Manager_R AppRole     --总经理
+    union all
+    select @PurchaseRequest_Auto RR_Auto,@MaxLev+2 AppSeq,@YingFuKuaiji AppUserID,0 LevNow
+    ,0 Status,0 IsAgent,0 AgentUserID,@UserId CUser,1 [Type],@YingFuKuaiji_R AppRole ---应付会计
+    union all
+    select @PurchaseRequest_Auto RR_Auto,@MaxLev+3 AppSeq,@WangYinCasher AppUserID,0 LevNow
+    ,0 Status,0 IsAgent,0 AgentUserID,@UserId CUser,1 [Type],@WangYinCasher_R AppRole  --网银会计
+    if (@@ERROR!=0 or @@ROWCOUNT=0)
+    begin
+    goto error
+    end
+    end
+    end
+    else---现金
+    begin
+    insert into PurchaseRRFlow(RR_Auto,AppSeq,AppUserID,LevNow,Status,IsAgent,AgentUserID,CUser,[Type],AppRole)
+    select @PurchaseRequest_Auto RR_Auto,@MaxLev AppSeq,@YingFuKuaiji AppUserID,0 LevNow
+    ,0 Status,0 IsAgent,0 AgentUserID,@UserId CUser,1 [Type],@YingFuKuaiji_R AppRole   ---应付会计
+    end
+    end
+    else----业务招待费
+    begin
+    if(@PayType=1)---现金
+    begin
+    insert into PurchaseRRFlow(RR_Auto,AppSeq,AppUserID,LevNow,Status,IsAgent,AgentUserID,CUser,[Type],AppRole)
+    select @PurchaseRequest_Auto RR_Auto,@MaxLev AppSeq,@GernalManager AppUserID,0 LevNow
+    ,0 Status,0 IsAgent,0 AgentUserID,@UserId CUser,1 [Type],@GernalManager_R AppRole     --副总
+    union all
+    select @PurchaseRequest_Auto RR_Auto,@MaxLev+1 AppSeq,@Manager AppUserID,0 LevNow
+    ,0 Status,0 IsAgent,0 AgentUserID,@UserId CUser,1 [Type],@Manager_R AppRole     --总经理
+    union all
+    select @PurchaseRequest_Auto RR_Auto,@MaxLev+2 AppSeq,@YingFuKuaiji AppUserID,0 LevNow
+    ,0 Status,0 IsAgent,0 AgentUserID,@UserId CUser,1 [Type],@YingFuKuaiji_R AppRole ---应付会计
+
+    if (@@ERROR!=0 or @@ROWCOUNT=0)
+    begin
+    goto error
+    end
+    end
+    else-----网银、现金支票
+    begin
+    insert into PurchaseRRFlow(RR_Auto,AppSeq,AppUserID,LevNow,Status,IsAgent,AgentUserID,CUser,[Type],AppRole)
+    select @PurchaseRequest_Auto RR_Auto,@MaxLev AppSeq,@GernalManager AppUserID,0 LevNow
+    ,0 Status,0 IsAgent,0 AgentUserID,@UserId CUser,1 [Type],@GernalManager_R AppRole     --副总
+    union all
+    select @PurchaseRequest_Auto RR_Auto,@MaxLev+1 AppSeq,@Manager AppUserID,0 LevNow
+    ,0 Status,0 IsAgent,0 AgentUserID,@UserId CUser,1 [Type],@Manager_R AppRole     --总经理
+    union all
+    select @PurchaseRequest_Auto RR_Auto,@MaxLev+2 AppSeq,@YingFuKuaiji AppUserID,0 LevNow
+    ,0 Status,0 IsAgent,0 AgentUserID,@UserId CUser,1 [Type],@YingFuKuaiji_R AppRole ---应付会计
+    union  all
+    select @PurchaseRequest_Auto RR_Auto,@MaxLev+3 AppSeq,@WangYinCasher AppUserID,0 LevNow
+    ,0 Status,0 IsAgent,0 AgentUserID,@UserId CUser,1 [Type],@WangYinCasher_R AppRole  --网银会计
+
+    if (@@ERROR!=0 or @@ROWCOUNT=0)
+    begin
+    goto error
+    end
+    end
+
+    end
+    end
+    end
+    update PurchaseRequest
+    set [Status]=10,MUser=@UserId,MDT=GETDATE()
+    where PurchaseRequest_Auto=@PurchaseRequest_Auto
+    if (@@ERROR!=0 or @@ROWCOUNT=0)
+    begin
+    goto error
+    end
+
+    if exists(select PurchaseRequest_Auto from PurchaseRequisition  where PurchaseRequest_Auto=@PurchaseRequest_Auto)
+    begin
+    update PurchaseRequisition
+    set [Status]=25,MUser=@UserId,MDT=GETDATE()
+    where PurchaseRequest_Auto=@PurchaseRequest_Auto
+    if (@@ERROR!=0 )
+    begin
+    goto error
+    end
+    end
+
+
+
+    declare @org_auto bigint
+    select @org_auto=Org_Auto from v_Emp where User_Auto=@UserId
+    if(@org_auto in(243,241,244,245))  --专车事业部
+    begin
+    if exists(select * from PurchaseRRFlow  where RR_Auto=@PurchaseRequest_Auto and AppUserID=21737)   --宋信忠
+    begin
+    update PurchaseRRFlow set AppUserID=21381  where RR_Auto=@PurchaseRequest_Auto and AppUserID=21737
+    end
+    end
+    drop table #a
+    end
+
+    commit tran PurchaseRequestInfo_P
+    return
+    error:begin
+    rollback tran PurchaseRequestInfo_P
+    --raiserror 13013 '请款单送签或审核出错'
+    RAISERROR ('请款单送签出错', -- Message text.
+    16, -- Severity.
+    1 -- State.
+    );
+    return
+    end
+  </insert>
 </mapper>

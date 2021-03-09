@@ -48,9 +48,6 @@ public class PurchaseRequestServiceImpl implements PurchaseRequestService{
         return purchaseRequestMapper.selectByPrimaryKey(purchaseRequestAuto);
     }
 
-    @Override
-    public Integer flowInsert(Long purchaseRequestAuto, Long requestUser) {
-        return purchaseRequestMapper.flowInsert(purchaseRequestAuto,requestUser);
-    }
+
 
 }

@@ -14,5 +14,4 @@ public interface PurchaseRequestMapper extends MyMapper<PurchaseRequest> {
 
     List<PurchaseFeeList> selectPurchaseFeeList(@Param("requestUser") Long requestUser, @Param("carApplicationAuto") Long carApplicationAuto);
 
-    Integer flowInsert(@Param("purchaseRequestAuto") Long purchaseRequestAuto, @Param("requestUser") Long requestUser);
 }

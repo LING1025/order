@@ -56,6 +56,9 @@ public class CarApplyController {
     @Reference(version = "1.0.0")
     private PurchaseService purchaseService;
 
+    @Reference(version = "1.0.0")
+    private PurchaseRRFlowService purchaseRRFlowService;
+
     /*@ApiOperation(value = "经纬度转地址")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "lng", value = "经度", required = true, dataType = "String", paramType = "path"),
@@ -566,7 +569,7 @@ public class CarApplyController {
             return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"用车请款物品明细插入失败",null);
         }
 
-        Integer i3 = purchaseRequestService.flowInsert(i,userCarRequestParamDto.getRequestUser());
+        Integer i3 = purchaseRRFlowService.flowInsert(i,userCarRequestParamDto.getRequestUser());
         if (i3 == 1){ //存储过程第一个数字是0行影响
             purchaseRequestService.deleteById(i);
             purchaseService.deleteById(i2);
