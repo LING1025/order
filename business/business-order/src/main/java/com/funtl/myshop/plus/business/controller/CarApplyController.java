@@ -635,9 +635,12 @@ public class CarApplyController {
         purchaseRequest.setMuser(requestUser);
         purchaseRequest.setMdt(new Date());
         Integer i = purchaseRequestService.update(purchaseRequest);
-        if (i == 1){
-            return new ResponseResult<>(ResponseResult.CodeStatus.OK,"删除成功",null);
+        if (i == 0){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"删除失败",null);
         }
-        return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"删除失败",null);
+//        PurchaseRRFlow purchaseRRFlow = new PurchaseRRFlow();
+        //todo:加修改人、修改时间
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK,"删除成功",null);
+
     }
 }

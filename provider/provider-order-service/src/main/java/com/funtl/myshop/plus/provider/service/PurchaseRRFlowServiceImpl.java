@@ -16,4 +16,9 @@ public class PurchaseRRFlowServiceImpl implements PurchaseRRFlowService{
     public Integer flowInsert(Long purchaseRequestAuto, Long requestUser) {
         return purchaseRRFlowMapper.flowInsert(purchaseRequestAuto,requestUser);
     }
+
+    @Override
+    public Integer update(PurchaseRRFlow purchaseRRFlow) {
+        return purchaseRRFlowMapper.updateByPrimaryKeySelective(purchaseRRFlow);
+    }
 }
