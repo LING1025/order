@@ -1238,6 +1238,82 @@
                 </TableGenerateConfig>
               </value>
             </entry>
+            <entry key="dbo:PurchaseRRFlow">
+              <value>
+                <TableGenerateConfig>
+                  <option name="columnOverrideList">
+                    <list>
+                      <MyColumnOverride>
+                        <option name="columnName" value="PurchaseRRFlow_Auto" />
+                        <option name="javaProperty" value="purchaseRRFlowAuto" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="RR_Auto" />
+                        <option name="javaProperty" value="rrAuto" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="AppSeq" />
+                        <option name="javaProperty" value="appSeq" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="AppUserID" />
+                        <option name="javaProperty" value="appUserId" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="LevNow" />
+                        <option name="javaProperty" value="levNow" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="Status" />
+                        <option name="javaProperty" value="status" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="IsAgent" />
+                        <option name="javaProperty" value="isAgent" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="AgentUserID" />
+                        <option name="javaProperty" value="agentUserID" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="Memo" />
+                        <option name="javaProperty" value="memo" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="AppDT" />
+                        <option name="javaProperty" value="appDT" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="CUser" />
+                        <option name="javaProperty" value="cuser" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="CDT" />
+                        <option name="javaProperty" value="cdt" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="Reject" />
+                        <option name="javaProperty" value="reject" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="Type" />
+                        <option name="javaProperty" value="type" />
+                      </MyColumnOverride>
+                      <MyColumnOverride>
+                        <option name="columnName" value="AppRole" />
+                        <option name="javaProperty" value="appRole" />
+                      </MyColumnOverride>
+                    </list>
+                  </option>
+                  <option name="generatedKey" value="" />
+                  <option name="javaModelName" value="PurchaseRRFlow" />
+                  <option name="moduleName" value="provider-order-api" />
+                  <option name="sequenceColumn" value="" />
+                  <option name="sequenceId" value="" />
+                  <option name="useActualColumnName" value="true" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
             <entry key="dbo:PurchaseRequest">
               <value>
                 <TableGenerateConfig>
@@ -1824,6 +1900,7 @@
             </entry>
           </map>
         </option>
+        <option name="useActualColumnNames" value="true" />
         <option name="xmlMapperPackage" value="mapper" />
         <option name="xmlMapperPath" value="D:\twoWork\order\provider\provider-order-service\src\main\resources" />
       </ProjectProfile>
