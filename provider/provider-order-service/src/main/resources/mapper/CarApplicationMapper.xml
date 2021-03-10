@@ -249,8 +249,14 @@ end
         @passAddr5 varchar(50)=#{param.passAddr5},
         @passAddrLat5 varchar(50)=#{param.passAddrLat5},
         @passAddrLng5 varchar(50)=#{param.passAddrLng5},
-        @followName nvarchar(50)=#{param.followName},--随车人
-        @followAuto bigint=#{param.followAuto}--随车人序号
+        @followName1 nvarchar(50)=#{param.followName1},--随车人
+        @followAuto1 bigint=#{param.followAuto1},--随车人序号
+        @followName2 nvarchar(50)=#{param.followName2},
+        @followAuto2 bigint=#{param.followAuto2},
+        @followName3 nvarchar(50)=#{param.followName3},
+        @followAuto3 bigint=#{param.followAuto3},
+        @followName4 nvarchar(50)=#{param.followName4},
+        @followAuto4 bigint=#{param.followAuto4}
 
         BEGIN
         SET NOCOUNT ON;
@@ -341,14 +347,15 @@ end
         Insert Into CarApplication(AppUser,AppDT,AppType,FeeType,WHType,PlanStartDT,PlanEndDT,
         UserName,IsDriver,DriverUser_Auto,LicenceMemo,Carbase_Auto,[Status],CUser,CDT,IsSave,
         startAddr,startAddrLat,startAddrLng,endAddr,endAddrLat,endAddrLng,distance,IsHoliday,
-        useCarTime,areaType,UserAuto,followAuto,followName,
+        useCarTime,areaType,UserAuto,followAuto1,followName1,followAuto2,followName2,
+        followAuto3,followName3,followAuto4,followName4,
         passAddr1,passAddrLat1,passAddrLng1,
         passAddr2,passAddrLat2,passAddrLng2,passAddr3,passAddrLat3,passAddrLng3,passAddr4,
         passAddrLat4,passAddrLng4,passAddr5,passAddrLat5,passAddrLng5)
         Values(@AppUser,getdate(),@AppType,1,@WHType,@PlanStartDT,@PlanEndDT,@UserName,@IsDriver,@DriverUser_Auto,
         @LicenceMemo,@Carbase_Auto,@Status,@CUser,getdate(),@IsSave,
         @startAddr,@startAddrLat,@startAddrLng,@endAddr,@endAddrLat,@endAddrLng,@distance,@IsHoliday,@useCarTime,@areaType,
-        @UserAuto,@followAuto,@followName,
+        @UserAuto,@followAuto1,@followName1,@followAuto2,@followName2,@followAuto3,@followName3,@followAuto4,@followName4,
         @passAddr1,@passAddrLat1,@passAddrLng1,
         @passAddr2,@passAddrLat2,@passAddrLng2,@passAddr3,@passAddrLat3,@passAddrLng3,@passAddr4,
         @passAddrLat4,@passAddrLng4,@passAddr5,@passAddrLat5,@passAddrLng5)
@@ -396,14 +403,15 @@ end
         Insert Into CarApplication(AppUser,AppDT,AppType,FeeType,WHType,PlanStartDT,PlanEndDT,
         UserName,IsDriver,DriverUser_Auto,LicenceMemo,Carbase_Auto,[Status],CUser,CDT,IsSave,
         startAddr,startAddrLat,startAddrLng,endAddr,endAddrLat,endAddrLng,distance,IsHoliday,
-        useCarTime,areaType,UserAuto,followAuto,followName,
+        useCarTime,areaType,UserAuto,followAuto1,followName1,followAuto2,followName2,
+        followAuto3,followName3,followAuto4,followName4,
         passAddr1,passAddrLat1,passAddrLng1,
         passAddr2,passAddrLat2,passAddrLng2,passAddr3,passAddrLat3,passAddrLng3,passAddr4,
         passAddrLat4,passAddrLng4,passAddr5,passAddrLat5,passAddrLng5)
         Values(@AppUser,getdate(),@AppType,1,@WHType,@PlanStartDT,@PlanEndDT,@UserName,@IsDriver,@DriverUser_Auto,
         @LicenceMemo,@Carbase_Auto,20,@CUser,getdate(),@IsSave,
         @startAddr,@startAddrLat,@startAddrLng,@endAddr,@endAddrLat,@endAddrLng,@distance,@IsHoliday,@useCarTime,@areaType,
-        @UserAuto,@followAuto,@followName,
+        @UserAuto,@followAuto1,@followName1,@followAuto2,@followName2,@followAuto3,@followName3,@followAuto4,@followName4,
         @passAddr1,@passAddrLat1,@passAddrLng1,
         @passAddr2,@passAddrLat2,@passAddrLng2,@passAddr3,@passAddrLat3,@passAddrLng3,@passAddr4,
         @passAddrLat4,@passAddrLng4,@passAddr5,@passAddrLat5,@passAddrLng5)

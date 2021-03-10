@@ -44,11 +44,29 @@ public class OutCarApplyDto implements Serializable {
     @ApiModelProperty(value = "使用人")
     private String username;
 
-    @ApiModelProperty(value = "随车人序号")
-    private Long followAuto;
+    @ApiModelProperty(value = "随车人序号1")
+    private Long followAuto1;
 
-    @ApiModelProperty(value = "随车人")
-    private String followName;
+    @ApiModelProperty(value = "随车人1")
+    private String followName1;
+
+    @ApiModelProperty(value = "随车人序号2")
+    private Long followAuto2;
+
+    @ApiModelProperty(value = "随车人2")
+    private String followName2;
+
+    @ApiModelProperty(value = "随车人序号3")
+    private Long followAuto3;
+
+    @ApiModelProperty(value = "随车人3")
+    private String followName3;
+
+    @ApiModelProperty(value = "随车人序号4")
+    private Long followAuto4;
+
+    @ApiModelProperty(value = "随车人4")
+    private String followName4;
 
     /**
      * 申请时间
