@@ -18,4 +18,11 @@ public interface PurchaseRRFlowService{
      * @return
      */
     Integer update(PurchaseRRFlow purchaseRRFlow);
+
+    /**
+     * 费用列表删除信息时也要将送签删除，因为请款一键送签了
+     * @param rrAuto
+     * @return
+     */
+    Integer deleteByRrAuto(Long rrAuto);
 }

@@ -353,4 +353,15 @@
     return
     end
   </insert>
+
+  <!--费用列表删除信息时也要将送签删除，因为请款一键送签了-->
+  <delete id="deleteByRrAuto">
+    delete t2
+	from PurchaseRequest t1,PurchaseRRFlow t2
+	where t1.PurchaseRequest_Auto=t2.RR_Auto
+	and t2.Type=1
+	and t2.Reject=0
+	and t2.[Type]=1 and t2.[Status]=0
+	and t1.PurchaseRequest_Auto=#{rrAuto}
+  </delete>
 </mapper>

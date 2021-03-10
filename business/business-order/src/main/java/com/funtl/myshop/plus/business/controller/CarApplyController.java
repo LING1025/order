@@ -636,10 +636,13 @@ public class CarApplyController {
         purchaseRequest.setMdt(new Date());
         Integer i = purchaseRequestService.update(purchaseRequest);
         if (i == 0){
-            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"删除失败",null);
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"请款明细删除失败",null);
         }
-//        PurchaseRRFlow purchaseRRFlow = new PurchaseRRFlow();
-        //todo:加修改人、修改时间
+        //费用列表删除信息时也要将送签删除，因为请款一键送签了
+        Integer i2 = purchaseRRFlowService.deleteByRrAuto(purchaseRequestAuto);
+        if (i2 == 0){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"送签删除失败",null);
+        }
         return new ResponseResult<>(ResponseResult.CodeStatus.OK,"删除成功",null);
 
     }

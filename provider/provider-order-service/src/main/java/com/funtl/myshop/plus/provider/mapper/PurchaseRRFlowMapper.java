@@ -7,4 +7,5 @@ import tk.mybatis.mapper.MyMapper;
 public interface PurchaseRRFlowMapper extends MyMapper<PurchaseRRFlow> {
     Integer flowInsert(@Param("purchaseRequestAuto") Long purchaseRequestAuto, @Param("requestUser") Long requestUser);
 
+    Integer deleteByRrAuto(@Param("rrAuto") Long rrAuto);
 }

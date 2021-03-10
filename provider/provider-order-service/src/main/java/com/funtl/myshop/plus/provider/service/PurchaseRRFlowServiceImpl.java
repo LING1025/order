@@ -21,4 +21,9 @@ public class PurchaseRRFlowServiceImpl implements PurchaseRRFlowService{
     public Integer update(PurchaseRRFlow purchaseRRFlow) {
         return purchaseRRFlowMapper.updateByPrimaryKeySelective(purchaseRRFlow);
     }
+
+    @Override
+    public Integer deleteByRrAuto(Long rrAuto) {
+        return purchaseRRFlowMapper.deleteByRrAuto(rrAuto);
+    }
 }
