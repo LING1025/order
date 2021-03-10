@@ -513,14 +513,32 @@ public class CarApplication implements Serializable {
     /**
      * 随车人序号
      */
-    @Column(name = "followAuto")
-    private Long followAuto;
+    @Column(name = "followAuto1")
+    private Long followAuto1;
 
     /**
      * 随车人
      */
-    @Column(name = "followName")
-    private String followName;
+    @Column(name = "followName1")
+    private String followName1;
+
+    @Column(name = "followAuto2")
+    private Long followAuto2;
+
+    @Column(name = "followName2")
+    private String followName2;
+
+    @Column(name = "followAuto3")
+    private Long followAuto3;
+
+    @Column(name = "followName3")
+    private String followName3;
+
+    @Column(name = "followAuto4")
+    private Long followAuto4;
+
+    @Column(name = "followName4")
+    private String followName4;
 
     private static final long serialVersionUID = 1L;
 }

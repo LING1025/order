@@ -89,8 +89,14 @@
       <result column="passAddrLat5" jdbcType="VARCHAR" property="passAddrLat5" />
       <result column="passAddrLng5" jdbcType="VARCHAR" property="passAddrLng5" />
       <result column="useCarAmt" jdbcType="DECIMAL" property="useCarAmt" />
-      <result column="followAuto" jdbcType="BIGINT" property="followAuto" />
-      <result column="followName" jdbcType="VARCHAR" property="followName" />
+      <result column="followAuto1" jdbcType="BIGINT" property="followAuto1" />
+      <result column="followName1" jdbcType="VARCHAR" property="followName1" />
+      <result column="followAuto2" jdbcType="BIGINT" property="followAuto2" />
+      <result column="followName2" jdbcType="VARCHAR" property="followName2" />
+      <result column="followAuto3" jdbcType="BIGINT" property="followAuto3" />
+      <result column="followName3" jdbcType="VARCHAR" property="followName3" />
+      <result column="followAuto4" jdbcType="BIGINT" property="followAuto4" />
+      <result column="followName4" jdbcType="VARCHAR" property="followName4" />
   </resultMap>
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
@@ -105,7 +111,8 @@
       address1,address2,address3,address4,address5,passAddr1,passAddrLat1,passAddrLng1,
       passAddr2,passAddrLat2,passAddrLng2,passAddr3,passAddrLat3,passAddrLng3,passAddr4,
       passAddrLat4,passAddrLng4,passAddr5,passAddrLat5,passAddrLng5,useCarAmt,
-      followAuto,followName
+      followAuto1,followName1,followAuto2,followName2,followAuto3,followName3,
+      followAuto4,followName4
   </sql>
   <!--用车申请、车辆领取、车辆归还：获取申请列表数据-->
   <resultMap id="queryUserCar" extends="BaseResultMap" type="com.funtl.myshop.plus.provider.domain.UserCarList">
