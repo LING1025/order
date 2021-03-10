@@ -510,5 +510,17 @@ public class CarApplication implements Serializable {
     @Column(name = "useCarAmt")
     private BigDecimal useCarAmt;
 
+    /**
+     * 随车人序号
+     */
+    @Column(name = "followAuto")
+    private Long followAuto;
+
+    /**
+     * 随车人
+     */
+    @Column(name = "followName")
+    private String followName;
+
     private static final long serialVersionUID = 1L;
 }
