@@ -19,11 +19,13 @@
     <result column="Reject" jdbcType="INTEGER" property="reject" />
     <result column="Type" jdbcType="INTEGER" property="type" />
     <result column="AppRole" jdbcType="VARCHAR" property="appRole" />
+    <result column="Muser" jdbcType="BIGINT" property="muser" />
+    <result column="MDT" jdbcType="TIMESTAMP" property="mdt" />
   </resultMap>
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
     PurchaseRRFlow_Auto, RR_Auto, AppSeq, AppUserID, LevNow, [Status], IsAgent, AgentUserID,
-    Memo, AppDT, CUser, CDT, Reject, [Type], AppRole
+    Memo, AppDT, CUser, CDT, Reject, [Type], AppRole,Muser,MDT
   </sql>
   <!--请款送签-->
   <insert id="flowInsert">

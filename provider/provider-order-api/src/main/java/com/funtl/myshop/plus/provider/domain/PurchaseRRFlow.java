@@ -91,5 +91,11 @@ public class PurchaseRRFlow implements Serializable {
     @Column(name = "AppRole")
     private String appRole;
 
+    @Column(name = "Muser")
+    private Long muser;
+
+    @Column(name = "MDT")
+    private Date mdt;
+
     private static final long serialVersionUID = 1L;
 }
