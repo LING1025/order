@@ -192,7 +192,7 @@
 
         if @type=810
         begin
-        select num,ItemName  from ItemCode where ItemType=810
+        select num,ItemName  from ItemCode where ItemType=810 and num in (11,12,13,14,20,16,19,15,2)
         end
 
         if @type=231
