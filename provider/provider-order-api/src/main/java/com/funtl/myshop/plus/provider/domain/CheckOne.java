@@ -209,4 +209,16 @@ public class CheckOne implements Serializable {
     @ApiModelProperty(value = "途经地5")
     private String passAddr5;
 
+    @ApiModelProperty(value = "随车人1")
+    private String followName1;
+
+    @ApiModelProperty(value = "随车人2")
+    private String followName2;
+
+    @ApiModelProperty(value = "随车人3")
+    private String followName3;
+
+    @ApiModelProperty(value = "随车人4")
+    private String followName4;
+
 }

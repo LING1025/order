@@ -442,8 +442,12 @@ select c.CarApplication_Auto,v.FName appUserN,i.ItemName appTypeN, c.PlanStartDT
 		c.PlanEndDT,
 		c.CDT,
 		v2.DepName,
-		c.UserName,cb.MakNo,
-		StatusN= case c.Status when 10 then '送件中'
+		c.UserName,cb.MakNo
+        ,c.followName1
+        ,c.followName2
+        ,c.followName3
+        ,c.followName4
+		,StatusN= case c.Status when 10 then '送件中'
 		when 5 then '驳回'
 		when 20 then '核准'
         when 21 then '待取车'
@@ -518,8 +522,12 @@ select c.CarApplication_Auto,v.FName appUserN,i.ItemName appTypeN, c.PlanStartDT
 		c.PlanEndDT,
 		v2.DepName,
         c.UserAuto,
-		c.UserName,
-		c.startAddr
+		c.UserName
+        ,c.followName1
+        ,c.followName2
+        ,c.followName3
+        ,c.followName4
+		,c.startAddr
 		,c.endAddr
 		,i2.ItemName areaTypeN
 		,c.LicenceMemo
