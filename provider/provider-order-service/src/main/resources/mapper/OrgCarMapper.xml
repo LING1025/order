@@ -23,8 +23,8 @@
     <result column="Carbase_Auto" jdbcType="BIGINT" property="carBaseAuto" />
     <result column="MakNo" jdbcType="VARCHAR" property="makNo" />
     <result column="oilName" jdbcType="VARCHAR" property="oilName" />
-    <result column="residueDL" jdbcType="DECIMAL" property="residueDL" />
-    <result column="mileage" jdbcType="DECIMAL" property="mileage" />
+    <!--<result column="residueDL" jdbcType="DECIMAL" property="residueDL" />
+    <result column="mileage" jdbcType="DECIMAL" property="mileage" />-->
     <result column="CC" jdbcType="INTEGER" property="cc" />
     <result column="BrandName" jdbcType="VARCHAR" property="brandName" />
     <result column="ClasenName" jdbcType="VARCHAR" property="clasenName" />
@@ -41,7 +41,7 @@
 	@oilName varchar(20)=#{param.oilName}--动力方式
 	,@bsTypeN varchar(10)=#{param.bsTypeN}--排挡方式
 	,@carArea varchar(10)=#{param.carArea}--牌照地区
-	,@mileage decimal(18,0)=#{param.mileage} --续航里程
+<!--	,@mileage decimal(18,0)=#{param.mileage} &#45;&#45;续航里程-->
 	,@type int =#{param.type} --1 自动配车 2获取车辆列表
 	  BEGIN
 	  declare @Org_Auto int ,@IsSalesDep int
@@ -80,8 +80,8 @@
 	  select distinct o.Carbase_Auto
 	  ,c.MakNo
 	  ,i.ItemName oilName
-	  ,isnull(cse.residueDL,0) residueDL
-	  ,isnull(cse.mileage,0) mileage
+<!--	  ,isnull(cse.residueDL,0) residueDL-->
+<!--	  ,isnull(cse.mileage,0) mileage-->
 	  ,c.CC
 	  ,b.BrandName
 	  ,cn.ClasenName
@@ -105,7 +105,7 @@
 	  )aa
 	  where (aa.oilName=@oilName or aa.oilName LIKE '%'+@oilName+'%') and aa.bsTypeN=@bsTypeN
 	  and aa.MakNo LIKE '%'+@carSName+'%'
-	  and aa.mileage>=@mileage
+<!--	  and aa.mileage>=@mileage-->
 	  end
 	  else
 	  begin
@@ -116,8 +116,8 @@
 	  (select o.Carbase_Auto
 	  ,c.MakNo
 	  ,i.ItemName oilName
-	  ,isnull(cse.residueDL,0) residueDL
-	  ,isnull(cse.mileage,0) mileage
+<!--	  ,isnull(cse.residueDL,0) residueDL-->
+<!--	  ,isnull(cse.mileage,0) mileage-->
 	  ,c.CC
 	  ,b.BrandName
 	  ,cn.ClasenName
@@ -140,7 +140,7 @@
 	  )aa
 	  where (aa.oilName=@oilName or aa.oilName LIKE '%'+@oilName+'%') and aa.bsTypeN=@bsTypeN
 	  and aa.MakNo LIKE '%'+@carSName+'%'
-	  and aa.mileage>=@mileage
+<!--	  and aa.mileage>=@mileage-->
 	  and aa.Carbase_Auto not in
 	  (select
 	  distinct Carbase_Auto
@@ -162,8 +162,8 @@
 	  (select cse.Carbase_Auto
 	  ,c.MakNo
 	  ,i.ItemName oilName
-	  ,isnull(cse.residueDL,0) residueDL
-	  ,isnull(cse.mileage,0) mileage
+<!--	  ,isnull(cse.residueDL,0) residueDL-->
+<!--	  ,isnull(cse.mileage,0) mileage-->
 	  ,c.CC
 	  ,b.BrandName
 	  ,cn.ClasenName
@@ -185,7 +185,7 @@
 	  )aa
 	  where (aa.oilName=@oilName or aa.oilName LIKE '%'+@oilName+'%') and aa.bsTypeN=@bsTypeN
 	  and aa.MakNo LIKE '%'+@carSName+'%'
-	  and aa.mileage>=@mileage
+<!--	  and aa.mileage>=@mileage-->
 	  end
 	  end
 	  if(@type=2)
@@ -200,8 +200,8 @@
 	  select distinct o.Carbase_Auto
 	  ,c.MakNo
 	  ,i.ItemName oilName
-	  ,isnull(cse.residueDL,0) residueDL
-	  ,isnull(cse.mileage,0) mileage
+<!--	  ,isnull(cse.residueDL,0) residueDL-->
+<!--	  ,isnull(cse.mileage,0) mileage-->
 	  ,c.CC
 	  ,b.BrandName
 	  ,cn.ClasenName
@@ -225,7 +225,7 @@
 	  )aa
 	  where (aa.oilName=@oilName or aa.oilName LIKE '%'+@oilName+'%') and aa.bsTypeN=@bsTypeN
 	  and aa.MakNo LIKE '%'+@carSName+'%'
-	  and aa.mileage>=@mileage
+<!--	  and aa.mileage>=@mileage-->
 	  end
 	  else
 	  begin
@@ -236,8 +236,8 @@
 	  (select o.Carbase_Auto
 	  ,c.MakNo
 	  ,i.ItemName oilName
-	  ,isnull(cse.residueDL,0) residueDL
-	  ,isnull(cse.mileage,0) mileage
+<!--	  ,isnull(cse.residueDL,0) residueDL-->
+<!--	  ,isnull(cse.mileage,0) mileage-->
 	  ,c.CC
 	  ,b.BrandName
 	  ,cn.ClasenName
@@ -260,7 +260,7 @@
 	  )aa
 	  where (aa.oilName=@oilName or aa.oilName LIKE '%'+@oilName+'%') and aa.bsTypeN=@bsTypeN
 	  and aa.MakNo LIKE '%'+@carSName+'%'
-	  and aa.mileage>=@mileage
+<!--	  and aa.mileage>=@mileage-->
 	  and aa.Carbase_Auto not in
 	  (select
 	  distinct Carbase_Auto
@@ -282,8 +282,8 @@
 	  (select cse.Carbase_Auto
 	  ,c.MakNo
 	  ,i.ItemName oilName
-	  ,isnull(cse.residueDL,0) residueDL
-	  ,isnull(cse.mileage,0) mileage
+<!--	  ,isnull(cse.residueDL,0) residueDL-->
+<!--	  ,isnull(cse.mileage,0) mileage-->
 	  ,c.CC
 	  ,b.BrandName
 	  ,cn.ClasenName
@@ -305,7 +305,7 @@
 	  )aa
 	  where (aa.oilName=@oilName or aa.oilName LIKE '%'+@oilName+'%') and aa.bsTypeN=@bsTypeN
 	  and aa.MakNo LIKE '%'+@carSName+'%'
-	  and aa.mileage>=@mileage
+<!--	  and aa.mileage>=@mileage-->
 	  end
 	  end
 

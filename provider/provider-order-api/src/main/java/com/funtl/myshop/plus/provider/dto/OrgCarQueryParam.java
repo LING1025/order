@@ -28,7 +28,7 @@ public class OrgCarQueryParam implements Serializable {
     /**
      * 续航里程
      */
-    private BigDecimal mileage;
+//    private BigDecimal mileage;
 
     /**
      * 1 自动配车 2获取车辆列表
@@ -45,11 +45,10 @@ public class OrgCarQueryParam implements Serializable {
      */
     private Integer appType;
 
-    public OrgCarQueryParam(String oilName, String bsTypeN, String carArea, BigDecimal mileage, Integer type, Long userAuto, Integer appType) {
+    public OrgCarQueryParam(String oilName, String bsTypeN, String carArea, Integer type, Long userAuto, Integer appType) {
         this.oilName = oilName;
         this.bsTypeN = bsTypeN;
         this.carArea = carArea;
-        this.mileage = mileage;
         this.type = type;
         this.userAuto = userAuto;
         this.appType = appType;

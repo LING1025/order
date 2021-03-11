@@ -228,7 +228,7 @@ public class CarApplyController {
             @ApiImplicitParam(name = "oilName",value = "动力方式",required = false,dataType = "String",paramType = "path"),
             @ApiImplicitParam(name = "bsTypeN",value = "排挡方式",required = true,dataType = "String",paramType = "path"),
             @ApiImplicitParam(name = "carArea",value = "牌照地区",required = true,dataType = "String",paramType = "path"),
-            @ApiImplicitParam(name = "mileage",value = "续航里程",required = true,dataType = "BigDecimal",paramType = "path"),
+//            @ApiImplicitParam(name = "mileage",value = "续航里程",required = true,dataType = "BigDecimal",paramType = "path"),
             @ApiImplicitParam(name = "type",value = "查询类别：1 自动配车 2获取车辆列表",required = true,dataType = "int",paramType = "path"),
             @ApiImplicitParam(name = "userAuto",value = "使用人序号",required = true,dataType = "long",paramType = "path"),
             @ApiImplicitParam(name = "appType",value = "用车类别序号：1公务车 2主管用车",required = true,dataType = "int",paramType = "path")
@@ -237,11 +237,11 @@ public class CarApplyController {
     public ResponseResult<List<OrgCarList>> queryOrgCar(@RequestParam(name = "oilName",required = false) String oilName,
                                                         @RequestParam(name = "bsTypeN") String bsTypeN,
                                                         @RequestParam(name = "carArea") String carArea,
-                                                        @RequestParam(name = "mileage") BigDecimal mileage,
+//                                                        @RequestParam(name = "mileage") BigDecimal mileage,
                                                         @RequestParam(name = "type") Integer type,
                                                         @RequestParam(name = "userAuto") Long userAuto,
                                                         @RequestParam(name = "appType") Integer appType){
-        OrgCarQueryParam orgCarQueryParam = new OrgCarQueryParam(oilName,bsTypeN,carArea,mileage,type,userAuto,appType);
+        OrgCarQueryParam orgCarQueryParam = new OrgCarQueryParam(oilName,bsTypeN,carArea,type,userAuto,appType);
         List<OrgCarList> lists = orgCarService.selectOrgCar(orgCarQueryParam);
         if (lists.size() == 0){
             return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"暂无匹配车辆",null);
