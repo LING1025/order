@@ -255,6 +255,15 @@ public class CarApplyController {
         if (outCarApplyParamDto.getPlanStartDT().after(outCarApplyParamDto.getPlanEndDT())){
             return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"开始时间必须小于结束时间",null);
         }
+
+        if(outCarApplyParamDto.getAppType() == 2){
+            //总监、总监理、副总经理、董事长级别才能申请主管用车
+            VEmp vEmp = vEmpService.selectByUserAuto(outCarApplyParamDto.getAppUser());
+            if(vEmp.getTitleLevel() != 10 && vEmp.getTitleLevel() != 20 && vEmp.getTitleLevel() != 21 && vEmp.getTitleLevel() != 30 ){
+                return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"总监、总监理、副总经理、董事长级别才能申请主管用车",null);
+            }
+        }
+
         ApplyJudge applyJudge = carApplicationService.selectSC(outCarApplyParamDto.getAppUser());
         ApplyJudge applyJudge2 = carApplicationService.selectNum(outCarApplyParamDto.getAppUser(),new Date());
         if (applyJudge.getChiefId() < 2) {
