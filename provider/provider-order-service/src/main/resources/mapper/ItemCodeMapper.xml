@@ -203,7 +203,7 @@
         begin
         select num=0,ItemName='==请选择=='
         union all
-        select num,ItemName  from ItemCode where ItemType=833
+        select num,ItemName  from ItemCode where ItemType=865
         end
         if @type=903
         begin
