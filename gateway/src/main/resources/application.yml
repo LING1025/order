@@ -92,6 +92,24 @@ spring:
             - Path=/api/useCar/**
           filters:
             - StripPrefix=1
+        - id: BUSINESS-CAR
+          uri: lb://business-car
+          predicates:
+            - Path=/api/carCheck/**
+          filters:
+            - StripPrefix=1
+        - id: BUSINESS-CAR
+          uri: lb://business-car
+          predicates:
+            - Path=/api/carArrange/**
+          filters:
+            - StripPrefix=1
+        - id: BUSINESS-CAR
+          uri: lb://business-car
+          predicates:
+            - Path=/api/carBack/**
+          filters:
+            - StripPrefix=1
 
 #server:
 #  port: 443

@@ -60,8 +60,8 @@ public class Swagger2Config {
      */
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("移动端格上租赁 API文档")
-                .description("移动端格上租赁 api网关接口，http://127.0.0.1:9999/api")
+                .title("车队管理系统 API文档")
+                .description("车队管理系统 api网关接口，http://127.0.0.1:9999/api")
                 .version("1.0")
                 .build();
     }
