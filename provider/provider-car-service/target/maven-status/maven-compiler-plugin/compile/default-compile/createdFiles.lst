@@ -1,0 +1,15 @@
+com\funtl\myshop\plus\provider\mapper\PurchaseMapper.class
+com\funtl\myshop\plus\provider\service\PurchaseRRFlowServiceImpl.class
+com\funtl\myshop\plus\provider\mapper\CarApplicationMapper.class
+com\funtl\myshop\plus\provider\mapper\ItemCodeMapper.class
+com\funtl\myshop\plus\provider\service\VEmpServiceImpl.class
+com\funtl\myshop\plus\provider\mapper\OrgCarMapper.class
+com\funtl\myshop\plus\provider\service\CarApplicationServiceImpl.class
+com\funtl\myshop\plus\provider\service\ItemCodeServiceImpl.class
+com\funtl\myshop\plus\provider\mapper\PurchaseRequestMapper.class
+com\funtl\myshop\plus\provider\mapper\VEmpMapper.class
+com\funtl\myshop\plus\provider\service\PurchaseRequestServiceImpl.class
+com\funtl\myshop\plus\provider\service\OrgCarServiceImpl.class
+com\funtl\myshop\plus\provider\service\PurchaseServiceImpl.class
+com\funtl\myshop\plus\provider\mapper\PurchaseRRFlowMapper.class
+com\funtl\myshop\plus\provider\ProviderCarApplication.class
