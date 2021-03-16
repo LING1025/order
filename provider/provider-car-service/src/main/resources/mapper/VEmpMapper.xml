@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.funtl.myshop.plus.provider.mapper.VEmpMapper">
+  <resultMap id="BaseResultMap" type="com.funtl.myshop.plus.provider.domain.VEmp">
+    <!--@mbg.generated-->
+    <!--@Table v_Emp-->
+    <result column="UPOrg4Name" jdbcType="VARCHAR" property="uPOrg4Name" />
+    <result column="UPOrg5" jdbcType="BIGINT" property="uPOrg5" />
+    <result column="UPOrg3Name" jdbcType="VARCHAR" property="uPOrg3Name" />
+    <result column="UPOrg4" jdbcType="BIGINT" property="uPOrg4" />
+    <result column="UPOrg2Name" jdbcType="VARCHAR" property="uPOrg2Name" />
+    <result column="UPOrg3" jdbcType="BIGINT" property="uPOrg3" />
+    <result column="UPOrgName" jdbcType="VARCHAR" property="uPOrgName" />
+    <result column="UPOrg2" jdbcType="BIGINT" property="uPOrg2" />
+    <result column="TradeItem_Auto" jdbcType="BIGINT" property="tradeItemAuto" />
+    <result column="UserId" jdbcType="OTHER" property="userId" />
+    <result column="User_Auto" jdbcType="BIGINT" property="userAuto" />
+    <result column="UserName" jdbcType="VARCHAR" property="userName" />
+    <result column="Org_Auto" jdbcType="BIGINT" property="orgAuto" />
+    <result column="DepCode" jdbcType="VARCHAR" property="depCode" />
+    <result column="Lev" jdbcType="INTEGER" property="lev" />
+    <result column="UpUnit" jdbcType="BIGINT" property="upUnit" />
+    <result column="TitleLevel" jdbcType="INTEGER" property="titleLevel" />
+    <result column="EmpBase_Auto" jdbcType="BIGINT" property="empBaseAuto" />
+    <result column="DepName" jdbcType="VARCHAR" property="depName" />
+    <result column="TitleName" jdbcType="VARCHAR" property="titleName" />
+    <result column="FName" jdbcType="VARCHAR" property="fName" />
+    <result column="IsOn" jdbcType="INTEGER" property="isOn" />
+    <result column="IsEas" jdbcType="INTEGER" property="isEas" />
+    <result column="AccCode" jdbcType="VARCHAR" property="accCode" />
+    <result column="IsSalesDep" jdbcType="INTEGER" property="isSalesDep" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    UPOrg4Name, UPOrg5, UPOrg3Name, UPOrg4, UPOrg2Name, UPOrg3, UPOrgName, UPOrg2, TradeItem_Auto,
+    UserId, User_Auto, Org_Auto, DepCode, Lev, UpUnit, TitleLevel, EmpBase_Auto, DepName,
+    TitleName, FName, UserName, IsOn, IsEas, AccCode, IsSalesDep
+  </sql>
+  <!--获取使用人数据-->
+  <resultMap id="queryCarApply" type="com.funtl.myshop.plus.provider.domain.CarApplyList">
+    <result column="User_Auto" jdbcType="BIGINT" property="userAuto" />
+    <result column="FName" jdbcType="VARCHAR" property="username" />
+  </resultMap>
+  <select id="selectCarApply" resultMap="queryCarApply">
+    select User_Auto,FName from v_emp where Org_Auto=#{orgAuto} and ison=1 --and User_Auto=@User_Auto
+  </select>
+
+  <!--获取使用部门数据-->
+  <resultMap id="queryCarApplyOrg" type="com.funtl.myshop.plus.provider.domain.CarApplyOrg">
+    <result column="Org_Auto" jdbcType="BIGINT" property="orgAuto" />
+    <result column="DepName" jdbcType="VARCHAR" property="orgName" />
+  </resultMap>
+  <select id="selectCarApplyOrg" resultMap="queryCarApplyOrg">
+    select
+    distinct DepName,Org_Auto
+    from v_emp
+    where
+    1 = 1
+    <if test="userAuto != null and userAuto != ''">
+      AND User_Auto = #{userAuto}
+    </if>
+    AND ison=1
+  </select>
+</mapper>
