@@ -11,3 +11,6 @@ business/business-oauth2/target/
 business/business-user/business-user-feign/target/
 gateway/target/classes/
 business/business-order/target/classes/
+business/business-car/target/classes/
+provider/provider-car-api/target/classes/
+provider/provider-car-service/target/classes/
