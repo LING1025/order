@@ -86,6 +86,12 @@ spring:
             - Path=/api/license/**
           filters:
             - StripPrefix=1
+        - id: BUSINESS-CAR
+          uri: lb://business-car
+          predicates:
+            - Path=/api/useCar/**
+          filters:
+            - StripPrefix=1
 
 #server:
 #  port: 443
