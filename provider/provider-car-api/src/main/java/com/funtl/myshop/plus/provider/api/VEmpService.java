@@ -22,4 +22,11 @@ public interface VEmpService{
      */
     List<CarApplyOrg> selectCarApplyOrg(Long userAuto);
 
+    /**
+     * 根据userAuto获取业务员、所在部门
+     * @param userAuto
+     * @return
+     */
+    VEmp selectByUserAuto(Long userAuto);
+
 }

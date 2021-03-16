@@ -314,7 +314,7 @@
   </select>
     <select id="selectNum" resultType="java.lang.Integer">
 		--判断车子有没有被申请
-declare @CarBase_Auto bigint=22105
+declare @CarBase_Auto bigint=#{carBaseAuto}
 begin
 declare @CSum int
 select
