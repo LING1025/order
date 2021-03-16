@@ -61,4 +61,21 @@
     </if>
     AND ison=1
   </select>
+  <resultMap id="queryAgentList" type="com.funtl.myshop.plus.provider.domain.AgentList">
+    <result column="SelfUser" jdbcType="INTEGER" property="selfUser" />
+  </resultMap>
+  <select id="selectAgentList" resultMap="queryAgentList">
+    SELECT
+    SelfUser
+    FROM
+    CreditAgent
+    WHERE
+    1 = 1
+    <if test="agentUser != null and agentUser != ''">
+      AND AgentUser = #{agentUser}
+    </if>
+    AND IsOn = 1
+    AND AgentCDate &gt;= CONVERT(date,GETDATE(),111)
+    ORDER BY AgentCDate
+  </select>
 </mapper>

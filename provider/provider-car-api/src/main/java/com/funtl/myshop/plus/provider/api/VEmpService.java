@@ -1,5 +1,6 @@
 package com.funtl.myshop.plus.provider.api;
 
+import com.funtl.myshop.plus.provider.domain.AgentList;
 import com.funtl.myshop.plus.provider.domain.CarApplyList;
 import com.funtl.myshop.plus.provider.domain.CarApplyOrg;
 import com.funtl.myshop.plus.provider.domain.VEmp;
@@ -29,4 +30,10 @@ public interface VEmpService{
      */
     VEmp selectByUserAuto(Long userAuto);
 
+    /**
+     * 代理人
+     * @param agentUser
+     * @return
+     */
+    List<AgentList> selectAgentList(Long agentUser);
 }

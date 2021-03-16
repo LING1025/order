@@ -1,6 +1,7 @@
 package com.funtl.myshop.plus.provider.service;
 
 import com.funtl.myshop.plus.provider.api.VEmpService;
+import com.funtl.myshop.plus.provider.domain.AgentList;
 import com.funtl.myshop.plus.provider.domain.CarApplyList;
 import com.funtl.myshop.plus.provider.domain.CarApplyOrg;
 import com.funtl.myshop.plus.provider.domain.VEmp;
@@ -33,5 +34,10 @@ public class VEmpServiceImpl implements VEmpService {
         example.createCriteria().andEqualTo("userAuto",userAuto)
                 .andEqualTo("isOn",1);
         return vEmpMapper.selectOneByExample(example);
+    }
+
+    @Override
+    public List<AgentList> selectAgentList(Long agentUser) {
+        return vEmpMapper.selectAgentList(agentUser);
     }
 }
