@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.funtl.myshop.plus.provider.mapper.ItemCodeMapper">
+  <resultMap id="BaseResultMap" type="com.funtl.myshop.plus.provider.domain.ItemCode">
+    <!--@mbg.generated-->
+    <!--@Table ItemCode-->
+    <id column="ItemCode_Auto" jdbcType="BIGINT" property="itemCodeAuto" />
+    <result column="ItemType" jdbcType="INTEGER" property="itemType" />
+    <result column="Num" jdbcType="BIGINT" property="num" />
+    <result column="ItemName" jdbcType="VARCHAR" property="itemName" />
+    <result column="Memo" jdbcType="VARCHAR" property="memo" />
+    <result column="IsActive" jdbcType="INTEGER" property="isactive" />
+    <result column="Seq" jdbcType="INTEGER" property="seq" />
+    <result column="V1" jdbcType="DECIMAL" property="v1" />
+    <result column="V2" jdbcType="DECIMAL" property="v2" />
+    <result column="A1" jdbcType="DECIMAL" property="a1" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    ItemCode_Auto, ItemType, Num, ItemName, Memo, IsActive, Seq, V1, V2, A1
+  </sql>
+    <!--获取用车类别、牌照地区、车辆选择、事由说明-->
+    <resultMap id="queryCarArea"  type="com.funtl.myshop.plus.provider.domain.CarAreaList">
+        <result column="num" jdbcType="BIGINT" property="areaNum" />
+        <result column="ItemName" jdbcType="VARCHAR" property="areaName" />
+    </resultMap>
+    <select id="selectCarArea" resultMap="queryCarArea">
+        declare
+        @type int=#{itemType}--833申请事由，用车类别,810车牌照地区,231车辆选择类别,865事由说明，903报销项目,899付款别，897网银类别
+        BEGIN
+        if @type=833
+        begin
+        select num=0,ItemName='==请选择=='
+        union all
+        select num,ItemName  from ItemCode where ItemType=833  and num in (1,2)
+        end
+
+        if @type=810
+        begin
+        select num,ItemName  from ItemCode where ItemType=810 and num in (11,12,13,14,20,16,19,15,2)
+        end
+
+        if @type=231
+        begin
+        select num,ItemName  from ItemCode where ItemType=231
+        end
+        if @type=865--865公务车申请事由,833申请事由(新)
+        begin
+        select num=0,ItemName='==请选择=='
+        union all
+        select num,ItemName  from ItemCode where ItemType=833
+        end
+        if @type=903
+        begin
+        select num=0,ItemName='==请选择=='
+        union all
+        select num,ItemName  from ItemCode where ItemType=903  and num in(1,2,3,40)
+        end
+        if @type=899
+        begin
+        select num=0,ItemName='==请选择=='
+        union all
+        select num,ItemName  from ItemCode where ItemType=899
+        end
+        if @type=897
+        begin
+        select num=0,ItemName='==请选择=='
+        union all
+        select num,ItemName  from ItemCode where ItemType=897
+        end
+        END
+    </select>
+
+</mapper>

@@ -12,6 +12,8 @@
     <file url="file://$PROJECT_DIR$/gateway/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/provider/provider-asp-api/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/provider/provider-asp-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/provider/provider-car-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/provider/provider-car-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/provider/provider-order-api/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/provider/provider-order-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/provider/provider-user-api/src/main/java" charset="UTF-8" />
