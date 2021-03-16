@@ -8,6 +8,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="provider-order-service" />
         <module name="business-wxUser-feign" />
+        <module name="business-car" />
         <module name="gateway" />
         <module name="commons-dto" />
         <module name="business-wxUser-service" />
@@ -30,6 +31,7 @@
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="business" target="1.8" />
+      <module name="business-car" target="1.8" />
       <module name="business-license" target="1.8" />
       <module name="business-order" target="1.8" />
       <module name="business-order (1)" target="1.8" />
@@ -63,6 +65,7 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="business-car" options="-parameters" />
       <module name="business-license" options="-parameters" />
       <module name="business-order" options="-parameters" />
       <module name="business-order (1)" options="-parameters" />

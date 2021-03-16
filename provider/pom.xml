@@ -27,5 +27,8 @@
         <module>provider-order-service</module>
         <module>provider-asp-api</module>
         <module>provider-asp-service</module>
+        <module>provider-car-api</module>
+        <module>provider-car-service</module>
+
     </modules>
 </project>

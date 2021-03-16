@@ -30,6 +30,7 @@
         <option value="$PROJECT_DIR$/provider/provider-asp-service/pom.xml" />
         <option value="$PROJECT_DIR$/provider/provider-car-api/pom.xml" />
         <option value="$PROJECT_DIR$/provider/provider-car-service/pom.xml" />
+        <option value="$PROJECT_DIR$/business/business-car/pom.xml" />
       </list>
     </option>
   </component>
