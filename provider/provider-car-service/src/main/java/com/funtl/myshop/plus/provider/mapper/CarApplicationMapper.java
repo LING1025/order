@@ -1,6 +1,7 @@
 package com.funtl.myshop.plus.provider.mapper;
 
-import com.funtl.myshop.plus.provider.domain.CarApplication;
+import com.funtl.myshop.plus.provider.domain.*;
+import com.funtl.myshop.plus.provider.dto.*;
 import org.apache.ibatis.annotations.Param;
 import tk.mybatis.mapper.MyMapper;
 

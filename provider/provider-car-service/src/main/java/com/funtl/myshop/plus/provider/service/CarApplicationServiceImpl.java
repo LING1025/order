@@ -1,7 +1,9 @@
 package com.funtl.myshop.plus.provider.service;
 
+
 import com.funtl.myshop.plus.provider.api.CarApplicationService;
-import com.funtl.myshop.plus.provider.domain.CarApplication;
+import com.funtl.myshop.plus.provider.domain.*;
+import com.funtl.myshop.plus.provider.dto.*;
 import com.funtl.myshop.plus.provider.mapper.CarApplicationMapper;
 import org.apache.dubbo.config.annotation.Service;
 
@@ -10,7 +12,7 @@ import java.util.Date;
 import java.util.List;
 
 @Service(version = "1.0.0")
-public class CarApplicationServiceImpl implements CarApplicationService{
+public class CarApplicationServiceImpl implements CarApplicationService {
 
     @Resource
     private CarApplicationMapper carApplicationMapper;

@@ -143,7 +143,7 @@
         <dependency>
             <groupId>com.funtl.myshop.plus</groupId>
             <artifactId>provider-car-api</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>${project.parent.version}</version>
             <scope>compile</scope>
         </dependency>
 

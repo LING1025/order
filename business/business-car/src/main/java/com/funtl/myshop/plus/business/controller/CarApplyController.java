@@ -5,11 +5,11 @@ import com.funtl.myshop.plus.business.dto.Location;
 import com.funtl.myshop.plus.business.dto.LocationList;
 import com.funtl.myshop.plus.commons.dto.ResponseResult;
 import com.funtl.myshop.plus.controller.LocationUtils;
+import com.funtl.myshop.plus.provider.api.CarApplicationService;
 import com.funtl.myshop.plus.provider.api.ItemCodeService;
 import com.funtl.myshop.plus.provider.api.VEmpService;
-import com.funtl.myshop.plus.provider.domain.CarApplyList;
-import com.funtl.myshop.plus.provider.domain.CarApplyOrg;
-import com.funtl.myshop.plus.provider.domain.CarAreaList;
+import com.funtl.myshop.plus.provider.domain.*;
+import com.funtl.myshop.plus.provider.dto.UseCarQueryParam;
 import com.google.common.collect.Lists;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -23,6 +23,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -35,6 +38,9 @@ public class CarApplyController {
 
     @Reference(version = "1.0.0")
     private VEmpService vEmpService;
+
+    @Reference(version = "1.0.0")
+    private CarApplicationService carApplicationService;
 
     /*@ApiOperation(value = "经纬度转地址")
     @ApiImplicitParams({
@@ -121,4 +127,85 @@ public class CarApplyController {
         List<CarApplyList> lists = vEmpService.selectCarApply(orgAuto);
         return new ResponseResult<>(ResponseResult.CodeStatus.OK,"查询成功",lists);
     }
+
+    @ApiOperation(value = "用车申请、车辆领取、车辆归还：获取申请列表")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "carApplicationAuto",value = "用车申请单号",required = false,dataType = "long",paramType = "path"),
+            @ApiImplicitParam(name = "appUser",value = "登录人userAuto",required = true,dataType = "long",paramType = "path"),
+            @ApiImplicitParam(name = "username",value = "使用人",required = false,dataType = "String",paramType = "path"),
+            @ApiImplicitParam(name = "makNo",value = "车辆号码",required = false,dataType = "String",paramType = "path"),
+            @ApiImplicitParam(name = "planStartDT",value = "开始时间",required = false,dataType = "String",paramType = "path"),
+            @ApiImplicitParam(name = "planEndDT",value = "结束时间",required = false,dataType = "String",paramType = "path"),
+            @ApiImplicitParam(name = "statusN",value = "状态:已删除、驳回、送件中、核准、待取车、出车、还车",required = false,dataType = "String",paramType = "path")
+    })
+    @GetMapping(value = "queryUserCar")
+    public ResponseResult<List<UserCarList>> queryUserCar(@RequestParam(name = "carApplicationAuto",required = false) Long carApplicationAuto,
+                                                          @RequestParam(name = "appUser") Long appUser,
+                                                          @RequestParam(name = "username",required = false) String username,
+                                                          @RequestParam(name = "planStartDT",required = false) String planStartDT,
+                                                          @RequestParam(name = "planEndDT",required = false) String planEndDT,
+                                                          @RequestParam(name = "makNo",required = false) String makNo,
+                                                          @RequestParam(name = "statusN",required = false) String statusN){
+        UseCarQueryParam useCarQueryParam = new UseCarQueryParam(carApplicationAuto,appUser,username,makNo,planStartDT,planEndDT,statusN);
+        List<UserCarList> lists = carApplicationService.selectUserCar(useCarQueryParam);
+        if (lists.size() == 0){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"暂无申请数据",null);
+        }
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK,"查询成功",lists);
+    }
+
+    @ApiOperation(value = "用车申请、车辆领取、车辆归还：获取具体申请明细")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "loginUserID",value = "登录人userAuto",required = true,dataType = "long",paramType = "path"),
+            @ApiImplicitParam(name = "carApplicationAuto",value = "用车申请单号",required = true,dataType = "long",paramType = "path")
+    })
+    @GetMapping(value = "queryApplyAndBack")
+    public ResponseResult<CheckOne> queryApplyAndBack(@RequestParam(name = "loginUserID") Long loginUserID,
+                                                      @RequestParam(name = "carApplicationAuto") Long carApplicationAuto){
+        CheckOne checkOne = carApplicationService.selectApplyAndBack(loginUserID, carApplicationAuto);
+        if (checkOne == null){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"暂无数据",null);
+        }
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK,"查询成功",checkOne);
+    }
+
+    @ApiOperation(value = "用车审核：获取签核明细数据")
+    @ApiImplicitParam(name = "carApplicationAuto",value = "用车申请单号",required = false,dataType = "long",paramType = "path")
+    @GetMapping(value = "queryUseCarDoc")
+    public ResponseResult<List<UseCarDoc>> queryUseCarDoc(@RequestParam(name = "carApplicationAuto",required = false) Long carApplicationAuto){
+        List<UseCarDoc> list = carApplicationService.selectUseCarDoc(carApplicationAuto);
+        if (list.size() == 0){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"暂无数据",null);
+        }
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK,"查询成功",list);
+    }
+
+    @ApiOperation(value = "用车申请：判断是否假日用车、计算用车时间")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "startTime",value = "开始时间",required = true,dataType = "String",paramType = "path"),
+            @ApiImplicitParam(name = "endTime",value = "结束时间",required = true,dataType = "String",paramType = "path")
+    })
+    @GetMapping(value = "queryByTime")
+    public ResponseResult<Holiday> queryByTime(@RequestParam(name = "startTime") String startTime,
+                                               @RequestParam(name = "endTime") String endTime) throws ParseException {
+        if(startTime == null || endTime == null){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"提示：使用时间不能为空",null);
+        }
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        Date date1 = format.parse(startTime);
+        Date date2 = format.parse(endTime);
+        if (date1.after(date2)){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"开始时间必须小于结束时间",null);
+        }
+        Holiday holiday = carApplicationService.selectByTime(date1, date2);
+        if (holiday.getNum() > 0){
+            holiday.setIsHoliday(1);
+        }else {
+            holiday.setIsHoliday(0);
+        }
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK,"查询成功",holiday);
+    }
+
+
+
 }
