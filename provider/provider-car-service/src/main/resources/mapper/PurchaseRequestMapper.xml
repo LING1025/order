@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.funtl.myshop.plus.provider.mapper.PurchaseRequestMapper">
+  <resultMap id="BaseResultMap" type="com.funtl.myshop.plus.provider.domain.PurchaseRequest">
+    <!--@mbg.generated-->
+    <!--@Table PurchaseRequest-->
+    <id column="PurchaseRequest_Auto" jdbcType="BIGINT" property="purchaseRequestAuto" />
+    <result column="Inc_Auto" jdbcType="BIGINT" property="incAuto" />
+    <result column="Invoice_Number" jdbcType="VARCHAR" property="invoiceNumber" />
+    <result column="RequestUser" jdbcType="BIGINT" property="requestUser" />
+    <result column="Request_Type" jdbcType="INTEGER" property="requestType" />
+    <result column="RequestDT" jdbcType="TIMESTAMP" property="requestDT" />
+    <result column="RequestAmt" jdbcType="DECIMAL" property="requestAmt" />
+    <result column="PayRequestAmt" jdbcType="DECIMAL" property="payRequestAmt" />
+    <result column="Is_ZJ" jdbcType="INTEGER" property="isZJ" />
+    <result column="ZJAmt" jdbcType="DECIMAL" property="zJAmt" />
+    <result column="ZJpay_Type" jdbcType="INTEGER" property="zjPayType" />
+    <result column="Pay_Type" jdbcType="INTEGER" property="payType" />
+    <result column="CyberBank_Type" jdbcType="INTEGER" property="cyBerBankType" />
+    <result column="Payee" jdbcType="VARCHAR" property="payee" />
+    <result column="Payee_Account" jdbcType="VARCHAR" property="payeeAccount" />
+    <result column="BankName" jdbcType="VARCHAR" property="bankName" />
+    <result column="Remark" jdbcType="VARCHAR" property="remark" />
+    <result column="Status" jdbcType="INTEGER" property="status" />
+    <result column="Is_RR" jdbcType="INTEGER" property="isRR" />
+    <result column="Cuser" jdbcType="BIGINT" property="cuser" />
+    <result column="CDT" jdbcType="TIMESTAMP" property="cdt" />
+    <result column="Muser" jdbcType="BIGINT" property="muser" />
+    <result column="MDT" jdbcType="TIMESTAMP" property="mdt" />
+    <result column="LKInc_Auto" jdbcType="BIGINT" property="lKIncAuto" />
+    <result column="IsBatch" jdbcType="INTEGER" property="isBatch" />
+    <result column="BankType" jdbcType="INTEGER" property="bankType" />
+    <result column="InvType" jdbcType="INTEGER" property="invType" />
+    <result column="Is_Eas" jdbcType="INTEGER" property="isEas" />
+    <result column="CarApplication_Auto" jdbcType="BIGINT" property="carApplicationAuto" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    PurchaseRequest_Auto, Inc_Auto, Invoice_Number, RequestUser, Request_Type, RequestDT,
+    RequestAmt, PayRequestAmt, Is_ZJ, ZJAmt, ZJpay_Type, Pay_Type, CyberBank_Type, Payee,
+    Payee_Account, BankName, Remark, [Status], Is_RR, Cuser, CDT, Muser, MDT, LKInc_Auto,
+    IsBatch, BankType, InvType, Is_Eas,CarApplication_Auto
+  </sql>
+
+    <!--根据用车请款人获取公司别-->
+  <resultMap id="queryInc" type="com.funtl.myshop.plus.provider.domain.RequestInc">
+    <result column="User_Auto" jdbcType="BIGINT" property="userAuto" />
+    <result column="Inc_Auto" jdbcType="BIGINT" property="IncAuto" />
+    <result column="Org_Auto" jdbcType="BIGINT" property="useDep" />
+  </resultMap>
+    <select id="selectInc" resultMap="queryInc">
+    select
+    a.User_Auto
+    ,b.Inc_Auto --公司别序号
+    ,a.Org_Auto --使用部门
+    from
+    v_Emp a
+    left join DocSystem.dbo.Employee b on b.Account = a.UserName collate Chinese_PRC_CI_AS
+    left join Inc c on c.Inc_Auto = b.Inc_Auto
+    where a.IsOn=1 and b.[Status]='任用' and a.User_Auto=#{userAuto}
+    </select>
+
+  <!--车辆归还：费用列表数据-->
+  <resultMap id="queryPurchaseFeeList" type="com.funtl.myshop.plus.provider.domain.PurchaseFeeList">
+    <result column="PurchaseRequest_Auto" jdbcType="BIGINT" property="purchaseRequestAuto" />
+    <result column="CarApplication_Auto" jdbcType="BIGINT" property="carApplicationAuto" />
+    <result column="RequestAmt" jdbcType="DECIMAL" property="requestAmt" />
+    <result column="feeTypeName" jdbcType="VARCHAR" property="feeTypeName" />
+    <result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
+    <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
+    <result column="Purchase_Auto" jdbcType="BIGINT" property="purchaseAuto" />
+    <result column="Purchase_Remark" jdbcType="VARCHAR" property="purchaseRemark" />
+  </resultMap>
+    <select id="selectPurchaseFeeList" resultMap="queryPurchaseFeeList">
+      select
+      pr.PurchaseRequest_Auto
+      ,pr.CarApplication_Auto
+      ,i.ItemName feeTypeName
+      ,pr.RequestAmt
+      ,p.start_time
+      ,p.end_time
+      ,p.Purchase_Auto
+      ,p.Purchase_Remark
+      from
+      PurchaseRequest pr
+      left join Purchase p on p.RR_Auto=pr.PurchaseRequest_Auto
+      left join ItemCode i on i.Num=p.FeeType and i.ItemType=903
+      left join v_Emp v on v.User_Auto = pr.RequestUser
+      where
+      pr.RequestUser=#{requestUser}
+      and CarApplication_Auto=#{carApplicationAuto}
+      and pr.Status != -1
+      order by pr.PurchaseRequest_Auto desc
+    </select>
+
+
+</mapper>
