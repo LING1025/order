@@ -24,7 +24,7 @@ import java.util.Map;
 
 @Api(tags = "车队管理模块相关操作")
 @RestController
-@RequestMapping(value = "useCar")
+@RequestMapping(value = "car")
 public class CarApplyController {
     @Reference(version = "1.0.0")
     private ItemCodeService itemCodeService;
@@ -177,7 +177,7 @@ public class CarApplyController {
         return new ResponseResult<>(ResponseResult.CodeStatus.OK,"查询成功",checkOne);
     }
 
-    @ApiOperation(value = "用车审核：获取签核明细数据")
+    @ApiOperation(value = "用车申请、车辆领取、车辆归还：获取签核明细数据")
     @ApiImplicitParam(name = "carApplicationAuto",value = "用车申请单号",required = false,dataType = "long",paramType = "path")
     @GetMapping(value = "queryUseCarDoc")
     public ResponseResult<List<UseCarDoc>> queryUseCarDoc(@RequestParam(name = "carApplicationAuto",required = false) Long carApplicationAuto){
