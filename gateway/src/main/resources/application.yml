@@ -77,12 +77,6 @@ spring:
         - id: BUSINESS-ORDER
           uri: lb://business-order
           predicates:
-            - Path=/api/carApply/**
-          filters:
-            - StripPrefix=1
-        - id: BUSINESS-ORDER
-          uri: lb://business-order
-          predicates:
             - Path=/api/license/**
           filters:
             - StripPrefix=1
