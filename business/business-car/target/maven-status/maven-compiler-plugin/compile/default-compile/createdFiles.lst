@@ -12,6 +12,7 @@ com\funtl\myshop\plus\business\dto\GetKeyParamDto.class
 com\funtl\myshop\plus\business\configure\CarResourceServerConfiguration.class
 com\funtl\myshop\plus\business\dto\CarPhotoParamDto.class
 com\funtl\myshop\plus\business\controller\CarCheckController.class
+com\funtl\myshop\plus\business\dto\GetLocation.class
 com\funtl\myshop\plus\business\dto\GiveKeyParamDto.class
 com\funtl\myshop\plus\business\dto\Location.class
 com\funtl\myshop\plus\business\dto\RepealApplyParamDto.class
