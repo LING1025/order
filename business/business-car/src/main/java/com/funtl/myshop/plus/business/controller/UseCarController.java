@@ -262,7 +262,10 @@ public class UseCarController {
         if(outCarApplyParamDto.getAppType() == 2){
             //总监、总监理、副总经理、董事长级别才能申请主管用车
             VEmp vEmp = vEmpService.selectByUserAuto(outCarApplyParamDto.getAppUser());
-            if(vEmp.getTitleLevel() != 10 && vEmp.getTitleLevel() != 20 && vEmp.getTitleLevel() != 21 && vEmp.getTitleLevel() != 30 ){
+            if (vEmp == null){
+                return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"申请人数据不存在",null);
+            }
+            if(vEmp.getTitleLevel() != 10 && vEmp.getTitleLevel() != 20 && vEmp.getTitleLevel() != 21 && vEmp.getTitleLevel() != 30){
                 return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"总监、总监理、副总经理、董事长级别才能申请主管用车",null);
             }
         }
