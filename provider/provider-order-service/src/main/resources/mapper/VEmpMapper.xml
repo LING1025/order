@@ -55,29 +55,4 @@
         AND IsOn!=0
     </select>
 
-  <!--获取使用人数据-->
-    <resultMap id="queryCarApply" type="com.funtl.myshop.plus.provider.domain.CarApplyList">
-      <result column="User_Auto" jdbcType="BIGINT" property="userAuto" />
-      <result column="FName" jdbcType="VARCHAR" property="username" />
-    </resultMap>
-    <select id="selectCarApply" resultMap="queryCarApply">
-       select User_Auto,FName from v_emp where Org_Auto=#{orgAuto} and ison=1 --and User_Auto=@User_Auto
-    </select>
-
-    <!--获取使用部门数据-->
-    <resultMap id="queryCarApplyOrg" type="com.funtl.myshop.plus.provider.domain.CarApplyOrg">
-        <result column="Org_Auto" jdbcType="BIGINT" property="orgAuto" />
-        <result column="DepName" jdbcType="VARCHAR" property="orgName" />
-    </resultMap>
-    <select id="selectCarApplyOrg" resultMap="queryCarApplyOrg">
-        select
-        distinct DepName,Org_Auto
-        from v_emp
-        where
-        1 = 1
-        <if test="userAuto != null and userAuto != ''">
-            AND User_Auto = #{userAuto}
-        </if>
-        AND ison=1
-    </select>
 </mapper>

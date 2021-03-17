@@ -29,9 +29,4 @@ public class ItemCodeServiceImpl implements ItemCodeService{
         return itemCodeMapper.selectItemName(itemType,num);
     }
 
-    @Override
-    public List<CarAreaList> selectCarArea(Integer itemType) {
-        return itemCodeMapper.selectCarArea(itemType);
-    }
-
 }

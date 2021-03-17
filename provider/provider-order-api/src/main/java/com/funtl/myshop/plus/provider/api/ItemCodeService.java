@@ -24,10 +24,4 @@ public interface ItemCodeService{
      */
     List<LeasebackSelect> selectItemName(Integer itemType,Long num);
 
-    /**
-     * 根据itemType获取用车类别、牌照地区、车辆选择、事由说明
-     * @param itemType
-     * @return
-     */
-    List<CarAreaList> selectCarArea(Integer itemType);
 }

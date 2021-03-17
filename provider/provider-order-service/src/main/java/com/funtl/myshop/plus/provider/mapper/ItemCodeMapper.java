@@ -15,5 +15,4 @@ public interface ItemCodeMapper extends MyMapper<ItemCode> {
 
     List<LeasebackSelect> selectItemName(@Param("itemType") Integer itemType,@Param("num") Long num);
 
-    List<CarAreaList> selectCarArea(@Param("itemType") Integer itemType);
 }
