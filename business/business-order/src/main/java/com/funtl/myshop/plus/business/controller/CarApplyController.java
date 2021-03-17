@@ -32,23 +32,6 @@ import java.util.Map;
 @RestController
 @RequestMapping(value = "carApply")
 public class CarApplyController {
-    @Reference(version = "1.0.0")
-    private ItemCodeService itemCodeService;
-
-    @Reference(version = "1.0.0")
-    private VEmpService vEmpService;
-
-    @Reference(version = "1.0.0")
-    private CarApplicationService carApplicationService;
-
-    @Reference(version = "1.0.0")
-    private OrgCarService orgCarService;
-
-    @Reference(version = "1.0.0")
-    private CreditAgentService creditAgentService;
-
-    @Reference(version = "1.0.0")
-    private AspnetUsersService aspnetUsersService;
 
     @Reference(version = "1.0.0")
     private PurchaseRequestService purchaseRequestService;
@@ -63,31 +46,6 @@ public class CarApplyController {
 
 
 
-    @ApiOperation(value = "用车申请：自动配车、用车审核：获取车辆列表")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "oilName",value = "动力方式",required = false,dataType = "String",paramType = "path"),
-            @ApiImplicitParam(name = "bsTypeN",value = "排挡方式",required = true,dataType = "String",paramType = "path"),
-            @ApiImplicitParam(name = "carArea",value = "牌照地区",required = true,dataType = "String",paramType = "path"),
-//            @ApiImplicitParam(name = "mileage",value = "续航里程",required = true,dataType = "BigDecimal",paramType = "path"),
-            @ApiImplicitParam(name = "type",value = "查询类别：1 自动配车 2获取车辆列表",required = true,dataType = "int",paramType = "path"),
-            @ApiImplicitParam(name = "userAuto",value = "使用人序号",required = true,dataType = "long",paramType = "path"),
-            @ApiImplicitParam(name = "appType",value = "用车类别序号：1公务车 2主管用车",required = true,dataType = "int",paramType = "path")
-    })
-    @GetMapping(value = "queryOrgCar")
-    public ResponseResult<List<OrgCarList>> queryOrgCar(@RequestParam(name = "oilName",required = false) String oilName,
-                                                        @RequestParam(name = "bsTypeN") String bsTypeN,
-                                                        @RequestParam(name = "carArea") String carArea,
-//                                                        @RequestParam(name = "mileage") BigDecimal mileage,
-                                                        @RequestParam(name = "type") Integer type,
-                                                        @RequestParam(name = "userAuto") Long userAuto,
-                                                        @RequestParam(name = "appType") Integer appType){
-        OrgCarQueryParam orgCarQueryParam = new OrgCarQueryParam(oilName,bsTypeN,carArea,type,userAuto,appType);
-        List<OrgCarList> lists = orgCarService.selectOrgCar(orgCarQueryParam);
-        if (lists.size() == 0){
-            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"暂无匹配车辆",null);
-        }
-        return new ResponseResult<>(ResponseResult.CodeStatus.OK,"查询成功",lists);
-    }
 
     @ApiOperation(value = "用车申请：送件(此接口如要测试请联系后端)")
     @PostMapping(value = "applyInsert")
