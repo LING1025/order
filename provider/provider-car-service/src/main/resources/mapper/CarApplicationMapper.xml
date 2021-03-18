@@ -1029,7 +1029,7 @@ select c.CarApplication_Auto,v.FName appUserN,i.ItemName appTypeN, c.PlanStartDT
 		left join DocSystem.dbo.WorkFlowDoc  t1 on c.CarApplication_Auto=t1.DocPostID  and t1.DocType=10
 		left join [Portal].[dbo].[Portal_Roles] t2  on t1.RoleID=t2.RoleID
 		where v.IsOn=1 and v2.IsOn=1 and e.[Status]='任用'
-		and c.UserAuto=@LoginUserID --使用人
+        and (c.UserAuto=@LoginUserID or c.AppUser=@LoginUserID ) --使用人、申请人
 	)aa
 	where aa.CarApplication_Auto=@CarApplication_Auto
 end
