@@ -84,7 +84,34 @@ public class UseCarController {
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", list);
     }
 
-    @ApiOperation(value = "用车申请：经纬度计算距离")
+    @ApiOperation(value = "用车申请：关键词输入提示地址")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "region", value = "范围限制条件（例如：苏州）", required = true, dataType = "String", paramType = "path"),
+            @ApiImplicitParam(name = "keyword", value = "用户输入的关键词（例如：格上）", required = true, dataType = "String", paramType = "path")
+    })
+    @GetMapping(value = "queryAddress")
+    public ResponseResult<List<AddressList>> queryAddress(@RequestParam(name = "region")String region,
+                                                             @RequestParam(name = "keyword")String keyword) throws Exception {
+    Map<String,Object> map = LocationUtils.getAddress(region, keyword);
+    String a = map.get("data").toString();
+    JSONArray jsonArray = JSONArray.fromObject(a);
+    List<AddressList> lists = Lists.newArrayList();
+    for (int i=0; i<jsonArray.size(); i++){
+        AddressList addressList = new AddressList();
+        addressList.setTitle(jsonArray.getJSONObject(i).getString("title"));
+        addressList.setAddress(jsonArray.getJSONObject(i).getString("address"));
+        List<LatLng> latLngs = Lists.newArrayList();
+        LatLng latLng = new LatLng();
+        latLng.setLat(jsonArray.getJSONObject(i).getJSONObject("location").getDouble("lat"));
+        latLng.setLng(jsonArray.getJSONObject(i).getJSONObject("location").getDouble("lng"));
+        latLngs.add(latLng);
+        addressList.setLocations(latLngs);
+        lists.add(addressList);
+    }
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", lists);
+    }
+
+        @ApiOperation(value = "用车申请：经纬度计算距离")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "from", value = "起点坐标（例如：from=31.288530854,120.666760427）", required = true, dataType = "String", paramType = "path"),
             @ApiImplicitParam(name = "to", value = "终点坐标（例如：from=31.35458833,120.700719984）", required = true, dataType = "String", paramType = "path")

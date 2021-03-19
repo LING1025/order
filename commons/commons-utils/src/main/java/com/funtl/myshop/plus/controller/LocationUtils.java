@@ -3,6 +3,7 @@ package com.funtl.myshop.plus.controller;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
+import org.apache.catalina.mapper.Mapper;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -58,6 +59,41 @@ public class LocationUtils {
 //        resultMap.put("provinceCode", adInfo.get("adcode"));
 //        resultMap.put("city", adInfo.get("city"));
 //        resultMap.put("cityCode", adInfo.get("city_code"));
+        return resultMap;
+    }
+
+    /**
+     * 关键词输入提示地址
+     * @param region
+     * @param keyword
+     * @return
+     * @throws Exception
+     */
+    public static Map<String, Object> getAddress(String region,String keyword) throws Exception {
+        Map<String,Object> resultMap = new HashMap<>();
+        String urlString = "https://apis.map.qq.com/ws/place/v1/suggestion/?"
+                +"region="+region
+                +"&keyword="+keyword
+                +"&key=" + KEY;
+        String result = "";
+        try {
+            URL url = new URL(urlString);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setDoOutput(true);
+            // 腾讯地图使用GET
+            conn.setRequestMethod("GET");
+            BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
+            String line;
+            // 获取地址解析结果
+            while ((line = in.readLine()) != null) {
+                result += line + "\n";
+            }
+            in.close();
+        }catch (Exception e){
+            e.getMessage();
+        }
+        JSONArray jsonArray = JSONObject.fromObject(result).getJSONArray("data");
+        resultMap.put("data", jsonArray);
         return resultMap;
     }
 
@@ -151,22 +187,20 @@ public class LocationUtils {
     public static void main(String[] args) throws Exception {
 
         // 测试
-        String lng = "116.30749";//经度
-        String lat = "39.984154";//维度
-        Map<String, Object> map = getLocation(lng, lat);
-        System.out.println(map);
+//        String lng = "116.30749";//经度
+//        String lat = "39.984154";//维度
+//        Map<String, Object> map = getLocation(lng, lat);
+//        System.out.println(map);
 
         String region="苏州";
         String keyword="格上";
         Map<String, Object> map2 = getLocations(region,keyword);
 //        System.out.println(map2);
         System.out.println(map2.get("data"));
-        String k = map2.get("data").toString();
-        String k1 = k.substring(1,k.length()-1);
-        System.out.println("k1>>>>"+k1);
-        JSONArray k1Object = JSONArray.fromObject(k);
-        System.out.println("k1Object:>>>>"+k1Object);
-        List<String> list = Arrays.asList("address","location");
+
+        Map<String, Object> map3 = getAddress(region,keyword);
+//        System.out.println(map2);
+        System.out.println(map2.get("data"));
 
 
         /*String from="31.288530854,120.666760427";
