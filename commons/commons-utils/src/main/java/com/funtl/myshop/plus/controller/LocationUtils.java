@@ -12,7 +12,7 @@ import java.util.*;
 
 public class LocationUtils {
     //key
-    private static final String KEY = "SNABZ-2EICD-4PZ4A-PB5J4-2KYT2-TWBAK";
+    private static final String KEY = "JNCBZ-M2SWJ-NLPFV-K3VY3-3BR2E-WZBWP";//SNABZ-2EICD-4PZ4A-PB5J4-2KYT2-TWBAK
 
     /**
      * 经纬度转地址
