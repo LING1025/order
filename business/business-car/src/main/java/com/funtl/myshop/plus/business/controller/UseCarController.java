@@ -141,18 +141,22 @@ public class UseCarController {
     }
 
     @ApiOperation(value = "用车申请：获取使用部门数据")
-    @ApiImplicitParam(name = "userAuto",value = "登录者userAuto",required = false,dataType = "long",paramType = "path")
+    @ApiImplicitParam(name = "userAuto",value = "登录者userAuto",required = true,dataType = "long",paramType = "path")
     @GetMapping(value = "queryCarApplyOrg")
-    public ResponseResult<List<CarApplyOrg>> queryCarApplyOrg(@RequestParam(name = "userAuto",required = false) Long userAuto){
+    public ResponseResult<List<CarApplyOrg>> queryCarApplyOrg(@RequestParam(name = "userAuto") Long userAuto){
         List<CarApplyOrg> lists = vEmpService.selectCarApplyOrg(userAuto);
         return new ResponseResult<>(ResponseResult.CodeStatus.OK,"查询成功",lists);
     }
 
     @ApiOperation(value = "用车申请：获取使用人数据")
-    @ApiImplicitParam(name = "orgAuto",value = "使用部门序号",required = true,dataType = "long",paramType = "path")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "orgAuto",value = "使用部门序号",required = true,dataType = "long",paramType = "path"),
+            @ApiImplicitParam(name = "userAuto",value = "使用人序号",required = false,dataType = "long",paramType = "path")
+    })
     @GetMapping(value = "queryCarApply")
-    public ResponseResult<List<CarApplyList>> queryCarApply(@RequestParam(name = "orgAuto") Long orgAuto){
-        List<CarApplyList> lists = vEmpService.selectCarApply(orgAuto);
+    public ResponseResult<List<CarApplyList>> queryCarApply(@RequestParam(name = "orgAuto") Long orgAuto,
+                                                            @RequestParam(name = "userAuto",required = false) Long userAuto){
+        List<CarApplyList> lists = vEmpService.selectCarApply(orgAuto,userAuto);
         return new ResponseResult<>(ResponseResult.CodeStatus.OK,"查询成功",lists);
     }
 

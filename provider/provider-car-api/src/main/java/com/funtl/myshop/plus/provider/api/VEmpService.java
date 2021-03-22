@@ -14,7 +14,7 @@ public interface VEmpService{
      * @param orgAuto
      * @return
      */
-    List<CarApplyList> selectCarApply(Long orgAuto);
+    List<CarApplyList> selectCarApply(Long orgAuto,Long userAuto);
 
     /**
      * 获取使用部门数据

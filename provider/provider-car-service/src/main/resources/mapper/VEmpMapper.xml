@@ -42,7 +42,18 @@
     <result column="FName" jdbcType="VARCHAR" property="username" />
   </resultMap>
   <select id="selectCarApply" resultMap="queryCarApply">
-    select User_Auto,FName from v_emp where Org_Auto=#{orgAuto} and ison=1 --and User_Auto=@User_Auto
+    select
+    User_Auto,FName
+    from v_emp
+    where
+    1=1
+    <if test="orgAuto != null and orgAuto != ''">
+      AND Org_Auto=#{orgAuto}
+    </if>
+    <if test="userAuto != null and userAuto != ''">
+      AND User_Auto=#{userAuto}
+    </if>
+    AND ison=1
   </select>
 
   <!--获取使用部门数据-->

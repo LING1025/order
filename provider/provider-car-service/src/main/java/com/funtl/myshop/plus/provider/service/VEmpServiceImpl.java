@@ -19,8 +19,8 @@ public class VEmpServiceImpl implements VEmpService {
     private VEmpMapper vEmpMapper;
 
     @Override
-    public List<CarApplyList> selectCarApply(Long orgAuto) {
-        return vEmpMapper.selectCarApply(orgAuto);
+    public List<CarApplyList> selectCarApply(Long orgAuto,Long userAuto) {
+        return vEmpMapper.selectCarApply(orgAuto,userAuto);
     }
 
     @Override

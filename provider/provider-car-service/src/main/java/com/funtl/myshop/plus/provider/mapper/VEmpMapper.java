@@ -10,7 +10,7 @@ import tk.mybatis.mapper.MyMapper;
 import java.util.List;
 
 public interface VEmpMapper extends MyMapper<VEmp> {
-    List<CarApplyList> selectCarApply(@Param("orgAuto") Long orgAuto);
+    List<CarApplyList> selectCarApply(@Param("orgAuto") Long orgAuto,@Param("userAuto") Long userAuto);
 
     List<CarApplyOrg> selectCarApplyOrg(@Param("userAuto") Long userAuto);
 
