@@ -53,7 +53,7 @@
         <dependency>
             <groupId>com.funtl.myshop.plus</groupId>
             <artifactId>commons-dto</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>${project.parent.version}</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
