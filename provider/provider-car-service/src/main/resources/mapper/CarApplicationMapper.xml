@@ -959,6 +959,9 @@ select distinct c.CarApplication_Auto,v.FName appUserN,i.ItemName appTypeN, c.Pl
         ,isnull(c.IsGive,0) IsGive
         ,isnull(c.IsGet,0) IsGet
         ,isnull(c.IsBack,0) IsBack
+        ,c.startImg,c.endImg,c.leftImg,c.rightImg,c.behindImg
+        ,c.time1,c.time2,c.time3,c.time4,c.time5
+        ,c.address1,c.address2,c.address3,c.address4,c.address5
         ,c.passAddr1,c.passAddr2,c.passAddr3,c.passAddr4,c.passAddr5
 		from CarApplication c
 		left join v_Emp v on c.AppUser=v.User_Auto--申请人
