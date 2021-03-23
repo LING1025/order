@@ -1057,7 +1057,7 @@ select
 aa.*
 from
 (
-select c.CarApplication_Auto,v.FName appUserN,i.ItemName appTypeN, c.PlanStartDT,
+select distinct c.CarApplication_Auto,v.FName appUserN,i.ItemName appTypeN, c.PlanStartDT,
 		c.PlanEndDT,
 		v2.DepName,
         c.UserAuto,
