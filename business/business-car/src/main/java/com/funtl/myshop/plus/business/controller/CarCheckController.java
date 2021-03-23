@@ -88,10 +88,14 @@ public class CarCheckController {
     }
 
     @ApiOperation(value = "用车审核：选取审核明细")
-    @ApiImplicitParam(name = "carApplicationAuto",value = "用车申请单号",required = true,dataType = "long",paramType = "path")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "loginUserID",value = "登录人Auto",required = true,dataType = "long",paramType = "path"),
+            @ApiImplicitParam(name = "carApplicationAuto",value = "用车申请单号",required = true,dataType = "long",paramType = "path")
+    })
     @GetMapping(value = "queryCheckOne")
-    public ResponseResult<CheckOne> queryCheckOne(@RequestParam(name = "carApplicationAuto") Long carApplicationAuto){
-        CheckOne checkOne = carApplicationService.selectCheckOne(carApplicationAuto);
+    public ResponseResult<CheckOne> queryCheckOne(@RequestParam(name = "loginUserID") Long loginUserID,
+                                                  @RequestParam(name = "carApplicationAuto") Long carApplicationAuto){
+        CheckOne checkOne = carApplicationService.selectCheckOne(loginUserID,carApplicationAuto);
         if (checkOne == null){
             return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"暂无数据",null);
         }

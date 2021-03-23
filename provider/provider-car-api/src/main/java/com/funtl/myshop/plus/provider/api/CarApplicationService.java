@@ -57,7 +57,7 @@ public interface CarApplicationService {
      * @param carApplicationAuto
      * @return
      */
-    CheckOne selectCheckOne(Long carApplicationAuto);
+    CheckOne selectCheckOne(Long loginUserID,Long carApplicationAuto);
 
     /**
      * 用车审核：核准、驳回
