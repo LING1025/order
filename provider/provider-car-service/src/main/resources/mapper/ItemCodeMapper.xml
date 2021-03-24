@@ -68,6 +68,12 @@
         union all
         select num,ItemName  from ItemCode where ItemType=897
         end
+        if @type=1449
+        begin
+        select num=0,ItemName='==请选择=='
+        union all
+        select num,ItemName  from ItemCode where ItemType=1449
+        end
         END
     </select>
 

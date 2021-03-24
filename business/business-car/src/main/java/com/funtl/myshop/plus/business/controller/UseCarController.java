@@ -132,8 +132,8 @@ public class UseCarController {
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", distance);
     }
 
-    @ApiOperation(value = "用车申请：获取用车类别、牌照地区、车辆选择、事由说明类别、费用类别、付款别、网银类别")
-    @ApiImplicitParam(name = "itemType", value = "用车类别：833,牌照地区：810,车辆选择类别：231,事由说明：865，费用类别：903,付款别：899，网银类别：897",required = true,dataType ="int",paramType = "path")
+    @ApiOperation(value = "用车申请：获取用车类别、牌照地区、车辆选择、事由说明类别、费用类别、付款别、网银类别、发票类别")
+    @ApiImplicitParam(name = "itemType", value = "用车类别：833,牌照地区：810,车辆选择类别：231,事由说明：865，费用类别：903,付款别：899，网银类别：897，发票类别：1449",required = true,dataType ="int",paramType = "path")
     @GetMapping(value = "queryCarArea")
     public ResponseResult<List<CarAreaList>> queryCarArea(@RequestParam(name = "itemType") Integer itemType){
         List<CarAreaList> lists = itemCodeService.selectCarArea(itemType);
