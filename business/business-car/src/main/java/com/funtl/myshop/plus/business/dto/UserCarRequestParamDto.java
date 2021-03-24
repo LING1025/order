@@ -6,6 +6,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import javax.persistence.Column;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -15,6 +16,9 @@ import java.util.Date;
 public class UserCarRequestParamDto implements Serializable {
     @ApiModelProperty(value = "用车申请序号")
     private Long carApplicationAuto=0L;
+
+    @ApiModelProperty(value = "发票类别:0==请选择== 1普票 2增票")
+    private Integer invType=0;
 
     @ApiModelProperty(value = "发票号码")
     private String invoiceNumber="0";
@@ -72,4 +76,5 @@ public class UserCarRequestParamDto implements Serializable {
      */
     @JsonIgnore
     private Date cdt;
+
 }
