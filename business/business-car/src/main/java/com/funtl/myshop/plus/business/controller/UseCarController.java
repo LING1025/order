@@ -335,4 +335,16 @@ public class UseCarController {
     }
 
 
+    @ApiOperation(value = "车辆领取：领取钥匙(此接口如要测试请联系后端)")
+    @PutMapping(value = "getKeyUpdate")
+    public ResponseResult<String> GetKeyUpdate(@ApiParam(value = "车辆领取：领取钥匙数据")@Valid @RequestBody GetKeyParamDto getKeyParamDto){
+        GetKeyDto getKeyDto = new GetKeyDto();
+        BeanUtils.copyProperties(getKeyParamDto,getKeyDto);
+        Integer i = carApplicationService.getKeyUpdate(getKeyDto);
+        if (i == 0){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"领取失败",null);
+        }
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK,"领取成功",null);
+    }
+
 }
