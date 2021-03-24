@@ -1,13 +1,11 @@
 package com.funtl.myshop.plus.business.controller;
 
 import com.funtl.myshop.plus.business.dto.GetKeyParamDto;
+import com.funtl.myshop.plus.business.dto.GiveBackKeyParamDto;
 import com.funtl.myshop.plus.business.dto.GiveKeyParamDto;
 import com.funtl.myshop.plus.commons.dto.ResponseResult;
 import com.funtl.myshop.plus.provider.api.CarApplicationService;
-import com.funtl.myshop.plus.provider.domain.CheckList;
-import com.funtl.myshop.plus.provider.domain.CheckOne;
-import com.funtl.myshop.plus.provider.domain.GetKeyDto;
-import com.funtl.myshop.plus.provider.domain.GiveKeyDto;
+import com.funtl.myshop.plus.provider.domain.*;
 import com.funtl.myshop.plus.provider.dto.CheckQueryParam;
 import io.swagger.annotations.*;
 import org.apache.dubbo.config.annotation.Reference;
@@ -79,4 +77,15 @@ public class CarArrangeController {
         return new ResponseResult<>(ResponseResult.CodeStatus.OK,"发放成功",null);
     }
 
+    @ApiOperation(value = "车辆安排：是否已归还钥匙(此接口如要测试请联系后端)")
+    @PutMapping(value = "giveBackKey")
+    public ResponseResult<String> GiveBackKey(@ApiParam(value = "车辆安排：归还钥匙数据") @Valid @RequestBody GiveBackKeyParamDto giveBackKeyParamDto){
+        GiveBackKeyDto giveBackKeyDto = new GiveBackKeyDto();
+        BeanUtils.copyProperties(giveBackKeyParamDto,giveBackKeyDto);
+        Integer i = carApplicationService.giveBack(giveBackKeyDto);
+        if (i == 0){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"归还失败",null);
+        }
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK,"归还成功",null);
+    }
 }

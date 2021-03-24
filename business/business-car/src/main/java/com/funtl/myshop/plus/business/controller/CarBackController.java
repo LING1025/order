@@ -33,17 +33,6 @@ public class CarBackController {
     @Reference(version = "1.0.0")
     private PurchaseRRFlowService purchaseRRFlowService;
 
-    @ApiOperation(value = "车辆归还：归还钥匙(此接口如要测试请联系后端)")
-    @PutMapping(value = "giveBackKey")
-    public ResponseResult<String> GiveBackKey(@ApiParam(value = "车辆归还：归还钥匙数据") @Valid @RequestBody GiveBackKeyParamDto giveBackKeyParamDto){
-        GiveBackKeyDto giveBackKeyDto = new GiveBackKeyDto();
-        BeanUtils.copyProperties(giveBackKeyParamDto,giveBackKeyDto);
-        Integer i = carApplicationService.giveBack(giveBackKeyDto);
-        if (i == 0){
-            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"归还失败",null);
-        }
-        return new ResponseResult<>(ResponseResult.CodeStatus.OK,"归还成功",null);
-    }
 
     @ApiOperation(value = "车辆归还：提交实时拍照数据(此接口如要测试请联系后端)")
     @PutMapping(value = "updatePhoto")

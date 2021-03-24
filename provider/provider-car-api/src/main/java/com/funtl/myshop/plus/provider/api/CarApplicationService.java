@@ -138,7 +138,7 @@ public interface CarApplicationService {
     Integer deleteByCarApplicationAuto(RepealApplyDto repealApplyDto);
 
     /**
-     * 车辆归还：归还钥匙
+     * 车辆安排：是否归还钥匙
      * @param giveBackKeyDto
      * @return
      */
