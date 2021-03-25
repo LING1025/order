@@ -31,7 +31,7 @@ public class CarArrangeController {
             @ApiImplicitParam(name = "makNo",value = "车辆号码",required = false,dataType = "String",paramType = "path"),
             @ApiImplicitParam(name = "planStartDT",value = "开始时间",required = false,dataType = "String",paramType = "path"),
             @ApiImplicitParam(name = "planEndDT",value = "结束时间",required = false,dataType = "String",paramType = "path"),
-            @ApiImplicitParam(name = "statusN",value = "状态：送件中、核准",required = false,dataType = "String",paramType = "path")
+            @ApiImplicitParam(name = "statusN",value = "状态：送件中、核准、待取车、出车、还车",required = false,dataType = "String",paramType = "path")
     })
     @GetMapping(value = "queryCarArrange")
     public ResponseResult<List<CheckList>> queryCarArrange(@RequestParam(name = "loginAuto") Long loginAuto,

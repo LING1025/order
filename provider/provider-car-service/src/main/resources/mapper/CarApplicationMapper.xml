@@ -884,7 +884,13 @@ END
 	(select
 	c.CarApplication_Auto,c.UserName,
 	v2.DepName,v.FName appUserN,c.CDT,i1.ItemName AppTypeN,
-	StatusN=case c.Status when 10 then '送件中' when 20 then '核准' end ,
+    StatusN= case c.Status when 10 then '送件中'
+        when 5 then '驳回'
+        when 20 then '核准'
+        when 21 then '待取车'
+        when 30 then '出车'
+        when 40 then '还车'
+        when -1 then '已删除' end,
 	c.PlanStartDT,
 	c.PlanEndDT,
 	cb.MakNo
@@ -894,7 +900,7 @@ END
 	left join ItemCode i1 on c.AppType=i1.Num and i1.ItemType=833
 	left join CarBase cb on c.Carbase_Auto=cb.CarBase_Auto
 	left join DocSystem.dbo.Employee e on v.UserName=e.Account collate Chinese_PRC_CI_AS
-	where c.[Status]in(10,20) and v.IsOn=1 and v2.IsOn=1 and e.[Status]='任用'
+	where c.[Status]in(10,20,21,30,40) and v.IsOn=1 and v2.IsOn=1 and e.[Status]='任用'
 	and e.Inc_Auto in(select V1 from ItemCode i3 inner join CarStationManager cm on i3.Num=cm.Station and cm.User_auto=@LoginUserID where i3.ItemType=826 and cm.Status=1)
         )aa
         where
@@ -980,7 +986,7 @@ select distinct c.CarApplication_Auto,v.FName appUserN,i.ItemName appTypeN, c.Pl
 		left join ItemCode i4 on i4.num = cb.BSType and i4.ItemType=841 --变速类型
 		left join ItemCode i5 on i5.num = cse.WHType and i5.ItemType=826--仓库别
 		left join DocSystem.dbo.Employee e on v.UserName=e.Account collate Chinese_PRC_CI_AS
-		where c.[Status]in(10,20) and v.IsOn=1 and v2.IsOn=1 and e.[Status]='任用'
+		where c.[Status]in(10,20,21,30,40) and v.IsOn=1 and v2.IsOn=1 and e.[Status]='任用'
 		and e.Inc_Auto in(select V1 from ItemCode i3 inner join CarStationManager cm on i3.Num=cm.Station and cm.User_auto=@LoginUserID where i3.ItemType=826 and cm.Status=1)
 	)aa
 	where aa.CarApplication_Auto=@CarApplication_Auto
