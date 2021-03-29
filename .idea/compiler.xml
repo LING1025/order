@@ -7,26 +7,28 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="provider-order-service" />
-        <module name="business-wxUser-feign" />
+        <module name="provider-user-api" />
+        <module name="commons-provider" />
         <module name="business-car" />
         <module name="gateway" />
         <module name="commons-dto" />
         <module name="business-wxUser-service" />
-        <module name="business-order" />
-        <module name="provider-asp-service" />
+        <module name="provider-car-api" />
+        <module name="business-wxUser-feign" />
         <module name="configuration-feign" />
         <module name="business-order (1)" />
-        <module name="provider-user-service" />
+        <module name="provider-fiveP-service" />
+        <module name="business-order" />
         <module name="commons-utils" />
-        <module name="provider-car-api" />
-        <module name="commons-provider" />
+        <module name="provider-fiveP-api" />
+        <module name="provider-user-service" />
         <module name="business-wxOauth2" />
         <module name="provider-user-service (1)" />
         <module name="provider-asp-api" />
         <module name="provider-car-service" />
         <module name="provider-order-api" />
         <module name="provider-user-api (1)" />
-        <module name="provider-user-api" />
+        <module name="provider-asp-service" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -53,6 +55,8 @@
       <module name="provider-asp-service" target="1.8" />
       <module name="provider-car-api" target="1.8" />
       <module name="provider-car-service" target="1.8" />
+      <module name="provider-fiveP-api" target="1.5" />
+      <module name="provider-fiveP-service" target="1.5" />
       <module name="provider-license-api" target="1.8" />
       <module name="provider-license-service" target="1.8" />
       <module name="provider-order-api" target="1.8" />

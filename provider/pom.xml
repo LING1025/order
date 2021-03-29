@@ -29,6 +29,8 @@
         <module>provider-asp-service</module>
         <module>provider-car-api</module>
         <module>provider-car-service</module>
+        <module>provider-fiveP-api</module>
+        <module>provider-fiveP-service</module>
 
     </modules>
 </project>
