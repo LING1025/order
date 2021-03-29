@@ -19,4 +19,62 @@
     <!--@mbg.generated-->
     ItemCode_Auto, ItemType, Num, ItemName, Memo, IsActive, Seq, V1, V2, A1
   </sql>
+
+  <!--根据编号获取类别列表-->
+  <resultMap id="queryByItemType" type="com.funtl.myshop.plus.provider.domain.TypeNameList">
+    <result column="Num" jdbcType="BIGINT" property="num" />
+    <result column="typeName" jdbcType="VARCHAR" property="typeName" />
+  </resultMap>
+  <select id="selectByItemType" resultMap="queryByItemType">
+
+declare
+@type int=#{itemType}
+BEGIN
+if(@type=111)--客户性质（公司性质）
+begin
+select num=0,typeName='==请选择=='
+union all
+select
+Num
+,typeName=convert(varchar(4),Num)+'.'+ItemName
+from
+ItemCode
+where ItemType=111
+end
+if(@type=140)--产业类别（资本行业）
+begin
+select num=-1,typeName='==请选择=='
+union all
+select
+Num
+,typeName=convert(varchar(4),Num)+'.'+ItemName
+from
+ItemCode
+where ItemType=140
+end
+if(@type=12223)--租车目的
+begin
+select num=0,typeName='==请选择=='
+union all
+select
+Num
+,typeName=convert(varchar(4),Num)+'.'+ItemName
+from
+ItemCode
+where ItemType=12223
+end
+if(@type=12224)--担保条件
+begin
+select num=0,typeName='==请选择=='
+union all
+select
+Num
+,typeName=convert(varchar(4),Num)+'.'+ItemName
+from
+ItemCode
+where ItemType=12224
+end
+END
+
+  </select>
 </mapper>
