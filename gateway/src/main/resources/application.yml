@@ -104,6 +104,12 @@ spring:
             - Path=/api/carBack/**
           filters:
             - StripPrefix=1
+        - id: BUSINESS-FIVEP
+          uri: lb://business-fiveP
+          predicates:
+            - Path=/api/outBound/**
+          filters:
+            - StripPrefix=1
 
 #server:
 #  port: 443
