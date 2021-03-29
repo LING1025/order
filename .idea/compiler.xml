@@ -55,8 +55,8 @@
       <module name="provider-asp-service" target="1.8" />
       <module name="provider-car-api" target="1.8" />
       <module name="provider-car-service" target="1.8" />
-      <module name="provider-fiveP-api" target="1.5" />
-      <module name="provider-fiveP-service" target="1.5" />
+      <module name="provider-fiveP-api" target="1.8" />
+      <module name="provider-fiveP-service" target="1.8" />
       <module name="provider-license-api" target="1.8" />
       <module name="provider-license-service" target="1.8" />
       <module name="provider-order-api" target="1.8" />
@@ -85,6 +85,8 @@
       <module name="provider-asp-service" options="-parameters" />
       <module name="provider-car-api" options="-parameters" />
       <module name="provider-car-service" options="-parameters" />
+      <module name="provider-fiveP-api" options="-parameters" />
+      <module name="provider-fiveP-service" options="-parameters" />
       <module name="provider-license-api" options="-parameters" />
       <module name="provider-license-service" options="-parameters" />
       <module name="provider-order-api" options="-parameters" />
