@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.funtl.myshop.plus.provider.mapper.TradeItemMapper">
+  <resultMap id="BaseResultMap" type="com.funtl.myshop.plus.provider.domain.TradeItem">
+    <!--@mbg.generated-->
+    <!--@Table TradeItem-->
+    <id column="TradeItem_Auto" jdbcType="BIGINT" property="tradeItemAuto" />
+    <result column="Area_Auto" jdbcType="BIGINT" property="areaAuto" />
+    <result column="FID" jdbcType="VARCHAR" property="fId" />
+    <result column="FName" jdbcType="VARCHAR" property="fName" />
+    <result column="SName" jdbcType="VARCHAR" property="sName" />
+    <result column="IncCDT" jdbcType="TIMESTAMP" property="incCDT" />
+    <result column="Tel" jdbcType="VARCHAR" property="tel" />
+    <result column="Fax" jdbcType="VARCHAR" property="fax" />
+    <result column="Email" jdbcType="VARCHAR" property="email" />
+    <result column="Addr" jdbcType="VARCHAR" property="addr" />
+    <result column="ZipCode" jdbcType="VARCHAR" property="zipCode" />
+    <result column="CUser" jdbcType="INTEGER" property="cuser" />
+    <result column="CDT" jdbcType="TIMESTAMP" property="cdt" />
+    <result column="Muser" jdbcType="INTEGER" property="muser" />
+    <result column="MDT" jdbcType="TIMESTAMP" property="mdt" />
+    <result column="Ver" jdbcType="TIMESTAMP" property="ver" />
+    <result column="Bank" jdbcType="VARCHAR" property="bank" />
+    <result column="Account" jdbcType="VARCHAR" property="account" />
+    <result column="Source" jdbcType="VARCHAR" property="source" />
+    <result column="AddrProvince" jdbcType="BIGINT" property="addrProvince" />
+    <result column="AddrCity" jdbcType="BIGINT" property="addrCity" />
+    <result column="AddrArea" jdbcType="BIGINT" property="addrArea" />
+    <result column="TaxID" jdbcType="VARCHAR" property="taxId" />
+    <result column="bankNo" jdbcType="VARCHAR" property="bankNo" />
+    <result column="CreditedName" jdbcType="VARCHAR" property="creditedName" />
+    <result column="CreditedTel" jdbcType="VARCHAR" property="creditedTel" />
+    <result column="OrgCode" jdbcType="VARCHAR" property="orgCode" />
+    <result column="MTEL" jdbcType="VARCHAR" property="mTel" />
+    <result column="IndustryCode" jdbcType="VARCHAR" property="industryCode" />
+    <result column="IsSendInv" jdbcType="INTEGER" property="isSendInv" />
+    <result column="BankName" jdbcType="INTEGER" property="bankName" />
+    <result column="CredentialNo" jdbcType="VARCHAR" property="credentialNo" />
+    <result column="ISCollection" jdbcType="VARCHAR" property="isCollection" />
+    <result column="RemakeType" jdbcType="INTEGER" property="remakeType" />
+    <result column="IsEas" jdbcType="INTEGER" property="isEas" />
+    <result column="RecallRec_Auto" jdbcType="BIGINT" property="recallRecAuto" />
+    <result column="LastOrder_Auto" jdbcType="BIGINT" property="lastOrderAuto" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    TradeItem_Auto, Area_Auto, FID, FName, SName, IncCDT, Tel, Fax, Email, Addr, ZipCode,
+    CUser, CDT, Muser, MDT, Ver, Bank, Account, [Source], AddrProvince, AddrCity, AddrArea,
+    TaxID, bankNo, CreditedName, CreditedTel, OrgCode, MTEL, IndustryCode, IsSendInv,
+    BankName, CredentialNo, ISCollection, RemakeType, IsEas, RecallRec_Auto, LastOrder_Auto
+  </sql>
+</mapper>
