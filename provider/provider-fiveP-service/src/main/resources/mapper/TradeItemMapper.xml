@@ -49,4 +49,35 @@
     TaxID, bankNo, CreditedName, CreditedTel, OrgCode, MTEL, IndustryCode, IsSendInv,
     BankName, CredentialNo, ISCollection, RemakeType, IsEas, RecallRec_Auto, LastOrder_Auto
   </sql>
+
+  <!--根据客户序号获取客户背景数据-->
+  <resultMap id="queryByTradeItemAuto" extends="BaseResultMap" type="com.funtl.myshop.plus.provider.domain.CusBackground">
+    <result column="IdenType" jdbcType="INTEGER" property="idenType" />
+    <result column="idenTypeName" jdbcType="VARCHAR" property="idenTypeName" />
+    <result column="IncType" jdbcType="INTEGER" property="incType" />
+    <result column="custype" jdbcType="VARCHAR" property="cusType" />
+  </resultMap>
+    <select id="selectByTradeItemAuto" resultMap="queryByTradeItemAuto">
+    select
+    a.TradeItem_Auto
+    ,a.FName
+    ,b.IdenType
+    ,case b.IdenType when 0 then '个人' when 1 then '公司' else '外籍人士' end idenTypeName
+    ,b.IncType
+    ,custype=isnull(f.ItemName,'')
+    ,a.IncCDT
+    --,years=DATEDIFF(YEAR,a.IncCDT,GETDATE())
+    ,a.IndustryCode,i.ItemName industryName
+    ,a.FID
+    ,address=c1.name+c2.name+c3.name+a.Addr
+    from
+    TradeItem a
+    inner join Customer b on a.TradeItem_auto=b.TradeItem_auto
+    left join ItemCode f on b.IncType=f.Num and f.ItemType=111
+    left join ItemCode i on i.Num=a.IndustryCode and i.ItemType=140
+    left join CreditProvince c1 on c1.code=a.AddrProvince
+    left join CreditCity c2 on c2.code=a.AddrCity
+    left join CreditArea c3 on c3.code=a.AddrArea
+    where a.TradeItem_Auto=#{tradeItemAuto}
+    </select>
 </mapper>

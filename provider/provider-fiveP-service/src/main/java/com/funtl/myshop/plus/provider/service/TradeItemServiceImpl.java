@@ -1,6 +1,8 @@
 package com.funtl.myshop.plus.provider.service;
 
 import javax.annotation.Resource;
+
+import com.funtl.myshop.plus.provider.domain.CusBackground;
 import com.funtl.myshop.plus.provider.mapper.TradeItemMapper;
 import com.funtl.myshop.plus.provider.domain.TradeItem;
 import com.funtl.myshop.plus.provider.api.TradeItemService;
@@ -12,4 +14,8 @@ public class TradeItemServiceImpl implements TradeItemService{
     @Resource
     private TradeItemMapper tradeItemMapper;
 
+    @Override
+    public CusBackground selectByTradeItemAuto(Long tradeItemAuto) {
+        return tradeItemMapper.selectByTradeItemAuto(tradeItemAuto);
+    }
 }
