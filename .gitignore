@@ -14,3 +14,6 @@ business/business-order/target/classes/
 business/business-car/target/classes/
 provider/provider-car-api/target/classes/
 provider/provider-car-service/target/classes/
+business/business-fiveP/target/classes/
+provider/provider-fiveP-api/target/classes/
+provider/provider-fiveP-service/target/classes/
