@@ -33,6 +33,7 @@
         <option value="$PROJECT_DIR$/business/business-car/pom.xml" />
         <option value="$PROJECT_DIR$/provider/provider-fiveP-api/pom.xml" />
         <option value="$PROJECT_DIR$/provider/provider-fiveP-service/pom.xml" />
+        <option value="$PROJECT_DIR$/business/business-fiveP/pom.xml" />
       </list>
     </option>
   </component>
