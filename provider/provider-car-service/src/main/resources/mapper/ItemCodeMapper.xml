@@ -9,7 +9,7 @@
     <result column="Num" jdbcType="BIGINT" property="num" />
     <result column="ItemName" jdbcType="VARCHAR" property="itemName" />
     <result column="Memo" jdbcType="VARCHAR" property="memo" />
-    <result column="IsActive" jdbcType="INTEGER" property="isactive" />
+    <result column="IsActive" jdbcType="INTEGER" property="isActive" />
     <result column="Seq" jdbcType="INTEGER" property="seq" />
     <result column="V1" jdbcType="DECIMAL" property="v1" />
     <result column="V2" jdbcType="DECIMAL" property="v2" />

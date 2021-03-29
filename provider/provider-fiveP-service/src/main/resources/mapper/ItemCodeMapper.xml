@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.funtl.myshop.plus.provider.mapper.ItemCodeMapper">
+  <resultMap id="BaseResultMap" type="com.funtl.myshop.plus.provider.domain.ItemCode">
+    <!--@mbg.generated-->
+    <!--@Table ItemCode-->
+    <id column="ItemCode_Auto" jdbcType="BIGINT" property="itemCodeAuto" />
+    <result column="ItemType" jdbcType="INTEGER" property="itemType" />
+    <result column="Num" jdbcType="BIGINT" property="num" />
+    <result column="ItemName" jdbcType="VARCHAR" property="itemName" />
+    <result column="Memo" jdbcType="VARCHAR" property="memo" />
+    <result column="IsActive" jdbcType="INTEGER" property="isActive" />
+    <result column="Seq" jdbcType="INTEGER" property="seq" />
+    <result column="V1" jdbcType="DECIMAL" property="v1" />
+    <result column="V2" jdbcType="DECIMAL" property="v2" />
+    <result column="A1" jdbcType="DECIMAL" property="a1" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    ItemCode_Auto, ItemType, Num, ItemName, Memo, IsActive, Seq, V1, V2, A1
+  </sql>
+</mapper>
