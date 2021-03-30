@@ -2030,6 +2030,18 @@
                 </TableGenerateConfig>
               </value>
             </entry>
+            <entry key="dbo:outCheck">
+              <value>
+                <TableGenerateConfig>
+                  <option name="generatedKey" value="outCheckAuto" />
+                  <option name="javaModelName" value="OutCheck" />
+                  <option name="moduleName" value="provider-fiveP-api" />
+                  <option name="sequenceColumn" value="" />
+                  <option name="sequenceId" value="" />
+                  <option name="useActualColumnName" value="true" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
             <entry key="dbo:v_Emp">
               <value>
                 <TableGenerateConfig>

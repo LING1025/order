@@ -51,33 +51,6 @@ public class FivePController {
         return new ResponseResult<>(ResponseResult.CodeStatus.OK,"查询成功",cusBackground);
     }
 
-    @ApiOperation(value = "外访客户新增数据")
-    @PostMapping(value = "insert")
-    public ResponseResult<String> insert(@ApiParam(value = "外访客户新增数据") @Valid @RequestBody OutParamDto outParamDto){
-        if (outParamDto.getTradeItemAuto()==0L){
-            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"客户序号未填",null);
-        }
-        OutBound outBound = new OutBound();
-        BeanUtils.copyProperties(outParamDto,outBound);
-        outBound.setCdt(new Date());
-        outBound.setStatus(1);
-        Long i = outBoundService.insert(outBound);
-        if(i == 0){
-            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"保存失败",null);
-        }
-        OutCheck outCheck = new OutCheck();
-        BeanUtils.copyProperties(outParamDto,outCheck);
-        outCheck.setCdt(new Date());
-        outCheck.setOutBoundAuto(i);
-        outCheck.setCheckStatus(1);
-        Long i2 = outCheckService.insert(outCheck);
-        if(i == 0){
-            outBoundService.deleteByAuto(i);
-            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"送件失败",null);
-        }
-        return new ResponseResult<>(ResponseResult.CodeStatus.OK,"送件成功",null);
-    }
-
     @ApiOperation(value = "获取可签核人员信息")
     @ApiImplicitParam(name = "userAuto", value = "登录人userAuto",required = true,dataType ="long",paramType = "path")
     @GetMapping(value = "queryChooseList")
@@ -85,4 +58,39 @@ public class FivePController {
         List<ChooseCheckList> lists = outBoundService.selectByUserAuto(userAuto);
         return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"保存成功",lists);
     }
+
+    @ApiOperation(value = "外访客户新增数据")
+    @PostMapping(value = "insert")
+    public ResponseResult<String> insert(@ApiParam(value = "外访客户新增数据") @Valid @RequestBody OutParamDto outParamDto){
+        if (outParamDto.getTradeItemAuto()==0L){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"客户序号未填",null);
+        }
+        outParamDto.setCdt(new Date());
+        OutBound outBound = new OutBound();
+        BeanUtils.copyProperties(outParamDto,outBound);
+        if(outParamDto.getCheckAuto() == 0L){
+            outBound.setStatus(2);
+        }else{
+            outBound.setStatus(1);
+        }
+        Long i = outBoundService.insert(outBound);
+        if(i == 0){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"保存失败",null);
+        }
+        OutCheck outCheck = new OutCheck();
+        BeanUtils.copyProperties(outParamDto,outCheck);
+        outCheck.setOutBoundAuto(i);
+        if(outParamDto.getCheckAuto() == 0L){
+            outCheck.setCheckStatus(2);
+        }else{
+            outCheck.setCheckStatus(1);
+        }
+        Long i2 = outCheckService.insert(outCheck);
+        if(i2 == 0){
+            outBoundService.deleteByAuto(i);
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"保存失败",null);
+        }
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK,"保存成功",null);
+    }
+
 }

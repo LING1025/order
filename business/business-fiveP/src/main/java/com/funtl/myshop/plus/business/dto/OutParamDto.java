@@ -22,9 +22,6 @@ public class OutParamDto implements Serializable {
     @ApiModelProperty(value = "客户序号")
     private Long tradeItemAuto=0L;
 
-    @ApiModelProperty(value = "状态:1送件中 2核准 3驳回")
-    private Integer status;
-
     @ApiModelProperty(value = "主营业务")
     private String major;
 
