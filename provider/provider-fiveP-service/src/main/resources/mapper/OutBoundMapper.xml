@@ -6,6 +6,7 @@
     <!--@Table outBound-->
     <id column="outBoundAuto" jdbcType="BIGINT" property="outBoundAuto" />
     <result column="tradeItemAuto" jdbcType="BIGINT" property="tradeItemAuto" />
+    <result column="status" jdbcType="INTEGER" property="status" />
     <result column="major" jdbcType="VARCHAR" property="major" />
     <result column="operation" jdbcType="VARCHAR" property="operation" />
     <result column="hostCompanies" jdbcType="VARCHAR" property="hostCompanies" />
@@ -31,7 +32,7 @@
   </resultMap>
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
-    outBoundAuto, tradeItemAuto, major, [operation], hostCompanies, equipCar, avgTurnover,
+    outBoundAuto, tradeItemAuto, status, major, [operation], hostCompanies, equipCar, avgTurnover,
     turnover, yearRate, rentAimType, rentAim, bankBill, finState, fundsFlow, taxReceipt,
     stockCode, ensureType, ensure, vista, develop, cuser, cdt, muser, mdt
   </sql>

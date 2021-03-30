@@ -18,145 +18,151 @@ public class OutBound implements Serializable {
     * 外访客户表序号
     */
     @Id
-    @Column(name = "")
+    @Column(name = "outBoundAuto")
     private Long outBoundAuto;
 
     /**
     * 客户序号
     */
-    @Column(name = "")
+    @Column(name = "tradeItemAuto")
     private Long tradeItemAuto;
+
+    /**
+     * 状态:1送件中 2核准 3驳回
+     */
+    @Column(name = "status")
+    private Integer status;
 
     /**
     * 主营业务
     */
-    @Column(name = "")
+    @Column(name = "major")
     private String major;
 
     /**
     * 经营者经营时间
     */
-    @Column(name = "")
+    @Column(name = "operation")
     private String operation;
 
     /**
     * 主持企业含关企
     */
-    @Column(name = "")
+    @Column(name = "hostCompanies")
     private String hostCompanies;
 
     /**
     * 设备、车辆
     */
-    @Column(name = "")
+    @Column(name = "equipCar")
     private String equipCar;
 
     /**
     * 近三年平均营业额
     */
-    @Column(name = "")
+    @Column(name = "avgTurnover")
     private String avgTurnover;
 
     /**
     * 近一期营业额
     */
-    @Column(name = "")
+    @Column(name = "turnover")
     private String turnover;
 
     /**
     * 年增长率
     */
-    @Column(name = "")
+    @Column(name = "yearRate")
     private String yearRate;
 
     /**
     * 租车目序号
     */
-    @Column(name = "")
+    @Column(name = "rentAimType")
     private Integer rentAimType;
 
     /**
     * 租车目的
     */
-    @Column(name = "")
+    @Column(name = "rentAim")
     private String rentAim;
 
     /**
     * 银行流水
     */
-    @Column(name = "")
+    @Column(name = "bankBill")
     private BigDecimal bankBill;
 
     /**
     * 财务报表
     */
-    @Column(name = "")
+    @Column(name = "finState")
     private BigDecimal finState;
 
     /**
     * 资金流量表
     */
-    @Column(name = "")
+    @Column(name = "fundsFlow")
     private BigDecimal fundsFlow;
 
     /**
     * 纳税凭证
     */
-    @Column(name = "")
+    @Column(name = "taxReceipt")
     private BigDecimal taxReceipt;
 
     /**
     * 股票代码
     */
-    @Column(name = "")
+    @Column(name = "stockCode")
     private BigDecimal stockCode;
 
     /**
     * 担保条件序号
     */
-    @Column(name = "")
+    @Column(name = "ensureType")
     private Integer ensureType;
 
     /**
     * 担保条件
     */
-    @Column(name = "")
+    @Column(name = "ensure")
     private String ensure;
 
     /**
     * 所属行业前景
     */
-    @Column(name = "")
+    @Column(name = "vista")
     private String vista;
 
     /**
     * 未来预计发展规模
     */
-    @Column(name = "")
+    @Column(name = "develop")
     private String develop;
 
     /**
     * 创建人
     */
-    @Column(name = "")
+    @Column(name = "cuser")
     private Long cuser;
 
     /**
     * 创建时间
     */
-    @Column(name = "")
+    @Column(name = "cdt")
     private Date cdt;
 
     /**
     * 修改人
     */
-    @Column(name = "")
+    @Column(name = "muser")
     private Long muser;
 
     /**
     * 修改时间
     */
-    @Column(name = "")
+    @Column(name = "mdt")
     private Date mdt;
 
     private static final long serialVersionUID = 1L;
