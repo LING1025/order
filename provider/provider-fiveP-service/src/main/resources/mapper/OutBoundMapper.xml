@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.funtl.myshop.plus.provider.mapper.OutBoundMapper">
+  <resultMap id="BaseResultMap" type="com.funtl.myshop.plus.provider.domain.OutBound">
+    <!--@mbg.generated-->
+    <!--@Table outBound-->
+    <id column="outBoundAuto" jdbcType="BIGINT" property="outBoundAuto" />
+    <result column="tradeItemAuto" jdbcType="BIGINT" property="tradeItemAuto" />
+    <result column="major" jdbcType="VARCHAR" property="major" />
+    <result column="operation" jdbcType="VARCHAR" property="operation" />
+    <result column="hostCompanies" jdbcType="VARCHAR" property="hostCompanies" />
+    <result column="equipCar" jdbcType="VARCHAR" property="equipCar" />
+    <result column="avgTurnover" jdbcType="VARCHAR" property="avgTurnover" />
+    <result column="turnover" jdbcType="VARCHAR" property="turnover" />
+    <result column="yearRate" jdbcType="VARCHAR" property="yearRate" />
+    <result column="rentAimType" jdbcType="INTEGER" property="rentAimType" />
+    <result column="rentAim" jdbcType="VARCHAR" property="rentAim" />
+    <result column="bankBill" jdbcType="DECIMAL" property="bankBill" />
+    <result column="finState" jdbcType="DECIMAL" property="finState" />
+    <result column="fundsFlow" jdbcType="DECIMAL" property="fundsFlow" />
+    <result column="taxReceipt" jdbcType="DECIMAL" property="taxReceipt" />
+    <result column="stockCode" jdbcType="DECIMAL" property="stockCode" />
+    <result column="ensureType" jdbcType="INTEGER" property="ensureType" />
+    <result column="ensure" jdbcType="VARCHAR" property="ensure" />
+    <result column="vista" jdbcType="VARCHAR" property="vista" />
+    <result column="develop" jdbcType="VARCHAR" property="develop" />
+    <result column="cuser" jdbcType="BIGINT" property="cuser" />
+    <result column="cdt" jdbcType="TIMESTAMP" property="cdt" />
+    <result column="muser" jdbcType="BIGINT" property="muser" />
+    <result column="mdt" jdbcType="TIMESTAMP" property="mdt" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    outBoundAuto, tradeItemAuto, major, [operation], hostCompanies, equipCar, avgTurnover,
+    turnover, yearRate, rentAimType, rentAim, bankBill, finState, fundsFlow, taxReceipt,
+    stockCode, ensureType, ensure, vista, develop, cuser, cdt, muser, mdt
+  </sql>
+</mapper>
