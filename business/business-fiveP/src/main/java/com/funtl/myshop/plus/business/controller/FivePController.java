@@ -3,17 +3,21 @@ package com.funtl.myshop.plus.business.controller;
 import com.funtl.myshop.plus.business.dto.OutParamDto;
 import com.funtl.myshop.plus.commons.dto.ResponseResult;
 import com.funtl.myshop.plus.provider.api.ItemCodeService;
+import com.funtl.myshop.plus.provider.api.OutBoundService;
 import com.funtl.myshop.plus.provider.api.TradeItemService;
 import com.funtl.myshop.plus.provider.domain.CusBackground;
+import com.funtl.myshop.plus.provider.domain.OutBound;
 import com.funtl.myshop.plus.provider.domain.TypeNameList;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.apache.dubbo.config.annotation.Reference;
+import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Date;
 import java.util.List;
 
 @Api(tags = "外访报告模块相关操作")
@@ -25,6 +29,9 @@ public class FivePController {
 
     @Reference(version = "1.0.0")
     private TradeItemService tradeItemService;
+
+    @Reference(version = "1.0.0")
+    private OutBoundService outBoundService;
 
     @ApiOperation(value = "获取客户性质、产业类别、租车目的、担保条件")
     @ApiImplicitParam(name = "itemType", value = "客户性质：111,产业类别：140,租车目的：12223,担保条件：12224",required = true,dataType ="int",paramType = "path")
@@ -44,10 +51,17 @@ public class FivePController {
 
     @ApiOperation(value = "外访客户新增数据")
     @PostMapping(value = "insert")
-    public ResponseResult<String> insert(@ApiParam(value = "外访客户新增数据") @Valid @RequestBody OutParamDto outParamDto){
+    public ResponseResult<Long> insert(@ApiParam(value = "外访客户新增数据") @Valid @RequestBody OutParamDto outParamDto){
         if (outParamDto.getTradeItemAuto()==0L){
             return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"客户序号未填",null);
         }
-        return new ResponseResult<>(ResponseResult.CodeStatus.OK,"保存成功",null);
+        OutBound outBound = new OutBound();
+        BeanUtils.copyProperties(outParamDto,outBound);
+        outBound.setCdt(new Date());
+        Long i = outBoundService.insert(outBound);
+        if(i == 0){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"保存失败",null);
+        }
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK,"保存成功",i);
     }
 }

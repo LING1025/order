@@ -13,4 +13,9 @@ public class OutBoundServiceImpl implements OutBoundService{
     private OutBoundMapper outBoundMapper;
 
 
+    @Override
+    public Long insert(OutBound outBound) {
+        Integer i = outBoundMapper.insertUseGeneratedKeys(outBound);
+        return i == 1 ? outBound.getOutBoundAuto():0;
+    }
 }
