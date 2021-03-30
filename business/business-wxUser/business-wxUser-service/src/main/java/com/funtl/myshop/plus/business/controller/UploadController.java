@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.support.StandardMultipartHttpServletRequest;
@@ -17,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Iterator;
 import java.util.UUID;
@@ -64,5 +66,29 @@ public class UploadController {
             logger.error("", e);
         }
         return new ResponseResult<>(BusinessStatus.OK.getCode(), "图片上传成功", new FileInfo(filePath));
+    }
+
+    @ApiOperation(value = "上传附件")
+    @PostMapping("/file")
+    public ResponseResult<String> uploadFile(@RequestParam("file") MultipartFile file) {
+        if (file.isEmpty()) {
+            return new ResponseResult<>(BusinessStatus.FAIL.getCode(),"上传失败，请选择文件",null);
+        }
+        //todo：待测试
+        System.out.println(file.getSize());
+        if (file.getSize()> 10240){
+            return new ResponseResult<>(BusinessStatus.FAIL.getCode(),"上传文件不得大于10MB",null);
+        }
+        String fileName = file.getOriginalFilename();
+        String filePath = "E:\\下载\\testUpFile\\";
+        File dest = new File(filePath + fileName);
+
+        try {
+            file.transferTo(dest);
+            return new ResponseResult<>(BusinessStatus.OK.getCode(),"上传成功",null);
+        } catch (IOException e) {
+            logger.error(e.toString(), e);
+        }
+        return new ResponseResult<>(BusinessStatus.FAIL.getCode(),"上传失败！",null);
     }
 }
