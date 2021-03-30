@@ -52,6 +52,9 @@
         set @UpUnit=(select UpUnit from v_Emp where User_Auto=@userAuto)
         begin
         select
+        User_Auto=0,DepName='无',FName='无',TitleName='无'
+        union all
+        select
         a.User_Auto
         ,a.DepName
         ,a.FName

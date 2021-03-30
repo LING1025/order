@@ -5,6 +5,7 @@ import com.funtl.myshop.plus.commons.dto.ResponseResult;
 import com.funtl.myshop.plus.provider.api.ItemCodeService;
 import com.funtl.myshop.plus.provider.api.OutBoundService;
 import com.funtl.myshop.plus.provider.api.TradeItemService;
+import com.funtl.myshop.plus.provider.domain.ChooseCheckList;
 import com.funtl.myshop.plus.provider.domain.CusBackground;
 import com.funtl.myshop.plus.provider.domain.OutBound;
 import com.funtl.myshop.plus.provider.domain.TypeNameList;
@@ -42,7 +43,7 @@ public class FivePController {
     }
 
     @ApiOperation(value = "获取客户背景数据")
-    @ApiImplicitParam(name = "tradeItemAuto", value = "客户序号",required = true,dataType ="int",paramType = "path")
+    @ApiImplicitParam(name = "tradeItemAuto", value = "客户序号",required = true,dataType ="long",paramType = "path")
     @GetMapping(value = "queryByTradeItemAuto")
     public ResponseResult<CusBackground> queryByTradeItemAuto(@RequestParam(name = "tradeItemAuto") Long tradeItemAuto){
         CusBackground cusBackground = tradeItemService.selectByTradeItemAuto(tradeItemAuto);
@@ -63,5 +64,13 @@ public class FivePController {
             return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"保存失败",null);
         }
         return new ResponseResult<>(ResponseResult.CodeStatus.OK,"保存成功",i);
+    }
+
+    @ApiOperation(value = "获取可签核人员信息")
+    @ApiImplicitParam(name = "userAuto", value = "登录人userAuto",required = true,dataType ="long",paramType = "path")
+    @GetMapping(value = "queryChooseList")
+    public ResponseResult<List<ChooseCheckList>> queryChooseList(@RequestParam(name = "userAuto") Long userAuto){
+        List<ChooseCheckList> lists = outBoundService.selectByUserAuto(userAuto);
+        return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"保存成功",lists);
     }
 }
