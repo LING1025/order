@@ -36,10 +36,10 @@ public class OutParamDto implements Serializable {
     private String equipCar;
 
     @ApiModelProperty(value = "近三年平均营业额")
-    private String avgTurnover;
+    private BigDecimal avgTurnover;
 
     @ApiModelProperty(value = "近一期营业额")
-    private String turnover;
+    private BigDecimal turnover;
 
     @ApiModelProperty(value = "年增长率")
     private String yearRate;

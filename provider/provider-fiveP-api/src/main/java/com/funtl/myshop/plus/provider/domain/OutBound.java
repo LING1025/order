@@ -61,13 +61,13 @@ public class OutBound implements Serializable {
     * 近三年平均营业额
     */
     @Column(name = "avgTurnover")
-    private String avgTurnover;
+    private BigDecimal avgTurnover;
 
     /**
     * 近一期营业额
     */
     @Column(name = "turnover")
-    private String turnover;
+    private BigDecimal turnover;
 
     /**
     * 年增长率

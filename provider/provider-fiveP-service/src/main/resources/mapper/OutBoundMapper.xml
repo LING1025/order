@@ -11,8 +11,8 @@
     <result column="operation" jdbcType="VARCHAR" property="operation" />
     <result column="hostCompanies" jdbcType="VARCHAR" property="hostCompanies" />
     <result column="equipCar" jdbcType="VARCHAR" property="equipCar" />
-    <result column="avgTurnover" jdbcType="VARCHAR" property="avgTurnover" />
-    <result column="turnover" jdbcType="VARCHAR" property="turnover" />
+    <result column="avgTurnover" jdbcType="DECIMAL" property="avgTurnover" />
+    <result column="turnover" jdbcType="DECIMAL" property="turnover" />
     <result column="yearRate" jdbcType="VARCHAR" property="yearRate" />
     <result column="rentAimType" jdbcType="INTEGER" property="rentAimType" />
     <result column="rentAim" jdbcType="VARCHAR" property="rentAim" />
