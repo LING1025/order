@@ -20,4 +20,11 @@ public interface OutBoundService{
      * @return
      */
     List<ChooseCheckList> selectByUserAuto(Long userAuto);
+
+    /**
+     * 根据主键删除
+     * @param outBoundAuto
+     * @return
+     */
+    Integer deleteByAuto(Long outBoundAuto);
 }

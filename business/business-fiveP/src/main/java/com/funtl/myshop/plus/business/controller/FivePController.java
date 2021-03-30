@@ -4,11 +4,9 @@ import com.funtl.myshop.plus.business.dto.OutParamDto;
 import com.funtl.myshop.plus.commons.dto.ResponseResult;
 import com.funtl.myshop.plus.provider.api.ItemCodeService;
 import com.funtl.myshop.plus.provider.api.OutBoundService;
+import com.funtl.myshop.plus.provider.api.OutCheckService;
 import com.funtl.myshop.plus.provider.api.TradeItemService;
-import com.funtl.myshop.plus.provider.domain.ChooseCheckList;
-import com.funtl.myshop.plus.provider.domain.CusBackground;
-import com.funtl.myshop.plus.provider.domain.OutBound;
-import com.funtl.myshop.plus.provider.domain.TypeNameList;
+import com.funtl.myshop.plus.provider.domain.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
@@ -33,6 +31,9 @@ public class FivePController {
 
     @Reference(version = "1.0.0")
     private OutBoundService outBoundService;
+
+    @Reference(version = "1.0.0")
+    private OutCheckService outCheckService;
 
     @ApiOperation(value = "获取客户性质、产业类别、租车目的、担保条件")
     @ApiImplicitParam(name = "itemType", value = "客户性质：111,产业类别：140,租车目的：12223,担保条件：12224",required = true,dataType ="int",paramType = "path")
@@ -59,11 +60,22 @@ public class FivePController {
         OutBound outBound = new OutBound();
         BeanUtils.copyProperties(outParamDto,outBound);
         outBound.setCdt(new Date());
+        outBound.setStatus(1);
         Long i = outBoundService.insert(outBound);
         if(i == 0){
             return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"保存失败",null);
         }
-        return new ResponseResult<>(ResponseResult.CodeStatus.OK,"保存成功",null);
+        OutCheck outCheck = new OutCheck();
+        BeanUtils.copyProperties(outParamDto,outCheck);
+        outCheck.setCdt(new Date());
+        outCheck.setOutBoundAuto(i);
+        outCheck.setCheckStatus(1);
+        Long i2 = outCheckService.insert(outCheck);
+        if(i == 0){
+            outBoundService.deleteByAuto(i);
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"送件失败",null);
+        }
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK,"送件成功",null);
     }
 
     @ApiOperation(value = "获取可签核人员信息")

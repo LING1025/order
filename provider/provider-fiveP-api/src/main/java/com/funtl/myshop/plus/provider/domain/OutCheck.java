@@ -12,7 +12,7 @@ import javax.persistence.Table;
 @Table(name = "[outCheck]")
 public class OutCheck implements Serializable {
     /**
-    * 外访签核表序号
+    * 外访签核记录表序号
     */
     @Id
     @Column(name = "outCheckAuto")

@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+
+import javax.persistence.Column;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -85,4 +87,10 @@ public class OutParamDto implements Serializable {
      */
     @JsonIgnore
     private Date cdt;
+
+    @ApiModelProperty(value = "所选择的签核人序号")
+    private Long checkAuto;
+
+    @ApiModelProperty(value = "所选择的签核人")
+    private String checkName;
 }

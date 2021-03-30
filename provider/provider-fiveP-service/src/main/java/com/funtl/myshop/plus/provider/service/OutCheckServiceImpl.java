@@ -13,4 +13,9 @@ public class OutCheckServiceImpl implements OutCheckService{
     private OutCheckMapper outCheckMapper;
 
 
+    @Override
+    public Long insert(OutCheck outCheck) {
+        Integer i = outCheckMapper.insertUseGeneratedKeys(outCheck);
+        return i == 1 ? outCheck.getOutCheckAuto() : 0;
+    }
 }

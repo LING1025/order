@@ -27,4 +27,9 @@ public class OutBoundServiceImpl implements OutBoundService{
     public List<ChooseCheckList> selectByUserAuto(Long userAuto) {
         return outBoundMapper.selectByUserAuto(userAuto);
     }
+
+    @Override
+    public Integer deleteByAuto(Long outBoundAuto) {
+        return outBoundMapper.deleteByPrimaryKey(outBoundAuto);
+    }
 }
