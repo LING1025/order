@@ -48,8 +48,9 @@
     declare
     @userAuto bigint=#{userAuto}--21107
     BEGIN
-        declare @UpUnit bigint
+        declare @UpUnit bigint,@orgAuto bigint
         set @UpUnit=(select UpUnit from v_Emp where User_Auto=@userAuto)
+        set @orgAuto=(select Org_Auto from v_Emp where User_Auto=@userAuto)
         begin
         select
         User_Auto=0,DepName='无',FName='无',TitleName='无'
@@ -65,7 +66,8 @@
         where
         a.IsOn=1
         and a.TitleLevel in (30,51,60)--总监、部长、组长
-        and a.Org_Auto=@UpUnit
+        and (a.Org_Auto=@UpUnit or a.Org_Auto=@orgAuto)
+        and a.User_Auto != @userAuto
         end
     END
   </select>
