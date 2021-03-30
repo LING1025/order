@@ -36,4 +36,34 @@
     turnover, yearRate, rentAimType, rentAim, bankBill, finState, fundsFlow, taxReceipt,
     stockCode, ensureType, ensure, vista, develop, cuser, cdt, muser, mdt
   </sql>
+
+  <!--外访客户选择签核人员-->
+  <resultMap id="queryByUserAuto" type="com.funtl.myshop.plus.provider.domain.ChooseCheckList">
+    <result column="User_Auto" jdbcType="BIGINT" property="userAuto" />
+    <result column="DepName" jdbcType="VARCHAR" property="depName" />
+    <result column="FName" jdbcType="VARCHAR" property="empName" />
+    <result column="TitleName" jdbcType="VARCHAR" property="titleName" />
+  </resultMap>
+  <select id="selectByUserAuto" resultMap="queryByUserAuto">
+    declare
+    @userAuto bigint=#{userAuto}--21107
+    BEGIN
+        declare @UpUnit bigint
+        set @UpUnit=(select UpUnit from v_Emp where User_Auto=@userAuto)
+        begin
+        select
+        a.User_Auto
+        ,a.DepName
+        ,a.FName
+        ,b.TitleName
+        from
+        v_Emp a
+        left join AspNet.dbo.IncTitle b on b.TitleLevel=a.TitleLevel
+        where
+        a.IsOn=1
+        and a.TitleLevel in (30,51,60)--总监、部长、组长
+        and a.Org_Auto=@UpUnit
+        end
+    END
+  </select>
 </mapper>
