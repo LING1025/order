@@ -1,5 +1,6 @@
 package com.funtl.myshop.plus.business.controller;
 
+import com.funtl.myshop.plus.business.dto.OutParamDto;
 import com.funtl.myshop.plus.commons.dto.ResponseResult;
 import com.funtl.myshop.plus.provider.api.ItemCodeService;
 import com.funtl.myshop.plus.provider.api.TradeItemService;
@@ -8,12 +9,11 @@ import com.funtl.myshop.plus.provider.domain.TypeNameList;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.apache.dubbo.config.annotation.Reference;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Api(tags = "外访报告模块相关操作")
@@ -40,5 +40,14 @@ public class FivePController {
     public ResponseResult<CusBackground> queryByTradeItemAuto(@RequestParam(name = "tradeItemAuto") Long tradeItemAuto){
         CusBackground cusBackground = tradeItemService.selectByTradeItemAuto(tradeItemAuto);
         return new ResponseResult<>(ResponseResult.CodeStatus.OK,"查询成功",cusBackground);
+    }
+
+    @ApiOperation(value = "外访客户新增数据")
+    @PostMapping(value = "insert")
+    public ResponseResult<String> insert(@ApiParam(value = "外访客户新增数据") @Valid @RequestBody OutParamDto outParamDto){
+        if (outParamDto.getTradeItemAuto()==0L){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"客户序号未填",null);
+        }
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK,"保存成功",null);
     }
 }
