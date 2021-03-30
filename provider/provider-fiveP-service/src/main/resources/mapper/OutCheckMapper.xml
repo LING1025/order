@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.funtl.myshop.plus.provider.mapper.OutCheckMapper">
+  <resultMap id="BaseResultMap" type="com.funtl.myshop.plus.provider.domain.OutCheck">
+    <!--@mbg.generated-->
+    <!--@Table outCheck-->
+    <id column="outCheckAuto" jdbcType="BIGINT" property="outCheckAuto" />
+    <result column="outBoundAuto" jdbcType="BIGINT" property="outBoundAuto" />
+    <result column="checkAuto" jdbcType="BIGINT" property="checkAuto" />
+    <result column="checkName" jdbcType="VARCHAR" property="checkName" />
+    <result column="checkDT" jdbcType="TIMESTAMP" property="checkDT" />
+    <result column="checkStatus" jdbcType="INTEGER" property="checkStatus" />
+    <result column="memo" jdbcType="VARCHAR" property="memo" />
+    <result column="cuser" jdbcType="BIGINT" property="cuser" />
+    <result column="cdt" jdbcType="TIMESTAMP" property="cdt" />
+    <result column="muser" jdbcType="BIGINT" property="muser" />
+    <result column="mdt" jdbcType="TIMESTAMP" property="mdt" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    outCheckAuto, outBoundAuto, checkAuto, checkName, checkDT, checkStatus, memo, cuser,
+    cdt, muser, mdt
+  </sql>
+</mapper>

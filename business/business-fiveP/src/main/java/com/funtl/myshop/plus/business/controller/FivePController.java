@@ -52,7 +52,7 @@ public class FivePController {
 
     @ApiOperation(value = "外访客户新增数据")
     @PostMapping(value = "insert")
-    public ResponseResult<Long> insert(@ApiParam(value = "外访客户新增数据") @Valid @RequestBody OutParamDto outParamDto){
+    public ResponseResult<String> insert(@ApiParam(value = "外访客户新增数据") @Valid @RequestBody OutParamDto outParamDto){
         if (outParamDto.getTradeItemAuto()==0L){
             return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"客户序号未填",null);
         }
@@ -63,7 +63,7 @@ public class FivePController {
         if(i == 0){
             return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"保存失败",null);
         }
-        return new ResponseResult<>(ResponseResult.CodeStatus.OK,"保存成功",i);
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK,"保存成功",null);
     }
 
     @ApiOperation(value = "获取可签核人员信息")
