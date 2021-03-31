@@ -74,8 +74,9 @@ public class UploadController {
         if (file.isEmpty()) {
             return new ResponseResult<>(BusinessStatus.FAIL.getCode(),"上传失败，请选择文件",null);
         }
-        //todo：待测试
-//        return new ResponseResult<>(BusinessStatus.FAIL.getCode(),"上传文件不得大于10MB",null);
+        if (file.getSize() > 10*1024*1024){
+            return new ResponseResult<>(BusinessStatus.FAIL.getCode(),"上传文件不得大于10MB",null);
+        }
         String fileName = file.getOriginalFilename();
         String filePath = "E:\\下载\\testUpFile\\";//下载路径
         File dest = new File(filePath + fileName);

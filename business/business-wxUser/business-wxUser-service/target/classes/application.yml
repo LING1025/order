@@ -12,8 +12,8 @@ spring:
         server-addr: 127.0.0.1:8848
   servlet:
     multipart:
-      max-request-size: 10MB # 上传文件总的最大值
-      max-file-size: 10MB # 单个文件的最大值
+      max-request-size: 20MB # 上传文件总的最大值
+      max-file-size: 20MB # 单个文件的最大值
 
 
 security:
