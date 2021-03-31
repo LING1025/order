@@ -73,9 +73,6 @@ public class OutInfo implements Serializable {
     @ApiModelProperty(value = "未来预计发展规模")
     private String develop;
 
-    @ApiModelProperty(value = "所选择的签核人序号")
-    private Long checkAuto;
-
     @ApiModelProperty(value = "银行流水附件")
     private String file1;
 

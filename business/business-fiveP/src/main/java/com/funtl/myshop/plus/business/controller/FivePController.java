@@ -7,10 +7,7 @@ import com.funtl.myshop.plus.provider.api.OutBoundService;
 import com.funtl.myshop.plus.provider.api.OutCheckService;
 import com.funtl.myshop.plus.provider.api.TradeItemService;
 import com.funtl.myshop.plus.provider.domain.*;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.*;
 import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
@@ -99,4 +96,20 @@ public class FivePController {
         return new ResponseResult<>(ResponseResult.CodeStatus.OK,"保存成功",null);
     }
 
+    @ApiOperation(value = "获取外访报告明细")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "loginAuto", value = "登录人userAuto",required = true,dataType ="long",paramType = "path"),
+            @ApiImplicitParam(name = "tradeItemAuto", value = "客户序号",required = true,dataType ="long",paramType = "path"),
+            @ApiImplicitParam(name = "statusName", value = "状态：送件中、核准、驳回",required = true,dataType ="String",paramType = "path")
+    })
+    @GetMapping(value = "queryOutInfo")
+    public ResponseResult<OutInfo> queryOutInfo(@RequestParam(name = "loginAuto") Long loginAuto,
+                                                @RequestParam(name = "tradeItemAuto") Long tradeItemAuto,
+                                                @RequestParam(name = "statusName",defaultValue = "送件中") String statusName){
+        OutInfo outInfo = outBoundService.selectOutInfo(loginAuto,tradeItemAuto,statusName);
+        if (outInfo == null){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"换一个状态查询或者该客户未加外访报告",null);
+        }
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK,"查询成功",outInfo);
+    }
 }

@@ -42,5 +42,5 @@ public interface OutBoundService{
      * @param tradeItemAuto
      * @return
      */
-    OutInfo selectOutInfo(Long loginAuto,Long tradeItemAuto)
+    OutInfo selectOutInfo(Long loginAuto,Long tradeItemAuto,String statusName);
 }
