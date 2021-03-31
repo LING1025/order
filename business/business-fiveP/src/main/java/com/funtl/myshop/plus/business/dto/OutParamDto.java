@@ -90,4 +90,25 @@ public class OutParamDto implements Serializable {
 
     @ApiModelProperty(value = "所选择的签核人")
     private String checkName;
+
+    @ApiModelProperty(value = "银行流水附件")
+    private String file1;
+
+    @ApiModelProperty(value = "财务报表附件")
+    private String file2;
+
+    @ApiModelProperty(value = "资金流量表附件")
+    private String file3;
+
+    @ApiModelProperty(value = "纳税凭证附件")
+    private String file4;
+
+    @ApiModelProperty(value = "股票代码附件")
+    private String file5;
+
+    @ApiModelProperty(value = "其它租车目的")
+    private String otherAim;
+
+    @ApiModelProperty(value = "担保人")
+    private String ensureName;
 }
