@@ -27,4 +27,11 @@ public interface OutBoundService{
      * @return
      */
     Integer deleteByAuto(Long outBoundAuto);
+
+    /**
+     * 判断客户是否已添加过外访报告
+     * @param tradeItemAuto
+     * @return
+     */
+    OutBound selectTradeAuto(Long tradeItemAuto);
 }

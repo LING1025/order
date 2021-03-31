@@ -65,6 +65,10 @@ public class FivePController {
         if (outParamDto.getTradeItemAuto()==0L){
             return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"客户序号未填",null);
         }
+        OutBound outBound2 = outBoundService.selectTradeAuto(outParamDto.getTradeItemAuto());
+        if (outBound2 != null){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"此客户已添加过外访报告信息",null);
+        }
         outParamDto.setCdt(new Date());
         OutBound outBound = new OutBound();
         BeanUtils.copyProperties(outParamDto,outBound);

@@ -7,6 +7,7 @@ import com.funtl.myshop.plus.provider.domain.OutBound;
 import com.funtl.myshop.plus.provider.mapper.OutBoundMapper;
 import com.funtl.myshop.plus.provider.api.OutBoundService;
 import org.apache.dubbo.config.annotation.Service;
+import tk.mybatis.mapper.entity.Example;
 
 import java.util.List;
 
@@ -31,5 +32,15 @@ public class OutBoundServiceImpl implements OutBoundService{
     @Override
     public Integer deleteByAuto(Long outBoundAuto) {
         return outBoundMapper.deleteByPrimaryKey(outBoundAuto);
+    }
+
+    @Override
+    public OutBound selectTradeAuto(Long tradeItemAuto) {
+        Example example = new Example(OutBound.class);
+        example.createCriteria()
+                .andEqualTo("tradeItemAuto",tradeItemAuto)
+                .andEqualTo("status", 1)
+                .orEqualTo("status", 2);
+        return outBoundMapper.selectOneByExample(example);
     }
 }
