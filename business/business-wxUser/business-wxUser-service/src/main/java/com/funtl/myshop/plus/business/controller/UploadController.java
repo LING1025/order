@@ -75,14 +75,10 @@ public class UploadController {
             return new ResponseResult<>(BusinessStatus.FAIL.getCode(),"上传失败，请选择文件",null);
         }
         //todo：待测试
-        System.out.println(file.getSize());
-        if (file.getSize()> 10240){
-            return new ResponseResult<>(BusinessStatus.FAIL.getCode(),"上传文件不得大于10MB",null);
-        }
+//        return new ResponseResult<>(BusinessStatus.FAIL.getCode(),"上传文件不得大于10MB",null);
         String fileName = file.getOriginalFilename();
-        String filePath = "E:\\下载\\testUpFile\\";
+        String filePath = "E:\\下载\\testUpFile\\";//下载路径
         File dest = new File(filePath + fileName);
-
         try {
             file.transferTo(dest);
             return new ResponseResult<>(BusinessStatus.OK.getCode(),"上传成功",null);
@@ -91,4 +87,6 @@ public class UploadController {
         }
         return new ResponseResult<>(BusinessStatus.FAIL.getCode(),"上传失败！",null);
     }
+
+
 }
