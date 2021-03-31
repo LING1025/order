@@ -60,7 +60,7 @@ public class UploadController {
                         request.getServerName() + ":"
                         + request.getServerPort()
                         + "/uploadFile/" + filename;
-                System.out.println("访问图片路径:" + filePath);
+//                System.out.println("访问图片路径:" + filePath);
             }
         } catch (Exception e) {
             logger.error("", e);
@@ -70,7 +70,7 @@ public class UploadController {
 
     @ApiOperation(value = "上传附件")
     @PostMapping("/file")
-    public ResponseResult<String> uploadFile(@RequestParam("file") MultipartFile file) {
+    public ResponseResult<FileInfo> uploadFile(@RequestParam("file") MultipartFile file) {
         if (file.isEmpty()) {
             return new ResponseResult<>(BusinessStatus.FAIL.getCode(),"上传失败，请选择文件",null);
         }
@@ -82,7 +82,7 @@ public class UploadController {
         File dest = new File(filePath + fileName);
         try {
             file.transferTo(dest);
-            return new ResponseResult<>(BusinessStatus.OK.getCode(),"上传成功",null);
+            return new ResponseResult<>(BusinessStatus.OK.getCode(),"上传成功",new FileInfo(filePath+fileName));
         } catch (IOException e) {
             logger.error(e.toString(), e);
         }
