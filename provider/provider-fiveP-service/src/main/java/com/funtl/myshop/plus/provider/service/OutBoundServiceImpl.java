@@ -36,11 +36,6 @@ public class OutBoundServiceImpl implements OutBoundService{
 
     @Override
     public OutBound selectTradeAuto(Long tradeItemAuto) {
-        Example example = new Example(OutBound.class);
-        example.createCriteria()
-                .andEqualTo("tradeItemAuto",tradeItemAuto)
-                .andEqualTo("status", 1)
-                .orEqualTo("status", 2);
-        return outBoundMapper.selectOneByExample(example);
+        return outBoundMapper.selectTradeAuto(tradeItemAuto);
     }
 }

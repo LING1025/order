@@ -79,4 +79,9 @@
         end
     END
   </select>
+
+    <!--判断客户是否已添加过外访报告-->
+    <select id="selectTradeAuto"  resultMap="BaseResultMap">
+        select*from outBound where tradeItemAuto=#{tradeItemAuto}  and (status=1 or status=2)
+    </select>
 </mapper>

@@ -86,6 +86,8 @@ public class FivePController {
         outCheck.setOutBoundAuto(i);
         if(outParamDto.getCheckAuto() == 0L){
             outCheck.setCheckStatus(2);
+            outCheck.setCheckDT(new Date());
+            outCheck.setMemo("OK");
         }else{
             outCheck.setCheckStatus(1);
         }

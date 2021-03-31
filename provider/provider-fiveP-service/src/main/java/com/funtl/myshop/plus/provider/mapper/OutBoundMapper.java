@@ -10,4 +10,7 @@ import java.util.List;
 public interface OutBoundMapper extends MyMapper<OutBound> {
     /*外访客户选择签核人员*/
     List<ChooseCheckList> selectByUserAuto(@Param("userAuto") Long userAuto);
+
+    /*判断客户是否已添加过外访报告*/
+    OutBound selectTradeAuto(@Param("tradeItemAuto") Long tradeItemAuto);
 }
