@@ -29,12 +29,20 @@
     <result column="cdt" jdbcType="TIMESTAMP" property="cdt" />
     <result column="muser" jdbcType="BIGINT" property="muser" />
     <result column="mdt" jdbcType="TIMESTAMP" property="mdt" />
+      <result column="file1" jdbcType="VARCHAR" property="file1" />
+      <result column="file2" jdbcType="VARCHAR" property="file2" />
+      <result column="file3" jdbcType="VARCHAR" property="file3" />
+      <result column="file4" jdbcType="VARCHAR" property="file4" />
+      <result column="file5" jdbcType="VARCHAR" property="file5" />
+      <result column="otherAim" jdbcType="VARCHAR" property="otherAim" />
+      <result column="ensureName" jdbcType="VARCHAR" property="ensureName" />
   </resultMap>
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
     outBoundAuto, tradeItemAuto, status, major, [operation], hostCompanies, equipCar, avgTurnover,
     turnover, yearRate, rentAimType, rentAim, bankBill, finState, fundsFlow, taxReceipt,
-    stockCode, ensureType, ensure, vista, develop, cuser, cdt, muser, mdt
+    stockCode, ensureType, ensure, vista, develop, cuser, cdt, muser, mdt,file1,file2,file3,file4,file5,
+      otherAim,ensureName
   </sql>
 
   <!--外访客户选择签核人员-->

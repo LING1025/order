@@ -165,5 +165,47 @@ public class OutBound implements Serializable {
     @Column(name = "mdt")
     private Date mdt;
 
+    /**
+     *银行流水附件
+     */
+    @Column(name = "file1")
+    private String file1;
+
+    /**
+     *财务报表附件
+     */
+    @Column(name = "file2")
+    private String file2;
+
+    /**
+     *资金流量表附件
+     */
+    @Column(name = "file3")
+    private String file3;
+
+    /**
+     *纳税凭证附件
+     */
+    @Column(name = "file4")
+    private String file4;
+
+    /**
+     *股票代码附件
+     */
+    @Column(name = "file5")
+    private String file5;
+
+    /**
+     *其它租车目的
+     */
+    @Column(name = "otherAim")
+    private String otherAim;
+
+    /**
+     *担保人
+     */
+    @Column(name = "ensureName")
+    private String ensureName;
+
     private static final long serialVersionUID = 1L;
 }
