@@ -2,6 +2,7 @@ package com.funtl.myshop.plus.provider.api;
 
 import com.funtl.myshop.plus.provider.domain.ChooseCheckList;
 import com.funtl.myshop.plus.provider.domain.OutBound;
+import com.funtl.myshop.plus.provider.domain.OutInfo;
 
 import java.util.List;
 
@@ -34,4 +35,12 @@ public interface OutBoundService{
      * @return
      */
     OutBound selectTradeAuto(Long tradeItemAuto);
+
+    /**
+     * 获取外访报告明细（签核人员与送件人员可查看）
+     * @param loginAuto
+     * @param tradeItemAuto
+     * @return
+     */
+    OutInfo selectOutInfo(Long loginAuto,Long tradeItemAuto)
 }

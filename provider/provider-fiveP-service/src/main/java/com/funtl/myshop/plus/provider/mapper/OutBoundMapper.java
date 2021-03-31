@@ -2,6 +2,7 @@ package com.funtl.myshop.plus.provider.mapper;
 
 import com.funtl.myshop.plus.provider.domain.ChooseCheckList;
 import com.funtl.myshop.plus.provider.domain.OutBound;
+import com.funtl.myshop.plus.provider.domain.OutInfo;
 import org.apache.ibatis.annotations.Param;
 import tk.mybatis.mapper.MyMapper;
 
@@ -13,4 +14,7 @@ public interface OutBoundMapper extends MyMapper<OutBound> {
 
     /*判断客户是否已添加过外访报告*/
     OutBound selectTradeAuto(@Param("tradeItemAuto") Long tradeItemAuto);
+
+    /*获取外访报告明细（签核人员与送件人员可查看）*/
+    OutInfo selectOutInfo(@Param("loginAuto") Long loginAuto, @Param("tradeItemAuto") Long tradeItemAuto);
 }

@@ -4,6 +4,7 @@ import javax.annotation.Resource;
 
 import com.funtl.myshop.plus.provider.domain.ChooseCheckList;
 import com.funtl.myshop.plus.provider.domain.OutBound;
+import com.funtl.myshop.plus.provider.domain.OutInfo;
 import com.funtl.myshop.plus.provider.mapper.OutBoundMapper;
 import com.funtl.myshop.plus.provider.api.OutBoundService;
 import org.apache.dubbo.config.annotation.Service;
@@ -37,5 +38,10 @@ public class OutBoundServiceImpl implements OutBoundService{
     @Override
     public OutBound selectTradeAuto(Long tradeItemAuto) {
         return outBoundMapper.selectTradeAuto(tradeItemAuto);
+    }
+
+    @Override
+    public OutInfo selectOutInfo(Long loginAuto, Long tradeItemAuto) {
+        return outBoundMapper.selectOutInfo(loginAuto,tradeItemAuto);
     }
 }
