@@ -5,21 +5,17 @@ import com.funtl.myshop.plus.business.dto.FileInfo;
 import com.funtl.myshop.plus.commons.dto.ResponseResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.exception.ExceptionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.support.StandardMultipartHttpServletRequest;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
+import java.io.*;
 import java.util.Iterator;
 import java.util.UUID;
 
@@ -29,6 +25,13 @@ import java.util.UUID;
 public class UploadController {
     private static final Logger logger = LoggerFactory.getLogger(UploadController.class);
 
+    /**
+     * 上传图片且用返回路径查看
+     * @param request
+     * @param response
+     * @return
+     * @throws Exception
+     */
     @ApiOperation(value = "上传图片")
     @PostMapping(value = "picture")
     public ResponseResult<FileInfo> uploadPicture(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -68,6 +71,11 @@ public class UploadController {
         return new ResponseResult<>(BusinessStatus.OK.getCode(), "图片上传成功", new FileInfo(filePath));
     }
 
+    /**
+     * 上传附件
+     * @param file
+     * @return
+     */
     @ApiOperation(value = "上传附件")
     @PostMapping("/file")
     public ResponseResult<FileInfo> uploadFile(@RequestParam("file") MultipartFile file) {
