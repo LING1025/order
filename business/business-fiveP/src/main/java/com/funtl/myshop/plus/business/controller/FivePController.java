@@ -112,4 +112,19 @@ public class FivePController {
         }
         return new ResponseResult<>(ResponseResult.CodeStatus.OK,"查询成功",outInfo);
     }
+
+    @ApiOperation(value = "获取外访签核记录数据")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "loginAuto", value = "登录人userAuto",required = true,dataType ="long",paramType = "path"),
+            @ApiImplicitParam(name = "outBoundAuto", value = "外访客户表序号",required = true,dataType ="long",paramType = "path")
+    })
+    @GetMapping(value = "queryOutInfoCheck")
+    public ResponseResult<OutInfoCheck> queryOutInfoCheck(@RequestParam(name = "outBoundAuto") Long outBoundAuto,
+                                                          @RequestParam(name = "loginAuto") Long loginAuto){
+        OutInfoCheck outInfoCheck = outCheckService.selectOutInfoCheck(outBoundAuto,loginAuto);
+        if (outInfoCheck == null){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"暂无签核记录",null);
+        }
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK,"查询成功",outInfoCheck);
+    }
 }
