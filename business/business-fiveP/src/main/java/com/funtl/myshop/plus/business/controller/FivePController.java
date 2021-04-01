@@ -108,7 +108,7 @@ public class FivePController {
                                                 @RequestParam(name = "statusName",defaultValue = "送件中") String statusName){
         OutInfo outInfo = outBoundService.selectOutInfo(loginAuto,tradeItemAuto,statusName);
         if (outInfo == null){
-            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"换一个状态查询或者该客户未加外访报告",null);
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"换一个状态查询或该客户外访报告未新增",null);
         }
         return new ResponseResult<>(ResponseResult.CodeStatus.OK,"查询成功",outInfo);
     }
