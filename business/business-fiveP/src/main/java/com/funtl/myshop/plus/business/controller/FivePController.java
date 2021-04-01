@@ -99,14 +99,14 @@ public class FivePController {
     @ApiOperation(value = "获取外访报告明细")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "loginAuto", value = "登录人userAuto",required = true,dataType ="long",paramType = "path"),
-            @ApiImplicitParam(name = "tradeItemAuto", value = "客户序号",required = true,dataType ="long",paramType = "path"),
-            @ApiImplicitParam(name = "statusName", value = "状态：送件中、核准、驳回",required = true,dataType ="String",paramType = "path")
+            @ApiImplicitParam(name = "tradeItemAuto", value = "客户序号",required = true,dataType ="long",paramType = "path")
+//            @ApiImplicitParam(name = "statusName", value = "状态：送件中、核准、驳回",required = true,dataType ="String",paramType = "path")
     })
     @GetMapping(value = "queryOutInfo")
     public ResponseResult<OutInfo> queryOutInfo(@RequestParam(name = "loginAuto") Long loginAuto,
-                                                @RequestParam(name = "tradeItemAuto") Long tradeItemAuto,
-                                                @RequestParam(name = "statusName",defaultValue = "送件中") String statusName){
-        OutInfo outInfo = outBoundService.selectOutInfo(loginAuto,tradeItemAuto,statusName);
+                                                @RequestParam(name = "tradeItemAuto") Long tradeItemAuto
+                                                /*@RequestParam(name = "statusName",defaultValue = "送件中") String statusName*/){
+        OutInfo outInfo = outBoundService.selectOutInfo(loginAuto,tradeItemAuto);
         if (outInfo == null){
             return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"换一个状态查询或该客户外访报告未新增",null);
         }

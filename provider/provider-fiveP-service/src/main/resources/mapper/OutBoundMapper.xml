@@ -92,8 +92,7 @@
     <select id="selectOutInfo" resultMap="queryOutInfo">
         declare
         @loginAuto bigint=#{loginAuto},
-        @tradeItemAuto bigint=#{tradeItemAuto},
-        @statusName varchar(10)=#{statusName}
+        @tradeItemAuto bigint=#{tradeItemAuto}
         begin
         select
         aa.*
@@ -116,7 +115,7 @@
         and
         (b.CheckAuto = @loginAuto or b.cuser=@loginAuto)
         )aa
-        where aa.statusName=@statusName
+        where aa.statusName!='驳回'
         end
     </select>
 </mapper>
