@@ -21,4 +21,32 @@
     outCheckAuto, outBoundAuto, checkAuto, checkName, checkDT, checkStatus, memo, cuser,
     cdt, muser, mdt
   </sql>
+
+  <!--外访签核记录数据-->
+  <resultMap id="queryOutInfoCheck" extends="BaseResultMap" type="com.funtl.myshop.plus.provider.domain.OutInfoCheck">
+    <result column="FName" jdbcType="VARCHAR" property="name" />
+  </resultMap>
+    <select id="selectOutInfoCheck" resultMap="queryOutInfoCheck">
+        declare
+        @loginAuto bigint=#{loginAuto},
+        @outBoundAuto bigint=#{outBoundAuto}
+        begin
+        select
+        a.outBoundAuto
+        ,a.outCheckAuto
+        ,a.checkName
+        ,a.checkDT
+        ,statusName=case when a.checkStatus=1 then '未审核'
+        when a.checkStatus=2 then '核准'
+        when a.checkStatus=3 then '驳回' end
+        ,a.memo
+        ,b.FName
+        ,a.cdt
+        from
+        outCheck a
+        left join v_Emp b on b.User_Auto= a.cuser
+        where
+        a.outBoundAuto=@outBoundAuto and (a.cuser=@loginAuto or a.checkAuto=@loginAuto)
+        end
+    </select>
 </mapper>
