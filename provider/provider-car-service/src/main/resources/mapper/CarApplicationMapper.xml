@@ -520,68 +520,12 @@ select c.CarApplication_Auto,v.FName appUserN,i.ItemName appTypeN, c.PlanStartDT
     <select id="selectCheckOne" resultMap="queryCheckOne">
         declare  --S_OutapplyCheck_Q2 20976,10,10
         @UserID bigint=#{loginUserID},
-        @CarApplication_Auto bigint=#{carApplicationAuto},
-        @DocType int=10
+        @CarApplication_Auto bigint=#{carApplicationAuto}
         begin
-
-        declare @TOrg table(UnitID nvarchar(60))
-        declare @UnitID_Temp nvarchar(60)
-        declare cursor1 cursor for
-        select distinct t1.UnitID
-        from DocSystem.[dbo].[v_Promoter] t1
-        left join DocSystem.dbo.v_User t2 on t1.EmpId=t2.EmpID
-        where t2.UserID =@UserID
-
-        open cursor1
-        fetch next from cursor1 into @UnitID_Temp
-        while @@FETCH_STATUS=0
-        begin
-
-
-
-        insert into @TOrg (UnitID)
-        select distinct t2.ID
-        from DocSystem.dbo.UFun_GetChildren(@UnitID_Temp) t2
-        fetch next from cursor1 into @UnitID_Temp
-
-        end
-        close cursor1
-        deallocate  cursor1
-
-        select distinct t1.UnitID
-        into #a
-        from @TOrg t1,DocSystem.dbo.Unit t2
-        where t1.UnitID = t2.UnitID collate Chinese_PRC_Stroke_90_CI_AS
-
-        Declare @Roles table ( RoleId int,RoleName nvarchar(20))
-        Insert Into @Roles (RoleId ,RoleName)
-        SELECT a.RoleID,c.RoleName
-        FROM Portal.dbo.Portal_UserRoles a(Nolock)
-        INNER JOIN DocSystem.dbo.v_User b(nolock)ON a.UserID = b.UserID
-        inner join Portal.dbo.Portal_Roles c(nolock)on c.RoleID=a.RoleID
-        WHERE b.UserID = @UserID
-
-        select t1.CarApplication_Auto,AppSeq=MIN(t4.AppSeq)
-        into #b
-        from  CarApplication t1,DocSystem.dbo.v_User  t2,DocSystem.dbo.WorkFlowDoc t4
-        where t2.UserID=t1.AppUser
-        and t4.DocPostID=t1.CarApplication_Auto
-        and t4.DocType=@DocType
-        and t4.Status=0
-        group by t1.CarApplication_Auto
-
-        --2018/01/19副总无法签核,组织管理部门的状况,暂时先排除 wilson
-
-        select t1.CarApplication_Auto,AppSeq=MIN(t4.AppSeq)
-        into #c
-        from  CarApplication t1,DocSystem.dbo.v_User  t2,#a t3, DocSystem.dbo.WorkFlowDoc t4
-        where t2.UserID=t1.AppUser
-        and t2.UnitID  collate Chinese_PRC_Stroke_90_CI_AS = t3.UnitID
-        and t4.DocPostID=t1.CarApplication_Auto
-        and t4.DocType=@DocType
-        and t4.Status=0
-        group by t1.CarApplication_Auto
-
+        select
+        aa.*
+        from
+        (
         select c.CarApplication_Auto,v.FName appUserN,i.ItemName appTypeN, c.PlanStartDT,
         c.PlanEndDT,
         v2.DepName,
@@ -606,8 +550,8 @@ select c.CarApplication_Auto,v.FName appUserN,i.ItemName appTypeN, c.PlanStartDT
         ,i4.ItemName bsTypeN
         ,i5.ItemName whTypeN1
         ,i5.ItemName whTypeN2
-        ,t50.AppSeq
-        ,t20.RoleID
+        ,t1.AppSeq
+        ,t1.RoleID
         ,c.passAddr1,c.passAddr2,c.passAddr3,c.passAddr4,c.passAddr5
         from CarApplication c
         left join v_Emp v on c.AppUser=v.User_Auto--申请人
@@ -621,18 +565,22 @@ select c.CarApplication_Auto,v.FName appUserN,i.ItemName appTypeN, c.PlanStartDT
         left join Brand b on cb.Brand_Auto=b.Brand_Auto
         left join ItemCode i4 on i4.num = cb.BSType and i4.ItemType=841 --变速类型
         left join ItemCode i5 on i5.num = cse.WHType and i5.ItemType=826--仓库别
-        inner join DocSystem.dbo.WorkFlowDoc t20 on c.CarApplication_Auto=t20.DocPostID and t20.DocType=@DocType and t20.InActiveList!=-1
-        inner join @Roles t30 on t30.RoleId=t20.RoleID
-        inner join #c t50 on t50.CarApplication_Auto=c.CarApplication_Auto and t20.AppSeq=t50.AppSeq
-        where c.CarApplication_Auto=@CarApplication_Auto
-
-        drop table #a
-        drop table #b
-        drop table #c
+        left join DocSystem.dbo.WorkFlowDoc  t1 on c.CarApplication_Auto=t1.DocPostID  and t1.DocType=10
+        left join [Portal].[dbo].[Portal_Roles] t2  on t1.RoleID=t2.RoleID
+        where t2.RoleID in (
+        select distinct
+        c.Roles_Auto
+        from
+        AspNet.dbo.aspnet_Users a
+        join AspNet.dbo.aspnet_UsersInRoles b  on a.UserId=b.UserId
+        join AspNet.dbo.aspnet_Roles c  on b.RoleId=c.RoleId
+        where
+        a.ApplicationId='73663109-dda2-4c2d-8311-337946b5c373'
+        and a.User_Auto= @UserID
+        )and c.Status in (10,20)
+        )aa
+        where aa.CarApplication_Auto=@CarApplication_Auto
         end
-
-
-
     </select>
 
     <!--用车审核：核准、驳回-->
