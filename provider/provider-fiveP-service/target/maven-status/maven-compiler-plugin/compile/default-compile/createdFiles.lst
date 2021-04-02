@@ -1,0 +1,9 @@
+com\funtl\myshop\plus\provider\mapper\TradeItemMapper.class
+com\funtl\myshop\plus\provider\service\TradeItemServiceImpl.class
+com\funtl\myshop\plus\provider\service\OutBoundServiceImpl.class
+com\funtl\myshop\plus\provider\service\OutCheckServiceImpl.class
+com\funtl\myshop\plus\provider\mapper\ItemCodeMapper.class
+com\funtl\myshop\plus\provider\ProviderFivePApplication.class
+com\funtl\myshop\plus\provider\mapper\OutBoundMapper.class
+com\funtl\myshop\plus\provider\mapper\OutCheckMapper.class
+com\funtl\myshop\plus\provider\service\ItemCodeServiceImpl.class

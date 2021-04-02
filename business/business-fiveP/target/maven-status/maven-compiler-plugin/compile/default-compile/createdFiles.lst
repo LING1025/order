@@ -1,0 +1,6 @@
+com\funtl\myshop\plus\business\dto\OutParamDto.class
+com\funtl\myshop\plus\business\BusinessFivePApplication.class
+com\funtl\myshop\plus\business\configure\FivePResourceServerConfiguration.class
+com\funtl\myshop\plus\business\controller\FivePController.class
+com\funtl\myshop\plus\business\dto\OutCheckParamDto.class
+com\funtl\myshop\plus\business\configure\Swagger2Config.class
