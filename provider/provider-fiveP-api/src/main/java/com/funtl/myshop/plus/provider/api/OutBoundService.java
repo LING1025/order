@@ -42,7 +42,7 @@ public interface OutBoundService{
      * @param tradeItemAuto
      * @return
      */
-    OutInfo selectOutInfo(Long loginAuto,Long tradeItemAuto);
+    OutInfo selectOutInfo(Long loginAuto,Long tradeItemAuto,Long outBoundAuto);
 
     /**
      * 外访客户修改数据

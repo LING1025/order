@@ -1,5 +1,6 @@
 package com.funtl.myshop.plus.business.controller;
 
+import com.funtl.myshop.plus.business.dto.OutCheckParamDto;
 import com.funtl.myshop.plus.business.dto.OutParamDto;
 import com.funtl.myshop.plus.commons.dto.ResponseResult;
 import com.funtl.myshop.plus.provider.api.ItemCodeService;
@@ -53,7 +54,7 @@ public class FivePController {
     @GetMapping(value = "queryChooseList")
     public ResponseResult<List<ChooseCheckList>> queryChooseList(@RequestParam(name = "userAuto") Long userAuto){
         List<ChooseCheckList> lists = outBoundService.selectByUserAuto(userAuto);
-        return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"保存成功",lists);
+        return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"查询成功",lists);
     }
 
     @ApiOperation(value = "外访客户新增数据")
@@ -93,22 +94,22 @@ public class FivePController {
             outBoundService.deleteByAuto(i);
             return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"保存失败",null);
         }
-        return new ResponseResult<>(ResponseResult.CodeStatus.OK,"保存成功",null);
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK,"保存成功","新增数据的outBoundAuto："+i);
     }
 
     @ApiOperation(value = "获取外访报告明细")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "loginAuto", value = "登录人userAuto",required = true,dataType ="long",paramType = "path"),
-            @ApiImplicitParam(name = "tradeItemAuto", value = "客户序号",required = true,dataType ="long",paramType = "path")
-//            @ApiImplicitParam(name = "statusName", value = "状态：送件中、核准、驳回",required = true,dataType ="String",paramType = "path")
+            @ApiImplicitParam(name = "tradeItemAuto", value = "客户序号",required = true,dataType ="long",paramType = "path"),
+            @ApiImplicitParam(name = "outBoundAuto", value = "外访客户表序号",required = true,dataType ="long",paramType = "path")
     })
     @GetMapping(value = "queryOutInfo")
     public ResponseResult<OutInfo> queryOutInfo(@RequestParam(name = "loginAuto") Long loginAuto,
-                                                @RequestParam(name = "tradeItemAuto") Long tradeItemAuto
-                                                /*@RequestParam(name = "statusName",defaultValue = "送件中") String statusName*/){
-        OutInfo outInfo = outBoundService.selectOutInfo(loginAuto,tradeItemAuto);
+                                                @RequestParam(name = "tradeItemAuto") Long tradeItemAuto,
+                                                @RequestParam(name = "outBoundAuto") Long outBoundAuto){
+        OutInfo outInfo = outBoundService.selectOutInfo(loginAuto,tradeItemAuto,outBoundAuto);
         if (outInfo == null){
-            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"换一个状态查询或该客户外访报告未新增",null);
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"暂无资料",null);
         }
         return new ResponseResult<>(ResponseResult.CodeStatus.OK,"查询成功",outInfo);
     }
@@ -126,5 +127,31 @@ public class FivePController {
             return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"暂无签核记录",null);
         }
         return new ResponseResult<>(ResponseResult.CodeStatus.OK,"查询成功",outInfoCheck);
+    }
+
+    @ApiOperation(value = "对外访客户明细核准或驳回")
+    @PutMapping(value = "update")
+    public ResponseResult<String> update(@ApiParam(value = "对外访客户明细核准或驳回") @Valid @RequestBody OutCheckParamDto outCheckParamDto){
+        if (outCheckParamDto.getOutBoundAuto() == 0L || outCheckParamDto.getOutCheckAuto() == 0L || outCheckParamDto.getLoginAuto() == 0L){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"参数异常",null);
+        }
+        outCheckParamDto.setMuser(outCheckParamDto.getLoginAuto());
+        outCheckParamDto.setMdt(new Date());
+        OutBound outBound = new OutBound();
+        BeanUtils.copyProperties(outCheckParamDto,outBound);
+        outBound.setStatus(outCheckParamDto.getCheckStatus());
+        Integer i = outBoundService.update(outBound);
+        if (i == 0){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"审核失败",null);
+        }
+
+        OutCheck outCheck = new OutCheck();
+        BeanUtils.copyProperties(outCheckParamDto,outCheck);
+        outCheck.setCheckDT(new Date());
+        Integer i2 = outCheckService.update(outCheck);
+        if (i2 == 0){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"审核失败",null);
+        }
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK,"审核成功",null);
     }
 }
