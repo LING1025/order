@@ -6,7 +6,7 @@ import com.funtl.myshop.plus.provider.domain.OutInfoCheck;
 public interface OutCheckService{
 
     /**
-     * 外访签核记录
+     * 外访签核新增记录
      * @param outCheck
      * @return
      */
@@ -19,4 +19,11 @@ public interface OutCheckService{
      * @return
      */
     OutInfoCheck selectOutInfoCheck(Long outBoundAuto,Long loginAuto);
+
+    /**
+     * 外访签核修改记录
+     * @param outCheck
+     * @return
+     */
+    Integer update(OutCheck outCheck);
 }

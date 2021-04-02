@@ -44,4 +44,9 @@ public class OutBoundServiceImpl implements OutBoundService{
     public OutInfo selectOutInfo(Long loginAuto, Long tradeItemAuto) {
         return outBoundMapper.selectOutInfo(loginAuto,tradeItemAuto);
     }
+
+    @Override
+    public Integer update(OutBound outBound) {
+        return outBoundMapper.updateByPrimaryKeySelective(outBound);
+    }
 }

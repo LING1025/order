@@ -25,4 +25,9 @@ public class OutCheckServiceImpl implements OutCheckService{
     public OutInfoCheck selectOutInfoCheck(Long outBoundAuto, Long loginAuto) {
         return outCheckMapper.selectOutInfoCheck(outBoundAuto,loginAuto);
     }
+
+    @Override
+    public Integer update(OutCheck outCheck) {
+        return outCheckMapper.updateByPrimaryKeySelective(outCheck);
+    }
 }

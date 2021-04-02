@@ -43,4 +43,11 @@ public interface OutBoundService{
      * @return
      */
     OutInfo selectOutInfo(Long loginAuto,Long tradeItemAuto);
+
+    /**
+     * 外访客户修改数据
+     * @param outBound
+     * @return
+     */
+    Integer update(OutBound outBound);
 }
