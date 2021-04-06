@@ -87,7 +87,7 @@ public class UploadController {
      */
     @ApiOperation(value = "上传附件")
     @PostMapping("/uploadFile")
-    public ResponseResult<String> test(@RequestParam("file") MultipartFile file) throws IOException {
+    public ResponseResult<FileInfo> test(@RequestParam("file") MultipartFile file) throws IOException {
         if (file.isEmpty()) {
             return new ResponseResult<>(BusinessStatus.FAIL.getCode(),"上传失败，请选择文件",null);
         }
@@ -104,6 +104,6 @@ public class UploadController {
                 .path(fileName)
                 .toUriString();
 
-        return new ResponseResult<>(BusinessStatus.OK.getCode(),"上传成功",fileDownloadUri);
+        return new ResponseResult<>(BusinessStatus.OK.getCode(),"上传成功",new FileInfo(fileDownloadUri));
     }
 }
