@@ -5,17 +5,20 @@ import com.funtl.myshop.plus.business.dto.FileInfo;
 import com.funtl.myshop.plus.commons.dto.ResponseResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang.exception.ExceptionUtils;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.support.StandardMultipartHttpServletRequest;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
@@ -26,6 +29,9 @@ import java.util.UUID;
 @RequestMapping(value = "upload")
 public class UploadController {
     private static final Logger logger = LoggerFactory.getLogger(UploadController.class);
+
+    @Value("${file.path}")
+    private String dirPath;
 
     /**
      * 上传图片且用返回路径查看
@@ -73,53 +79,31 @@ public class UploadController {
         return new ResponseResult<>(BusinessStatus.OK.getCode(), "图片上传成功", new FileInfo(filePath));
     }
 
-
-    @ApiOperation(value = "上传附件")
-    @PostMapping("/file")
-    public ResponseResult<FileInfo> uploadFile(@RequestParam("file") MultipartFile file) {
-        if (file.isEmpty()) {
-            return new ResponseResult<>(BusinessStatus.FAIL.getCode(),"上传失败，请选择文件",null);
-        }
-        if (file.getSize() > 10*1024*1024){
-            return new ResponseResult<>(BusinessStatus.FAIL.getCode(),"上传文件不得大于10MB",null);
-        }
-        String fileName = file.getOriginalFilename();
-        String filePath = "E:\\下载\\testUpFile\\";//下载路径
-        File dest = new File(filePath + fileName);
-        try {
-            file.transferTo(dest);
-            return new ResponseResult<>(BusinessStatus.OK.getCode(),"上传成功",new FileInfo(filePath+fileName));
-        } catch (IOException e) {
-            logger.error(e.toString(), e);
-        }
-        return new ResponseResult<>(BusinessStatus.FAIL.getCode(),"上传失败！",null);
-    }
-
-
+    /**
+     * 上传附件
+     * @param file
+     * @return
+     * @throws IOException
+     */
     @ApiOperation(value = "上传附件")
     @PostMapping("/uploadFile")
-    public ResponseResult<FileInfo> upload(@RequestParam("file") MultipartFile file, HttpServletRequest req) {
+    public ResponseResult<String> test(@RequestParam("file") MultipartFile file) throws IOException {
         if (file.isEmpty()) {
             return new ResponseResult<>(BusinessStatus.FAIL.getCode(),"上传失败，请选择文件",null);
         }
         if (file.getSize() > 10*1024*1024){
             return new ResponseResult<>(BusinessStatus.FAIL.getCode(),"上传文件不得大于10MB",null);
         }
-        String fileName = file.getOriginalFilename();
-        String uuid = UUID.randomUUID().toString().replace("-", "");
-        String kzm = fileName.substring(fileName.lastIndexOf("."));
-        String newName = uuid + kzm;
-        File dest = new File(newName);
-        try{
-            file.transferTo(dest);
-            String filePath = req.getScheme() + "://" +
-                    req.getServerName() + ":" +
-                    req.getServerPort() + "/uploadFile2/" +
-                    newName;
-            return new ResponseResult<>(BusinessStatus.OK.getCode(),"上传成功",new FileInfo(filePath));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return new ResponseResult<>(BusinessStatus.FAIL.getCode(),"上传失败",null);
+        InputStream inputStream = file.getInputStream();
+        //文件后缀
+        String prefix = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
+        String fileName = UUID.randomUUID() + prefix;
+        Files.copy(inputStream,new File(dirPath + fileName).toPath(), StandardCopyOption.REPLACE_EXISTING);
+        //拼接上传文件路径
+        String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
+                .path(fileName)
+                .toUriString();
+
+        return new ResponseResult<>(BusinessStatus.OK.getCode(),"上传成功",fileDownloadUri);
     }
 }
