@@ -34,15 +34,19 @@
       <result column="file3" jdbcType="VARCHAR" property="file3" />
       <result column="file4" jdbcType="VARCHAR" property="file4" />
       <result column="file5" jdbcType="VARCHAR" property="file5" />
+      <result column="file6" jdbcType="VARCHAR" property="file6" />
       <result column="otherAim" jdbcType="VARCHAR" property="otherAim" />
       <result column="ensureName" jdbcType="VARCHAR" property="ensureName" />
+      <result column="taxPayment" jdbcType="VARCHAR" property="taxPayment" />
+      <result column="creditReport" jdbcType="VARCHAR" property="creditReport" />
+      <result column="idenType" jdbcType="INTEGER" property="idenType" />
   </resultMap>
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
     outBoundAuto, tradeItemAuto, status, major, [operation], hostCompanies, equipCar, avgTurnover,
     turnover, yearRate, rentAimType, rentAim, bankBill, finState, fundsFlow, taxReceipt,
     stockCode, ensureType, ensure, vista, develop, cuser, cdt, muser, mdt,file1,file2,file3,file4,file5,
-      otherAim,ensureName
+      otherAim,ensureName,taxPayment,creditReport,idenType,file6
   </sql>
 
   <!--外访客户选择签核人员-->

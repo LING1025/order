@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.persistence.Column;
@@ -88,31 +89,31 @@ public class OutBound implements Serializable {
     private String rentAim;
 
     /**
-    * 银行流水
+    * 个人、企业：银行流水
     */
     @Column(name = "bankBill")
     private BigDecimal bankBill;
 
     /**
-    * 财务报表
+    * 个人：工资收入；企业：财务报表
     */
     @Column(name = "finState")
     private BigDecimal finState;
 
     /**
-    * 资金流量表
+    * 个人：社保金额；企业：资金流量表
     */
     @Column(name = "fundsFlow")
     private BigDecimal fundsFlow;
 
     /**
-    * 纳税凭证
+    * 企业：纳税凭证
     */
     @Column(name = "taxReceipt")
     private BigDecimal taxReceipt;
 
     /**
-    * 股票代码
+    * 个人：公司股东所持份额；企业：股票代码
     */
     @Column(name = "stockCode")
     private BigDecimal stockCode;
@@ -166,34 +167,40 @@ public class OutBound implements Serializable {
     private Date mdt;
 
     /**
-     *银行流水附件
+     *个人、企业：银行流水附件
      */
     @Column(name = "file1")
     private String file1;
 
     /**
-     *财务报表附件
+     *个人：工资收入；企业：财务报表附件
      */
     @Column(name = "file2")
     private String file2;
 
     /**
-     *资金流量表附件
+     *个人：社保金额；企业：资金流量表附件
      */
     @Column(name = "file3")
     private String file3;
 
     /**
-     *纳税凭证附件
+     *个人：工作证明；企业：纳税凭证附件
      */
     @Column(name = "file4")
     private String file4;
 
     /**
-     *股票代码附件
+     *个人：公司股东所持份额；企业：股票代码附件
      */
     @Column(name = "file5")
     private String file5;
+
+    /**
+     *个人：信用报告附件
+     */
+    @Column(name = "file6")
+    private String file6;
 
     /**
      *其它租车目的
@@ -206,6 +213,24 @@ public class OutBound implements Serializable {
      */
     @Column(name = "ensureName")
     private String ensureName;
+
+    /**
+     *个人：工作证明
+     */
+    @Column(name = "taxPayment")
+    private String taxPayment;
+
+    /**
+     *个人：信用报告
+     */
+    @Column(name = "creditReport")
+    private String creditReport;
+
+    /**
+     * 身份别序号 :0个人 1公司
+     */
+    @Column(name = "idenType")
+    private Integer idenType;
 
     private static final long serialVersionUID = 1L;
 }

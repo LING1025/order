@@ -59,7 +59,7 @@ public class OutParamDto implements Serializable {
     private BigDecimal fundsFlow;
 
     @ApiModelProperty(value = "个人：工作证明")
-    private BigDecimal taxPayment ;
+    private String taxPayment ;
 
     @ApiModelProperty(value = "企业：纳税凭证")
     private BigDecimal taxReceipt;
@@ -97,24 +97,30 @@ public class OutParamDto implements Serializable {
     @ApiModelProperty(value = "所选择的签核人")
     private String checkName;
 
-    @ApiModelProperty(value = "银行流水附件")
+    @ApiModelProperty(value = "个人、企业：银行流水附件")
     private String file1;
 
-    @ApiModelProperty(value = "财务报表附件")
+    @ApiModelProperty(value = "个人：工资收入；企业：财务报表附件")
     private String file2;
 
-    @ApiModelProperty(value = "资金流量表附件")
+    @ApiModelProperty(value = "个人：社保金额；企业：资金流量表附件")
     private String file3;
 
-    @ApiModelProperty(value = "纳税凭证附件")
+    @ApiModelProperty(value = "个人：工作证明；企业：纳税凭证附件")
     private String file4;
 
-    @ApiModelProperty(value = "股票代码附件")
+    @ApiModelProperty(value = "个人：公司股东所持份额；企业：股票代码附件")
     private String file5;
+
+    @ApiModelProperty(value = "个人：信用报告附件")
+    private String file6;
 
     @ApiModelProperty(value = "其它租车目的")
     private String otherAim;
 
     @ApiModelProperty(value = "担保人")
     private String ensureName;
+
+    @ApiModelProperty(value = "身份别序号 :0个人 1公司")
+    private Integer idenType;
 }
