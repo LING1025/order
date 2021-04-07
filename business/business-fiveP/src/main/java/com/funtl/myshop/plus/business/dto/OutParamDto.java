@@ -49,20 +49,26 @@ public class OutParamDto implements Serializable {
     @ApiModelProperty(value = "租车目的")
     private String rentAim;
 
-    @ApiModelProperty(value = "银行流水")
+    @ApiModelProperty(value = "个人、企业：银行流水")
     private BigDecimal bankBill;
 
-    @ApiModelProperty(value = "财务报表")
+    @ApiModelProperty(value = "个人：工资收入；企业：财务报表")
     private BigDecimal finState;
 
-    @ApiModelProperty(value = "资金流量表")
+    @ApiModelProperty(value = "个人：社保金额；企业：资金流量表")
     private BigDecimal fundsFlow;
 
-    @ApiModelProperty(value = "纳税凭证")
+    @ApiModelProperty(value = "个人：工作证明")
+    private BigDecimal taxPayment ;
+
+    @ApiModelProperty(value = "企业：纳税凭证")
     private BigDecimal taxReceipt;
 
-    @ApiModelProperty(value = "股票代码")
+    @ApiModelProperty(value = "个人：公司股东所持份额；企业：股票代码")
     private BigDecimal stockCode;
+
+    @ApiModelProperty(value = "个人：信用报告")
+    private String creditReport;
 
     @ApiModelProperty(value = "担保条件序号")
     private Integer ensureType;
