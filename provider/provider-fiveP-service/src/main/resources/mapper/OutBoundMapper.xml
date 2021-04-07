@@ -61,7 +61,7 @@
         set @orgAuto=(select Org_Auto from v_Emp where User_Auto=@userAuto)
         begin
         select
-        User_Auto=0,DepName='无',FName='无',TitleName='无'
+        User_Auto=0,DepName='',FName='无',TitleName=''
         union all
         select
         a.User_Auto
