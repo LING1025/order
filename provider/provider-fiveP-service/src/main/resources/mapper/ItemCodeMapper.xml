@@ -43,8 +43,6 @@ where ItemType=111
 end
 if(@type=140)--产业类别（资本行业）
 begin
-select num=-1,typeName='==请选择=='
-union all
 select
 Num
 ,typeName=convert(varchar(4),Num)+'.'+ItemName
