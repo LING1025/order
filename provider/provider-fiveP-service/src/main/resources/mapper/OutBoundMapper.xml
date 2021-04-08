@@ -112,6 +112,7 @@
         ,a.turnover, a.yearRate, a.rentAimType, a.rentAim, a.bankBill, a.finState
         ,a.fundsFlow, a.taxReceipt,a.stockCode, a.ensureType, a.ensure, a.vista
         ,a.develop,a.file1,a.file2,a.file3,a.file4,a.file5,a.otherAim,a.ensureName
+        ,a.taxPayment,a.creditReport,a.file6
         from
         outBound a
         left join outCheck b on b.outBoundAuto=a.outBoundAuto

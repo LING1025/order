@@ -46,20 +46,26 @@ public class OutInfo implements Serializable {
     @ApiModelProperty(value = "租车目的")
     private String rentAim;
 
-    @ApiModelProperty(value = "银行流水")
+    @ApiModelProperty(value = "个人、企业：银行流水")
     private BigDecimal bankBill;
 
-    @ApiModelProperty(value = "财务报表")
+    @ApiModelProperty(value = "个人：工资收入；企业：财务报表")
     private BigDecimal finState;
 
-    @ApiModelProperty(value = "资金流量表")
+    @ApiModelProperty(value = "个人：社保金额；企业：资金流量表")
     private BigDecimal fundsFlow;
 
-    @ApiModelProperty(value = "纳税凭证")
+    @ApiModelProperty(value = "个人：工作证明")
+    private String taxPayment ;
+
+    @ApiModelProperty(value = "企业：纳税凭证")
     private BigDecimal taxReceipt;
 
-    @ApiModelProperty(value = "股票代码")
+    @ApiModelProperty(value = "个人：公司股东所持份额；企业：股票代码")
     private BigDecimal stockCode;
+
+    @ApiModelProperty(value = "个人：信用报告")
+    private String creditReport;
 
     @ApiModelProperty(value = "担保条件序号")
     private Integer ensureType;
@@ -73,20 +79,23 @@ public class OutInfo implements Serializable {
     @ApiModelProperty(value = "未来预计发展规模")
     private String develop;
 
-    @ApiModelProperty(value = "银行流水附件")
+    @ApiModelProperty(value = "个人、企业：银行流水附件")
     private String file1;
 
-    @ApiModelProperty(value = "财务报表附件")
+    @ApiModelProperty(value = "个人：工资收入；企业：财务报表附件")
     private String file2;
 
-    @ApiModelProperty(value = "资金流量表附件")
+    @ApiModelProperty(value = "个人：社保金额；企业：资金流量表附件")
     private String file3;
 
-    @ApiModelProperty(value = "纳税凭证附件")
+    @ApiModelProperty(value = "个人：工作证明；企业：纳税凭证附件")
     private String file4;
 
-    @ApiModelProperty(value = "股票代码附件")
+    @ApiModelProperty(value = "个人：公司股东所持份额；企业：股票代码附件")
     private String file5;
+
+    @ApiModelProperty(value = "个人：信用报告附件")
+    private String file6;
 
     @ApiModelProperty(value = "其它租车目的")
     private String otherAim;
