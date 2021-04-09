@@ -126,47 +126,56 @@
 declare
 @loginAuto bigint=#{outQueryParam.loginAuto},
 @tradeItemAuto bigint=#{outQueryParam.tradeItemAuto},
-@type int = #{outQueryParam.type} --1送件人员查看,2签核人员查看
+@type int = #{outQueryParam.type}, --1送件人员查看,2签核人员查看
+@statusName varchar(10)=#{outQueryParam.statusName}
 BEGIN
 if(@type=1)
 begin
-select
-a.outBoundAuto, a.tradeItemAuto
-,statusName=case when a.status=1 then '送件中'
- when a.status=2 then '核准'
- else '驳回'end
- ,c.FName customer
- ,a.CUser userAuto
- ,v.FName name
-from
-outBound a
-inner join outCheck b on b.outBoundAuto=a.outBoundAuto
-left join TradeItem c on c.TradeItem_Auto=a.tradeItemAuto
-left join v_Emp v on v.User_Auto=a.cuser
-where
-a.tradeItemAuto=@tradeItemAuto
-and
-b.cuser=@loginAuto
+        select
+        aa.*
+        from(
+        select
+        a.outBoundAuto, a.tradeItemAuto
+        ,statusName=case when a.status=1 then '送件中'
+        when a.status=2 then '核准'
+        else '驳回'end
+        ,c.FName customer
+        ,a.CUser userAuto
+        ,v.FName name
+        from
+        outBound a
+        inner join outCheck b on b.outBoundAuto=a.outBoundAuto
+        left join TradeItem c on c.TradeItem_Auto=a.tradeItemAuto
+        left join v_Emp v on v.User_Auto=a.cuser
+        where
+        a.tradeItemAuto=@tradeItemAuto
+        and
+        b.cuser=@loginAuto
+        )aa
+        where aa.statusName=@statusName
 end
 if(@type=2)
 begin
-select
-a.outBoundAuto, a.tradeItemAuto
-,statusName=case when a.status=1 then '送件中'
- when a.status=2 then '核准'
- else '驳回'end
- ,c.FName customer
- ,a.CUser userAuto
- ,v.FName name
-from
-outBound a
-inner join outCheck b on b.outBoundAuto=a.outBoundAuto
-left join TradeItem c on c.TradeItem_Auto=a.tradeItemAuto
-left join v_Emp v on v.User_Auto=a.cuser
-where
-a.tradeItemAuto=@tradeItemAuto
-and
-b.CheckAuto = @loginAuto
+        select
+        aa.*
+        from(
+        select
+        a.outBoundAuto, a.tradeItemAuto
+        ,statusName=case when a.status=1 then '送件中'
+        when a.status=2 then '核准'
+        else '驳回'end
+        ,c.FName customer
+        ,a.CUser userAuto
+        ,v.FName name
+        from
+        outBound a
+        inner join outCheck b on b.outBoundAuto=a.outBoundAuto
+        left join TradeItem c on c.TradeItem_Auto=a.tradeItemAuto
+        left join v_Emp v on v.User_Auto=a.cuser
+        where
+        b.CheckAuto = @loginAuto
+        )aa
+        where aa.statusName=@statusName
 end
 END
     </select>

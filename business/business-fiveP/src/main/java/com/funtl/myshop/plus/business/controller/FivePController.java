@@ -101,14 +101,21 @@ public class FivePController {
     @ApiOperation(value = "获取外访报告新增后信息列表")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "loginAuto", value = "登录人userAuto",required = true,dataType ="long",paramType = "path"),
-            @ApiImplicitParam(name = "tradeItemAuto", value = "客户序号",required = true,dataType ="long",paramType = "path"),
-            @ApiImplicitParam(name = "type", value = "查询类别：1送件人员查看,2签核人员查看",required = true,dataType ="int",paramType = "path")
+            @ApiImplicitParam(name = "tradeItemAuto", value = "客户序号",required = false,dataType ="long",paramType = "path"),
+            @ApiImplicitParam(name = "type", value = "查询类别：1送件人员查看,2签核人员查看",required = true,dataType ="int",paramType = "path"),
+            @ApiImplicitParam(name = "statusName", value = "状态：1送件中 2核准 3驳回",required = true,dataType ="String",paramType = "path")
     })
     @GetMapping(value = "queryOutList")
     public ResponseResult<List<OutList>> queryOutList(@RequestParam(name = "loginAuto") Long loginAuto,
-                                                @RequestParam(name = "tradeItemAuto") Long tradeItemAuto,
-                                                @RequestParam(name = "type") Integer type){
-        OutQueryParam outQueryParam = new OutQueryParam(loginAuto,tradeItemAuto,type);
+                                                      @RequestParam(name = "tradeItemAuto",defaultValue = "0") Long tradeItemAuto,
+                                                      @RequestParam(name = "type") Integer type,
+                                                      @RequestParam(name = "statusName") String statusName){
+        if (tradeItemAuto == 0L){
+            if (type == 1){
+                return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"送件时客户序号未赋值",null);
+            }
+        }
+        OutQueryParam outQueryParam = new OutQueryParam(loginAuto,tradeItemAuto,type,statusName);
         List<OutList> list = outBoundService.selectOutList(outQueryParam);
         if (list.size() == 0){
             return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"暂无资料",null);
