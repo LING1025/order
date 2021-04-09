@@ -20,4 +20,10 @@ public class OutQueryParam implements Serializable {
      * 查询类别：1送件人员查看,2签核人员查看
      */
     private Integer type;
+
+    public OutQueryParam(Long loginAuto, Long tradeItemAuto, Integer type) {
+        this.loginAuto = loginAuto;
+        this.tradeItemAuto = tradeItemAuto;
+        this.type = type;
+    }
 }

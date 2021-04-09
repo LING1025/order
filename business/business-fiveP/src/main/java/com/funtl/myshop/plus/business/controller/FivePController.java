@@ -8,6 +8,7 @@ import com.funtl.myshop.plus.provider.api.OutBoundService;
 import com.funtl.myshop.plus.provider.api.OutCheckService;
 import com.funtl.myshop.plus.provider.api.TradeItemService;
 import com.funtl.myshop.plus.provider.domain.*;
+import com.funtl.myshop.plus.provider.dto.OutQueryParam;
 import io.swagger.annotations.*;
 import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.beans.BeanUtils;
@@ -95,6 +96,24 @@ public class FivePController {
             return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"保存失败",null);
         }
         return new ResponseResult<>(ResponseResult.CodeStatus.OK,"保存成功","新增数据的outBoundAuto："+i);
+    }
+
+    @ApiOperation(value = "获取外访报告新增后信息列表")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "loginAuto", value = "登录人userAuto",required = true,dataType ="long",paramType = "path"),
+            @ApiImplicitParam(name = "tradeItemAuto", value = "客户序号",required = true,dataType ="long",paramType = "path"),
+            @ApiImplicitParam(name = "type", value = "查询类别：1送件人员查看,2签核人员查看",required = true,dataType ="int",paramType = "path")
+    })
+    @GetMapping(value = "queryOutList")
+    public ResponseResult<List<OutList>> queryOutList(@RequestParam(name = "loginAuto") Long loginAuto,
+                                                @RequestParam(name = "tradeItemAuto") Long tradeItemAuto,
+                                                @RequestParam(name = "type") Integer type){
+        OutQueryParam outQueryParam = new OutQueryParam(loginAuto,tradeItemAuto,type);
+        List<OutList> list = outBoundService.selectOutList(outQueryParam);
+        if (list.size() == 0){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"暂无资料",null);
+        }
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK,"查询成功",list);
     }
 
     @ApiOperation(value = "获取外访报告明细")
