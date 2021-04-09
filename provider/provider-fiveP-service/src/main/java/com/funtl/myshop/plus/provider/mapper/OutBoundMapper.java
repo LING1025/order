@@ -18,7 +18,7 @@ public interface OutBoundMapper extends MyMapper<OutBound> {
     OutBound selectTradeAuto(@Param("tradeItemAuto") Long tradeItemAuto);
 
     /*获取外访报告明细（签核人员与送件人员可查看）*/
-    OutInfo selectOutInfo(@Param("loginAuto") Long loginAuto, @Param("tradeItemAuto") Long tradeItemAuto,@Param("outBoundAuto") Long outBoundAuto);
+    OutInfo selectOutInfo(@Param("outBoundAuto") Long outBoundAuto);
 
     /*外访新增后信息列表*/
     List<OutList> selectOutList(@Param("outQueryParam") OutQueryParam outQueryParam);

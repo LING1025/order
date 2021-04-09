@@ -40,11 +40,9 @@ public interface OutBoundService{
 
     /**
      * 获取外访报告明细（签核人员与送件人员可查看）
-     * @param loginAuto
-     * @param tradeItemAuto
      * @return
      */
-    OutInfo selectOutInfo(Long loginAuto,Long tradeItemAuto,Long outBoundAuto);
+    OutInfo selectOutInfo(Long outBoundAuto);
 
     /**
      * 外访客户修改数据

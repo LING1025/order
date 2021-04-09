@@ -117,16 +117,10 @@ public class FivePController {
     }
 
     @ApiOperation(value = "获取外访报告明细")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "loginAuto", value = "登录人userAuto",required = true,dataType ="long",paramType = "path"),
-            @ApiImplicitParam(name = "tradeItemAuto", value = "客户序号",required = true,dataType ="long",paramType = "path"),
-            @ApiImplicitParam(name = "outBoundAuto", value = "外访客户表序号",required = true,dataType ="long",paramType = "path")
-    })
+    @ApiImplicitParam(name = "outBoundAuto", value = "外访客户表序号",required = true,dataType ="long",paramType = "path")
     @GetMapping(value = "queryOutInfo")
-    public ResponseResult<OutInfo> queryOutInfo(@RequestParam(name = "loginAuto") Long loginAuto,
-                                                @RequestParam(name = "tradeItemAuto") Long tradeItemAuto,
-                                                @RequestParam(name = "outBoundAuto") Long outBoundAuto){
-        OutInfo outInfo = outBoundService.selectOutInfo(loginAuto,tradeItemAuto,outBoundAuto);
+    public ResponseResult<OutInfo> queryOutInfo(@RequestParam(name = "outBoundAuto") Long outBoundAuto){
+        OutInfo outInfo = outBoundService.selectOutInfo(outBoundAuto);
         if (outInfo == null){
             return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"暂无资料",null);
         }

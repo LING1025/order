@@ -95,14 +95,8 @@
     </resultMap>
     <select id="selectOutInfo" resultMap="queryOutInfo">
         declare
-        @loginAuto bigint=#{loginAuto},
-        @tradeItemAuto bigint=#{tradeItemAuto},
         @outBoundAuto bigint=#{outBoundAuto}
         begin
-        select
-        aa.*
-        from
-        (
         select
         a.outBoundAuto, a.tradeItemAuto, a.major
         ,statusName=case when a.status=1 then '未审核'
@@ -117,11 +111,7 @@
         outBound a
         left join outCheck b on b.outBoundAuto=a.outBoundAuto
         where
-        a.tradeItemAuto=@tradeItemAuto
-        and
-        (b.CheckAuto = @loginAuto or b.cuser=@loginAuto)
-        )aa
-        where aa.outBoundAuto=@outBoundAuto
+        a.outBoundAuto=@outBoundAuto
         end
     </select>
 
