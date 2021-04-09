@@ -3,6 +3,8 @@ package com.funtl.myshop.plus.provider.api;
 import com.funtl.myshop.plus.provider.domain.ChooseCheckList;
 import com.funtl.myshop.plus.provider.domain.OutBound;
 import com.funtl.myshop.plus.provider.domain.OutInfo;
+import com.funtl.myshop.plus.provider.domain.OutList;
+import com.funtl.myshop.plus.provider.dto.OutQueryParam;
 
 import java.util.List;
 
@@ -50,4 +52,11 @@ public interface OutBoundService{
      * @return
      */
     Integer update(OutBound outBound);
+
+    /**
+     * 外访新增后信息列表
+     * @param outQueryParam
+     * @return
+     */
+    List<OutList> selectOutList(OutQueryParam outQueryParam);
 }

@@ -5,6 +5,8 @@ import javax.annotation.Resource;
 import com.funtl.myshop.plus.provider.domain.ChooseCheckList;
 import com.funtl.myshop.plus.provider.domain.OutBound;
 import com.funtl.myshop.plus.provider.domain.OutInfo;
+import com.funtl.myshop.plus.provider.domain.OutList;
+import com.funtl.myshop.plus.provider.dto.OutQueryParam;
 import com.funtl.myshop.plus.provider.mapper.OutBoundMapper;
 import com.funtl.myshop.plus.provider.api.OutBoundService;
 import org.apache.dubbo.config.annotation.Service;
@@ -48,5 +50,10 @@ public class OutBoundServiceImpl implements OutBoundService{
     @Override
     public Integer update(OutBound outBound) {
         return outBoundMapper.updateByPrimaryKeySelective(outBound);
+    }
+
+    @Override
+    public List<OutList> selectOutList(OutQueryParam outQueryParam) {
+        return outBoundMapper.selectOutList(outQueryParam);
     }
 }
