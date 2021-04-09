@@ -166,7 +166,7 @@ a.outBoundAuto, a.tradeItemAuto
  when a.status=2 then '核准'
  else '驳回'end
  ,c.FName customer
- ,a.CUser
+ ,a.CUser userAuto
  ,v.FName name
 from
 outBound a
