@@ -46,7 +46,7 @@ server:
 
 #文件保存的磁盘路径
 file:
-  path: E:\下载\testUpFile\
+  path: C:\uploadFile\
 
 management:
   endpoints:

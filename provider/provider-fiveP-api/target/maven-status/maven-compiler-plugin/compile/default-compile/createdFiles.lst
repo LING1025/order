@@ -4,10 +4,12 @@ com\funtl\myshop\plus\provider\domain\OutCheck.class
 com\funtl\myshop\plus\provider\domain\TypeNameList.class
 com\funtl\myshop\plus\provider\domain\OutInfoCheck.class
 com\funtl\myshop\plus\provider\domain\CusBackground.class
+com\funtl\myshop\plus\provider\dto\OutQueryParam.class
 com\funtl\myshop\plus\provider\domain\OutBound.class
 com\funtl\myshop\plus\provider\domain\ItemCode.class
 com\funtl\myshop\plus\provider\domain\OutInfo.class
 com\funtl\myshop\plus\provider\api\ItemCodeService.class
 com\funtl\myshop\plus\provider\api\OutCheckService.class
 com\funtl\myshop\plus\provider\domain\ChooseCheckList.class
+com\funtl\myshop\plus\provider\domain\OutList.class
 com\funtl\myshop\plus\provider\domain\TradeItem.class
