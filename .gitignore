@@ -17,3 +17,7 @@ provider/provider-car-service/target/classes/
 business/business-fiveP/target/classes/
 provider/provider-fiveP-api/target/classes/
 provider/provider-fiveP-service/target/classes/
+business/business-wxOauth2/target/classes/
+business/business-wxOauth2/target/test-classes/
+business/business-wxUser/business-wxUser-service/target/classes/
+business/business-wxUser/business-wxUser-feign/target/classes/
