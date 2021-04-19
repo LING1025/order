@@ -25,7 +25,7 @@ public class TBoxLogController {
     @ApiOperation(value = "将logNew数据插入到数据库")
     @PostMapping(value = "logNew")
     public ResponseResult<List<String>> insert(){
-//        TBoxLog.getTBoxLog();
+        TBoxLog.getTBoxLog();
         //todo:解析logNew文件插入数据库
         List<String> list = Lists.newArrayList();
         String line = null;
@@ -35,10 +35,10 @@ public class TBoxLogController {
             FileReader fileReader = new FileReader(f);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
             while ((line = bufferedReader.readLine()) != null) {
-                String str = line.split(",")[2];
+                String str = line.split(",")[1];
                 System.out.println(str);
                 if (str.equals("01") || str.equals("24")){
-                    list.add(line);
+                    list.add("$E6,"+line);
                 }
             }
             return new ResponseResult<>(BusinessStatus.OK.getCode(), "保存成功", list);

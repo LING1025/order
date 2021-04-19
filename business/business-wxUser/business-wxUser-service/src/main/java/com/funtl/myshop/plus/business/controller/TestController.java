@@ -20,7 +20,7 @@ public class TestController {
             BufferedReader bufferedReader = new BufferedReader(fileReader);
 
             //正则
-            String patternStr = "接收到数据";
+            String patternStr = "E6,";
             Pattern pattern = Pattern.compile(patternStr);
             Matcher matcher = pattern.matcher("");
             while ((line = bufferedReader.readLine()) != null) {
@@ -34,7 +34,7 @@ public class TestController {
             FileWriter fileWriter = new FileWriter(f2);
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
             for (int i = 0; i < list.size(); i++) {
-                bufferedWriter.write(list.get(i).split("接收到数据：")[1]);//只记录TBox中AT指令
+                bufferedWriter.write(list.get(i).split("E6,")[1]);//只记录TBox中AT指令
                 bufferedWriter.newLine();
             }
 
