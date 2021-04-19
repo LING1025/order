@@ -1,4 +1,4 @@
-package com.funtl.myshop.plus.business.controller;
+package com.funtl.myshop.plus.controller;
 
 import com.google.common.collect.Lists;
 
@@ -7,8 +7,11 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class TestController {
-    public static void main(String[] args) {
+public class TBoxLog {
+    /**
+     * log.txt读取指定内容存入logNew.txt
+     */
+    public static void getTBoxLog() {
         List<String> list = Lists.newArrayList();
         String line = null;
         File f1 = new File("D:\\twoWork\\log.txt");//获取接收到的数据
