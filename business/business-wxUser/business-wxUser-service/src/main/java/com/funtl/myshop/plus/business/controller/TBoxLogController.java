@@ -1,9 +1,8 @@
 package com.funtl.myshop.plus.business.controller;
 
 import com.funtl.myshop.plus.business.BusinessStatus;
-import com.funtl.myshop.plus.business.dto.FileInfo;
 import com.funtl.myshop.plus.commons.dto.ResponseResult;
-import com.funtl.myshop.plus.controller.TBoxLog;
+import com.funtl.myshop.plus.controller.TBoxLogUtils;
 import com.google.common.collect.Lists;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.List;
 
@@ -25,7 +23,7 @@ public class TBoxLogController {
     @ApiOperation(value = "将logNew数据插入到TBoxLog表")
     @PostMapping(value = "logNew")
     public ResponseResult<List<String>> insert(){
-        TBoxLog.getTBoxLog();
+        TBoxLogUtils.getTBoxLog();
         //todo:解析logNew文件插入数据库
         List<String> list = Lists.newArrayList();
         String line = null;

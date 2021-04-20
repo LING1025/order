@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class TBoxLog {
+public class TBoxLogUtils {
     /**
      * log.txt读取指定内容存入logNew.txt
      */

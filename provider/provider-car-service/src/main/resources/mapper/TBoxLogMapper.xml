@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.funtl.myshop.plus.provider.mapper.TBoxLogMapper">
+  <resultMap id="BaseResultMap" type="com.funtl.myshop.plus.provider.domain.TBoxLog">
+    <!--@mbg.generated-->
+    <!--@Table TBoxLog-->
+    <id column="TBoxLogAuto" jdbcType="BIGINT" property="tBoxLogAuto" />
+    <result column="deviceId" jdbcType="VARCHAR" property="deviceId" />
+    <result column="logString" jdbcType="VARCHAR" property="logString" />
+    <result column="carBaseAuto" jdbcType="BIGINT" property="carBaseAuto" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="createDateTime" jdbcType="TIMESTAMP" property="createDateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    TBoxLogAuto, deviceId, logString, carBaseAuto, [type], createDateTime
+  </sql>
+</mapper>
