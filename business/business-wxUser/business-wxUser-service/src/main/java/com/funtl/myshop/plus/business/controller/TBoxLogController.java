@@ -22,7 +22,7 @@ import java.util.List;
 @RequestMapping(value = "TBox")
 public class TBoxLogController {
 
-    @ApiOperation(value = "将logNew数据插入到数据库")
+    @ApiOperation(value = "将logNew数据插入到TBoxLog表")
     @PostMapping(value = "logNew")
     public ResponseResult<List<String>> insert(){
         TBoxLog.getTBoxLog();
@@ -35,9 +35,10 @@ public class TBoxLogController {
             FileReader fileReader = new FileReader(f);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
             while ((line = bufferedReader.readLine()) != null) {
-                String str = line.split(",")[1];
-                System.out.println(str);
-                if (str.equals("01") || str.equals("24")){
+                String type = line.split(",")[1];//指令类型
+                String deviceId = line.split(",")[0];//设备号
+                String logString = "$E6,"+line;//记录AT指令
+                if (type.equals("01") || type.equals("24")){
                     list.add("$E6,"+line);
                 }
             }
