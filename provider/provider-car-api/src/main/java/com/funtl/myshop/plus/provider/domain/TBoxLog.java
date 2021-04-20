@@ -8,8 +8,10 @@ import lombok.experimental.Accessors;
 
 import javax.persistence.Column;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Data
+@Table(name = "[TBoxLog]")
 @RequiredArgsConstructor(staticName = "of")
 @Accessors(chain = true)
 public class TBoxLog implements Serializable {
@@ -42,7 +44,7 @@ public class TBoxLog implements Serializable {
     * AT指令类型：01车辆实时定位
     */
     @Column(name = "type")
-    private Integer type;
+    private String type;
 
     /**
     * 创建时间
