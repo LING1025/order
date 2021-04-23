@@ -24,11 +24,6 @@ public class OrgCarQueryParam implements Serializable {
     private String carArea;
 
     /**
-     * 续航里程
-     */
-//    private BigDecimal mileage;
-
-    /**
      * 1 自动配车 2获取车辆列表
      */
     private Integer type;

@@ -23,14 +23,17 @@
     <result column="Carbase_Auto" jdbcType="BIGINT" property="carBaseAuto" />
     <result column="MakNo" jdbcType="VARCHAR" property="makNo" />
     <result column="oilName" jdbcType="VARCHAR" property="oilName" />
-    <!--<result column="residueDL" jdbcType="DECIMAL" property="residueDL" />
-    <result column="mileage" jdbcType="DECIMAL" property="mileage" />-->
-    <result column="CC" jdbcType="INTEGER" property="cc" />
+	  <result column="carStatusN" jdbcType="VARCHAR" property="carStatusN" />
+	  <result column="totalDistance" jdbcType="BIGINT" property="totalDistance" />
+      <result column="residueDL" jdbcType="VARCHAR" property="residueDL" />
+	  <result column="mileage" jdbcType="INTEGER" property="mileage" />
+	  <result column="tipStatus" jdbcType="VARCHAR" property="tipStatus" />
+	  <result column="CC" jdbcType="INTEGER" property="cc" />
     <result column="BrandName" jdbcType="VARCHAR" property="brandName" />
     <result column="ClasenName" jdbcType="VARCHAR" property="clasenName" />
     <result column="CarColor" jdbcType="VARCHAR" property="carColor" />
     <result column="bsTypeN" jdbcType="VARCHAR" property="bsTypeN" />
-	  <result column="WHType" jdbcType="INTEGER" property="whType" />
+	<result column="WHType" jdbcType="INTEGER" property="whType" />
     <result column="whTypeN1" jdbcType="VARCHAR" property="whTypeN1" />
     <result column="whTypeN2" jdbcType="VARCHAR" property="whTypeN2" />
   </resultMap>
@@ -41,7 +44,6 @@
 	@oilName varchar(20)=#{param.oilName}--动力方式
 	,@bsTypeN varchar(10)=#{param.bsTypeN}--排挡方式
 	,@carArea varchar(10)=#{param.carArea}--牌照地区
-<!--	,@mileage decimal(18,0)=#{param.mileage} &#45;&#45;续航里程-->
 	,@type int =#{param.type} --1 自动配车 2获取车辆列表
 	  BEGIN
 	  declare @Org_Auto int ,@IsSalesDep int
@@ -80,8 +82,11 @@
 	  select distinct o.Carbase_Auto
 	  ,c.MakNo
 	  ,i.ItemName oilName
-<!--	  ,isnull(cse.residueDL,0) residueDL-->
-<!--	  ,isnull(cse.mileage,0) mileage-->
+	  ,carStatusN=case when cm.carStatus=0 then '关闭' when cm.carStatus=1 then '打开' else '' end
+	  ,isnull(cm.totalDistance,0) totalDistance
+	  ,isnull(cm.residueDL,'0%') residueDL
+	  ,isnull(cm.mileage,0) mileage
+	  ,tipStatus=case when cm.tipStatus=0 then '关闭' when cm.tipStatus=1 then '打开' else ''  end
 	  ,c.CC
 	  ,b.BrandName
 	  ,cn.ClasenName
@@ -100,12 +105,12 @@
 	  left join ItemCode i3 on i3.num = cse.WHType and i3.ItemType=826--仓库别
 	  left join ItemCode i on i.num = c.oil and i.ItemType=231 --燃油种类
 	  left join ItemCode i2 on i2.num = c.BSType and i2.ItemType=841 --变速类型
+	  left join CarMessage cm on cm.carBaseAuto=o.Carbase_Auto
 	  where o.[Status]=1 and o.IsOn=1 and o.Org_Auto=@Org_Auto
 	  and isnull(ca.Status,0) not in(10,20,21,30)
 	  )aa
 	  where (aa.oilName=@oilName or aa.oilName LIKE '%'+@oilName+'%') and aa.bsTypeN=@bsTypeN
 	  and aa.MakNo LIKE '%'+@carSName+'%'
-<!--	  and aa.mileage>=@mileage-->
 	  end
 	  else
 	  begin
@@ -116,8 +121,11 @@
 	  (select o.Carbase_Auto
 	  ,c.MakNo
 	  ,i.ItemName oilName
-<!--	  ,isnull(cse.residueDL,0) residueDL-->
-<!--	  ,isnull(cse.mileage,0) mileage-->
+	  ,carStatusN=case when cm.carStatus=0 then '关闭' when cm.carStatus=1 then '打开' else '' end
+	  ,isnull(cm.totalDistance,0) totalDistance
+	  ,isnull(cm.residueDL,'0%') residueDL
+	  ,isnull(cm.mileage,0) mileage
+	  ,tipStatus=case when cm.tipStatus=0 then '关闭' when cm.tipStatus=1 then '打开' else ''  end
 	  ,c.CC
 	  ,b.BrandName
 	  ,cn.ClasenName
@@ -135,12 +143,11 @@
 	  left join ItemCode i3 on i3.num = cse.WHType and i3.ItemType=826--仓库别
 	  left join ItemCode i on i.num = c.oil and i.ItemType=231 --燃油种类
 	  left join ItemCode i2 on i2.num = c.BSType and i2.ItemType=841 --变速类型
-	  left join ItemCode i4 on i4.num = cse.CarStatus and i4.ItemType=825 --车状态：5在库
+	  left join CarMessage cm on cm.carBaseAuto=o.Carbase_Auto
 	  where o.[Status]=1 and o.IsOn=1 and o.Org_Auto=9999
 	  )aa
 	  where (aa.oilName=@oilName or aa.oilName LIKE '%'+@oilName+'%') and aa.bsTypeN=@bsTypeN
 	  and aa.MakNo LIKE '%'+@carSName+'%'
-<!--	  and aa.mileage>=@mileage-->
 	  and aa.Carbase_Auto not in
 	  (select
 	  distinct Carbase_Auto
@@ -162,8 +169,11 @@
 	  (select cse.Carbase_Auto
 	  ,c.MakNo
 	  ,i.ItemName oilName
-<!--	  ,isnull(cse.residueDL,0) residueDL-->
-<!--	  ,isnull(cse.mileage,0) mileage-->
+	  ,carStatusN=case when cm.carStatus=0 then '关闭' when cm.carStatus=1 then '打开' else '' end
+	  ,isnull(cm.totalDistance,0) totalDistance
+	  ,isnull(cm.residueDL,'0%') residueDL
+	  ,isnull(cm.mileage,0) mileage
+	  ,tipStatus=case when cm.tipStatus=0 then '关闭' when cm.tipStatus=1 then '打开' else ''  end
 	  ,c.CC
 	  ,b.BrandName
 	  ,cn.ClasenName
@@ -180,12 +190,12 @@
 	  left join ItemCode i3 on i3.num = cse.WHType and i3.ItemType=826--仓库别
 	  left join ItemCode i on i.num = c.oil and i.ItemType=231 --燃油种类
 	  left join ItemCode i2 on i2.num = c.BSType and i2.ItemType=841 --变速类型
+	  left join CarMessage cm on cm.carBaseAuto=cse.Carbase_Auto
 	  where i4.num!=3 --3结案
 	  and cse.IsOn=1
 	  )aa
 	  where (aa.oilName=@oilName or aa.oilName LIKE '%'+@oilName+'%') and aa.bsTypeN=@bsTypeN
 	  and aa.MakNo LIKE '%'+@carSName+'%'
-<!--	  and aa.mileage>=@mileage-->
 	  end
 	  end
 	  if(@type=2)
@@ -200,8 +210,11 @@
 	  select distinct o.Carbase_Auto
 	  ,c.MakNo
 	  ,i.ItemName oilName
-<!--	  ,isnull(cse.residueDL,0) residueDL-->
-<!--	  ,isnull(cse.mileage,0) mileage-->
+	  ,carStatusN=case when cm.carStatus=0 then '关闭' when cm.carStatus=1 then '打开' else '' end
+	  ,isnull(cm.totalDistance,0) totalDistance
+	  ,isnull(cm.residueDL,'0%') residueDL
+	  ,isnull(cm.mileage,0) mileage
+	  ,tipStatus=case when cm.tipStatus=0 then '关闭' when cm.tipStatus=1 then '打开' else ''  end
 	  ,c.CC
 	  ,b.BrandName
 	  ,cn.ClasenName
@@ -220,12 +233,12 @@
 	  left join ItemCode i3 on i3.num = cse.WHType and i3.ItemType=826--仓库别
 	  left join ItemCode i on i.num = c.oil and i.ItemType=231 --燃油种类
 	  left join ItemCode i2 on i2.num = c.BSType and i2.ItemType=841 --变速类型
+	  left join CarMessage cm on cm.carBaseAuto=o.Carbase_Auto
 	  where o.[Status]=1 and o.IsOn=1 and o.Org_Auto=@Org_Auto
 	  and isnull(ca.Status,0) not in(10,20,21,30)
 	  )aa
 	  where (aa.oilName=@oilName or aa.oilName LIKE '%'+@oilName+'%') and aa.bsTypeN=@bsTypeN
 	  and aa.MakNo LIKE '%'+@carSName+'%'
-<!--	  and aa.mileage>=@mileage-->
 	  end
 	  else
 	  begin
@@ -236,8 +249,11 @@
 	  (select o.Carbase_Auto
 	  ,c.MakNo
 	  ,i.ItemName oilName
-<!--	  ,isnull(cse.residueDL,0) residueDL-->
-<!--	  ,isnull(cse.mileage,0) mileage-->
+	  ,carStatusN=case when cm.carStatus=0 then '关闭' when cm.carStatus=1 then '打开' else '' end
+	  ,isnull(cm.totalDistance,0) totalDistance
+	  ,isnull(cm.residueDL,'0%') residueDL
+	  ,isnull(cm.mileage,0) mileage
+	  ,tipStatus=case when cm.tipStatus=0 then '关闭' when cm.tipStatus=1 then '打开' else ''  end
 	  ,c.CC
 	  ,b.BrandName
 	  ,cn.ClasenName
@@ -255,12 +271,11 @@
 	  left join ItemCode i3 on i3.num = cse.WHType and i3.ItemType=826--仓库别
 	  left join ItemCode i on i.num = c.oil and i.ItemType=231 --燃油种类
 	  left join ItemCode i2 on i2.num = c.BSType and i2.ItemType=841 --变速类型
-	  left join ItemCode i4 on i4.num = cse.CarStatus and i4.ItemType=825 --车状态：5在库
+	  left join CarMessage cm on cm.carBaseAuto=o.Carbase_Auto
 	  where o.[Status]=1 and o.IsOn=1 and o.Org_Auto=9999
 	  )aa
 	  where (aa.oilName=@oilName or aa.oilName LIKE '%'+@oilName+'%') and aa.bsTypeN=@bsTypeN
 	  and aa.MakNo LIKE '%'+@carSName+'%'
-<!--	  and aa.mileage>=@mileage-->
 	  and aa.Carbase_Auto not in
 	  (select
 	  distinct Carbase_Auto
@@ -282,8 +297,11 @@
 	  (select cse.Carbase_Auto
 	  ,c.MakNo
 	  ,i.ItemName oilName
-<!--	  ,isnull(cse.residueDL,0) residueDL-->
-<!--	  ,isnull(cse.mileage,0) mileage-->
+	  ,carStatusN=case when cm.carStatus=0 then '关闭' when cm.carStatus=1 then '打开' else '' end
+	  ,isnull(cm.totalDistance,0) totalDistance
+	  ,isnull(cm.residueDL,'0%') residueDL
+	  ,isnull(cm.mileage,0) mileage
+	  ,tipStatus=case when cm.tipStatus=0 then '关闭' when cm.tipStatus=1 then '打开' else ''  end
 	  ,c.CC
 	  ,b.BrandName
 	  ,cn.ClasenName
@@ -300,12 +318,12 @@
 	  left join ItemCode i3 on i3.num = cse.WHType and i3.ItemType=826--仓库别
 	  left join ItemCode i on i.num = c.oil and i.ItemType=231 --燃油种类
 	  left join ItemCode i2 on i2.num = c.BSType and i2.ItemType=841 --变速类型
+	  left join CarMessage cm on cm.carBaseAuto=cse.Carbase_Auto
 	  where i4.num!=3 --3结案
 	  and cse.IsOn=1
 	  )aa
 	  where (aa.oilName=@oilName or aa.oilName LIKE '%'+@oilName+'%') and aa.bsTypeN=@bsTypeN
 	  and aa.MakNo LIKE '%'+@carSName+'%'
-<!--	  and aa.mileage>=@mileage-->
 	  end
 	  end
 
