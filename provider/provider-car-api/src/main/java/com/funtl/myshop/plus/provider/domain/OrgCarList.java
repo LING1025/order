@@ -15,7 +15,11 @@ public class OrgCarList implements Serializable {
     @ApiModelProperty(value = "车牌号码")
     private String makNo;
 
-    @ApiModelProperty(value = "动力状态")
+    /**
+     * 车辆安装TBox后解除
+     */
+
+    /*@ApiModelProperty(value = "动力状态")
     private String carStatusN;
 
     @ApiModelProperty(value = "总里程KM")
@@ -28,7 +32,7 @@ public class OrgCarList implements Serializable {
     private Integer mileage;
 
     @ApiModelProperty(value = "发动机故障灯状态")
-    private String tipStatus;
+    private String tipStatus;*/
 
     @ApiModelProperty(value = "燃油种类")
     private String oilName;
