@@ -12,6 +12,7 @@ D:\twoWork\order\provider\provider-car-api\src\main\java\com\funtl\myshop\plus\p
 D:\twoWork\order\provider\provider-car-api\src\main\java\com\funtl\myshop\plus\provider\api\PurchaseRequestService.java
 D:\twoWork\order\provider\provider-car-api\src\main\java\com\funtl\myshop\plus\provider\dto\OrgCarQueryParam.java
 D:\twoWork\order\provider\provider-car-api\src\main\java\com\funtl\myshop\plus\provider\domain\RequestInc.java
+D:\twoWork\order\provider\provider-car-api\src\main\java\com\funtl\myshop\plus\provider\domain\TBoxLog.java
 D:\twoWork\order\provider\provider-car-api\src\main\java\com\funtl\myshop\plus\provider\domain\GetKeyDto.java
 D:\twoWork\order\provider\provider-car-api\src\main\java\com\funtl\myshop\plus\provider\domain\CarApplication.java
 D:\twoWork\order\provider\provider-car-api\src\main\java\com\funtl\myshop\plus\provider\domain\CarAreaList.java
@@ -30,6 +31,7 @@ D:\twoWork\order\provider\provider-car-api\src\main\java\com\funtl\myshop\plus\p
 D:\twoWork\order\provider\provider-car-api\src\main\java\com\funtl\myshop\plus\provider\domain\PurchaseRequest.java
 D:\twoWork\order\provider\provider-car-api\src\main\java\com\funtl\myshop\plus\provider\api\ItemCodeService.java
 D:\twoWork\order\provider\provider-car-api\src\main\java\com\funtl\myshop\plus\provider\domain\CarApplyOrg.java
+D:\twoWork\order\provider\provider-car-api\src\main\java\com\funtl\myshop\plus\provider\service\TBoxLogService.java
 D:\twoWork\order\provider\provider-car-api\src\main\java\com\funtl\myshop\plus\provider\api\VEmpService.java
 D:\twoWork\order\provider\provider-car-api\src\main\java\com\funtl\myshop\plus\provider\domain\Purchase.java
 D:\twoWork\order\provider\provider-car-api\src\main\java\com\funtl\myshop\plus\provider\dto\CheckQueryParam.java

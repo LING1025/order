@@ -34,4 +34,6 @@ com\funtl\myshop\plus\provider\domain\ItemCode.class
 com\funtl\myshop\plus\provider\domain\OrgCar.class
 com\funtl\myshop\plus\provider\domain\UseCarDoc.class
 com\funtl\myshop\plus\provider\domain\OrgCarList.class
+com\funtl\myshop\plus\provider\service\TBoxLogService.class
+com\funtl\myshop\plus\provider\domain\TBoxLog.class
 com\funtl\myshop\plus\provider\domain\UserCarList.class

@@ -1,5 +1,6 @@
 D:\twoWork\order\provider\provider-car-service\src\main\java\com\funtl\myshop\plus\provider\mapper\OrgCarMapper.java
 D:\twoWork\order\provider\provider-car-service\src\main\java\com\funtl\myshop\plus\provider\service\CarApplicationServiceImpl.java
+D:\twoWork\order\provider\provider-car-service\src\main\java\com\funtl\myshop\plus\provider\service\TBoxLogServiceImpl.java
 D:\twoWork\order\provider\provider-car-service\src\main\java\com\funtl\myshop\plus\provider\ProviderCarApplication.java
 D:\twoWork\order\provider\provider-car-service\src\main\java\com\funtl\myshop\plus\provider\mapper\CarApplicationMapper.java
 D:\twoWork\order\provider\provider-car-service\src\main\java\com\funtl\myshop\plus\provider\mapper\PurchaseRequestMapper.java
@@ -10,6 +11,7 @@ D:\twoWork\order\provider\provider-car-service\src\main\java\com\funtl\myshop\pl
 D:\twoWork\order\provider\provider-car-service\src\main\java\com\funtl\myshop\plus\provider\mapper\VEmpMapper.java
 D:\twoWork\order\provider\provider-car-service\src\main\java\com\funtl\myshop\plus\provider\mapper\PurchaseRRFlowMapper.java
 D:\twoWork\order\provider\provider-car-service\src\main\java\com\funtl\myshop\plus\provider\mapper\PurchaseMapper.java
+D:\twoWork\order\provider\provider-car-service\src\main\java\com\funtl\myshop\plus\provider\mapper\TBoxLogMapper.java
 D:\twoWork\order\provider\provider-car-service\src\main\java\com\funtl\myshop\plus\provider\service\PurchaseRequestServiceImpl.java
 D:\twoWork\order\provider\provider-car-service\src\main\java\com\funtl\myshop\plus\provider\service\ItemCodeServiceImpl.java
 D:\twoWork\order\provider\provider-car-service\src\main\java\com\funtl\myshop\plus\provider\service\VEmpServiceImpl.java
