@@ -23,11 +23,11 @@
     <result column="Carbase_Auto" jdbcType="BIGINT" property="carBaseAuto" />
     <result column="MakNo" jdbcType="VARCHAR" property="makNo" />
     <result column="oilName" jdbcType="VARCHAR" property="oilName" />
-	  <!--<result column="carStatusN" jdbcType="VARCHAR" property="carStatusN" />
+	  <result column="carStatusN" jdbcType="VARCHAR" property="carStatusN" />
 	  <result column="totalDistance" jdbcType="BIGINT" property="totalDistance" />
       <result column="residueDL" jdbcType="VARCHAR" property="residueDL" />
 	  <result column="mileage" jdbcType="INTEGER" property="mileage" />
-	  <result column="tipStatus" jdbcType="VARCHAR" property="tipStatus" />-->
+	  <result column="tipStatus" jdbcType="VARCHAR" property="tipStatus" />
 	  <result column="CC" jdbcType="INTEGER" property="cc" />
     <result column="BrandName" jdbcType="VARCHAR" property="brandName" />
     <result column="ClasenName" jdbcType="VARCHAR" property="clasenName" />
