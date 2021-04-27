@@ -104,11 +104,20 @@ public class CheckOne implements Serializable {
     @ApiModelProperty(value = "燃油种类")
     private String oilName;
 
-    @ApiModelProperty(value = "剩余电量")
-    private BigDecimal residueDL;
+    @ApiModelProperty(value = "动力状态")
+    private String carStatusN;
 
-    @ApiModelProperty(value = "续航里程")
-    private BigDecimal mileage;
+    @ApiModelProperty(value = "总里程KM")
+    private Long totalDistance;
+
+    @ApiModelProperty(value = "剩余电量 0 ~ 100%")
+    private String residueDL;
+
+    @ApiModelProperty(value = "续航里程KM")
+    private Integer mileage;
+
+    @ApiModelProperty(value = "发动机故障灯状态")
+    private String tipStatus;
 
     @ApiModelProperty(value = "厂牌")
     private String brandName;

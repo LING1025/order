@@ -506,8 +506,8 @@ select c.CarApplication_Auto,v.FName appUserN,i.ItemName appTypeN, c.PlanStartDT
         <result column="Carbase_Auto" jdbcType="BIGINT" property="carBaseAuto" />
         <result column="MakNo" jdbcType="VARCHAR" property="makNo" />
         <result column="oilName" jdbcType="VARCHAR" property="oilName" />
-        <result column="residueDL" jdbcType="DECIMAL" property="residueDL" />
-        <result column="mileage" jdbcType="DECIMAL" property="mileage" />
+        <result column="residueDL" jdbcType="VARCHAR" property="residueDL" />
+        <result column="mileage" jdbcType="INTEGER" property="mileage" />
         <result column="BrandName" jdbcType="VARCHAR" property="brandName" />
         <result column="ClasenName" jdbcType="VARCHAR" property="clasenName" />
         <result column="CarColor" jdbcType="VARCHAR" property="carColor" />
@@ -542,8 +542,11 @@ select c.CarApplication_Auto,v.FName appUserN,i.ItemName appTypeN, c.PlanStartDT
         ,cb.CarBase_Auto
         ,cb.MakNo
         ,i3.ItemName oilName
-        ,isnull(cse.residueDL,0) residueDL
-        ,isnull(cse.mileage,0) mileage
+        ,carStatusN=case when cm.carStatus=0 then '关闭' when cm.carStatus=1 then '打开' else '' end
+        ,isnull(cm.totalDistance,0) totalDistance
+        ,isnull(cm.residueDL,'0%') residueDL
+        ,isnull(cm.mileage,0) mileage
+        ,tipStatus=case when cm.tipStatus=0 then '关闭' when cm.tipStatus=1 then '打开' else ''  end
         ,b.BrandName
         ,cn.ClasenName
         ,cb.CarColor
@@ -567,6 +570,7 @@ select c.CarApplication_Auto,v.FName appUserN,i.ItemName appTypeN, c.PlanStartDT
         left join ItemCode i5 on i5.num = cse.WHType and i5.ItemType=826--仓库别
         left join DocSystem.dbo.WorkFlowDoc  t1 on c.CarApplication_Auto=t1.DocPostID  and t1.DocType=10
         left join [Portal].[dbo].[Portal_Roles] t2  on t1.RoleID=t2.RoleID
+        left join CarMessage cm on cm.carBaseAuto=c.Carbase_Auto
         where t2.RoleID in (
         select distinct
         c.Roles_Auto
@@ -902,9 +906,12 @@ select distinct c.CarApplication_Auto,v.FName appUserN,i.ItemName appTypeN, c.Pl
 		,cb.CarBase_Auto
 		,cb.MakNo
 		,i3.ItemName oilName
-		,isnull(cse.residueDL,0) residueDL
-		,isnull(cse.mileage,0) mileage
-		,b.BrandName
+        ,carStatusN=case when cm.carStatus=0 then '关闭' when cm.carStatus=1 then '打开' else '' end
+        ,isnull(cm.totalDistance,0) totalDistance
+        ,isnull(cm.residueDL,'0%') residueDL
+        ,isnull(cm.mileage,0) mileage
+        ,tipStatus=case when cm.tipStatus=0 then '关闭' when cm.tipStatus=1 then '打开' else ''  end
+        ,b.BrandName
 		,cn.ClasenName
 		,cb.CarColor
 		,i4.ItemName bsTypeN
@@ -934,6 +941,7 @@ select distinct c.CarApplication_Auto,v.FName appUserN,i.ItemName appTypeN, c.Pl
 		left join ItemCode i4 on i4.num = cb.BSType and i4.ItemType=841 --变速类型
 		left join ItemCode i5 on i5.num = cse.WHType and i5.ItemType=826--仓库别
 		left join DocSystem.dbo.Employee e on v.UserName=e.Account collate Chinese_PRC_CI_AS
+        left join CarMessage cm on cm.carBaseAuto=c.Carbase_Auto
 		where c.[Status]in(10,20,21,30,40) and v.IsOn=1 and v2.IsOn=1 and e.[Status]='任用'
 		and e.Inc_Auto in(select V1 from ItemCode i3 inner join CarStationManager cm on i3.Num=cm.Station and cm.User_auto=@LoginUserID where i3.ItemType=826 and cm.Status=1)
 	)aa
@@ -1026,9 +1034,12 @@ select distinct c.CarApplication_Auto,v.FName appUserN,i.ItemName appTypeN, c.Pl
 		,cb.CarBase_Auto
 		,cb.MakNo
 		,i3.ItemName oilName
-		,isnull(cse.residueDL,0) residueDL
-		,isnull(cse.mileage,0) mileage
-		,b.BrandName
+        ,carStatusN=case when cm.carStatus=0 then '关闭' when cm.carStatus=1 then '打开' else '' end
+        ,isnull(cm.totalDistance,0) totalDistance
+        ,isnull(cm.residueDL,'0%') residueDL
+        ,isnull(cm.mileage,0) mileage
+        ,tipStatus=case when cm.tipStatus=0 then '关闭' when cm.tipStatus=1 then '打开' else ''  end
+        ,b.BrandName
 		,cn.ClasenName
 		,cb.CarColor
 		,i4.ItemName bsTypeN
@@ -1056,6 +1067,7 @@ select distinct c.CarApplication_Auto,v.FName appUserN,i.ItemName appTypeN, c.Pl
 		left join ItemCode i4 on i4.num = cb.BSType and i4.ItemType=841 --变速类型
 		left join ItemCode i5 on i5.num = cse.WHType and i5.ItemType=826--仓库别
 		left join DocSystem.dbo.Employee e on v.UserName=e.Account collate Chinese_PRC_CI_AS
+        left join CarMessage cm on cm.carBaseAuto=c.Carbase_Auto
 <!--		left join DocSystem.dbo.WorkFlowDoc  t1 on c.CarApplication_Auto=t1.DocPostID  and t1.DocType=10-->
 <!--		left join [Portal].[dbo].[Portal_Roles] t2  on t1.RoleID=t2.RoleID-->
 		where v.IsOn=1 and v2.IsOn=1 and e.[Status]='任用'
