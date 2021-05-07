@@ -93,5 +93,22 @@
       order by pr.PurchaseRequest_Auto desc
     </select>
 
+    <resultMap id="queryBank" type="com.funtl.myshop.plus.provider.domain.BankList">
+      <result column="BankType" jdbcType="INTEGER" property="bankType" />
+      <result column="BankNameT" jdbcType="VARCHAR" property="bankNameT" />
+    </resultMap>
+    <select id="selectBank" resultMap="queryBank">
+    declare
+    @BankNameT varchar(100)=#{bankNameT}
+    begin
+    select
+    BankNameT,cast(BankType as int)BankType
+    from
+    BankType
+    where BankNameT like '%'+@BankNameT+'%'
+    order by BankNameT
+    end
+    </select>
+
 
 </mapper>

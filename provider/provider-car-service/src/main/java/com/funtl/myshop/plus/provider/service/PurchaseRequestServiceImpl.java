@@ -1,6 +1,7 @@
 package com.funtl.myshop.plus.provider.service;
 
 import com.funtl.myshop.plus.provider.api.PurchaseRequestService;
+import com.funtl.myshop.plus.provider.domain.BankList;
 import com.funtl.myshop.plus.provider.domain.PurchaseFeeList;
 import com.funtl.myshop.plus.provider.domain.PurchaseRequest;
 import com.funtl.myshop.plus.provider.domain.RequestInc;
@@ -47,6 +48,10 @@ public class PurchaseRequestServiceImpl implements PurchaseRequestService{
         return purchaseRequestMapper.selectByPrimaryKey(purchaseRequestAuto);
     }
 
+    @Override
+    public List<BankList> selectBank(String bankNameT) {
+        return purchaseRequestMapper.selectBank(bankNameT);
+    }
 
 
 }

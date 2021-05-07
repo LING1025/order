@@ -58,6 +58,15 @@ public class CarBackController {
         return new ResponseResult<>(ResponseResult.CodeStatus.OK,"提交成功",null);
     }
 
+    @ApiOperation(value = "银行别下拉选数据")
+    @ApiImplicitParam(name = "bankNameT",value = "银行名称",required = false,dataType = "String",paramType = "path")
+    @GetMapping(value = "queryBank")
+    public ResponseResult<List<BankList>> queryBank(@RequestParam(name = "bankNameT") String bankNameT){
+        List<BankList> lists = purchaseRequestService.selectBank(bankNameT);
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK,"查询成功",lists);
+    }
+
+
     /*@ApiOperation(value = "车辆归还：判断是否逾期")
     @ApiImplicitParam(name = "carApplicationAuto",value = "用车申请单号",required = true,dataType = "Long",paramType = "path")
     @GetMapping(value = "queryIsOver")

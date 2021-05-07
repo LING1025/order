@@ -1,5 +1,6 @@
 package com.funtl.myshop.plus.provider.api;
 
+import com.funtl.myshop.plus.provider.domain.BankList;
 import com.funtl.myshop.plus.provider.domain.PurchaseFeeList;
 import com.funtl.myshop.plus.provider.domain.PurchaseRequest;
 import com.funtl.myshop.plus.provider.domain.RequestInc;
@@ -50,4 +51,11 @@ public interface PurchaseRequestService{
      * @return
      */
     PurchaseRequest selectById(Long purchaseRequestAuto);
+
+    /**
+     * 获取银行别下拉选数据
+     * @param bankNameT
+     * @return
+     */
+    List<BankList> selectBank(String bankNameT);
 }
