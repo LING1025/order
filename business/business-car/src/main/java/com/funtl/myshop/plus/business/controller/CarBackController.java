@@ -17,7 +17,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
-@Api(tags = "车辆归还模块相关操作")
+@Api(tags = "用车费用管理相关操作")
 @RestController
 @RequestMapping(value = "carBack")
 public class CarBackController {
@@ -34,7 +34,7 @@ public class CarBackController {
     private PurchaseRRFlowService purchaseRRFlowService;
 
 
-    @ApiOperation(value = "车辆归还：提交实时拍照数据(此接口如要测试请联系后端)")
+    @ApiOperation(value = "车辆照片：提交实时拍照数据(此接口如要测试请联系后端)")
     @PutMapping(value = "updatePhoto")
     public ResponseResult<String> updatePhoto(@ApiParam(value = "车辆归还：实时拍照数据") @Valid @RequestBody CarPhotoParamDto carPhotoParamDto){
         if (carPhotoParamDto.getLoginUserID() == 0){
@@ -58,7 +58,7 @@ public class CarBackController {
         return new ResponseResult<>(ResponseResult.CodeStatus.OK,"提交成功",null);
     }
 
-    @ApiOperation(value = "车辆归还：判断是否逾期")
+    /*@ApiOperation(value = "车辆归还：判断是否逾期")
     @ApiImplicitParam(name = "carApplicationAuto",value = "用车申请单号",required = true,dataType = "Long",paramType = "path")
     @GetMapping(value = "queryIsOver")
     public ResponseResult<Integer> queryIsOver(@RequestParam(name = "carApplicationAuto") Long carApplicationAuto) {
@@ -70,9 +70,9 @@ public class CarBackController {
             return new ResponseResult<>(ResponseResult.CodeStatus.OK,"已逾期",1);
         }
         return new ResponseResult<>(ResponseResult.CodeStatus.OK,"未逾期",0);
-    }
+    }*/
 
-    @ApiOperation(value = "车辆归还：用车费用请款(此接口如要测试请联系后端)")
+    @ApiOperation(value = "用车费用：用车费用请款(此接口如要测试请联系后端)")
     @PostMapping(value = "insertUseCarFee")
     public ResponseResult<String> insertUseCarFee(@ApiParam(value = "车辆归还：用车费用请款数据") @Valid @RequestBody UserCarRequestParamDto userCarRequestParamDto){
         CarApplication carApplication = carApplicationService.selectByCarApplicationAuto(userCarRequestParamDto.getCarApplicationAuto());
@@ -133,7 +133,7 @@ public class CarBackController {
 
         return new ResponseResult<>(ResponseResult.CodeStatus.OK,"请款成功",null);
     }
-    @ApiOperation(value = "车辆归还：用车累计费用金额(此接口如要测试请联系后端)")
+    @ApiOperation(value = "用车费用：用车累计费用金额(此接口如要测试请联系后端)")
     @PutMapping(value = "updateRequestFee")
     public ResponseResult<String> updateRequestFee(@ApiParam(value = "车辆归还：用车费用请款数据") @Valid @RequestBody RequestAmtParamDto requestAmtParamDto) {
         CarApplication carApplication = carApplicationService.selectByCarApplicationAuto(requestAmtParamDto.getCarApplicationAuto());
@@ -153,7 +153,7 @@ public class CarBackController {
         return new ResponseResult<>(ResponseResult.CodeStatus.OK,"保存成功",null);
     }
 
-    @ApiOperation(value = "车辆归还：费用列表")
+    @ApiOperation(value = "用车费用：费用列表")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "requestUser",value = "请款人序号",required = true,dataType = "Long",paramType = "path"),
             @ApiImplicitParam(name = "carApplicationAuto",value = "用车申请单号",required = true,dataType = "Long",paramType = "path")
@@ -171,7 +171,7 @@ public class CarBackController {
         return new ResponseResult<>(ResponseResult.CodeStatus.OK,"查询成功",lists);
     }
 
-    @ApiOperation(value = "车辆归还：删除费用列表中具体数据")
+    @ApiOperation(value = "用车费用：删除费用列表中具体数据")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "requestUser",value = "请款人序号",required = true,dataType = "Long",paramType = "path"),
             @ApiImplicitParam(name = "purchaseRequestAuto",value = "请款单号",required = true,dataType = "Long",paramType = "path")
