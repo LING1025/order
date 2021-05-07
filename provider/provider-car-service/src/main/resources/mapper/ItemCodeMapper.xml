@@ -60,7 +60,7 @@
         begin
         select num=0,ItemName='==请选择=='
         union all
-        select num,ItemName  from ItemCode where ItemType=899
+        select num,ItemName  from ItemCode where ItemType=899 and Num!=2 order by Num
         end
         if @type=897
         begin

@@ -72,7 +72,7 @@ public class CarBackController {
         return new ResponseResult<>(ResponseResult.CodeStatus.OK,"未逾期",0);
     }*/
 
-    @ApiOperation(value = "用车费用：用车费用请款(此接口如要测试请联系后端)")
+    @ApiOperation(value = "用车费用：请款(此接口如要测试请联系后端)")
     @PostMapping(value = "insertUseCarFee")
     public ResponseResult<String> insertUseCarFee(@ApiParam(value = "车辆归还：用车费用请款数据") @Valid @RequestBody UserCarRequestParamDto userCarRequestParamDto){
         CarApplication carApplication = carApplicationService.selectByCarApplicationAuto(userCarRequestParamDto.getCarApplicationAuto());
@@ -93,6 +93,22 @@ public class CarBackController {
         //请款
         PurchaseRequest purchaseRequest = new PurchaseRequest();
         BeanUtils.copyProperties(userCarRequestParamDto,purchaseRequest);
+        if(userCarRequestParamDto.getPayType() != 4){
+            purchaseRequest.setBankType(0);
+        }else{
+            if(userCarRequestParamDto.getPayee() == null){
+                return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"请输入供应商/领款人!",null);
+            }
+            if(userCarRequestParamDto.getPayeeAccount() == null){
+                return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"请输入账号!",null);
+            }
+            if(userCarRequestParamDto.getBankName() == null){
+                return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"请输入开户行!",null);
+            }
+            if (userCarRequestParamDto.getPayType() == 0){
+                return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"请选择银行别!",null);
+            }
+        }
         purchaseRequest.setIncAuto(requestInc.getIncAuto());//公司别
         purchaseRequest.setRequestType(1);//请款类别:1一般事务
         purchaseRequest.setRequestDT(new Date());//请款日期
