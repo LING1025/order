@@ -32,7 +32,7 @@ public class CarPhotoParamDto implements Serializable {
     @ApiModelProperty(value = "车身照后部")
     private String behindImg;
 
-    @ApiModelProperty(value = "起始里程拍照时间yyyy-MM-dd HH:mm")
+    /*@ApiModelProperty(value = "起始里程拍照时间yyyy-MM-dd HH:mm")
     @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd HH:mm")
     private Date time1;
 
@@ -50,7 +50,7 @@ public class CarPhotoParamDto implements Serializable {
 
     @ApiModelProperty(value = "车身后部拍照时间yyyy-MM-dd HH:mm")
     @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd HH:mm")
-    private Date time5;
+    private Date time5;*/
 
     @ApiModelProperty(value = "起始里程拍照地址")
     private String address1;

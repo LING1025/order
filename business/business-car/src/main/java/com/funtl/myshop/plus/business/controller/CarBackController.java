@@ -46,6 +46,11 @@ public class CarBackController {
         CarApplication carApplication = new CarApplication();
         BeanUtils.copyProperties(carPhotoParamDto,carApplication);
         carApplication.setMUser(carPhotoParamDto.getLoginUserID().intValue());
+        carApplication.setTime1(new Date());
+        carApplication.setTime2(new Date());
+        carApplication.setTime3(new Date());
+        carApplication.setTime4(new Date());
+        carApplication.setTime5(new Date());
         Integer i = carApplicationService.takePhoto(carApplication);
         if (i == 0){
             return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"提交失败",null);
