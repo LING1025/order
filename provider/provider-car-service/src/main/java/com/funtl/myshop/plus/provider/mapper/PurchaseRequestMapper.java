@@ -2,6 +2,7 @@ package com.funtl.myshop.plus.provider.mapper;
 
 import com.funtl.myshop.plus.provider.domain.*;
 import com.funtl.myshop.plus.provider.dto.LKRQueryParam;
+import com.funtl.myshop.plus.provider.dto.OpenQueryParam;
 import org.apache.ibatis.annotations.Param;
 import tk.mybatis.mapper.MyMapper;
 
@@ -18,4 +19,7 @@ public interface PurchaseRequestMapper extends MyMapper<PurchaseRequest> {
 
     /*领款人搜索*/
     List<LKRList> selectLKR(@Param("lkrQueryParam") LKRQueryParam lkrQueryParam);
+
+    /*开户行搜索*/
+    List<OpenList> selectOpen(@Param("openQueryParam") OpenQueryParam openQueryParam);
 }

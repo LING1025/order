@@ -12,7 +12,7 @@ public class LKRList implements Serializable {
     @ApiModelProperty(value = "领款人")
     private String name;
 
-    @ApiModelProperty(value = "银行名称")
+    @ApiModelProperty(value = "开户行")
     private String bank;
 
     @ApiModelProperty(value = "银行别序号")
@@ -21,7 +21,7 @@ public class LKRList implements Serializable {
     @ApiModelProperty(value = "账号")
     private String account;
 
-    @ApiModelProperty(value = "开户行")
+    @ApiModelProperty(value = "银行名称")
     private String bankNameT;
 
     @ApiModelProperty(value = "序号")

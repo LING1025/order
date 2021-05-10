@@ -2,6 +2,7 @@ package com.funtl.myshop.plus.provider.api;
 
 import com.funtl.myshop.plus.provider.domain.*;
 import com.funtl.myshop.plus.provider.dto.LKRQueryParam;
+import com.funtl.myshop.plus.provider.dto.OpenQueryParam;
 
 import java.util.List;
 
@@ -58,9 +59,16 @@ public interface PurchaseRequestService{
     List<BankList> selectBank(String bankNameT);
 
     /**
-     * 领款人搜索
+     * 领款人或供应商搜索
      * @param lkrQueryParam
      * @return
      */
     List<LKRList> selectLKR(LKRQueryParam lkrQueryParam);
+
+    /**
+     * 开户行搜索
+     * @param openQueryParam
+     * @return
+     */
+    List<OpenList> selectOpen(OpenQueryParam openQueryParam);
 }

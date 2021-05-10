@@ -135,5 +135,30 @@
     end
   </select>
 
+  <!--开户行搜索-->
+  <resultMap id="queryOpen" type="com.funtl.myshop.plus.provider.domain.OpenList">
+    <result column="BankName" jdbcType="VARCHAR" property="bankName" />
+    <result column="BankNameT" jdbcType="VARCHAR" property="bankNameT" />
+    <result column="BankType" jdbcType="INTEGER" property="bankType" />
+    <result column="BankDetail_Auto" jdbcType="BIGINT" property="bankDetailAuto" />
+  </resultMap>
+  <select id="selectOpen" resultMap="queryOpen">
+    declare
+    @num int=#{openQueryParam.type},--1开户行搜索 2选取时获取
+    @BankName varchar(100)=#{openQueryParam.bankName},
+    @BankDetailAuto bigint = #{openQueryParam.bankDetailAuto}
+    begin
+    select
+    a.BankNameT,a.BankType,b.BankName,b.BankDetail_Auto
+    from
+    BankType a
+    left join BankDetail b on b.BankType=a.BankType
+    where (b.BankName like '%'+@BankName+'%' and @num=1)
+    or (b.BankDetail_Auto = @BankDetailAuto and @num=2)
+    order by
+    a.BankNameT
+    end
+  </select>
+
 
 </mapper>

@@ -3,6 +3,7 @@ package com.funtl.myshop.plus.provider.service;
 import com.funtl.myshop.plus.provider.api.PurchaseRequestService;
 import com.funtl.myshop.plus.provider.domain.*;
 import com.funtl.myshop.plus.provider.dto.LKRQueryParam;
+import com.funtl.myshop.plus.provider.dto.OpenQueryParam;
 import com.funtl.myshop.plus.provider.mapper.PurchaseRequestMapper;
 import org.apache.dubbo.config.annotation.Service;
 
@@ -54,6 +55,11 @@ public class PurchaseRequestServiceImpl implements PurchaseRequestService{
     @Override
     public List<LKRList> selectLKR(LKRQueryParam lkrQueryParam) {
         return purchaseRequestMapper.selectLKR(lkrQueryParam);
+    }
+
+    @Override
+    public List<OpenList> selectOpen(OpenQueryParam openQueryParam) {
+        return purchaseRequestMapper.selectOpen(openQueryParam);
     }
 
 

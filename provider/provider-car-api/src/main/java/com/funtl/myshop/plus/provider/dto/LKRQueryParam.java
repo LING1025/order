@@ -20,7 +20,7 @@ public class LKRQueryParam implements Serializable {
     private String name;
 
     /**
-     * 领款序号
+     * 选取序号
      */
     private Long totalAuto;
 
