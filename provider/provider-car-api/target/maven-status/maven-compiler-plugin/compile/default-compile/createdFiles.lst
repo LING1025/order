@@ -1,5 +1,6 @@
 com\funtl\myshop\plus\provider\api\OrgCarService.class
 com\funtl\myshop\plus\provider\domain\PurchaseFeeList.class
+com\funtl\myshop\plus\provider\domain\BankList.class
 com\funtl\myshop\plus\provider\domain\CarApplyOrg.class
 com\funtl\myshop\plus\provider\domain\PurchaseRequest.class
 com\funtl\myshop\plus\provider\dto\UseCarCheckDto.class
@@ -7,9 +8,12 @@ com\funtl\myshop\plus\provider\domain\CarApplyList.class
 com\funtl\myshop\plus\provider\api\PurchaseRequestService.class
 com\funtl\myshop\plus\provider\dto\OrgCarQueryParam.class
 com\funtl\myshop\plus\provider\domain\CarAreaList.class
+com\funtl\myshop\plus\provider\dto\LKRQueryParam.class
 com\funtl\myshop\plus\provider\domain\GetKeyDto.class
 com\funtl\myshop\plus\provider\api\VEmpService.class
 com\funtl\myshop\plus\provider\domain\AgentList.class
+com\funtl\myshop\plus\provider\domain\LKRList.class
+com\funtl\myshop\plus\provider\domain\OpenList.class
 com\funtl\myshop\plus\provider\domain\GiveBackKeyDto.class
 com\funtl\myshop\plus\provider\dto\UseCarQueryParam.class
 com\funtl\myshop\plus\provider\api\ItemCodeService.class
@@ -22,6 +26,7 @@ com\funtl\myshop\plus\provider\domain\Purchase.class
 com\funtl\myshop\plus\provider\domain\RequestInc.class
 com\funtl\myshop\plus\provider\domain\CarApplication.class
 com\funtl\myshop\plus\provider\domain\GiveKeyDto.class
+com\funtl\myshop\plus\provider\dto\OpenQueryParam.class
 com\funtl\myshop\plus\provider\dto\OutCarApplyDto.class
 com\funtl\myshop\plus\provider\api\PurchaseRRFlowService.class
 com\funtl\myshop\plus\provider\dto\CarChangeDto.class
