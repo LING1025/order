@@ -24,6 +24,6 @@ public class LKRList implements Serializable {
     @ApiModelProperty(value = "开户行")
     private String bankNameT;
 
-    @ApiModelProperty(value = "领款序号")
+    @ApiModelProperty(value = "序号")
     private Long totalAuto;
 }

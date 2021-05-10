@@ -7,6 +7,7 @@ import com.funtl.myshop.plus.business.dto.UserCarRequestParamDto;
 import com.funtl.myshop.plus.commons.dto.ResponseResult;
 import com.funtl.myshop.plus.provider.api.*;
 import com.funtl.myshop.plus.provider.domain.*;
+import com.funtl.myshop.plus.provider.dto.LKRQueryParam;
 import io.swagger.annotations.*;
 import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.beans.BeanUtils;
@@ -63,6 +64,24 @@ public class CarBackController {
     @GetMapping(value = "queryBank")
     public ResponseResult<List<BankList>> queryBank(@RequestParam(name = "bankNameT") String bankNameT){
         List<BankList> lists = purchaseRequestService.selectBank(bankNameT);
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK,"查询成功",lists);
+    }
+
+    @ApiOperation(value = "领款人或供应商搜索")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "type",value = "查询类别：1领款人或供应商名称搜索 2选取时获取",required = true,dataType = "Integer",paramType = "path"),
+            @ApiImplicitParam(name = "name",value = "领款人或供应商",required = false,dataType = "String",paramType = "path"),
+            @ApiImplicitParam(name = "totalAuto",value = "序号",required = false,dataType = "Long",paramType = "path")
+    })
+    @GetMapping(value = "queryLKR")
+    public ResponseResult<List<LKRList>> queryLKR(@RequestParam(name = "type") Integer type,
+                                                  @RequestParam(name = "name") String name,
+                                                  @RequestParam(name = "totalAuto") Long totalAuto){
+        LKRQueryParam lkrQueryParam = new LKRQueryParam(type,name,totalAuto);
+        List<LKRList> lists = purchaseRequestService.selectLKR(lkrQueryParam);
+        if (lists.size() == 0){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"查无资料",null);
+        }
         return new ResponseResult<>(ResponseResult.CodeStatus.OK,"查询成功",lists);
     }
 
