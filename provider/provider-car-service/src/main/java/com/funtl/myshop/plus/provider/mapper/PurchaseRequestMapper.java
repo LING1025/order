@@ -1,9 +1,7 @@
 package com.funtl.myshop.plus.provider.mapper;
 
-import com.funtl.myshop.plus.provider.domain.BankList;
-import com.funtl.myshop.plus.provider.domain.PurchaseFeeList;
-import com.funtl.myshop.plus.provider.domain.PurchaseRequest;
-import com.funtl.myshop.plus.provider.domain.RequestInc;
+import com.funtl.myshop.plus.provider.domain.*;
+import com.funtl.myshop.plus.provider.dto.LKRQueryParam;
 import org.apache.ibatis.annotations.Param;
 import tk.mybatis.mapper.MyMapper;
 
@@ -17,4 +15,7 @@ public interface PurchaseRequestMapper extends MyMapper<PurchaseRequest> {
 
     /*获取银行别下拉选数据*/
     List<BankList> selectBank(@Param("bankNameT") String bankNameT);
+
+    /*领款人搜索*/
+    List<LKRList> selectLKR(@Param("lkrQueryParam") LKRQueryParam lkrQueryParam);
 }

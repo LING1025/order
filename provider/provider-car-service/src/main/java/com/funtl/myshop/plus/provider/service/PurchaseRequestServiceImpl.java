@@ -1,10 +1,8 @@
 package com.funtl.myshop.plus.provider.service;
 
 import com.funtl.myshop.plus.provider.api.PurchaseRequestService;
-import com.funtl.myshop.plus.provider.domain.BankList;
-import com.funtl.myshop.plus.provider.domain.PurchaseFeeList;
-import com.funtl.myshop.plus.provider.domain.PurchaseRequest;
-import com.funtl.myshop.plus.provider.domain.RequestInc;
+import com.funtl.myshop.plus.provider.domain.*;
+import com.funtl.myshop.plus.provider.dto.LKRQueryParam;
 import com.funtl.myshop.plus.provider.mapper.PurchaseRequestMapper;
 import org.apache.dubbo.config.annotation.Service;
 
@@ -51,6 +49,11 @@ public class PurchaseRequestServiceImpl implements PurchaseRequestService{
     @Override
     public List<BankList> selectBank(String bankNameT) {
         return purchaseRequestMapper.selectBank(bankNameT);
+    }
+
+    @Override
+    public List<LKRList> selectLKR(LKRQueryParam lkrQueryParam) {
+        return purchaseRequestMapper.selectLKR(lkrQueryParam);
     }
 
 

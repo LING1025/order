@@ -93,6 +93,7 @@
       order by pr.PurchaseRequest_Auto desc
     </select>
 
+  <!--获取银行别下拉选数据-->
     <resultMap id="queryBank" type="com.funtl.myshop.plus.provider.domain.BankList">
       <result column="BankType" jdbcType="INTEGER" property="bankType" />
       <result column="BankNameT" jdbcType="VARCHAR" property="bankNameT" />
@@ -109,6 +110,30 @@
     order by BankNameT
     end
     </select>
+
+  <!--领款人搜索-->
+  <resultMap id="queryLKR" type="com.funtl.myshop.plus.provider.domain.LKRList">
+    <result column="LKRName" jdbcType="VARCHAR" property="name" />
+    <result column="LKRBank" jdbcType="VARCHAR" property="bank" />
+    <result column="LKRAcount" jdbcType="VARCHAR" property="account" />
+    <result column="BankNameT" jdbcType="VARCHAR" property="bankNameT" />
+    <result column="LKRBankType" jdbcType="INTEGER" property="bankType" />
+    <result column="LKR_Total_Auto" jdbcType="BIGINT" property="totalAuto" />
+  </resultMap>
+  <select id="selectLKR" resultMap="queryLKR">
+    declare
+    @Type int=#{lkrQueryParam.type},--1领款人名称搜索 2选取时获取
+    @LKR_User varchar(100)=#{lkrQueryParam.name},
+    @LKR_Total_Auto bigint=#{lkrQueryParam.totalAuto}
+    begin
+    select
+    distinct t1.LKRName,t1.LKRBank,t1.LKRBankType,t1.LKRAcount,BankNameT=isnull(t2.BankNameT,'') ,t1.LKR_Total_Auto
+    from LKR_Total t1
+    left join BankType t2 on t1.LKRBankType=t2.BankType
+    where ((t1.LKRName like '%'+@LKR_User+'%' and @Type=1)
+    or (@Type=2 and t1.LKR_Total_Auto=@LKR_Total_Auto)) and t1.IsOn=1
+    end
+  </select>
 
 
 </mapper>
