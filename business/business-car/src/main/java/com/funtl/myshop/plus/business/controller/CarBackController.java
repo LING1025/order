@@ -8,6 +8,7 @@ import com.funtl.myshop.plus.commons.dto.ResponseResult;
 import com.funtl.myshop.plus.provider.api.*;
 import com.funtl.myshop.plus.provider.domain.*;
 import com.funtl.myshop.plus.provider.dto.LKRQueryParam;
+import com.funtl.myshop.plus.provider.dto.OpenQueryParam;
 import io.swagger.annotations.*;
 import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.beans.BeanUtils;
@@ -79,6 +80,24 @@ public class CarBackController {
                                                   @RequestParam(name = "totalAuto") Long totalAuto){
         LKRQueryParam lkrQueryParam = new LKRQueryParam(type,name,totalAuto);
         List<LKRList> lists = purchaseRequestService.selectLKR(lkrQueryParam);
+        if (lists.size() == 0){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"查无资料",null);
+        }
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK,"查询成功",lists);
+    }
+
+    @ApiOperation(value = "开户行搜索")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "type",value = "查询类别：1开户行搜索 2选取时获取",required = true,dataType = "Integer",paramType = "path"),
+            @ApiImplicitParam(name = "bankName",value = "开户行名称",required = false,dataType = "String",paramType = "path"),
+            @ApiImplicitParam(name = "bankDetailAuto",value = "开户行序号",required = false,dataType = "Long",paramType = "path")
+    })
+    @GetMapping(value = "queryOpen")
+    public ResponseResult<List<OpenList>> queryOpen(@RequestParam(name = "type") Integer type,
+                                                  @RequestParam(name = "bankName") String bankName,
+                                                  @RequestParam(name = "bankDetailAuto") Long bankDetailAuto){
+        OpenQueryParam openQueryParam = new OpenQueryParam(type,bankName,bankDetailAuto);
+        List<OpenList> lists = purchaseRequestService.selectOpen(openQueryParam);
         if (lists.size() == 0){
             return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"查无资料",null);
         }

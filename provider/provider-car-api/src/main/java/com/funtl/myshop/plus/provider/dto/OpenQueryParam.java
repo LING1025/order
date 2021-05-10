@@ -21,7 +21,7 @@ public class OpenQueryParam implements Serializable {
     private String bankName;
 
     /**
-     * 选取序号
+     * 开户行序号
      */
     private Long bankDetailAuto;
 
