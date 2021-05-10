@@ -129,6 +129,10 @@ public class CarBackController {
         if (userCarRequestParamDto.getRequestUser() == 0){
             return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"请款人序号必填",null);
         }
+        if(userCarRequestParamDto.getPayee() == null){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"请输入供应商/领款人!",null);
+        }
+
         userCarRequestParamDto.setCuser(userCarRequestParamDto.getRequestUser());
         userCarRequestParamDto.setCdt(new Date());
 
@@ -142,10 +146,8 @@ public class CarBackController {
         BeanUtils.copyProperties(userCarRequestParamDto,purchaseRequest);
         if(userCarRequestParamDto.getPayType() != 4){
             purchaseRequest.setBankType(0);
+            purchaseRequest.setLKIncAuto(requestInc.getIncAuto());//现金、支票等领款公司别
         }else{
-            if(userCarRequestParamDto.getPayee() == null){
-                return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"请输入供应商/领款人!",null);
-            }
             if(userCarRequestParamDto.getPayeeAccount() == null){
                 return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"请输入账号!",null);
             }
@@ -155,6 +157,7 @@ public class CarBackController {
             if (userCarRequestParamDto.getPayType() == 0){
                 return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"请选择银行别!",null);
             }
+            purchaseRequest.setLKIncAuto(0L);
         }
         purchaseRequest.setIncAuto(requestInc.getIncAuto());//公司别
         purchaseRequest.setRequestType(1);//请款类别:1一般事务
@@ -165,6 +168,8 @@ public class CarBackController {
         purchaseRequest.setZjPayType(0);//暂借付款别
         purchaseRequest.setStatus(10);//状态10审核中
         purchaseRequest.setIsRR(1);//与请款关联(0:否;1:是)
+        purchaseRequest.setIsBatch(0);
+        purchaseRequest.setIsEas(0);
         Long i = purchaseRequestService.insert(purchaseRequest);
         if (i == 0){
             return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"用车请款数据插入失败",null);
