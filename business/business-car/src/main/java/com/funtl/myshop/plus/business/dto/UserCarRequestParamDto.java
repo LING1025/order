@@ -47,10 +47,10 @@ public class UserCarRequestParamDto implements Serializable {
     @ApiModelProperty(value = "银行别")
     private Integer bankType=0;
 
-    @ApiModelProperty(value = "领款人")
+    @ApiModelProperty(value = "领款人/供应商")
     private String payee;
 
-    @ApiModelProperty(value = "领款人账号")
+    @ApiModelProperty(value = "账号")
     private String payeeAccount;
 
     @ApiModelProperty(value = "开户行")
