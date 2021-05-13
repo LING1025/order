@@ -25,9 +25,27 @@ public class OpenQueryParam implements Serializable {
      */
     private Long bankDetailAuto;
 
-    public OpenQueryParam(Integer type, String bankName, Long bankDetailAuto) {
+    /**
+     * 页数
+     */
+    private Integer pageNum;
+
+    /**
+     * 条数
+     */
+    private Integer pageSize;
+
+    /**
+     * 当前要求的页码索引
+     */
+    private Integer pageIndex;
+
+    public OpenQueryParam(Integer type, String bankName, Long bankDetailAuto, Integer pageNum, Integer pageSize, Integer pageIndex) {
         this.type = type;
         this.bankName = bankName;
         this.bankDetailAuto = bankDetailAuto;
+        this.pageNum = pageNum;
+        this.pageSize = pageSize;
+        this.pageIndex = pageIndex;
     }
 }
