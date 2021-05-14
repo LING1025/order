@@ -1,6 +1,7 @@
 package com.funtl.myshop.plus.provider.api;
 
 import com.funtl.myshop.plus.provider.domain.AddressList;
+import com.funtl.myshop.plus.provider.domain.CrmArrangeList;
 import com.funtl.myshop.plus.provider.domain.VisitPlan;
 import com.funtl.myshop.plus.provider.dto.CrmArrangeDto;
 import com.funtl.myshop.plus.provider.dto.CrmArrangeQueryParam;
@@ -42,7 +43,7 @@ public interface VisitPlanService{
      * @param crmArrangeQueryParam
      * @return
      */
-    PageInfo<CrmArrangeDto> selectCrmArrangeDto(CrmArrangeQueryParam crmArrangeQueryParam);
+    List<CrmArrangeList> selectCrmArrangeDto(CrmArrangeQueryParam crmArrangeQueryParam);
 
     /**
      * 判断拜访信息是否存在

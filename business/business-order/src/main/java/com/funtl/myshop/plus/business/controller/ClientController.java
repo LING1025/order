@@ -222,24 +222,22 @@ public class ClientController {
             @ApiImplicitParam(name = "kind", value = "查询类别：1客户名称 2联系人姓名", required = false, dataType = "int", paramType = "path"),
             @ApiImplicitParam(name = "searchWord", value = "查询条件", required = false, dataType = "String", paramType = "path"),
             @ApiImplicitParam(name = "salesName", value = "业代序号", required = true, dataType = "String", paramType = "path"),
-            @ApiImplicitParam(name = "pageNum", value = "页码", required = false, dataType = "int", paramType = "path"),
             @ApiImplicitParam(name = "pageSize", value = "笔数", required = false, dataType = "int", paramType = "path"),
             @ApiImplicitParam(name = "pageIndex", value = "当前要求的页码索引", required = false, dataType = "int", paramType = "path")
     })
     @GetMapping(value = "queryCrmArrangeDto")
-    public ResponseResult<PageInfo<CrmArrangeDto>> queryCrmArrangeDto(@RequestParam(name = "visitId", defaultValue = "0") Long visitId,
+    public ResponseResult<List<CrmArrangeList>> queryCrmArrangeDto(@RequestParam(name = "visitId", defaultValue = "0") Long visitId,
                                                                       @RequestParam(name = "kind", required = false) Integer kind,
                                                                       @RequestParam(name = "searchWord", required = false) String searchWord,
                                                                       @RequestParam(name = "salesName") String salesName,
-                                                                      @RequestParam(name = "pageNum", defaultValue = "0") Integer pageNum,
-                                                                      @RequestParam(name = "pageSize", defaultValue = "10") Integer pageSize,
+                                                                      @RequestParam(name = "pageSize", defaultValue = "20") Integer pageSize,
                                                                       @RequestParam(name = "pageIndex", defaultValue = "1") Integer pageIndex){
-        CrmArrangeQueryParam crmArrangeQueryParam = new CrmArrangeQueryParam(visitId,kind,searchWord,salesName,pageNum,pageSize,pageIndex);
-        PageInfo<CrmArrangeDto> pageInfo = visitPlanService.selectCrmArrangeDto(crmArrangeQueryParam);
-        if (pageInfo.getList().size() == 0){
+        CrmArrangeQueryParam crmArrangeQueryParam = new CrmArrangeQueryParam(visitId,kind,searchWord,salesName,pageSize,pageIndex);
+        List<CrmArrangeList> lists = visitPlanService.selectCrmArrangeDto(crmArrangeQueryParam);
+        if (lists.size() == 0){
             return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"查无资料，请输入其它查询条件!",null);
         }
-        return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", pageInfo);
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK, "查询成功", lists);
     }
 
     @ApiOperation(value = "CRM:新增行程安排数据中visitAuto的值")

@@ -78,7 +78,7 @@ declare
 @kind int=#{param.kind},
 @SearchWord nvarchar(50)=#{param.searchWord},
 @SalesName nvarchar(50)=#{param.salesName},
-@PageCount int=#{param.pageNum},--分页总数
+@PageCount int=0,--分页总数
 @PageSize int =#{param.pageSize},--每页多少条数据
 @PageIndex int=#{param.pageIndex}--当前要求的页码索引
         BEGIN
@@ -87,9 +87,9 @@ declare
         if @VisitID=0 or @VisitID is null or @VisitID = ''
         begin
         select @Count=count(*) from VisitPlan t1
-        inner join CRM_Customer t3 on t1.TradeItem_Auto=t3.TradeItem_Auto
+        inner join Customer t3 on t1.TradeItem_Auto=t3.TradeItem_Auto
         inner join Contect t4  on t1.TradeItem_Auto=t4.TradeItem_Auto and t1.Contact_Auto=t4.ContectType
-        where t3.SalesName=@SalesName
+        where t3.Sales_Auto=@SalesName
         set @PageCount=(@Count+@PageSize-1)/@PageSize
         set @min=(@PageIndex-1)*@PageSize+1
         set @max=(@PageSize*@PageIndex)
@@ -97,7 +97,7 @@ declare
         select
         t1.VisitID,
         t1.Visit_Auto,
-        t1.TradeItem_Auto,t3.CompName as compName,
+        t1.TradeItem_Auto,t.FName as compName,
         t1.Contact_Auto,t4.Title as contName,
         t1.VstDate,
         t2.ItemName as vstTypeName,t1.VstAddr,
@@ -107,11 +107,12 @@ declare
         t1.VstType
         ,t1.Addr_Province as addrProvince,t1.Addr_City as addrCity,t1.Addr_Street as addrArea
         from VisitPlan t1
-        inner join CRM_Customer t3 on t1.TradeItem_Auto=t3.TradeItem_Auto
+        inner join Customer t3 on t1.TradeItem_Auto=t3.TradeItem_Auto
+        left join TradeItem t on t.TradeItem_Auto=t3.TradeItem_Auto
         inner join Contect t4  on t1.TradeItem_Auto=t4.TradeItem_Auto and t1.Contact_Auto=t4.ContectType
         inner join v_Emp t5 on t3.Cuser=t5.User_Auto
         left join ItemCode t2 on t1.VstType=t2.Num and t2.ItemType=1042
-        where t3.SalesName=@SalesName) t
+        where t3.Sales_Auto=@SalesName) t
         order by  t.Visit_Auto,t.TradeItem_Auto
 
         if(@kind=1)
@@ -124,7 +125,7 @@ declare
         into #tvisitPlan
         from #visitPlan
         where
-        compName like '%'+@SearchWord+'%' and Status != -1 and IsVsted = 0
+        compName like '%'+@SearchWord+'%' and Status != -1 --and IsVsted = 0
         select * from #tvisitPlan where sno between @min and @max
         drop table #tvisitPlan
         end
@@ -138,7 +139,7 @@ declare
         into #tvisitPlan2
         from #visitPlan
         where
-        contName like '%'+@SearchWord+'%' and Status != -1 and IsVsted = 0
+        contName like '%'+@SearchWord+'%' and Status != -1 --and IsVsted = 0
         select * from #tvisitPlan2 where sno between @min and @max
         drop table #tvisitPlan2
         end
@@ -147,9 +148,9 @@ declare
         else
         begin
         select @Count=count(*) from VisitPlan t1
-        inner join CRM_Customer t3 on t1.TradeItem_Auto=t3.TradeItem_Auto
+        inner join Customer t3 on t1.TradeItem_Auto=t3.TradeItem_Auto
         inner join Contect t4  on t1.TradeItem_Auto=t4.TradeItem_Auto and t1.Contact_Auto=t4.ContectType
-        where t3.SalesName=@SalesName
+        where t3.Sales_Auto=@SalesName
         set @PageCount=(@Count+@PageSize-1)/@PageSize
         set @min=(@PageIndex-1)*@PageSize+1
         set @max=(@PageSize*@PageIndex)
@@ -157,7 +158,7 @@ declare
         select
         t1.VisitID,
         t1.Visit_Auto,
-        t1.TradeItem_Auto,t3.CompName as compName,
+        t1.TradeItem_Auto,t.FName as compName,
         t1.Contact_Auto,t4.Title as contName,
         t1.VstDate,
         t2.ItemName as vstTypeName,t1.VstAddr,
@@ -167,11 +168,12 @@ declare
         t1.VstType
         ,t1.Addr_Province as addrProvince,t1.Addr_City as addrCity,t1.Addr_Street as addrArea
         from VisitPlan t1
-        inner join CRM_Customer t3 on t1.TradeItem_Auto=t3.TradeItem_Auto
+        inner join Customer t3 on t1.TradeItem_Auto=t3.TradeItem_Auto
+        left join TradeItem t on t.TradeItem_Auto=t3.TradeItem_Auto
         inner join Contect t4  on t1.TradeItem_Auto=t4.TradeItem_Auto and t1.Contact_Auto=t4.ContectType
         inner join v_Emp t5 on t3.Cuser=t5.User_Auto
         left join ItemCode t2 on t1.VstType=t2.Num and t2.ItemType=1042
-        where t3.SalesName=@SalesName and t1.VisitID=@VisitID) t
+        where t3.Sales_Auto=@SalesName and t1.VisitID=@VisitID) t
         order by  t.Visit_Auto,t.TradeItem_Auto
 
         if(@kind=1)
@@ -184,7 +186,7 @@ declare
         into #tvisitPlans
         from #visitPlans
         where
-        compName like '%'+@SearchWord+'%' and Status != -1 and IsVsted = 0
+        compName like '%'+@SearchWord+'%' and Status != -1 --and IsVsted = 0
         select * from #tvisitPlans where sno between @min and @max
         drop table #tvisitPlans
         end
@@ -198,7 +200,7 @@ declare
         into #tvisitPlans2
         from #visitPlans
         where
-        contName like '%'+@SearchWord+'%' and Status  !=  -1 and IsVsted = 0
+        contName like '%'+@SearchWord+'%' and Status  !=  -1 --and IsVsted = 0
         select * from #tvisitPlans2 where sno between @min and @max
         drop table #tvisitPlans2
         end
