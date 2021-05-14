@@ -145,38 +145,47 @@
   <select id="selectOpen" resultMap="queryOpen">
 --开户行
 declare
-@num int=1,--1开户行搜索 2选取时获取
+@num int=#{openQueryParam.type},--1开户行搜索 2选取时获取
 @BankName varchar(100)=#{openQueryParam.bankName},
 @BankDetailAuto bigint = #{openQueryParam.bankDetailAuto},
 @PageCount int=0,--分页总数可默认
 @PageSize int =#{openQueryParam.pageSize},--每页多少条数据
 @PageIndex int=#{openQueryParam.pageIndex}--当前要求的页码索引
-BEGIN
-	declare @Count int --记录的总数
+    if(@num = 1)
+    BEGIN
+    declare @Count int --记录的总数
     declare @min int,@max int
-begin
-select @Count=count(*) from BankType a
-left join BankDetail b on b.BankType=a.BankType
-where (b.BankName like '%'+@BankName+'%' and @num=1)
-or (b.BankDetail_Auto = @BankDetailAuto and @num=2)
+    begin
+    select @Count=count(*) from BankType a
+    left join BankDetail b on b.BankType=a.BankType
+    where (b.BankName like '%'+@BankName+'%' and @num=1)
 
-set @PageCount=(@Count+@PageSize-1)/@PageSize
-set @min=(@PageIndex-1)*@PageSize+1
-set @max=(@PageSize*@PageIndex)
+    set @PageCount=(@Count+@PageSize-1)/@PageSize
+    set @min=(@PageIndex-1)*@PageSize+1
+    set @max=(@PageSize*@PageIndex)
 
-select
-ROW_NUMBER() OVER(ORDER BY b.BankName collate chinese_PRC_CS_AS_KS_WS) as sno,a.BankNameT,a.BankType,b.BankName,b.BankDetail_Auto
-into #a
-from
-BankType a
-left join BankDetail b on b.BankType=a.BankType
-where (b.BankName like '%'+@BankName+'%' and @num=1)
-or (b.BankDetail_Auto = @BankDetailAuto and @num=2)
+    select
+    ROW_NUMBER() OVER(ORDER BY b.BankName collate chinese_PRC_CS_AS_KS_WS) as sno,a.BankNameT,a.BankType,b.BankName,b.BankDetail_Auto
+    into #a
+    from
+    BankType a
+    left join BankDetail b on b.BankType=a.BankType
+    where (b.BankName like '%'+@BankName+'%' and @num=1)
 
-select BankNameT,BankType,BankName,BankDetail_Auto from #a where sno between @min and @max order by BankNameT
-drop table #a
-end
-END
+    select BankNameT,BankType,BankName,BankDetail_Auto from #a where sno between @min and @max order by BankNameT
+    drop table #a
+    end
+    END
+
+    if(@num=2)
+    begin
+    select
+    a.BankNameT,a.BankType,b.BankName,b.BankDetail_Auto
+    from
+    BankType a
+    left join BankDetail b on b.BankType=a.BankType
+    where (b.BankDetail_Auto = @BankDetailAuto and @num=2)
+    end
   </select>
 
 
