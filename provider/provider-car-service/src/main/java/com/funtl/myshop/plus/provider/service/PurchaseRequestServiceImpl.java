@@ -1,14 +1,10 @@
 package com.funtl.myshop.plus.provider.service;
 
-import com.funtl.myshop.plus.commons.utils.PageInfoUtils;
 import com.funtl.myshop.plus.provider.api.PurchaseRequestService;
 import com.funtl.myshop.plus.provider.domain.*;
 import com.funtl.myshop.plus.provider.dto.LKRQueryParam;
-import com.funtl.myshop.plus.provider.dto.OpenListDto;
 import com.funtl.myshop.plus.provider.dto.OpenQueryParam;
 import com.funtl.myshop.plus.provider.mapper.PurchaseRequestMapper;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 import org.apache.dubbo.config.annotation.Service;
 
 import javax.annotation.Resource;
@@ -62,10 +58,8 @@ public class PurchaseRequestServiceImpl implements PurchaseRequestService{
     }
 
     @Override
-    public PageInfo<OpenListDto> selectOpen(OpenQueryParam openQueryParam) {
-        PageInfo<OpenList> pageInfo = new PageInfo<>(purchaseRequestMapper.selectOpen(openQueryParam));
-        PageInfo<OpenListDto> result = PageInfoUtils.pageInfo2PageInfoDTO(pageInfo,OpenListDto.class);
-        return result;
+    public List<OpenList> selectOpen(OpenQueryParam openQueryParam) {
+        return purchaseRequestMapper.selectOpen(openQueryParam);
     }
 
 

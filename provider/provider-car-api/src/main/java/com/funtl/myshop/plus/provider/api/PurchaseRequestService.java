@@ -2,9 +2,7 @@ package com.funtl.myshop.plus.provider.api;
 
 import com.funtl.myshop.plus.provider.domain.*;
 import com.funtl.myshop.plus.provider.dto.LKRQueryParam;
-import com.funtl.myshop.plus.provider.dto.OpenListDto;
 import com.funtl.myshop.plus.provider.dto.OpenQueryParam;
-import com.github.pagehelper.PageInfo;
 
 import java.util.List;
 
@@ -72,5 +70,5 @@ public interface PurchaseRequestService{
      * @param openQueryParam
      * @return
      */
-    PageInfo<OpenListDto> selectOpen(OpenQueryParam openQueryParam);
+    List<OpenList> selectOpen(OpenQueryParam openQueryParam);
 }
