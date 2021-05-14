@@ -148,7 +148,7 @@ declare
 @num int=1,--1开户行搜索 2选取时获取
 @BankName varchar(100)=#{openQueryParam.bankName},
 @BankDetailAuto bigint = #{openQueryParam.bankDetailAuto},
-@PageCount int=#{openQueryParam.pageNum},--分页总数
+@PageCount int=0,--分页总数可默认
 @PageSize int =#{openQueryParam.pageSize},--每页多少条数据
 @PageIndex int=#{openQueryParam.pageIndex}--当前要求的页码索引
 BEGIN

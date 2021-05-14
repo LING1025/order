@@ -93,7 +93,7 @@ public class CarBackController {
             @ApiImplicitParam(name = "type",value = "查询类别：1开户行搜索 2选取时获取",required = true,dataType = "Integer",paramType = "path"),
             @ApiImplicitParam(name = "bankName",value = "开户行名称",required = false,dataType = "String",paramType = "path"),
             @ApiImplicitParam(name = "bankDetailAuto",value = "开户行序号",required = false,dataType = "Long",paramType = "path"),
-            @ApiImplicitParam(name = "pageNum", value = "页码", required = false, dataType = "int", paramType = "path"),
+//            @ApiImplicitParam(name = "pageNum", value = "页码", required = false, dataType = "int", paramType = "path"),
             @ApiImplicitParam(name = "pageSize", value = "笔数", required = false, dataType = "int", paramType = "path"),
             @ApiImplicitParam(name = "pageIndex", value = "当前要求的页码索引", required = false, dataType = "int", paramType = "path")
     })
@@ -101,10 +101,10 @@ public class CarBackController {
     public ResponseResult<PageInfo<OpenListDto>> queryOpen(@RequestParam(name = "type") Integer type,
                                                            @RequestParam(name = "bankName") String bankName,
                                                            @RequestParam(name = "bankDetailAuto") Long bankDetailAuto,
-                                                           @RequestParam(name = "pageNum", defaultValue = "0") Integer pageNum,
+//                                                           @RequestParam(name = "pageNum", defaultValue = "0") Integer pageNum,
                                                            @RequestParam(name = "pageSize", defaultValue = "20") Integer pageSize,
                                                            @RequestParam(name = "pageIndex", defaultValue = "1") Integer pageIndex){
-        OpenQueryParam openQueryParam = new OpenQueryParam(type,bankName,bankDetailAuto,pageNum,pageSize,pageIndex);
+        OpenQueryParam openQueryParam = new OpenQueryParam(type,bankName,bankDetailAuto,pageSize,pageIndex);
         PageInfo<OpenListDto> pageInfo = purchaseRequestService.selectOpen(openQueryParam);
         if (pageInfo.getList().size() == 0){
             return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"查无资料，请输入正确的查询条件!",null);
