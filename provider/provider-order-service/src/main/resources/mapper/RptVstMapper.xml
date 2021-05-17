@@ -233,7 +233,7 @@ end
         begin
         if(@num != 0)
         select Num,ItemName from (
-        select Num=-1,ItemName=null,0 seq
+        select Num=-1,ItemName='==请选择==',0 seq
         union all
         select Num,ItemName,seq from ItemCode where ItemType=313 and V1 > 0
         union all
@@ -243,7 +243,7 @@ end
         )aa where Num=@num order by seq
         else
         select Num,ItemName from (
-        select Num=-1,ItemName=null,0 seq
+        select Num=-1,ItemName='==请选择==',0 seq
         union all
         select Num,ItemName,seq from ItemCode where ItemType=313 and V1 > 0
         union all

@@ -24,8 +24,8 @@ import java.util.List;
 @RequestMapping(value = "TBox")
 public class TBoxLogController {
 
-    @Reference(version = "1.0.0")
-    private TBoxLogService tBoxLogService;
+//    @Reference(version = "1.0.0")
+//    private TBoxLogService tBoxLogService;
 
     /*此接口无需调用
     @ApiOperation(value = "将logNew数据插入到TBoxLog表")
