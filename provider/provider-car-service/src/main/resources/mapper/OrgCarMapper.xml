@@ -84,7 +84,7 @@
 	  ,i.ItemName oilName
 	  ,carStatusN=case when cm.carStatus=0 then '关闭' when cm.carStatus=1 then '打开' else '' end
 	  ,isnull(cm.totalDistance,0) totalDistance
-	  ,isnull(cm.residueDL,'0%') residueDL
+	  ,isnull(cm.residueDL,'') residueDL
 	  ,isnull(cm.mileage,0) mileage
 	  ,tipStatus=case when cm.tipStatus=0 then '关闭' when cm.tipStatus=1 then '打开' else ''  end
 	  ,c.CC
@@ -123,7 +123,7 @@
 	  ,i.ItemName oilName
 	  ,carStatusN=case when cm.carStatus=0 then '关闭' when cm.carStatus=1 then '打开' else '' end
 	  ,isnull(cm.totalDistance,0) totalDistance
-	  ,isnull(cm.residueDL,'0%') residueDL
+	  ,isnull(cm.residueDL,'') residueDL
 	  ,isnull(cm.mileage,0) mileage
 	  ,tipStatus=case when cm.tipStatus=0 then '关闭' when cm.tipStatus=1 then '打开' else ''  end
 	  ,c.CC
@@ -171,7 +171,7 @@
 	  ,i.ItemName oilName
 	  ,carStatusN=case when cm.carStatus=0 then '关闭' when cm.carStatus=1 then '打开' else '' end
 	  ,isnull(cm.totalDistance,0) totalDistance
-	  ,isnull(cm.residueDL,'0%') residueDL
+	  ,isnull(cm.residueDL,'') residueDL
 	  ,isnull(cm.mileage,0) mileage
 	  ,tipStatus=case when cm.tipStatus=0 then '关闭' when cm.tipStatus=1 then '打开' else ''  end
 	  ,c.CC
@@ -212,7 +212,7 @@
 	  ,i.ItemName oilName
 	  ,carStatusN=case when cm.carStatus=0 then '关闭' when cm.carStatus=1 then '打开' else '' end
 	  ,isnull(cm.totalDistance,0) totalDistance
-	  ,isnull(cm.residueDL,'0%') residueDL
+	  ,isnull(cm.residueDL,'') residueDL
 	  ,isnull(cm.mileage,0) mileage
 	  ,tipStatus=case when cm.tipStatus=0 then '关闭' when cm.tipStatus=1 then '打开' else ''  end
 	  ,c.CC
@@ -251,7 +251,7 @@
 	  ,i.ItemName oilName
 	  ,carStatusN=case when cm.carStatus=0 then '关闭' when cm.carStatus=1 then '打开' else '' end
 	  ,isnull(cm.totalDistance,0) totalDistance
-	  ,isnull(cm.residueDL,'0%') residueDL
+	  ,isnull(cm.residueDL,'') residueDL
 	  ,isnull(cm.mileage,0) mileage
 	  ,tipStatus=case when cm.tipStatus=0 then '关闭' when cm.tipStatus=1 then '打开' else ''  end
 	  ,c.CC
@@ -299,7 +299,7 @@
 	  ,i.ItemName oilName
 	  ,carStatusN=case when cm.carStatus=0 then '关闭' when cm.carStatus=1 then '打开' else '' end
 	  ,isnull(cm.totalDistance,0) totalDistance
-	  ,isnull(cm.residueDL,'0%') residueDL
+	  ,isnull(cm.residueDL,'') residueDL
 	  ,isnull(cm.mileage,0) mileage
 	  ,tipStatus=case when cm.tipStatus=0 then '关闭' when cm.tipStatus=1 then '打开' else ''  end
 	  ,c.CC
