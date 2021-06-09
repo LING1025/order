@@ -882,4 +882,80 @@ declare @min int,@max int
     End
 End
   </select>
+
+  <!--付款日修改审核：获取需审核列表数据-->
+  <resultMap id="queryOrdersPayList" type="com.funtl.myshop.plus.provider.domain.OrdersPayList">
+    <result column="DepName" jdbcType="VARCHAR" property="depName" />
+    <result column="saleName" jdbcType="VARCHAR" property="saleName" />
+    <result column="cusName" jdbcType="VARCHAR" property="cusName" />
+    <result column="AppSeq" jdbcType="INTEGER" property="appSeq" />
+    <result column="RoleId" jdbcType="INTEGER" property="roleId" />
+    <result column="OrderType" jdbcType="INTEGER" property="orderType" />
+    <result column="creditLevelName" jdbcType="VARCHAR" property="creditLevelName" />
+    <result column="PayDay" jdbcType="TIMESTAMP" property="payDay" />
+    <result column="PayDayMemo" jdbcType="VARCHAR" property="payDayMemo" />
+    <result column="CreditMain_Auto" jdbcType="BIGINT" property="creditMainAuto" />
+    <result column="Orders_Auto" jdbcType="BIGINT" property="ordersAuto" />
+  </resultMap>
+  <select id="selectOrdersPayList" resultMap="queryOrdersPayList">
+    declare
+    @User_Auto bigint=#{userAuto}
+    begin
+    declare @TOrg table(UnitID nvarchar(60))
+    declare @UnitID_Temp nvarchar(60)
+    declare cursor1 cursor for
+    select distinct t1.UnitID
+    from DocSystem.[dbo].[v_Promoter] t1
+    left join DocSystem.dbo.v_User t2 on t1.EmpId=t2.EmpID
+    where t2.UserID =@User_Auto
+
+    open cursor1
+    fetch next from cursor1 into @UnitID_Temp
+    while @@FETCH_STATUS=0
+    begin
+
+    insert into @TOrg (UnitID)
+    select distinct t2.ID
+    from DocSystem.dbo.UFun_GetChildren(@UnitID_Temp) t2
+    fetch next from cursor1 into @UnitID_Temp
+
+    end
+    close cursor1
+    deallocate  cursor1
+
+    select distinct t1.UnitID
+    into #a
+    from @TOrg t1,DocSystem.dbo.Unit t2
+    where t1.UnitID = t2.UnitID collate Chinese_PRC_Stroke_90_CI_AS
+
+    Declare @Roles table ( RoleId int,RoleName nvarchar(20))
+    Insert Into @Roles (RoleId ,RoleName)
+    SELECT a.RoleID,c.RoleName
+    FROM Portal.dbo.Portal_UserRoles a(Nolock)
+    INNER JOIN DocSystem.dbo.v_User b(nolock)ON a.UserID = b.UserID
+    inner join Portal.dbo.Portal_Roles c(nolock)on c.RoleID=a.RoleID
+    WHERE b.UserID = @User_Auto
+
+    select t1.*,t4.AppSeq
+    into #c
+    from  credit_Order t1
+    left join DocSystem.dbo.WorkFlowDoc t4 on  t4.DocPostID=t1.CreditMain_Auto and t4.WorkFlow_auto=82 and t4.Status=0 and t4.AppSeq = t4.LevNow + 1 and t4.InActiveList!=-1
+    where t1.PayDayStatus = 10
+
+    select f.DepName,f.FName saleName,e.BossDept cusName,b.AppSeq,b.RoleID,h.OrderType,i.ItemName creditLevelName
+    ,a.PayDay,a.PayDayMemo,a.CreditMain_Auto,a.Orders_Auto
+    from #c a
+    left join DocSystem.dbo.WorkFlowDoc b on  b.DocPostID=a.CreditMain_Auto and b.WorkFlow_auto=82 and b.AppSeq = a.AppSeq and b.InActiveList!=-1
+    inner join @Roles g on g.RoleId=b.RoleID
+    left join DocSystem.dbo.v_User c on c.UserID=b.CUser
+    inner join #a d on c.UnitID  collate Chinese_PRC_Stroke_90_CI_AS = d.UnitID
+    left join Creditmaininfo e on e.CreditMain_Auto = a.CreditMain_Auto
+    left join v_Emp f on f.User_Auto = e.Sales_Auto
+    left join orders h on h.orders_auto = a.orders_auto
+    left join ItemCode i on i.ItemType = 115 and i.Num = e.Creditlevle
+
+    drop table #a
+    drop table #c
+    end
+  </select>
 </mapper>

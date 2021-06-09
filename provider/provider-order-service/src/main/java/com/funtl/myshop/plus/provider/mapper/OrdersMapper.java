@@ -29,4 +29,7 @@ public interface OrdersMapper extends MyMapper<Orders> {
     List<SupplierNames> selectSupplierNames(@Param("params") SupplierQueryParam supplierQueryParam);
 
     List<FNames> selectFNamesDto(@Param("params") FNamesQueryParam fNamesQueryParam);
+
+    /*付款日修改审核：获取需审核列表数据*/
+    List<OrdersPayList> selectOrdersPayList(Long userAuto);
 }

@@ -72,4 +72,9 @@ public class OrdersServiceImpl implements OrdersService{
         return result;
     }
 
+    @Override
+    public List<OrdersPayList> selectOrdersPayList(Long userAuto) {
+        return ordersMapper.selectOrdersPayList(userAuto);
+    }
+
 }
