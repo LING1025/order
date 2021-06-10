@@ -86,4 +86,11 @@ public interface OrdersService{
      * @return
      */
     List<OrdersPayList> selectOrdersPayList(Long userAuto);
+
+    /**
+     * 付款日修改审核：核准、驳回
+     * @param ordersPayDto
+     * @return
+     */
+    Integer insert(OrdersPayDto ordersPayDto);
 }

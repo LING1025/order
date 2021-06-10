@@ -77,4 +77,9 @@ public class OrdersServiceImpl implements OrdersService{
         return ordersMapper.selectOrdersPayList(userAuto);
     }
 
+    @Override
+    public Integer insert(OrdersPayDto ordersPayDto) {
+        return ordersMapper.insert(ordersPayDto);
+    }
+
 }

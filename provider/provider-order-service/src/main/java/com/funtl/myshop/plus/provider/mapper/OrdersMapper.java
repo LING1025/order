@@ -3,6 +3,7 @@ package com.funtl.myshop.plus.provider.mapper;
 import com.funtl.myshop.plus.provider.domain.*;
 import com.funtl.myshop.plus.provider.dto.FNamesQueryParam;
 import com.funtl.myshop.plus.provider.dto.LeasebackQueryParam;
+import com.funtl.myshop.plus.provider.dto.OrdersPayDto;
 import com.funtl.myshop.plus.provider.dto.SupplierQueryParam;
 import org.apache.ibatis.annotations.Param;
 import tk.mybatis.mapper.MyMapper;
@@ -31,5 +32,8 @@ public interface OrdersMapper extends MyMapper<Orders> {
     List<FNames> selectFNamesDto(@Param("params") FNamesQueryParam fNamesQueryParam);
 
     /*付款日修改审核：获取需审核列表数据*/
-    List<OrdersPayList> selectOrdersPayList(Long userAuto);
+    List<OrdersPayList> selectOrdersPayList(@Param("userAuto") Long userAuto);
+
+    /*付款日修改审核：核准、驳回*/
+    Integer insert(@Param("ordersPayDto") OrdersPayDto ordersPayDto);
 }
