@@ -20,11 +20,7 @@ public class OrdersPayList implements Serializable {
     @ApiModelProperty(value = "客户名称")
     private String cusName;
 
-//    @ApiModelProperty(value = "序号")
-    /**
-     * 序号
-     */
-    @JsonIgnore
+    @ApiModelProperty(value = "序号")
     private Integer appSeq;
 
 //    @ApiModelProperty(value = "角色ID")
@@ -50,11 +46,7 @@ public class OrdersPayList implements Serializable {
     @ApiModelProperty(value = "修改说明")
     private String payDayMemo;
 
-//    @ApiModelProperty(value = "授信单号")
-    /**
-     * 授信单号
-     */
-    @JsonIgnore
+    @ApiModelProperty(value = "授信单号")
     private Long creditMainAuto;
 
 //    @ApiModelProperty(value = "试算单号")
