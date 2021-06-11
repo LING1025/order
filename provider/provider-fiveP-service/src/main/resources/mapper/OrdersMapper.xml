@@ -159,4 +159,11 @@
     CarPriceRef, IsBigTradeItem, CarExtensionAmt, Discount, IsTrnsFee, ClasenInsure_Auto,
     InsureReward, InsureService, TrnsType
   </sql>
+  <select id="selectPaymentList" parameterType="map" resultType="com.funtl.myshop.plus.provider.domain.PaymentList" statementType="CALLABLE">
+    {
+        call dbo.Rental(
+            
+        )
+    }
+  </select>
 </mapper>
