@@ -1,15 +1,18 @@
 package com.funtl.myshop.plus.business.controller;
 
 import com.funtl.myshop.plus.business.BusinessException;
+import com.funtl.myshop.plus.business.BusinessStatus;
 import com.funtl.myshop.plus.business.dto.OrdersPayParamDto;
 import com.funtl.myshop.plus.commons.dto.ResponseResult;
 import com.funtl.myshop.plus.provider.api.OrdersService;
 import com.funtl.myshop.plus.provider.domain.OrdersPayList;
+import com.funtl.myshop.plus.provider.dto.OrdersPayDto;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.apache.dubbo.config.annotation.Reference;
+import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -39,7 +42,17 @@ public class OrdersPayController {
     @ApiOperation(value = "付款日修改审核：核准、驳回")
     @PostMapping(value = "insert")
     public ResponseResult<String> insert(@ApiParam(value = "付款日修改审核：核准、驳回") @Valid @RequestBody OrdersPayParamDto ordersPayParamDto){
-
+        OrdersPayDto ordersPayDto = new OrdersPayDto();
+        if (ordersPayParamDto.getUserAuto() != ordersPayParamDto.getLoginUserAuto()){
+            ordersPayParamDto.setType(1);
+        }else{
+            ordersPayParamDto.setType(0);
+        }
+        BeanUtils.copyProperties(ordersPayParamDto,ordersPayDto);
+        Integer i = ordersService.insert(ordersPayDto);
+        if (i == 0){
+            throw new BusinessException(BusinessStatus.SAVE_FAILURE);
+        }
         return new ResponseResult<>(ResponseResult.CodeStatus.OK, "保存成功", null);
     }
 }
