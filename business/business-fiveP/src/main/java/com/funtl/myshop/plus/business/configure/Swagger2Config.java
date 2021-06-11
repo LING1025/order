@@ -60,8 +60,8 @@ public class Swagger2Config {
      */
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("5P外访报告系统 API文档")
-                .description("5P外访报告系统 api网关接口，http://127.0.0.1:9999/api")
+                .title("上牌管理系统 API文档")
+                .description("上牌管理系统 api网关接口，http://127.0.0.1:9999/api")
                 .version("1.0")
                 .build();
     }

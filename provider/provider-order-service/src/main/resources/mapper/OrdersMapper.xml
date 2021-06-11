@@ -972,7 +972,7 @@ End
 
     update DocSystem.dbo.WorkFlowDoc
     set [Status]=5,MDT=GETDATE(),MUser=@User_Auto,Memo=@CreditMemo,IsAgent=@Type
-    where DocPostID=@Creditmain_auto and AppSeq=@AppSeq and WorkFlow_Auto=82  and status=0 and InActiveList <> -1
+    where DocPostID=@Creditmain_auto and AppSeq=@AppSeq and WorkFlow_Auto=82  and status=0 and InActiveList != -1
 
     update a
     set a.PayDayStatus = 5
@@ -981,9 +981,9 @@ End
 
     update DocSystem.dbo.WorkFlowDoc
     set InActiveList=-1
-    where DocPostID=@Creditmain_auto and WorkFlow_Auto=82  and InActiveList <> -1
+    where DocPostID=@Creditmain_auto and WorkFlow_Auto=82  and InActiveList != -1
 
-    delete DocSystem.dbo.WorkFlowDoc where DocPostID=@Creditmain_auto and WorkFlow_Auto=82  and status=0 and InActiveList <> -1
+    delete DocSystem.dbo.WorkFlowDoc where DocPostID=@Creditmain_auto and WorkFlow_Auto=82  and status=0 and InActiveList != -1
     end
     else if(@Status=20)
     begin
