@@ -159,6 +159,7 @@
     CarPriceRef, IsBigTradeItem, CarExtensionAmt, Discount, IsTrnsFee, ClasenInsure_Auto,
     InsureReward, InsureService, TrnsType
   </sql>
+<!--  客户汇款输入：查询按钮-->
   <resultMap id="queryPaymentList" type="com.funtl.myshop.plus.provider.domain.PaymentList">
     <result column="BookCar_Auto" jdbcType="BIGINT" property="bookCarAuto" />
     <result column="BookCarStatus_D" jdbcType="VARCHAR" property="bookCarStatusD" />
@@ -187,6 +188,29 @@
             #{param.userAuto,jdbcType=BIGINT},
             #{param.depName,jdbcType=VARCHAR},
             #{param.ordersAuto,jdbcType=BIGINT}
+        )
+    }
+  </select>
+
+<!--  客户汇款输入：客户汇款记录-->
+  <resultMap id="queryIncomeList" type="com.funtl.myshop.plus.provider.domain.IncomeList">
+    <result column="Seq" jdbcType="INTEGER" property="seq" />
+    <result column="Type_D" jdbcType="VARCHAR" property="typeQ" />
+    <result column="InComeUser" jdbcType="VARCHAR" property="incomeUser" />
+    <result column="IncomeCardNo" jdbcType="VARCHAR" property="incomeCarNo" />
+    <result column="IncomeAccount" jdbcType="VARCHAR" property="incomeAccount" />
+    <result column="Amt" jdbcType="DECIMAL" property="amt" />
+    <result column="Enter4sAmt" jdbcType="DECIMAL" property="enter4sAmt" />
+    <result column="IncomeDT" jdbcType="TIMESTAMP" property="incomeDT" />
+    <result column="RealIncomeAmt" jdbcType="DECIMAL" property="realIncomeAmt" />
+    <result column="RealIncomeDT" jdbcType="TIMESTAMP" property="realIncomeDT" />
+    <result column="Remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  <select id="selectIncomeList" resultMap="queryIncomeList" statementType="CALLABLE" parameterType="map">
+    {
+        call dbo.S_BookCarIncome_Q(
+        #{type,jdbcType=INTEGER},
+        #{searchWord,jdbcType=VARCHAR}
         )
     }
   </select>

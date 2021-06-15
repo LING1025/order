@@ -1,4 +1,5 @@
 package com.funtl.myshop.plus.provider.api;
+import com.funtl.myshop.plus.provider.domain.IncomeList;
 import com.funtl.myshop.plus.provider.domain.PaymentList;
 import com.funtl.myshop.plus.provider.dto.PaymentQueryParam;
 
@@ -10,4 +11,11 @@ public interface OrdersService{
      */
     List<PaymentList> selectPaymentList(PaymentQueryParam paymentQueryParam);
 
+    /**
+     * 客户汇款输入：客户汇款记录
+     * @param type
+     * @param searchWord
+     * @return
+     */
+    List<IncomeList> selectIncomeList(Integer type,String searchWord);
 }
