@@ -122,6 +122,12 @@ spring:
             - Path=/api/outBound/**
           filters:
             - StripPrefix=1
+        - id: BUSINESS-FIVEP
+          uri: lb://business-fiveP
+          predicates:
+            - Path=/api/payment/**
+          filters:
+            - StripPrefix=1
 
 #server:
 #  port: 443
