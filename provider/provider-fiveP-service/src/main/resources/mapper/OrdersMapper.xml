@@ -159,16 +159,30 @@
     CarPriceRef, IsBigTradeItem, CarExtensionAmt, Discount, IsTrnsFee, ClasenInsure_Auto,
     InsureReward, InsureService, TrnsType
   </sql>
-  <select id="selectPaymentList" parameterType="map" resultType="com.funtl.myshop.plus.provider.domain.PaymentList" statementType="CALLABLE">
+  <resultMap id="queryPaymentList" type="com.funtl.myshop.plus.provider.domain.PaymentList">
+    <result column="BookCar_Auto" jdbcType="BIGINT" property="bookCarAuto" />
+    <result column="BookCarStatus_D" jdbcType="VARCHAR" property="bookCarStatusD" />
+    <result column="CreditMain_Auto" jdbcType="BIGINT" property="creditMainAuto" />
+    <result column="FName" jdbcType="VARCHAR" property="cusName" />
+    <result column="BrandName" jdbcType="VARCHAR" property="brandName" />
+    <result column="ClasenName" jdbcType="VARCHAR" property="clasenName" />
+    <result column="ClasenCode" jdbcType="VARCHAR" property="clasenCode" />
+    <result column="CarColor" jdbcType="VARCHAR" property="carColor" />
+    <result column="ListPrice" jdbcType="VARCHAR" property="listPrice" />
+    <result column="GetPrice" jdbcType="VARCHAR" property="getPrice" />
+    <result column="DepName" jdbcType="VARCHAR" property="depName" />
+    <result column="SalesT" jdbcType="VARCHAR" property="salesT" />
+  </resultMap>
+  <select id="selectPaymentList" parameterType="map" resultMap="queryPaymentList" statementType="CALLABLE">
     {
         call dbo.S_BookCar_QQ
     (
-            #{param.TypeQ,jdbcType=INTEGER},
-            #{param.Type,jdbcType=INTEGER},
-            #{param.SearchWord,jdbcType=VARCHAR},
-            #{param.UserAuto,jdbcType=BIGINT},
-            #{param.DepName,jdbcType=VARCHAR},
-            #{param.Orders_Auto,jdbcType=BIGINT}
+            #{param.typeQ,jdbcType=INTEGER},
+            #{param.type,jdbcType=INTEGER},
+            #{param.searchWord,jdbcType=VARCHAR},
+            #{param.userAuto,jdbcType=BIGINT},
+            #{param.depName,jdbcType=VARCHAR},
+            #{param.ordersAuto,jdbcType=BIGINT}
         )
     }
   </select>

@@ -14,35 +14,35 @@ public class PaymentQueryParam implements Serializable {
      * 此处默认2
      */
     @JsonIgnore
-    private Integer TypeQ=2;
+    private Integer typeQ=2;
 
     @ApiModelProperty(value = "查询类别：1授信单号 2客户名称 3业代 4请购单号")
-    private Integer Type;
+    private Integer type;
 
     @ApiModelProperty(value = "输入要查询的内容")
-    private String SearchWord;
+    private String searchWord;
 
     @ApiModelProperty(value = "登录人userAuto")
-    private Long UserAuto;
+    private Long userAuto;
 
     /**
      * 存储过程并未引用，先留着
      */
     @JsonIgnore
-    private String DepName;
+    private String depName;
 
     /**
      * 存储过程并未引用，先留着
      */
     @JsonIgnore
-    private Long Orders_Auto;
+    private Long ordersAuto;
 
-    public PaymentQueryParam(Integer typeQ, Integer type, String searchWord, Long userAuto, String depName, Long orders_Auto) {
-        TypeQ = typeQ;
-        Type = type;
-        SearchWord = searchWord;
-        UserAuto = userAuto;
-        DepName = depName;
-        Orders_Auto = orders_Auto;
+    public PaymentQueryParam(Integer typeQ, Integer type, String searchWord, Long userAuto, String depName, Long ordersAuto) {
+        this.typeQ = typeQ;
+        this.type = type;
+        this.searchWord = searchWord;
+        this.userAuto = userAuto;
+        this.depName = depName;
+        this.ordersAuto = ordersAuto;
     }
 }

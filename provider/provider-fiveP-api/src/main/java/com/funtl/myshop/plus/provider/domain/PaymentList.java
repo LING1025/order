@@ -11,38 +11,38 @@ import java.math.BigDecimal;
 @ApiModel(value = "客户汇款输入：查询按钮返回列表数据")
 public class PaymentList implements Serializable {
     @ApiModelProperty(value = "请购单号")
-    private Long BookCar_Auto;
+    private Long bookCarAuto;
 
     @ApiModelProperty(value = "请购状态")
-    private String BookCarStatus_D;
+    private String bookCarStatusD;
 
     @ApiModelProperty(value = "授信单号")
-    private Long CreditMain_Auto;
+    private Long creditMainAuto;
 
     @ApiModelProperty(value = "客戶名称")
-    private String FName;
+    private String cusName;
 
     @ApiModelProperty(value = "厂牌")
-    private String BrandName;
+    private String brandName;
 
     @ApiModelProperty(value = "车型")
-    private String ClasenName;
+    private String clasenName;
 
     @ApiModelProperty(value = "型号")
-    private String ClasenCode;
+    private String clasenCode;
 
     @ApiModelProperty(value = "车色")
-    private String CarColor;
+    private String carColor;
 
     @ApiModelProperty(value = "牌价")
-    private String ListPrice;
+    private String listPrice;
 
     @ApiModelProperty(value = "进价")
-    private String GetPrice;
+    private String getPrice;
 
     @ApiModelProperty(value = "单位")
-    private String DepName;
+    private String depName;
 
     @ApiModelProperty(value = "业代")
-    private String SalesT;
+    private String salesT;
 }

@@ -25,15 +25,15 @@ public class PaymentController {
 
     @ApiOperation(value = "客户汇款输入：查询按钮")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "Type",value = "查询类别：1授信单号 2客户名称",required = true,dataType = "int",paramType = "path"),
-            @ApiImplicitParam(name = "SearchWord",value = "输入要查询的内容",required = true,dataType = "String",paramType = "path"),
-            @ApiImplicitParam(name = "UserAuto",value = "登录人userAuto",required = true,dataType = "long",paramType = "path")
+            @ApiImplicitParam(name = "type",value = "查询类别：1授信单号 2客户名称",required = true,dataType = "int",paramType = "path"),
+            @ApiImplicitParam(name = "searchWord",value = "输入要查询的内容",required = true,dataType = "String",paramType = "path"),
+            @ApiImplicitParam(name = "userAuto",value = "登录人userAuto",required = true,dataType = "long",paramType = "path")
     })
     @GetMapping(value = "queryPaymentList")
-    public ResponseResult<List<PaymentList>> queryPaymentList(@RequestParam(name = "Type",defaultValue = "2") Integer Type,
-                                                              @RequestParam(name = "SearchWord") String SearchWord,
-                                                              @RequestParam(name = "UserAuto") Long UserAuto){
-        PaymentQueryParam paymentQueryParam = new PaymentQueryParam(2,Type,SearchWord,UserAuto,"",0L);
+    public ResponseResult<List<PaymentList>> queryPaymentList(@RequestParam(name = "type",defaultValue = "2") Integer type,
+                                                              @RequestParam(name = "searchWord") String searchWord,
+                                                              @RequestParam(name = "userAuto") Long userAuto){
+        PaymentQueryParam paymentQueryParam = new PaymentQueryParam(2,type,searchWord,userAuto,"",0L);
         List<PaymentList> lists = ordersService.selectPaymentList(paymentQueryParam);
         if (lists.size() == 0){
             return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"无相关数据",null);
