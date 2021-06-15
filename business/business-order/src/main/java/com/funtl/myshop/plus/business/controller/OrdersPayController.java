@@ -25,7 +25,7 @@ public class OrdersPayController {
     @Reference(version = "1.0.0")
     private OrdersService ordersService;
 
-    @ApiOperation(value = "获取需审核列表数据")
+    @ApiOperation(value = "付款日修改审核：获取需审核列表数据")
     @ApiImplicitParam(name = "userAuto",value = "操作人userAuto",required = true,dataType = "long",paramType = "path")
     @GetMapping(value = "queryOrdersPayList")
     public ResponseResult<List<OrdersPayList>> queryOrdersPayList(@RequestParam(name = "userAuto") Long userAuto){
@@ -49,7 +49,7 @@ public class OrdersPayController {
             ordersPayParamDto.setType(0);
         }
         BeanUtils.copyProperties(ordersPayParamDto,ordersPayDto);
-        Integer i = ordersService.insert(ordersPayDto);
+        Integer i = ordersService.insertPay(ordersPayDto);
         if (i == 0){
             throw new BusinessException(BusinessStatus.SAVE_FAILURE);
         }
