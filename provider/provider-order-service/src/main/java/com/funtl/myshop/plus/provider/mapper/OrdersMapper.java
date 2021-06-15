@@ -35,5 +35,5 @@ public interface OrdersMapper extends MyMapper<Orders> {
     List<OrdersPayList> selectOrdersPayList(@Param("userAuto") Long userAuto);
 
     /*付款日修改审核：核准、驳回*/
-    Integer insert(@Param("ordersPayDto") OrdersPayDto ordersPayDto);
+    Integer insertPay(@Param("ordersPayDto") OrdersPayDto ordersPayDto);
 }

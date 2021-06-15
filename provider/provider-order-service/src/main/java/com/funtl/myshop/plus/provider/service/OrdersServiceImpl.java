@@ -78,8 +78,8 @@ public class OrdersServiceImpl implements OrdersService{
     }
 
     @Override
-    public Integer insert(OrdersPayDto ordersPayDto) {
-        return ordersMapper.insert(ordersPayDto);
+    public Integer insertPay(OrdersPayDto ordersPayDto) {
+        return ordersMapper.insertPay(ordersPayDto);
     }
 
 }

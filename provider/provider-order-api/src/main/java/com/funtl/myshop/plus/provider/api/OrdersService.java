@@ -92,5 +92,5 @@ public interface OrdersService{
      * @param ordersPayDto
      * @return
      */
-    Integer insert(OrdersPayDto ordersPayDto);
+    Integer insertPay(OrdersPayDto ordersPayDto);
 }

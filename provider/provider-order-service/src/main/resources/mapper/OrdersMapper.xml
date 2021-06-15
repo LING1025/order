@@ -958,7 +958,7 @@ End
     drop table #c
     end
   </select>
-  <insert id="insert">
+  <insert id="insertPay">
     declare
     @Creditmain_auto bigint=#{ordersPayDto.creditMainAuto} --授信单号
     ,@AppSeq int=#{ordersPayDto.appSeq} --等级
