@@ -35,10 +35,10 @@ public class PaymentList implements Serializable {
     private String CarColor;
 
     @ApiModelProperty(value = "牌价")
-    private BigDecimal ListPrice;
+    private String ListPrice;
 
     @ApiModelProperty(value = "进价")
-    private BigDecimal GetPrice;
+    private String GetPrice;
 
     @ApiModelProperty(value = "单位")
     private String DepName;

@@ -161,7 +161,7 @@
   </sql>
   <select id="selectPaymentList" parameterType="map" resultType="com.funtl.myshop.plus.provider.domain.PaymentList" statementType="CALLABLE">
     {
-        call dbo.Rental
+        call dbo.S_BookCar_QQ
     (
             #{param.TypeQ,jdbcType=INTEGER},
             #{param.Type,jdbcType=INTEGER},

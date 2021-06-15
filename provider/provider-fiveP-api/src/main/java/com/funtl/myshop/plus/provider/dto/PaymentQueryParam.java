@@ -36,4 +36,13 @@ public class PaymentQueryParam implements Serializable {
      */
     @JsonIgnore
     private Long Orders_Auto;
+
+    public PaymentQueryParam(Integer typeQ, Integer type, String searchWord, Long userAuto, String depName, Long orders_Auto) {
+        TypeQ = typeQ;
+        Type = type;
+        SearchWord = searchWord;
+        UserAuto = userAuto;
+        DepName = depName;
+        Orders_Auto = orders_Auto;
+    }
 }
