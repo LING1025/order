@@ -3,6 +3,7 @@ package com.funtl.myshop.plus.provider.service;
 import javax.annotation.Resource;
 
 import com.funtl.myshop.plus.provider.domain.PaymentList;
+import com.funtl.myshop.plus.provider.dto.PaymentQueryParam;
 import com.funtl.myshop.plus.provider.mapper.OrdersMapper;
 import com.funtl.myshop.plus.provider.domain.Orders;
 import com.funtl.myshop.plus.provider.api.OrdersService;
@@ -17,7 +18,7 @@ public class OrdersServiceImpl implements OrdersService{
     private OrdersMapper ordersMapper;
 
     @Override
-    public List<PaymentList> selectPaymentList(PaymentList paymentList) {
-        return ordersMapper.selectPaymentList(paymentList);
+    public List<PaymentList> selectPaymentList(PaymentQueryParam paymentQueryParam) {
+        return ordersMapper.selectPaymentList(paymentQueryParam);
     }
 }
