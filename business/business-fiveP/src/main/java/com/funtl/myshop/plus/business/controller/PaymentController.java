@@ -2,6 +2,7 @@ package com.funtl.myshop.plus.business.controller;
 
 import com.funtl.myshop.plus.commons.dto.ResponseResult;
 import com.funtl.myshop.plus.provider.api.OrdersService;
+import com.funtl.myshop.plus.provider.domain.IncomeList;
 import com.funtl.myshop.plus.provider.domain.PaymentList;
 import com.funtl.myshop.plus.provider.dto.PaymentQueryParam;
 import io.swagger.annotations.Api;
@@ -26,7 +27,7 @@ public class PaymentController {
     @ApiOperation(value = "客户汇款输入：查询按钮")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "type",value = "查询类别：1授信单号 2客户名称",required = true,dataType = "int",paramType = "path"),
-            @ApiImplicitParam(name = "searchWord",value = "输入要查询的内容",required = true,dataType = "String",paramType = "path"),
+            @ApiImplicitParam(name = "searchWord",value = "输入查询条件",required = true,dataType = "String",paramType = "path"),
             @ApiImplicitParam(name = "userAuto",value = "登录人userAuto",required = true,dataType = "long",paramType = "path")
     })
     @GetMapping(value = "queryPaymentList")
@@ -37,6 +38,23 @@ public class PaymentController {
         List<PaymentList> lists = ordersService.selectPaymentList(paymentQueryParam);
         if (lists.size() == 0){
             return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"无相关数据",null);
+        }
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK,"查询成功",lists);
+    }
+
+    @ApiOperation(value = "客户汇款输入：客户汇款记录")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "type",value = "查询类别：1依授信单号 2依汇款序号",required = true,paramType = "int",dataType = "path"),
+            @ApiImplicitParam(name = "searchWord",value = "输入查询条件",required = true,paramType = "String",dataType = "path")
+    })
+    @GetMapping(value = "queryIncomeList")
+    public ResponseResult<List<IncomeList>> queryIncomeList(@RequestParam(name = "type") Integer type,
+                                                            @RequestParam(name = "searchWord") String searchWord){
+        List<IncomeList> lists = ordersService.selectIncomeList(type, searchWord);
+        for (IncomeList incomeList : lists
+             ) {
+            incomeList.setRows(lists.size());
+            incomeList.setTotalAmt(incomeList.getAmt());
         }
         return new ResponseResult<>(ResponseResult.CodeStatus.OK,"查询成功",lists);
     }

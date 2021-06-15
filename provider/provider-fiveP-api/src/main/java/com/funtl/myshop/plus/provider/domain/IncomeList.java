@@ -43,4 +43,10 @@ public class IncomeList implements Serializable {
 
     @ApiModelProperty(value = "备注")
     private String remark;
+
+    @ApiModelProperty(value = "汇款笔数")
+    private Integer rows;
+
+    @ApiModelProperty(value = "总汇款金额")
+    private BigDecimal totalAmt;
 }
