@@ -4,7 +4,9 @@ import com.funtl.myshop.plus.commons.dto.ResponseResult;
 import com.funtl.myshop.plus.provider.api.OrdersService;
 import com.funtl.myshop.plus.provider.domain.IncomeList;
 import com.funtl.myshop.plus.provider.domain.PaymentList;
+import com.funtl.myshop.plus.provider.dto.IncomeDto;
 import com.funtl.myshop.plus.provider.dto.PaymentQueryParam;
+import com.google.common.collect.Lists;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Api(value = "客户汇款输入相关操作")
@@ -48,14 +51,18 @@ public class PaymentController {
             @ApiImplicitParam(name = "searchWord",value = "输入查询条件",required = true,paramType = "String",dataType = "path")
     })
     @GetMapping(value = "queryIncomeList")
-    public ResponseResult<List<IncomeList>> queryIncomeList(@RequestParam(name = "type") Integer type,
-                                                            @RequestParam(name = "searchWord") String searchWord){
+    public ResponseResult<IncomeDto> queryIncomeList(@RequestParam(name = "type") Integer type,
+                                                           @RequestParam(name = "searchWord") String searchWord){
         List<IncomeList> lists = ordersService.selectIncomeList(type, searchWord);
+        IncomeDto incomeDto = new IncomeDto();
+        incomeDto.setRows(lists.size());
+        incomeDto.setIncomeListList(lists);
+        double sum = 0;
         for (IncomeList incomeList : lists
              ) {
-            incomeList.setRows(lists.size());
-            incomeList.setTotalAmt(incomeList.getAmt());
+
+            sum += incomeDto.setTotalAmt(incomeList.getAmt().doubleValue());
         }
-        return new ResponseResult<>(ResponseResult.CodeStatus.OK,"查询成功",lists);
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK,"查询成功",incomeDto);
     }
 }
