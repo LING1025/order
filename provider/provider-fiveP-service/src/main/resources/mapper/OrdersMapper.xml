@@ -172,6 +172,10 @@
     <result column="GetPrice" jdbcType="VARCHAR" property="getPrice" />
     <result column="DepName" jdbcType="VARCHAR" property="depName" />
     <result column="SalesT" jdbcType="VARCHAR" property="salesT" />
+    <result column="Supplier_Buy_N" jdbcType="VARCHAR" property="supplierBuyN" />
+    <result column="IncName" jdbcType="VARCHAR" property="incName" />
+    <result column="MAmt" jdbcType="DECIMAL" property="mAmt" />
+    <result column="Category_N" jdbcType="VARCHAR" property="categoryN" />
   </resultMap>
   <select id="selectPaymentList" parameterType="map" resultMap="queryPaymentList" statementType="CALLABLE">
     {

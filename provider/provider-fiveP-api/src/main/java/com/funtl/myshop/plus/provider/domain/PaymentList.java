@@ -45,4 +45,16 @@ public class PaymentList implements Serializable {
 
     @ApiModelProperty(value = "业代")
     private String salesT;
+
+    @ApiModelProperty(value = "供应商")
+    private String supplierBuyN;
+
+    @ApiModelProperty(value = "请购公司")
+    private String incName;
+
+    @ApiModelProperty(value = "月租金")
+    private BigDecimal mAmt;
+
+    @ApiModelProperty(value = "车种")
+    private String categoryN;
 }
