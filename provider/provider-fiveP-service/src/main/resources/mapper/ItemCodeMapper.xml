@@ -102,4 +102,19 @@ END
     where FName like '%'+@incName+'%'
     end
   </select>
+
+    <!--根据进款公司别序号获取进款账号-->
+    <resultMap id="queryAccountNameList" type="com.funtl.myshop.plus.provider.domain.AccountNameList">
+        <result column="accountAuto" jdbcType="BIGINT" property="accountAuto" />
+        <result column="accountName" jdbcType="VARCHAR" property="accountName" />
+    </resultMap>
+    <select id="selectAccountNameList" resultMap="queryAccountNameList">
+        declare @condition bigint=#{incAuto}
+        begin
+        select
+        0 as accountAuto,'==请选择=='as accountName
+        union all
+        select Num,ItemName from ItemCode where ItemType=2031 and v1=@condition
+        end
+    </select>
 </mapper>

@@ -1,5 +1,6 @@
 package com.funtl.myshop.plus.provider.mapper;
 
+import com.funtl.myshop.plus.provider.domain.AccountNameList;
 import com.funtl.myshop.plus.provider.domain.IncNameList;
 import com.funtl.myshop.plus.provider.domain.ItemCode;
 import com.funtl.myshop.plus.provider.domain.TypeNameList;
@@ -14,4 +15,7 @@ public interface ItemCodeMapper extends MyMapper<ItemCode> {
 
     /*公司别下拉选*/
     List<IncNameList> selectIncNameList(@Param("incName") String incName);
+
+    /*根据进款公司别序号获取进款账号*/
+    List<AccountNameList> selectAccountNameList(@Param("incAuto") Long incAuto);
 }

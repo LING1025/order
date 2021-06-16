@@ -1,5 +1,6 @@
 package com.funtl.myshop.plus.provider.api;
 
+import com.funtl.myshop.plus.provider.domain.AccountNameList;
 import com.funtl.myshop.plus.provider.domain.IncNameList;
 import com.funtl.myshop.plus.provider.domain.ItemCode;
 import com.funtl.myshop.plus.provider.domain.TypeNameList;
@@ -20,4 +21,11 @@ public interface ItemCodeService{
      * @return
      */
     List<IncNameList> selectIncNameList(String incName);
+
+    /**
+     * 根据进款公司别序号获取进款账号
+     * @param incAuto
+     * @return
+     */
+    List<AccountNameList> selectAccountNameList(Long incAuto);
 }

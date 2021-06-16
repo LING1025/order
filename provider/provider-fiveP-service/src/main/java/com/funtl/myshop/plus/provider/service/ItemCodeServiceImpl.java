@@ -1,5 +1,6 @@
 package com.funtl.myshop.plus.provider.service;
 
+import com.funtl.myshop.plus.provider.domain.AccountNameList;
 import com.funtl.myshop.plus.provider.domain.IncNameList;
 import com.funtl.myshop.plus.provider.domain.TypeNameList;
 
@@ -25,5 +26,10 @@ public class ItemCodeServiceImpl implements ItemCodeService{
     @Override
     public List<IncNameList> selectIncNameList(String incName) {
         return itemCodeMapper.selectIncNameList(incName);
+    }
+
+    @Override
+    public List<AccountNameList> selectAccountNameList(Long incAuto) {
+        return itemCodeMapper.selectAccountNameList(incAuto);
     }
 }
