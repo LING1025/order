@@ -3,10 +3,7 @@ package com.funtl.myshop.plus.business.controller;
 import com.funtl.myshop.plus.commons.dto.ResponseResult;
 import com.funtl.myshop.plus.provider.api.ItemCodeService;
 import com.funtl.myshop.plus.provider.api.OrdersService;
-import com.funtl.myshop.plus.provider.domain.IncomeList;
-import com.funtl.myshop.plus.provider.domain.PaymentFileList;
-import com.funtl.myshop.plus.provider.domain.PaymentList;
-import com.funtl.myshop.plus.provider.domain.TypeNameList;
+import com.funtl.myshop.plus.provider.domain.*;
 import com.funtl.myshop.plus.provider.dto.IncomeDto;
 import com.funtl.myshop.plus.provider.dto.PaymentQueryParam;
 import com.google.common.collect.Lists;
@@ -87,11 +84,19 @@ public class PaymentController {
         return new ResponseResult<>(ResponseResult.CodeStatus.OK,"查询成功",lists);
     }
 
-    @ApiOperation(value = "客户汇款输入：新增汇款：获取汇款类别")
+    @ApiOperation(value = "汇款类别下拉选")
     @ApiImplicitParam(name = "itemType", value = "获取汇款类别:2030",required = true,dataType ="int",paramType = "path")
     @GetMapping(value = "queryItemType")
     public ResponseResult<List<TypeNameList>> queryItemType(@RequestParam(name = "itemType") Integer itemType){
         List<TypeNameList> lists = itemCodeService.selectByItemType(itemType);
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK,"查询成功",lists);
+    }
+
+    @ApiOperation(value = "进款公司别下拉选")
+    @ApiImplicitParam(name = "incName", value = "公司别",required = true,dataType ="String",paramType = "path")
+    @GetMapping(value = "queryIncNameList")
+    public ResponseResult<List<IncNameList>> queryIncNameList(@RequestParam(name = "incName") String incName){
+        List<IncNameList> lists = itemCodeService.selectIncNameList(incName);
         return new ResponseResult<>(ResponseResult.CodeStatus.OK,"查询成功",lists);
     }
 }

@@ -84,4 +84,22 @@ end
 END
 
   </select>
+
+    <!--公司别下拉选-->
+    <resultMap id="queryIncNameList" type="com.funtl.myshop.plus.provider.domain.IncNameList">
+        <result column="Inc_Auto" jdbcType="BIGINT" property="incAuto" />
+        <result column="FName" jdbcType="VARCHAR" property="incName" />
+    </resultMap>
+  <select id="selectIncNameList" resultMap="queryIncNameList">
+    declare @incName varchar(50)=#{incName}
+    begin
+    select
+    0 as Inc_Auto,'==请选择=='as FName
+    union all
+    select
+    Inc_Auto,FName
+    from Inc
+    where FName like '%'+@incName+'%'
+    end
+  </select>
 </mapper>
