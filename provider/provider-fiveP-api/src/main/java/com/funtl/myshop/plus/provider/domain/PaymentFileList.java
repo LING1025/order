@@ -14,6 +14,9 @@ public class PaymentFileList implements Serializable {
     @ApiModelProperty(value = "文件名称")
     private String fileName;
 
+    @ApiModelProperty(value = "文件路径")
+    private String path;
+
     @ApiModelProperty(value = "附件来源")
     private String typeName;
 
@@ -23,4 +26,7 @@ public class PaymentFileList implements Serializable {
     @ApiModelProperty(value = "上传时间")
     @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd HH:mm:ss")
     private Date cdt;
+
+    @ApiModelProperty(value = "授信单号")
+    private Long docPostId;
 }

@@ -3,6 +3,7 @@ package com.funtl.myshop.plus.provider.service;
 import javax.annotation.Resource;
 
 import com.funtl.myshop.plus.provider.domain.IncomeList;
+import com.funtl.myshop.plus.provider.domain.PaymentFileList;
 import com.funtl.myshop.plus.provider.domain.PaymentList;
 import com.funtl.myshop.plus.provider.dto.PaymentQueryParam;
 import com.funtl.myshop.plus.provider.mapper.OrdersMapper;
@@ -26,5 +27,10 @@ public class OrdersServiceImpl implements OrdersService{
     @Override
     public List<IncomeList> selectIncomeList(Integer type, String searchWord) {
         return ordersMapper.selectIncomeList(type,searchWord);
+    }
+
+    @Override
+    public List<PaymentFileList> selectPaymentFileList(Integer type, Long docPostId) {
+        return ordersMapper.selectPaymentFileList(type,docPostId);
     }
 }
