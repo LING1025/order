@@ -60,9 +60,9 @@ public class PaymentController {
         double sum = 0;
         for (IncomeList incomeList : lists
              ) {
-
-            sum += incomeDto.setTotalAmt(incomeList.getAmt().doubleValue());
+            sum += incomeList.getAmt().doubleValue();
         }
+        incomeDto.setTotalAmt(BigDecimal.valueOf(sum));
         return new ResponseResult<>(ResponseResult.CodeStatus.OK,"查询成功",incomeDto);
     }
 }

@@ -21,5 +21,5 @@ public class IncomeDto implements Serializable {
     private Integer rows;
 
     @ApiModelProperty(value = "总汇款金额")
-    private double totalAmt;
+    private BigDecimal totalAmt;
 }
