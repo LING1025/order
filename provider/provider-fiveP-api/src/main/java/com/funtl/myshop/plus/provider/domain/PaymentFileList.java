@@ -11,6 +11,9 @@ import java.util.Date;
 @Data
 @ApiModel(value = "客户汇款输入：附件列表")
 public class PaymentFileList implements Serializable {
+    @ApiModelProperty(value = "文件序号")
+    private Long fileUploadAuto;
+
     @ApiModelProperty(value = "文件名称")
     private String fileName;
 

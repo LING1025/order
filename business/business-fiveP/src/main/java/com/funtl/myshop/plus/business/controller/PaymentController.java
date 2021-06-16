@@ -3,6 +3,7 @@ package com.funtl.myshop.plus.business.controller;
 import com.funtl.myshop.plus.commons.dto.ResponseResult;
 import com.funtl.myshop.plus.provider.api.OrdersService;
 import com.funtl.myshop.plus.provider.domain.IncomeList;
+import com.funtl.myshop.plus.provider.domain.PaymentFileList;
 import com.funtl.myshop.plus.provider.domain.PaymentList;
 import com.funtl.myshop.plus.provider.dto.IncomeDto;
 import com.funtl.myshop.plus.provider.dto.PaymentQueryParam;
@@ -64,5 +65,20 @@ public class PaymentController {
         }
         incomeDto.setTotalAmt(BigDecimal.valueOf(sum));
         return new ResponseResult<>(ResponseResult.CodeStatus.OK,"查询成功",incomeDto);
+    }
+
+    @ApiOperation(value = "客户汇款输入：附件列表")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "type",value = "1获取附件信息",required = true,dataType = "int",paramType = "path"),
+            @ApiImplicitParam(name = "docPostId",value = "授信单号",required = true,dataType = "long",paramType = "path")
+    })
+    @GetMapping(value = "queryPaymentFileList")
+    public ResponseResult<List<PaymentFileList>> queryPaymentFileList(@RequestParam(name = "type") Integer type,
+                                                                      @RequestParam(name = "docPostId") Long docPostId){
+        List<PaymentFileList> lists = ordersService.selectPaymentFileList(type,docPostId);
+        if (lists.size() == 0){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"无相关数据",null);
+        }
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK,"查询成功",lists);
     }
 }

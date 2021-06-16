@@ -223,6 +223,7 @@
     <result column="CUserName" jdbcType="VARCHAR" property="cUsername" />
     <result column="CDT" jdbcType="TIMESTAMP" property="cdt" />
     <result column="DocPostID" jdbcType="BIGINT" property="docPostId" />
+    <result column="FileUpload_Auto" jdbcType="BIGINT" property="fileUploadAuto" />
   </resultMap>
   <select id="selectPaymentFileList" resultMap="queryPaymentFileList" statementType="CALLABLE" parameterType="map">
     {
