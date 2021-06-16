@@ -72,6 +72,15 @@ from
 ItemCode
 where ItemType=12224
 end
+    if(@type=2030)--获取汇款类别
+    begin
+    select
+    0 as Num,'==请选择=='as typeName
+    union all
+    select
+    Num,ItemName
+    from ItemCode where ItemType=2030 and num != 3
+    end
 END
 
   </select>
