@@ -99,4 +99,12 @@ public class PaymentController {
         List<IncNameList> lists = itemCodeService.selectIncNameList(incName);
         return new ResponseResult<>(ResponseResult.CodeStatus.OK,"查询成功",lists);
     }
+
+    @ApiOperation(value = "根据进款公司别序号获取进款账号")
+    @ApiImplicitParam(name = "incAuto", value = "公司别序号",required = true,dataType ="long",paramType = "path")
+    @GetMapping(value = "queryAccountNameList")
+    public ResponseResult<List<AccountNameList>> queryAccountNameList(@RequestParam(name = "incAuto",defaultValue = "0")Long incAuto){
+        List<AccountNameList> lists = itemCodeService.selectAccountNameList(incAuto);
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK,"查询成功",lists);
+    }
 }
