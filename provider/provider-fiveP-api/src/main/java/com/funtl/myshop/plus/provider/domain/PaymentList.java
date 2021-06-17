@@ -57,4 +57,10 @@ public class PaymentList implements Serializable {
 
     @ApiModelProperty(value = "车种")
     private String categoryN;
+
+    @ApiModelProperty(value = "保证金")
+    private BigDecimal dptAmt;
+
+    @ApiModelProperty(value = "车辆来源")
+    private String carSource;
 }

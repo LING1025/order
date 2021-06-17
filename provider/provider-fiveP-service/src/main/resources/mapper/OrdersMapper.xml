@@ -177,6 +177,8 @@
     <result column="IncName" jdbcType="VARCHAR" property="incName" />
     <result column="MAmt" jdbcType="DECIMAL" property="mAmt" />
     <result column="Category_N" jdbcType="VARCHAR" property="categoryN" />
+    <result column="DptAmt" jdbcType="DECIMAL" property="dptAmt" />
+    <result column="CarSource" jdbcType="VARCHAR" property="carSource" />
   </resultMap>
   <select id="selectPaymentList" parameterType="map" resultMap="queryPaymentList" statementType="CALLABLE">
     {
