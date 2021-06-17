@@ -161,7 +161,7 @@
   </sql>
 <!--  客户汇款输入：查询按钮-->
   <resultMap id="queryPaymentList" type="com.funtl.myshop.plus.provider.domain.PaymentList">
-    <result column="BookCar_Auto" jdbcType="BIGINT" property="bookCarAuto" />
+    <result column="BookCar_Auto" jdbcType="VARCHAR" property="bookCarAuto" />
     <result column="BookCarStatus_D" jdbcType="VARCHAR" property="bookCarStatusD" />
     <result column="CreditMain_Auto" jdbcType="BIGINT" property="creditMainAuto" />
     <result column="FName" jdbcType="VARCHAR" property="cusName" />
@@ -178,7 +178,8 @@
     <result column="MAmt" jdbcType="DECIMAL" property="mAmt" />
     <result column="Category_N" jdbcType="VARCHAR" property="categoryN" />
     <result column="DptAmt" jdbcType="DECIMAL" property="dptAmt" />
-    <result column="CarSource" jdbcType="VARCHAR" property="carSource" />
+    <result column="CarSource" jdbcType="INTEGER" property="carSource" />
+    <result column="CarSourceN" jdbcType="VARCHAR" property="carSourceN" />
   </resultMap>
   <select id="selectPaymentList" parameterType="map" resultMap="queryPaymentList" statementType="CALLABLE">
     {

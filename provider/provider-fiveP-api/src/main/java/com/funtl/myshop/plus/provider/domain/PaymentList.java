@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 @ApiModel(value = "客户汇款输入：查询按钮返回列表数据")
 public class PaymentList implements Serializable {
     @ApiModelProperty(value = "请购单号")
-    private Long bookCarAuto;
+    private String bookCarAuto;
 
     @ApiModelProperty(value = "请购状态")
     private String bookCarStatusD;
@@ -61,6 +61,9 @@ public class PaymentList implements Serializable {
     @ApiModelProperty(value = "保证金")
     private BigDecimal dptAmt;
 
+    @ApiModelProperty(value = "车辆来源序号")
+    private int carSource;
+
     @ApiModelProperty(value = "车辆来源")
-    private String carSource;
+    private String carSourceN;
 }
