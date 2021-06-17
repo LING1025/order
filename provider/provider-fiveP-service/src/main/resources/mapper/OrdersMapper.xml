@@ -205,6 +205,8 @@
     <result column="RealIncomeAmt" jdbcType="DECIMAL" property="realIncomeAmt" />
     <result column="RealIncomeDT" jdbcType="TIMESTAMP" property="realIncomeDT" />
     <result column="Remark" jdbcType="VARCHAR" property="remark" />
+    <result column="BookCarIncome_Auto" jdbcType="BIGINT" property="bookCarIncomeAuto" />
+    <result column="CreditMain_Auto" jdbcType="BIGINT" property="creditMainAuto" />
   </resultMap>
   <select id="selectIncomeList" resultMap="queryIncomeList" statementType="CALLABLE" parameterType="map">
     {

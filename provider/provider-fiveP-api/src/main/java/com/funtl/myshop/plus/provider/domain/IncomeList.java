@@ -12,6 +12,12 @@ import java.util.Date;
 @Data
 @ApiModel("客户汇款输入：客户汇款记录")
 public class IncomeList implements Serializable {
+    @ApiModelProperty(value = "汇款序号")
+    private Long bookCarIncomeAuto;
+
+    @ApiModelProperty(value = "授信单号")
+    private Long creditMainAuto;
+
     @ApiModelProperty(value = "项次")
     private Integer seq;
 
