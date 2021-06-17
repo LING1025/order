@@ -233,4 +233,27 @@
         )
     }
   </select>
+
+  <!--客户汇款输入：新增汇款-->
+    <insert id="createIncome" statementType="CALLABLE" parameterType="map">
+      {
+        call dbo.S_BookCarIncome_CUD(
+      #{param.kindType,jdbcType=INTEGER},
+      #{param.bookCarIncomeAuto,jdbcType=BIGINT},
+      #{param.loginUserId,jdbcType=BIGINT},
+      #{param.creditMainAuto,jdbcType=BIGINT},
+      #{param.incomeAccount,jdbcType=VARCHAR},
+      #{param.incAuto,jdbcType=BIGINT},
+      #{param.type,jdbcType=INTEGER},
+      #{param.amt,jdbcType=DECIMAL},
+      #{param.remark,jdbcType=VARCHAR},
+      #{param.incomeUser,jdbcType=VARCHAR},
+      #{param.incomeCarNo,jdbcType=VARCHAR},
+      #{param.incomeDT,jdbcType=TIMESTAMP},
+      #{param.realIncomeAmt,jdbcType=DECIMAL},
+      #{param.realIncomeDT,jdbcType=TIMESTAMP},
+      #{param.enter4sAmt,jdbcType=DECIMAL}
+        )
+      }
+    </insert>
 </mapper>

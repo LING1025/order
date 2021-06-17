@@ -40,10 +40,10 @@ public class IncomeInsertDto implements Serializable {
     private String incomeAccount;
 
     @ApiModelProperty(value = "汇款类别序号")
-    private Integer bankType;
+    private Integer type;
 
     @ApiModelProperty(value = "汇款类别")
-    private String bankName;
+    private String typeName;
 
     @ApiModelProperty(value = "汇款金额")
     private BigDecimal amt;

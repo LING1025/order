@@ -2,6 +2,7 @@ package com.funtl.myshop.plus.provider.api;
 import com.funtl.myshop.plus.provider.domain.IncomeList;
 import com.funtl.myshop.plus.provider.domain.PaymentFileList;
 import com.funtl.myshop.plus.provider.domain.PaymentList;
+import com.funtl.myshop.plus.provider.dto.IncomeInsertDto;
 import com.funtl.myshop.plus.provider.dto.PaymentQueryParam;
 
 import java.util.List;
@@ -27,4 +28,11 @@ public interface OrdersService{
      * @return
      */
     List<PaymentFileList> selectPaymentFileList(Integer type,Long docPostId);
+
+    /**
+     * 客户汇款输入：新增汇款
+     * @param incomeInsertDto
+     * @return
+     */
+    Integer createIncome(IncomeInsertDto incomeInsertDto);
 }

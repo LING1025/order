@@ -4,6 +4,7 @@ import com.funtl.myshop.plus.provider.domain.IncomeList;
 import com.funtl.myshop.plus.provider.domain.Orders;
 import com.funtl.myshop.plus.provider.domain.PaymentFileList;
 import com.funtl.myshop.plus.provider.domain.PaymentList;
+import com.funtl.myshop.plus.provider.dto.IncomeInsertDto;
 import com.funtl.myshop.plus.provider.dto.PaymentQueryParam;
 import org.apache.ibatis.annotations.Param;
 import tk.mybatis.mapper.MyMapper;
@@ -19,4 +20,7 @@ public interface OrdersMapper extends MyMapper<Orders> {
 
     /*客户汇款输入：附件列表*/
     List<PaymentFileList> selectPaymentFileList(@Param("type") Integer type, @Param("docPostId") Long docPostId);
+
+    /*客户汇款输入：新增汇款*/
+    Integer createIncome(@Param("param") IncomeInsertDto incomeInsertDto);
 }
