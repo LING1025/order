@@ -256,4 +256,12 @@
         )
       }
     </insert>
+  <select id="selectType" resultType="java.lang.Integer">
+    declare
+    @CreditMain_Auto2 bigint=#{creditMainAuto},--授信单号
+    @Type2 int=#{type}--汇款类别
+    begin
+    select type from BookCarIncome where CreditMain_Auto=@CreditMain_Auto2 and [Type]=@Type2 and [Status]>-1
+    end
+  </select>
 </mapper>

@@ -23,4 +23,7 @@ public interface OrdersMapper extends MyMapper<Orders> {
 
     /*客户汇款输入：新增汇款*/
     Integer createIncome(@Param("param") IncomeInsertDto incomeInsertDto);
+
+    /*客户汇款输入：新增汇款判断汇款类别是否重复*/
+    Integer selectType(@Param("type") Integer type, @Param("creditMainAuto") Long creditMainAuto);
 }

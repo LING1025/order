@@ -39,4 +39,9 @@ public class OrdersServiceImpl implements OrdersService{
     public Integer createIncome(IncomeInsertDto incomeInsertDto) {
         return ordersMapper.createIncome(incomeInsertDto);
     }
+
+    @Override
+    public Integer selectType(Integer type, Long creditMainAuto) {
+        return ordersMapper.selectType(type,creditMainAuto);
+    }
 }

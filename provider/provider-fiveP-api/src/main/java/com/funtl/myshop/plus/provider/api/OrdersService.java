@@ -35,4 +35,12 @@ public interface OrdersService{
      * @return
      */
     Integer createIncome(IncomeInsertDto incomeInsertDto);
+
+    /**
+     * 客户汇款输入：新增汇款判断汇款类别是否重复
+     * @param type
+     * @param creditMainAuto
+     * @return
+     */
+    Integer selectType(Integer type,Long creditMainAuto);
 }

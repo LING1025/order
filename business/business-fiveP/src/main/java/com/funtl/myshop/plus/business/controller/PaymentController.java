@@ -6,17 +6,19 @@ import com.funtl.myshop.plus.provider.api.ItemCodeService;
 import com.funtl.myshop.plus.provider.api.OrdersService;
 import com.funtl.myshop.plus.provider.domain.*;
 import com.funtl.myshop.plus.provider.dto.IncomeDto;
+import com.funtl.myshop.plus.provider.dto.IncomeInsertDto;
 import com.funtl.myshop.plus.provider.dto.PaymentQueryParam;
 import com.google.common.collect.Lists;
 import io.swagger.annotations.*;
 import org.apache.dubbo.config.annotation.Reference;
+import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.math.BigDecimal;
 import java.util.List;
 
-@Api(value = "客户汇款输入相关操作")
+@Api(tags = "客户汇款输入相关操作")
 @RestController
 @RequestMapping(value = "payment")
 public class PaymentController {
@@ -110,7 +112,23 @@ public class PaymentController {
         if (incomeInsertParamDto.getCreditMainAuto() == 0){
             return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"授信单号不能为空",null);
         }
-        //todo:判断汇款类别是否重复
-        return new ResponseResult<>(ResponseResult.CodeStatus.OK,"保存成功",null);
+        //捕获空指针异常
+        try{
+            //判断汇款类别是否重复
+            Integer type = ordersService.selectType(incomeInsertParamDto.getType(),incomeInsertParamDto.getCreditMainAuto());
+            System.out.println("判断汇款类别是否重复:type="+type);
+            if (type > 0){
+                return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"汇款类别不能重复",null);
+            }
+        }catch (NullPointerException e){
+            e.printStackTrace();
+        }
+        IncomeInsertDto incomeInsertDto = new IncomeInsertDto();
+        BeanUtils.copyProperties(incomeInsertParamDto,incomeInsertDto);
+        Integer i = ordersService.createIncome(incomeInsertDto);
+        if (i == 0){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"新增失败",null);
+        }
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK,"新增成功",null);
     }
 }
