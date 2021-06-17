@@ -1,5 +1,6 @@
 package com.funtl.myshop.plus.business.controller;
 
+import com.funtl.myshop.plus.business.dto.IncomeInsertParamDto;
 import com.funtl.myshop.plus.commons.dto.ResponseResult;
 import com.funtl.myshop.plus.provider.api.ItemCodeService;
 import com.funtl.myshop.plus.provider.api.OrdersService;
@@ -7,16 +8,11 @@ import com.funtl.myshop.plus.provider.domain.*;
 import com.funtl.myshop.plus.provider.dto.IncomeDto;
 import com.funtl.myshop.plus.provider.dto.PaymentQueryParam;
 import com.google.common.collect.Lists;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.*;
 import org.apache.dubbo.config.annotation.Reference;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -106,5 +102,15 @@ public class PaymentController {
     public ResponseResult<List<AccountNameList>> queryAccountNameList(@RequestParam(name = "incAuto",defaultValue = "0")Long incAuto){
         List<AccountNameList> lists = itemCodeService.selectAccountNameList(incAuto);
         return new ResponseResult<>(ResponseResult.CodeStatus.OK,"查询成功",lists);
+    }
+
+    @ApiOperation("客户汇款输入：新增汇款")
+    @PostMapping(value = "create")
+    public ResponseResult<String> create(@ApiParam(value = "新增汇款") @Valid @RequestBody IncomeInsertParamDto incomeInsertParamDto){
+        if (incomeInsertParamDto.getCreditMainAuto() == 0){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"授信单号不能为空",null);
+        }
+        //todo:判断汇款类别是否重复
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK,"保存成功",null);
     }
 }

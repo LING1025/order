@@ -25,7 +25,7 @@ public class IncomeInsertDto implements Serializable {
     private Long loginUserId;
 
     @ApiModelProperty(value = "授信单号")
-    private Long creditMainAuto;
+    private Long creditMainAuto=0L;
 
     @ApiModelProperty(value = "公司别序号")
     private Long incAuto;
