@@ -24,17 +24,17 @@ public class IncomeInsertParamDto implements Serializable {
     @ApiModelProperty(value = "授信单号")
     private Long creditMainAuto=0L;
 
-    @ApiModelProperty(value = "公司别序号")
-    private Long incAuto;
+    @ApiModelProperty(value = "进款公司别序号")
+    private Long incAuto=0L;
 
-    @ApiModelProperty(value = "公司别")
+    @ApiModelProperty(value = "进款公司别")
     private String incName;
 
     @ApiModelProperty(value = "汇款账号")
     private String incomeCarNo;
 
     @ApiModelProperty(value = "进款账号")
-    private String incomeAccount;
+    private String incomeAccount="";
 
     @ApiModelProperty(value = "汇款类别序号")
     private Integer type;
@@ -43,13 +43,13 @@ public class IncomeInsertParamDto implements Serializable {
     private String typeName;
 
     @ApiModelProperty(value = "汇款金额")
-    private BigDecimal amt;
+    private BigDecimal amt = BigDecimal.valueOf(0);
 
     @ApiModelProperty(value = "汇款人")
     private String incomeUser;
 
     @ApiModelProperty(value = "入4S店金额")
-    private BigDecimal enter4sAmt;
+    private BigDecimal enter4sAmt = BigDecimal.valueOf(0);
 
     @ApiModelProperty(value = "汇款日期")
     @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
@@ -65,4 +65,7 @@ public class IncomeInsertParamDto implements Serializable {
 
     @ApiModelProperty(value = "备注")
     private String remark;
+
+    @ApiModelProperty(value = "保证金")
+    private BigDecimal dptAmt;
 }

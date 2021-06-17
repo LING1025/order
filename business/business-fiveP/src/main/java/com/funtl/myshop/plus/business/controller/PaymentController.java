@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 @Api(tags = "客户汇款输入相关操作")
@@ -112,11 +113,32 @@ public class PaymentController {
         if (incomeInsertParamDto.getCreditMainAuto() == 0){
             return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"授信单号不能为空",null);
         }
+        if (incomeInsertParamDto.getIncAuto() == 0){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"进款公司别不能为空",null);
+        }
+        if (incomeInsertParamDto.getAmt() == BigDecimal.valueOf(0) && incomeInsertParamDto.getEnter4sAmt() == BigDecimal.valueOf(0)){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"汇款金额不能为空",null);
+        }
+        if (incomeInsertParamDto.getIncomeDT() == null){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"汇款日期不能为空",null);
+        }
+        if (incomeInsertParamDto.getIncomeDT().after(new Date())){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"汇款日期不能超过当前日期",null);
+        }
+        if (incomeInsertParamDto.getType() == 1 && (incomeInsertParamDto.getAmt().add(incomeInsertParamDto.getEnter4sAmt()) != incomeInsertParamDto.getDptAmt())){
+            if (incomeInsertParamDto.getRemark().trim().length() == 0){
+                return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"汇款金额与保证金额不相符时备注不能为空",null);
+            }
+        }
+        if (incomeInsertParamDto.getType() == 10){
+            if (incomeInsertParamDto.getAmt().intValue() != 1100){
+                return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"GPS费用不符",null);
+            }
+        }
         //捕获空指针异常
         try{
             //判断汇款类别是否重复
             Integer type = ordersService.selectType(incomeInsertParamDto.getType(),incomeInsertParamDto.getCreditMainAuto());
-            System.out.println("判断汇款类别是否重复:type="+type);
             if (type > 0){
                 return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"汇款类别不能重复",null);
             }
