@@ -45,10 +45,18 @@ public interface OrdersService{
     Integer selectType(Integer type,Long creditMainAuto);
 
     /**
-     * 客户汇款输入：删除汇款
+     * 客户汇款输入：删除汇款明细
      * @param loginUserId
      * @param bookCarIncomeAuto
      * @return
      */
     Integer deleteIncome(Long loginUserId,Long bookCarIncomeAuto);
+
+    /**
+     * 客户汇款输入：删除附件明细
+     * @param loginUserId
+     * @param fileUploadAuto
+     * @return
+     */
+    Integer deleteFile(Long loginUserId,Long fileUploadAuto);
 }

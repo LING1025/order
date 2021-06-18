@@ -49,4 +49,9 @@ public class OrdersServiceImpl implements OrdersService{
     public Integer deleteIncome(Long loginUserId, Long bookCarIncomeAuto) {
         return ordersMapper.deleteIncome(loginUserId,bookCarIncomeAuto);
     }
+
+    @Override
+    public Integer deleteFile(Long loginUserId, Long fileUploadAuto) {
+        return ordersMapper.deleteFile(loginUserId,fileUploadAuto);
+    }
 }

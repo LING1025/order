@@ -276,4 +276,15 @@
 	   MDT=getdate()
 	   where BookCarIncome_Auto=#{bookCarIncomeAuto}
   </delete>
+  <delete id="deleteFile">
+    declare
+	@FileUpload_Auto bigint=#{fileUploadAuto},@loginUserId bigint=#{loginUserId}
+	begin
+	update FileUpload
+	set Status = 0 ,
+	MUser = @loginUserId,
+	MDT = GETDATE()
+	where FileUpload_Auto=@FileUpload_Auto
+	end
+  </delete>
 </mapper>

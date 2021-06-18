@@ -159,13 +159,31 @@ public class PaymentController {
             @ApiImplicitParam(name = "loginUserId", value = "登录人userAuto",required = true,dataType ="long",paramType = "path"),
             @ApiImplicitParam(name = "bookCarIncomeAuto", value = "汇款序号",required = true,dataType ="long",paramType = "path")
     })
-    @PutMapping(value = "delete")
+    @PutMapping(value = "deleteIncome")
     public ResponseResult<String> delete(@RequestParam(name = "loginUserId",defaultValue = "0") Long loginUserId,
                                          @RequestParam(name = "bookCarIncomeAuto",defaultValue = "0") Long bookCarIncomeAuto){
         if (loginUserId == 0 || bookCarIncomeAuto == 0){
             return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"登录人、汇款序号必填",null);
         }
         Integer i = ordersService.deleteIncome(loginUserId, bookCarIncomeAuto);
+        if (i == 0){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"删除失败",null);
+        }
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK,"删除成功",null);
+    }
+
+    @ApiOperation(value = "客户汇款输入：删除附件明细")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "loginUserId", value = "登录人userAuto",required = true,dataType ="long",paramType = "path"),
+            @ApiImplicitParam(name = "fileUploadAuto", value = "附件序号",required = true,dataType ="long",paramType = "path")
+    })
+    @PutMapping(value = "deleteFile")
+    public ResponseResult<String> delete2(@RequestParam(name = "loginUserId",defaultValue = "0") Long loginUserId,
+                                         @RequestParam(name = "fileUploadAuto",defaultValue = "0") Long fileUploadAuto){
+        if (loginUserId == 0 || fileUploadAuto == 0){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"登录人、附件序号必填",null);
+        }
+        Integer i = ordersService.deleteFile(loginUserId, fileUploadAuto);
         if (i == 0){
             return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"删除失败",null);
         }

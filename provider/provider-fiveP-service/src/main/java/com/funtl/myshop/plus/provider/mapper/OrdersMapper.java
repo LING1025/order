@@ -29,4 +29,7 @@ public interface OrdersMapper extends MyMapper<Orders> {
 
     /*客户汇款输入：删除汇款*/
     Integer deleteIncome(@Param("loginUserId") Long loginUserId, @Param("bookCarIncomeAuto") Long bookCarIncomeAuto);
+
+    /*客户汇款输入：删除附件明细*/
+    Integer deleteFile(@Param("loginUserId") Long loginUserId, @Param("fileUploadAuto") Long fileUploadAuto);
 }
