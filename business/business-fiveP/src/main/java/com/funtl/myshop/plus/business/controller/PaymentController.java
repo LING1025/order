@@ -83,8 +83,8 @@ public class PaymentController {
         return new ResponseResult<>(ResponseResult.CodeStatus.OK,"查询成功",lists);
     }
 
-    @ApiOperation(value = "汇款类别下拉选")
-    @ApiImplicitParam(name = "itemType", value = "获取汇款类别:2030",required = true,dataType ="int",paramType = "path")
+    @ApiOperation(value = "汇款类别下拉选、附件名称下拉选")
+    @ApiImplicitParam(name = "itemType", value = "获取汇款类别:2030;获取附件类别:132",required = true,dataType ="int",paramType = "path")
     @GetMapping(value = "queryItemType")
     public ResponseResult<List<TypeNameList>> queryItemType(@RequestParam(name = "itemType") Integer itemType){
         List<TypeNameList> lists = itemCodeService.selectByItemType(itemType);

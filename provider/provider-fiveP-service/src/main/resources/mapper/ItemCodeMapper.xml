@@ -81,6 +81,16 @@ end
     Num,ItemName
     from ItemCode where ItemType=2030 and num != 3
     end
+
+    if(@type=132)--获取附件类别
+    begin
+    select
+    0 as Num,'==请选择=='as typeName
+    union all
+    select
+    Num,ItemName
+    from ItemCode where ItemType=132 order by typeName
+    end
 END
 
   </select>
