@@ -107,9 +107,9 @@ public class PaymentController {
         return new ResponseResult<>(ResponseResult.CodeStatus.OK,"查询成功",lists);
     }
 
-    @ApiOperation("客户汇款输入：新增汇款")
+    @ApiOperation("客户汇款输入：新增汇款、修改汇款")
     @PostMapping(value = "create")
-    public ResponseResult<String> create(@ApiParam(value = "新增汇款") @Valid @RequestBody IncomeInsertParamDto incomeInsertParamDto){
+    public ResponseResult<String> create(@ApiParam(value = "新增汇款、修改汇款") @Valid @RequestBody IncomeInsertParamDto incomeInsertParamDto){
         if (incomeInsertParamDto.getCreditMainAuto() == 0){
             return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"授信单号不能为空",null);
         }
@@ -149,8 +149,8 @@ public class PaymentController {
         BeanUtils.copyProperties(incomeInsertParamDto,incomeInsertDto);
         Integer i = ordersService.createIncome(incomeInsertDto);
         if (i == 0){
-            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"新增失败",null);
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"操作失败",null);
         }
-        return new ResponseResult<>(ResponseResult.CodeStatus.OK,"新增成功",null);
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK,"操作成功",null);
     }
 }

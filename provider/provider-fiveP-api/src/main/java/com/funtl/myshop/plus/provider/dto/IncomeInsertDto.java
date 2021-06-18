@@ -13,9 +13,9 @@ import java.util.Date;
  * 客户汇款输入：新增汇款
  */
 @Data
-@ApiModel(value = "客户汇款输入：新增汇款数据")
+@ApiModel(value = "客户汇款输入：新增、修改汇款数据")
 public class IncomeInsertDto implements Serializable {
-    @ApiModelProperty(value = "1新增汇款")
+    @ApiModelProperty(value = "1新增汇款 2修改汇款")
     private Integer kindType;
 
     @ApiModelProperty(value = "汇款序号")
