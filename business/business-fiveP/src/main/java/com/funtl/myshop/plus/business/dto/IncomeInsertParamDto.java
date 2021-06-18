@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 @Data
-@ApiModel(value = "客户汇款输入：新增汇款数据")
+@ApiModel(value = "客户汇款输入：新增、修改汇款数据")
 public class IncomeInsertParamDto implements Serializable {
     @ApiModelProperty(value = "1新增汇款 2修改汇款")
     private Integer kindType;
@@ -56,10 +56,10 @@ public class IncomeInsertParamDto implements Serializable {
     private Date incomeDT;
 
 
-    @ApiModelProperty(value = "入账金额（新增汇款时不用填）")
+    @ApiModelProperty(value = "入账金额（新增、修改汇款时不用填）")
     private BigDecimal realIncomeAmt;
 
-    @ApiModelProperty(value = "入账日期（新增汇款时不用填）")
+    @ApiModelProperty(value = "入账日期（新增、修改汇款时不用填）")
     @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     private Date realIncomeDT;
 

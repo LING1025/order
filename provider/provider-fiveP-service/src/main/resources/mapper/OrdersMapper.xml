@@ -269,4 +269,11 @@
     select type from BookCarIncome where CreditMain_Auto=@CreditMain_Auto2 and [Type]=@Type2 and [Status]>-1
     end
   </select>
+  <delete id="deleteIncome">
+    update BookCarIncome
+	   set Status=-1,
+	   Muser=#{loginUserId},
+	   MDT=getdate()
+	   where BookCarIncome_Auto=#{bookCarIncomeAuto}
+  </delete>
 </mapper>

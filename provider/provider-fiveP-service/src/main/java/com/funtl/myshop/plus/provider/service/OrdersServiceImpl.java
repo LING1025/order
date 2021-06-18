@@ -44,4 +44,9 @@ public class OrdersServiceImpl implements OrdersService{
     public Integer selectType(Integer type, Long creditMainAuto) {
         return ordersMapper.selectType(type,creditMainAuto);
     }
+
+    @Override
+    public Integer deleteIncome(Long loginUserId, Long bookCarIncomeAuto) {
+        return ordersMapper.deleteIncome(loginUserId,bookCarIncomeAuto);
+    }
 }

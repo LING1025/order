@@ -30,7 +30,7 @@ public interface OrdersService{
     List<PaymentFileList> selectPaymentFileList(Integer type,Long docPostId);
 
     /**
-     * 客户汇款输入：新增汇款
+     * 客户汇款输入：新增、修改汇款
      * @param incomeInsertDto
      * @return
      */
@@ -43,4 +43,12 @@ public interface OrdersService{
      * @return
      */
     Integer selectType(Integer type,Long creditMainAuto);
+
+    /**
+     * 客户汇款输入：删除汇款
+     * @param loginUserId
+     * @param bookCarIncomeAuto
+     * @return
+     */
+    Integer deleteIncome(Long loginUserId,Long bookCarIncomeAuto);
 }

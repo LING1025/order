@@ -107,7 +107,7 @@ public class PaymentController {
         return new ResponseResult<>(ResponseResult.CodeStatus.OK,"查询成功",lists);
     }
 
-    @ApiOperation("客户汇款输入：新增汇款、修改汇款")
+    @ApiOperation("客户汇款输入：新增汇款、修改汇款明细")
     @PostMapping(value = "create")
     public ResponseResult<String> create(@ApiParam(value = "新增汇款、修改汇款") @Valid @RequestBody IncomeInsertParamDto incomeInsertParamDto){
         if (incomeInsertParamDto.getCreditMainAuto() == 0){
@@ -152,5 +152,23 @@ public class PaymentController {
             return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"操作失败",null);
         }
         return new ResponseResult<>(ResponseResult.CodeStatus.OK,"操作成功",null);
+    }
+
+    @ApiOperation(value = "客户汇款输入：删除汇款明细")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "loginUserId", value = "登录人userAuto",required = true,dataType ="long",paramType = "path"),
+            @ApiImplicitParam(name = "bookCarIncomeAuto", value = "汇款序号",required = true,dataType ="long",paramType = "path")
+    })
+    @PutMapping(value = "delete")
+    public ResponseResult<String> delete(@RequestParam(name = "loginUserId",defaultValue = "0") Long loginUserId,
+                                         @RequestParam(name = "bookCarIncomeAuto",defaultValue = "0") Long bookCarIncomeAuto){
+        if (loginUserId == 0 || bookCarIncomeAuto == 0){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"登录人、汇款序号必填",null);
+        }
+        Integer i = ordersService.deleteIncome(loginUserId, bookCarIncomeAuto);
+        if (i == 0){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"删除失败",null);
+        }
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK,"删除成功",null);
     }
 }
