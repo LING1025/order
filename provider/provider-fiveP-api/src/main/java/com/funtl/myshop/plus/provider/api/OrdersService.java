@@ -1,4 +1,5 @@
 package com.funtl.myshop.plus.provider.api;
+import com.funtl.myshop.plus.provider.domain.GrantList;
 import com.funtl.myshop.plus.provider.domain.IncomeList;
 import com.funtl.myshop.plus.provider.domain.PaymentFileList;
 import com.funtl.myshop.plus.provider.domain.PaymentList;
@@ -59,4 +60,11 @@ public interface OrdersService{
      * @return
      */
     Integer deleteFile(Long loginUserId,Long fileUploadAuto);
+
+    /**
+     * 拨款申请作业：查询按钮
+     * @param paymentQueryParam
+     * @return
+     */
+    List<GrantList> selectGrantList(PaymentQueryParam paymentQueryParam);
 }

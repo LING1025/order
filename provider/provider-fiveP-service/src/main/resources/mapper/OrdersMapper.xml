@@ -292,4 +292,29 @@
 	where FileUpload_Auto=@FileUpload_Auto
 	end
   </delete>
+
+  <!--拨款申请作业：查询按钮-->
+  <resultMap id="queryGrantList" extends="queryPaymentList" type="com.funtl.myshop.plus.provider.domain.GrantList">
+    <result column="YBookCarDT" jdbcType="VARCHAR" property="yBookCarDT" />
+    <result column="SendParts" jdbcType="VARCHAR" property="sendParts" />
+    <result column="EngNo" jdbcType="VARCHAR" property="engNo" />
+    <result column="CarNo" jdbcType="VARCHAR" property="carNo" />
+    <result column="LicensingDT" jdbcType="VARCHAR" property="licensingDT" />
+    <result column="InsureAddr" jdbcType="INTEGER" property="insureAddr" />
+    <result column="InsureStartDT" jdbcType="TIMESTAMP" property="insureStartDT" />
+    <result column="HgzHJDT" jdbcType="VARCHAR" property="hgzhj" />
+  </resultMap>
+  <select id="selectGrantList" resultMap="queryGrantList">
+    {
+    call dbo.S_BookCar_QQ2
+    (
+    #{param.typeQ,jdbcType=INTEGER},
+    #{param.type,jdbcType=INTEGER},
+    #{param.searchWord,jdbcType=VARCHAR},
+    #{param.userAuto,jdbcType=BIGINT},
+    #{param.depName,jdbcType=VARCHAR},
+    #{param.ordersAuto,jdbcType=BIGINT}
+    )
+    }
+  </select>
 </mapper>

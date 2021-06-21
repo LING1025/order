@@ -2,13 +2,10 @@ package com.funtl.myshop.plus.provider.service;
 
 import javax.annotation.Resource;
 
-import com.funtl.myshop.plus.provider.domain.IncomeList;
-import com.funtl.myshop.plus.provider.domain.PaymentFileList;
-import com.funtl.myshop.plus.provider.domain.PaymentList;
+import com.funtl.myshop.plus.provider.domain.*;
 import com.funtl.myshop.plus.provider.dto.IncomeInsertDto;
 import com.funtl.myshop.plus.provider.dto.PaymentQueryParam;
 import com.funtl.myshop.plus.provider.mapper.OrdersMapper;
-import com.funtl.myshop.plus.provider.domain.Orders;
 import com.funtl.myshop.plus.provider.api.OrdersService;
 import org.apache.dubbo.config.annotation.Service;
 
@@ -53,5 +50,10 @@ public class OrdersServiceImpl implements OrdersService{
     @Override
     public Integer deleteFile(Long loginUserId, Long fileUploadAuto) {
         return ordersMapper.deleteFile(loginUserId,fileUploadAuto);
+    }
+
+    @Override
+    public List<GrantList> selectGrantList(PaymentQueryParam paymentQueryParam) {
+        return ordersMapper.selectGrantList(paymentQueryParam);
     }
 }

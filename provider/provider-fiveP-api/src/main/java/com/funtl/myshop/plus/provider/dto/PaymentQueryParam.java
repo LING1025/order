@@ -14,7 +14,7 @@ public class PaymentQueryParam implements Serializable {
      * 此处默认2
      */
     @JsonIgnore
-    private Integer typeQ=2;
+    private Integer typeQ;
 
     @ApiModelProperty(value = "查询类别：1授信单号 2客户名称 3业代 4请购单号")
     private Integer type;
