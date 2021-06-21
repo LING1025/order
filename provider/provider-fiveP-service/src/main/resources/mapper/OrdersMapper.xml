@@ -180,6 +180,11 @@
     <result column="DptAmt" jdbcType="DECIMAL" property="dptAmt" />
     <result column="CarSource" jdbcType="INTEGER" property="carSource" />
     <result column="CarSourceN" jdbcType="VARCHAR" property="carSourceN" />
+    <result column="MTEL" jdbcType="VARCHAR" property="mTel" />
+    <result column="Addr" jdbcType="VARCHAR" property="addr" />
+    <result column="Tel" jdbcType="VARCHAR" property="tel" />
+    <result column="Fax" jdbcType="VARCHAR" property="fax" />
+    <result column="printtime" jdbcType="VARCHAR" property="printTime" />
   </resultMap>
   <select id="selectPaymentList" parameterType="map" resultMap="queryPaymentList" statementType="CALLABLE">
     {

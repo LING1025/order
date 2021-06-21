@@ -29,7 +29,7 @@ public class PaymentController {
     @Reference(version = "1.0.0")
     private ItemCodeService itemCodeService;
 
-    @ApiOperation(value = "客户汇款输入：查询按钮")
+    @ApiOperation(value = "客户汇款输入：查询按钮、列印订车单")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "type",value = "查询类别：1授信单号 2客户名称",required = true,dataType = "int",paramType = "path"),
             @ApiImplicitParam(name = "searchWord",value = "输入查询条件",required = true,dataType = "String",paramType = "path"),
