@@ -94,23 +94,23 @@ public class GrantList implements Serializable {
     private String sendParts;
 
     @ApiModelProperty(value = "发动机号")
-    private String EngNo;
+    private String engNo;
 
     @ApiModelProperty(value = "车架号")
-    private String CarNo;
+    private String carNo;
 
     @ApiModelProperty(value = "预计领牌日")
-    private String LicensingDT;
+    private String licensingDT;
 
     @ApiModelProperty(value = "出保单地序号")
-    private Integer InsureAddr;
+    private Integer insureAddr;
 
     @ApiModelProperty(value = "出保单地")
-    private String InsureAddrN;
+    private String insureAddrN;
 
     @ApiModelProperty(value = "保单生效日")
     @JsonFormat(pattern = "yyyy/MM/dd",timezone = "GMT+8")
-    private Date InsureStartDT;
+    private Date insureStartDT;
 
     @ApiModelProperty(value = "合格证取得日")
     private String hgzhj;
