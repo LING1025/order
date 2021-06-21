@@ -1,9 +1,6 @@
 package com.funtl.myshop.plus.provider.api;
 
-import com.funtl.myshop.plus.provider.domain.AccountNameList;
-import com.funtl.myshop.plus.provider.domain.IncNameList;
-import com.funtl.myshop.plus.provider.domain.ItemCode;
-import com.funtl.myshop.plus.provider.domain.TypeNameList;
+import com.funtl.myshop.plus.provider.domain.*;
 
 import java.util.List;
 
@@ -28,4 +25,11 @@ public interface ItemCodeService{
      * @return
      */
     List<AccountNameList> selectAccountNameList(Long incAuto);
+
+    /**
+     * 拨款申请作业：出保单地下拉选
+     * @param insureAddr
+     * @return
+     */
+    List<LicensePlateList> selectLicense(Integer insureAddr, Integer type);
 }

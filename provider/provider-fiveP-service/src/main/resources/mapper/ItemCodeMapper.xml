@@ -127,4 +127,32 @@ END
         select Num,ItemName from ItemCode where ItemType=2031 and v1=@condition
         end
     </select>
+
+    <!--拨款申请作业：出保单地下拉选-->
+    <resultMap id="queryLicense" type="com.funtl.myshop.plus.provider.domain.LicensePlateList">
+        <result column="Inc_Auto" jdbcType="INTEGER" property="insureAddr" />
+        <result column="LicensePlate" jdbcType="VARCHAR" property="insureAddrN" />
+    </resultMap>
+    <select id="selectLicense" resultMap="queryLicense">
+        declare
+        @insureAddr int=#{insureAddr},
+        @type int=#{type}--1根据序号(查询按钮会返回insureAddr)获取出保单地 2出保单地下拉选
+        if(@type=1)
+        begin
+        select
+        left(LicensePlate,2) as LicensePlate
+        ,Inc_Auto
+        from Inc
+        where Inc_Auto=@insureAddr
+        end
+        if(@type=2)
+        begin
+        select '==请选择=='as LicensePlate,0 Inc_Auto
+        union all
+        select
+        left(LicensePlate,2) as LicensePlate
+        ,Inc_Auto
+        from Inc
+        end
+    </select>
 </mapper>

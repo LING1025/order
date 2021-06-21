@@ -1,11 +1,9 @@
 package com.funtl.myshop.plus.provider.service;
 
-import com.funtl.myshop.plus.provider.domain.AccountNameList;
-import com.funtl.myshop.plus.provider.domain.IncNameList;
-import com.funtl.myshop.plus.provider.domain.TypeNameList;
+import com.funtl.myshop.plus.provider.domain.*;
 
 import javax.annotation.Resource;
-import com.funtl.myshop.plus.provider.domain.ItemCode;
+
 import com.funtl.myshop.plus.provider.mapper.ItemCodeMapper;
 import com.funtl.myshop.plus.provider.api.ItemCodeService;
 import org.apache.dubbo.config.annotation.Service;
@@ -31,5 +29,10 @@ public class ItemCodeServiceImpl implements ItemCodeService{
     @Override
     public List<AccountNameList> selectAccountNameList(Long incAuto) {
         return itemCodeMapper.selectAccountNameList(incAuto);
+    }
+
+    @Override
+    public List<LicensePlateList> selectLicense(Integer insureAddr, Integer type) {
+        return itemCodeMapper.selectLicense(insureAddr,type);
     }
 }

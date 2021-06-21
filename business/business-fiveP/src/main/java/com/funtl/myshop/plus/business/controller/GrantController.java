@@ -4,6 +4,7 @@ import com.funtl.myshop.plus.commons.dto.ResponseResult;
 import com.funtl.myshop.plus.provider.api.ItemCodeService;
 import com.funtl.myshop.plus.provider.api.OrdersService;
 import com.funtl.myshop.plus.provider.domain.GrantList;
+import com.funtl.myshop.plus.provider.domain.LicensePlateList;
 import com.funtl.myshop.plus.provider.domain.PaymentList;
 import com.funtl.myshop.plus.provider.dto.PaymentQueryParam;
 import io.swagger.annotations.Api;
@@ -43,6 +44,18 @@ public class GrantController {
         if (lists.size() == 0){
             return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"无相关数据",null);
         }
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK,"查询成功",lists);
+    }
+
+    @ApiOperation(value = "拨款申请作业：出保单地下拉选")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "type",value = "1根据序号(查询按钮会返回insureAddr)获取出保单地 2出保单地下拉选所有数据",required = true,dataType = "int",paramType = "path"),
+            @ApiImplicitParam(name = "insureAddr",value = "出保单地序号",required = true,dataType = "int",paramType = "path")
+    })
+    @GetMapping(value = "queryLicense")
+    public ResponseResult<List<LicensePlateList>> queryLicense(@RequestParam(name = "type",defaultValue = "2") Integer type,
+                                                               @RequestParam(name = "insureAddr",defaultValue = "0") Integer insureAddr){
+        List<LicensePlateList> lists = itemCodeService.selectLicense(insureAddr,type);
         return new ResponseResult<>(ResponseResult.CodeStatus.OK,"查询成功",lists);
     }
 }

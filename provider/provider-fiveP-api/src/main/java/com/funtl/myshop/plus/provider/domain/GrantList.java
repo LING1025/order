@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 @Data
-@ApiModel(value = "拨款申请作业：查询按钮返回数据")
+@ApiModel(value = "拨款申请作业：查询按钮、列印订车单")
 public class GrantList implements Serializable {
     @ApiModelProperty(value = "请购单号")
     private String bookCarAuto;
