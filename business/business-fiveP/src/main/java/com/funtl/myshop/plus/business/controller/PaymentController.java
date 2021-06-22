@@ -47,7 +47,7 @@ public class PaymentController {
         return new ResponseResult<>(ResponseResult.CodeStatus.OK,"查询成功",lists);
     }
 
-    @ApiOperation(value = "客户汇款输入：客户汇款记录")
+    @ApiOperation(value = "客户汇款输入、拨款申请作业：客户汇款记录")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "type",value = "查询类别：1依授信单号 2依汇款序号",required = true,paramType = "int",dataType = "path"),
             @ApiImplicitParam(name = "searchWord",value = "输入查询条件",required = true,paramType = "String",dataType = "path")
@@ -68,7 +68,7 @@ public class PaymentController {
         return new ResponseResult<>(ResponseResult.CodeStatus.OK,"查询成功",incomeDto);
     }
 
-    @ApiOperation(value = "客户汇款输入：附件列表")
+    @ApiOperation(value = "客户汇款输入、拨款申请作业：附件列表")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "type",value = "1获取附件信息",required = true,dataType = "int",paramType = "path"),
             @ApiImplicitParam(name = "docPostId",value = "授信单号",required = true,dataType = "long",paramType = "path")
@@ -172,7 +172,7 @@ public class PaymentController {
         return new ResponseResult<>(ResponseResult.CodeStatus.OK,"删除成功",null);
     }
 
-    @ApiOperation(value = "客户汇款输入：删除附件明细")
+    @ApiOperation(value = "客户汇款输入、拨款申请作业：删除附件明细")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "loginUserId", value = "登录人userAuto",required = true,dataType ="long",paramType = "path"),
             @ApiImplicitParam(name = "fileUploadAuto", value = "附件序号",required = true,dataType ="long",paramType = "path")

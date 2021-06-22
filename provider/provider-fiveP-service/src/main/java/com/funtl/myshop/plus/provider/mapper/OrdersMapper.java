@@ -12,10 +12,10 @@ public interface OrdersMapper extends MyMapper<Orders> {
     /*客户汇款输入：查询按钮*/
     List<PaymentList> selectPaymentList(@Param("param") PaymentQueryParam paymentQueryParam);
 
-    /*客户汇款输入：客户汇款记录*/
+    /*客户汇款输入\拨款申请作业：客户汇款记录*/
     List<IncomeList> selectIncomeList(@Param("type") Integer type, @Param("searchWord") String searchWord);
 
-    /*客户汇款输入：附件列表*/
+    /*客户汇款输入\拨款申请作业：附件列表*/
     List<PaymentFileList> selectPaymentFileList(@Param("type") Integer type, @Param("docPostId") Long docPostId);
 
     /*客户汇款输入：新增汇款*/
@@ -27,7 +27,7 @@ public interface OrdersMapper extends MyMapper<Orders> {
     /*客户汇款输入：删除汇款*/
     Integer deleteIncome(@Param("loginUserId") Long loginUserId, @Param("bookCarIncomeAuto") Long bookCarIncomeAuto);
 
-    /*客户汇款输入：删除附件明细*/
+    /*客户汇款输入\拨款申请作业：删除附件明细*/
     Integer deleteFile(@Param("loginUserId") Long loginUserId, @Param("fileUploadAuto") Long fileUploadAuto);
 
     /*拨款申请作业：查询按钮*/

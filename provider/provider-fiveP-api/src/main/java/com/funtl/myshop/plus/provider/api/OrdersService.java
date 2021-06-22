@@ -15,7 +15,7 @@ public interface OrdersService{
     List<PaymentList> selectPaymentList(PaymentQueryParam paymentQueryParam);
 
     /**
-     * 客户汇款输入：客户汇款记录
+     * 客户汇款输入\拨款申请作业：客户汇款记录
      * @param type
      * @param searchWord
      * @return
@@ -23,7 +23,7 @@ public interface OrdersService{
     List<IncomeList> selectIncomeList(Integer type,String searchWord);
 
     /**
-     * 客户汇款输入：附件列表
+     * 客户汇款输入\拨款申请作业：附件列表
      * @param type
      * @param docPostId
      * @return
