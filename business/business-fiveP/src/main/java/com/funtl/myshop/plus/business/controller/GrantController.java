@@ -44,6 +44,12 @@ public class GrantController {
         if (lists.size() == 0){
             return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"无相关数据",null);
         }
+        for (GrantList grantList : lists){
+            List<LicensePlateList> licensePlateLists = itemCodeService.selectLicense(grantList.getInsureAddr(),1);
+            for (LicensePlateList licensePlateList : licensePlateLists){
+                grantList.setInsureAddrN(licensePlateList.getInsureAddrN());
+            }
+        }
         return new ResponseResult<>(ResponseResult.CodeStatus.OK,"查询成功",lists);
     }
 
