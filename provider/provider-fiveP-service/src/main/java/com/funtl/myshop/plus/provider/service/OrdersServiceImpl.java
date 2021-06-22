@@ -56,4 +56,9 @@ public class OrdersServiceImpl implements OrdersService{
     public List<GrantList> selectGrantList(PaymentQueryParam paymentQueryParam) {
         return ordersMapper.selectGrantList(paymentQueryParam);
     }
+
+    @Override
+    public List<CarZjList> selectCarZjList(Long creditMainAuto, Integer isAppropriation) {
+        return ordersMapper.selectCarZjList(creditMainAuto,isAppropriation);
+    }
 }

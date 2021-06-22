@@ -321,4 +321,30 @@
     )
     }
   </select>
+
+  <!--拨款申请作业：车款暂借明细-->
+  <resultMap id="queryCarZjList" type="com.funtl.myshop.plus.provider.domain.CarZjList">
+    <result column="Seq" jdbcType="INTEGER" property="seq" />
+    <result column="ZanJie_Auto" jdbcType="BIGINT" property="zanJieAuto" />
+    <result column="DepositAmt" jdbcType="DECIMAL" property="depositAmt" />
+    <result column="ZJAmt" jdbcType="DECIMAL" property="zJAmt" />
+    <result column="OrderAmt" jdbcType="DECIMAL" property="orderAmt" />
+    <result column="PayeeName" jdbcType="VARCHAR" property="payeeName" />
+    <result column="PayeeAccount" jdbcType="VARCHAR" property="payeeAccount" />
+    <result column="PayeeBank" jdbcType="VARCHAR" property="payeeBank" />
+    <result column="YJRequestDT2" jdbcType="VARCHAR" property="yJRequestDT2" />
+    <result column="ZJ_Type" jdbcType="INTEGER" property="zjType" />
+    <result column="FeeType_Auto" jdbcType="INTEGER" property="feeTypeAuto" />
+    <result column="BankType" jdbcType="INTEGER" property="bankType" />
+    <result column="Remark" jdbcType="VARCHAR" property="remark" />
+    <result column="dataFrom" jdbcType="VARCHAR" property="dataFrom" />
+  </resultMap>
+  <select id="selectCarZjList" resultMap="queryCarZjList">
+    {
+        call dbo.S_ZanJie_MX(
+        #{creditMainAuto,jdbcType=BIGINT},
+        #{isAppropriation,jdbcType=INTEGER}
+        )
+    }
+  </select>
 </mapper>

@@ -32,4 +32,7 @@ public interface OrdersMapper extends MyMapper<Orders> {
 
     /*拨款申请作业：查询按钮*/
     List<GrantList> selectGrantList(@Param("param") PaymentQueryParam paymentQueryParam);
+
+    /*拨款申请作业：车款暂借明细*/
+    List<CarZjList> selectCarZjList(@Param("creditMainAuto") Long creditMainAuto, @Param("isAppropriation") Integer isAppropriation);
 }

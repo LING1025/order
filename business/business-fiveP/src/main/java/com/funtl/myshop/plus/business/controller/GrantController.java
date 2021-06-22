@@ -3,6 +3,7 @@ package com.funtl.myshop.plus.business.controller;
 import com.funtl.myshop.plus.commons.dto.ResponseResult;
 import com.funtl.myshop.plus.provider.api.ItemCodeService;
 import com.funtl.myshop.plus.provider.api.OrdersService;
+import com.funtl.myshop.plus.provider.domain.CarZjList;
 import com.funtl.myshop.plus.provider.domain.GrantList;
 import com.funtl.myshop.plus.provider.domain.LicensePlateList;
 import com.funtl.myshop.plus.provider.domain.PaymentList;
@@ -62,6 +63,17 @@ public class GrantController {
     public ResponseResult<List<LicensePlateList>> queryLicense(@RequestParam(name = "type",defaultValue = "2") Integer type,
                                                                @RequestParam(name = "insureAddr",defaultValue = "0") Integer insureAddr){
         List<LicensePlateList> lists = itemCodeService.selectLicense(insureAddr,type);
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK,"查询成功",lists);
+    }
+
+    @ApiOperation(value = "拨款申请作业：车款暂借明细")
+    @ApiImplicitParam(name = "creditMainAuto",value = "授信单号",required = true,dataType = "long",paramType = "path")
+    @GetMapping(value = "queryCarZjList")
+    public ResponseResult<List<CarZjList>> queryCarZjList(@RequestParam(name = "creditMainAuto") Long creditMainAuto){
+        List<CarZjList> lists = ordersService.selectCarZjList(creditMainAuto,2);
+        if (lists.size() == 0){
+            return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"无相关数据",null);
+        }
         return new ResponseResult<>(ResponseResult.CodeStatus.OK,"查询成功",lists);
     }
 }

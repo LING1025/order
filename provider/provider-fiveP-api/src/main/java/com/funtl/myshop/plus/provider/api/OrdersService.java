@@ -1,8 +1,5 @@
 package com.funtl.myshop.plus.provider.api;
-import com.funtl.myshop.plus.provider.domain.GrantList;
-import com.funtl.myshop.plus.provider.domain.IncomeList;
-import com.funtl.myshop.plus.provider.domain.PaymentFileList;
-import com.funtl.myshop.plus.provider.domain.PaymentList;
+import com.funtl.myshop.plus.provider.domain.*;
 import com.funtl.myshop.plus.provider.dto.IncomeInsertDto;
 import com.funtl.myshop.plus.provider.dto.PaymentQueryParam;
 
@@ -67,4 +64,12 @@ public interface OrdersService{
      * @return
      */
     List<GrantList> selectGrantList(PaymentQueryParam paymentQueryParam);
+
+    /**
+     * 拨款申请作业：车款暂借明细
+     * @param creditMainAuto
+     * @param isAppropriation
+     * @return
+     */
+    List<CarZjList> selectCarZjList(Long creditMainAuto,Integer isAppropriation);
 }
