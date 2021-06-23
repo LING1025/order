@@ -1,5 +1,6 @@
 package com.funtl.myshop.plus.provider.api;
 import com.funtl.myshop.plus.provider.domain.*;
+import com.funtl.myshop.plus.provider.dto.BankNameQueryParam;
 import com.funtl.myshop.plus.provider.dto.IncomeInsertDto;
 import com.funtl.myshop.plus.provider.dto.PaymentQueryParam;
 
@@ -72,4 +73,11 @@ public interface OrdersService{
      * @return
      */
     List<CarZjList> selectCarZjList(Long creditMainAuto,Integer isAppropriation);
+
+    /**
+     * 拨款申请作业：开户行列表
+     * @param bankNameQueryParam
+     * @return
+     */
+    List<BankNameList> selectBankNames(BankNameQueryParam bankNameQueryParam);
 }

@@ -3,6 +3,7 @@ package com.funtl.myshop.plus.provider.service;
 import javax.annotation.Resource;
 
 import com.funtl.myshop.plus.provider.domain.*;
+import com.funtl.myshop.plus.provider.dto.BankNameQueryParam;
 import com.funtl.myshop.plus.provider.dto.IncomeInsertDto;
 import com.funtl.myshop.plus.provider.dto.PaymentQueryParam;
 import com.funtl.myshop.plus.provider.mapper.OrdersMapper;
@@ -60,5 +61,10 @@ public class OrdersServiceImpl implements OrdersService{
     @Override
     public List<CarZjList> selectCarZjList(Long creditMainAuto, Integer isAppropriation) {
         return ordersMapper.selectCarZjList(creditMainAuto,isAppropriation);
+    }
+
+    @Override
+    public List<BankNameList> selectBankNames(BankNameQueryParam bankNameQueryParam) {
+        return ordersMapper.selectBankNames(bankNameQueryParam);
     }
 }

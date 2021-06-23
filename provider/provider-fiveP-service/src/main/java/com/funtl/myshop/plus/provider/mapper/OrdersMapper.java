@@ -1,6 +1,7 @@
 package com.funtl.myshop.plus.provider.mapper;
 
 import com.funtl.myshop.plus.provider.domain.*;
+import com.funtl.myshop.plus.provider.dto.BankNameQueryParam;
 import com.funtl.myshop.plus.provider.dto.IncomeInsertDto;
 import com.funtl.myshop.plus.provider.dto.PaymentQueryParam;
 import org.apache.ibatis.annotations.Param;
@@ -35,4 +36,7 @@ public interface OrdersMapper extends MyMapper<Orders> {
 
     /*拨款申请作业：车款暂借明细*/
     List<CarZjList> selectCarZjList(@Param("creditMainAuto") Long creditMainAuto, @Param("isAppropriation") Integer isAppropriation);
+
+    /*拨款申请作业：开户行列表*/
+    List<BankNameList> selectBankNames(@Param("param") BankNameQueryParam bankNameQueryParam);
 }

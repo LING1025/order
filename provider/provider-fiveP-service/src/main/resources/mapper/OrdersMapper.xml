@@ -308,7 +308,7 @@
     <result column="InsureStartDT" jdbcType="TIMESTAMP" property="insureStartDT" />
     <result column="HgzHJDT" jdbcType="VARCHAR" property="hgzhj" />
   </resultMap>
-  <select id="selectGrantList" resultMap="queryGrantList">
+  <select id="selectGrantList" resultMap="queryGrantList"  statementType="CALLABLE" parameterType="map">
     {
     call dbo.S_BookCar_QQ2
     (
@@ -339,11 +339,32 @@
     <result column="Remark" jdbcType="VARCHAR" property="remark" />
     <result column="dataFrom" jdbcType="VARCHAR" property="dataFrom" />
   </resultMap>
-  <select id="selectCarZjList" resultMap="queryCarZjList">
+  <select id="selectCarZjList" resultMap="queryCarZjList"  statementType="CALLABLE" parameterType="map">
     {
         call dbo.S_ZanJie_MX(
         #{creditMainAuto,jdbcType=BIGINT},
         #{isAppropriation,jdbcType=INTEGER}
+        )
+    }
+  </select>
+
+  <!--拨款申请作业：开户行列表-->
+  <resultMap id="queryBankNames" type="com.funtl.myshop.plus.provider.domain.BankNameList">
+    <result column="BankNameT" jdbcType="VARCHAR" property="bankNameT" />
+    <result column="BankType" jdbcType="INTEGER" property="bankType" />
+    <result column="BankName" jdbcType="VARCHAR" property="bankName" />
+    <result column="BankDetail_Auto" jdbcType="BIGINT" property="bankDetailAuto" />
+  </resultMap>
+  <select id="selectBankNames" resultMap="queryBankNames"  statementType="CALLABLE" parameterType="map">
+    {
+        call dbo.s_BankName(
+        #{param.type,jdbcType=INTEGER},
+        #{param.bankName,jdbcType=VARCHAR},
+        #{param.bankNameT,jdbcType=VARCHAR},
+        #{param.bankDetailAuto,jdbcType=BIGINT},
+        #{param.pageNum,jdbcType=INTEGER},
+        #{param.pageSize,jdbcType=INTEGER},
+        #{param.pageIndex,jdbcType=INTEGER}
         )
     }
   </select>
