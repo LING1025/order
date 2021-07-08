@@ -259,9 +259,9 @@
       #{param.remark,jdbcType=VARCHAR},
       #{param.incomeUser,jdbcType=VARCHAR},
       #{param.incomeCarNo,jdbcType=VARCHAR},
-      #{param.incomeDT,jdbcType=TIMESTAMP},
+      #{param.incomeDT,jdbcType=VARCHAR},
       #{param.realIncomeAmt,jdbcType=DECIMAL},
-      #{param.realIncomeDT,jdbcType=TIMESTAMP},
+      #{param.realIncomeDT,jdbcType=VARCHAR},
       #{param.enter4sAmt,jdbcType=DECIMAL}
         )
       }

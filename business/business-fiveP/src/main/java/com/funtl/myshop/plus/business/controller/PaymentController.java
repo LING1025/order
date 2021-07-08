@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.math.BigDecimal;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -109,7 +111,7 @@ public class PaymentController {
 
     @ApiOperation("客户汇款输入：新增汇款、修改汇款明细")
     @PostMapping(value = "create")
-    public ResponseResult<String> create(@ApiParam(value = "新增汇款、修改汇款") @Valid @RequestBody IncomeInsertParamDto incomeInsertParamDto){
+    public ResponseResult<String> create(@ApiParam(value = "新增汇款、修改汇款") @Valid @RequestBody IncomeInsertParamDto incomeInsertParamDto) throws ParseException {
         if (incomeInsertParamDto.getCreditMainAuto() == 0){
             return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"授信单号不能为空",null);
         }
@@ -122,7 +124,9 @@ public class PaymentController {
         if (incomeInsertParamDto.getIncomeDT() == null){
             return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"汇款日期不能为空",null);
         }
-        if (incomeInsertParamDto.getIncomeDT().after(new Date())){
+        SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
+        Date date1 = format.parse(incomeInsertParamDto.getIncomeDT());
+        if (date1.after(new Date())){
             return new ResponseResult<>(ResponseResult.CodeStatus.FAIL,"汇款日期不能超过当前日期",null);
         }
         if (incomeInsertParamDto.getType() == 1 && (incomeInsertParamDto.getAmt().add(incomeInsertParamDto.getEnter4sAmt()) != incomeInsertParamDto.getDptAmt())){

@@ -55,15 +55,15 @@ public class IncomeInsertDto implements Serializable {
     private BigDecimal enter4sAmt = BigDecimal.valueOf(0);
 
     @ApiModelProperty(value = "汇款日期")
-    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
-    private Date incomeDT;
+    @JsonFormat(pattern = "yyyy/MM/dd",timezone = "GMT+8")
+    private String incomeDT;
 
     @ApiModelProperty(value = "入账金额（新增、修改汇款时不用填）")
     private BigDecimal realIncomeAmt;
 
     @ApiModelProperty(value = "入账日期（新增、修改汇款时不用填）")
-    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
-    private Date realIncomeDT;
+    @JsonFormat(pattern = "yyyy/MM/dd",timezone = "GMT+8")
+    private String realIncomeDT;
 
     @ApiModelProperty(value = "备注")
     private String remark;
