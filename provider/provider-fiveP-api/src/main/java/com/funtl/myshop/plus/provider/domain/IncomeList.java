@@ -40,18 +40,21 @@ public class IncomeList implements Serializable {
     private BigDecimal enter4sAmt;
 
     @ApiModelProperty(value = "汇款日期")
-    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
+    @JsonFormat(pattern = "yyyy/MM/dd",timezone = "GMT+8")
     private Date incomeDT;
 
     @ApiModelProperty(value = "入账金额")
     private BigDecimal realIncomeAmt;
 
     @ApiModelProperty(value = "入账日期")
-    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
+    @JsonFormat(pattern = "yyyy/MM/dd",timezone = "GMT+8")
     private Date realIncomeDT;
 
     @ApiModelProperty(value = "备注")
     private String remark;
+
+    @ApiModelProperty(value = "公司名称")
+    private String incName;
 
 //    @ApiModelProperty(value = "汇款笔数")
 //    private Integer rows;

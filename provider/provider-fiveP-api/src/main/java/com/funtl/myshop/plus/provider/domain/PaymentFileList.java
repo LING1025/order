@@ -27,7 +27,7 @@ public class PaymentFileList implements Serializable {
     private String cUsername;
 
     @ApiModelProperty(value = "上传时间")
-    @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(timezone = "GMT+8",pattern = "yyyy/MM/dd HH:mm:ss")
     private Date cdt;
 
     @ApiModelProperty(value = "授信单号")
