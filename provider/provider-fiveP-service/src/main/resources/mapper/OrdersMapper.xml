@@ -185,6 +185,7 @@
     <result column="Tel" jdbcType="VARCHAR" property="tel" />
     <result column="Fax" jdbcType="VARCHAR" property="fax" />
     <result column="printtime" jdbcType="VARCHAR" property="printTime" />
+    <result column="Inc_Auto" jdbcType="BIGINT" property="incAuto" />
   </resultMap>
   <select id="selectPaymentList" parameterType="map" resultMap="queryPaymentList" statementType="CALLABLE">
     {
@@ -215,6 +216,10 @@
     <result column="Remark" jdbcType="VARCHAR" property="remark" />
     <result column="BookCarIncome_Auto" jdbcType="BIGINT" property="bookCarIncomeAuto" />
     <result column="CreditMain_Auto" jdbcType="BIGINT" property="creditMainAuto" />
+    <result column="Type" jdbcType="INTEGER" property="type" />
+    <result column="Inc_Auto" jdbcType="INTEGER" property="incAuto" />
+    <result column="incName" jdbcType="VARCHAR" property="incName" />
+    <result column="accountAuto" jdbcType="BIGINT" property="accountAuto" />
   </resultMap>
   <select id="selectIncomeList" resultMap="queryIncomeList" statementType="CALLABLE" parameterType="map">
     {

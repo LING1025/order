@@ -21,6 +21,9 @@ public class IncomeList implements Serializable {
     @ApiModelProperty(value = "项次")
     private Integer seq;
 
+    @ApiModelProperty(value = "汇款类别序号")
+    private Integer type;
+
     @ApiModelProperty(value = "汇款类别")
     private String typeQ;
 
@@ -29,6 +32,9 @@ public class IncomeList implements Serializable {
 
     @ApiModelProperty(value = "汇款账号")
     private String incomeCarNo;
+
+    @ApiModelProperty(value = "进款账号序号")
+    private Long accountAuto;
 
     @ApiModelProperty(value = "进款账号")
     private String incomeAccount;
@@ -52,6 +58,9 @@ public class IncomeList implements Serializable {
 
     @ApiModelProperty(value = "备注")
     private String remark;
+
+    @ApiModelProperty(value = "公司别序号")
+    private Integer incAuto;
 
     @ApiModelProperty(value = "公司名称")
     private String incName;
