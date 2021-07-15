@@ -119,12 +119,17 @@ END
         <result column="accountName" jdbcType="VARCHAR" property="accountName" />
     </resultMap>
     <select id="selectAccountNameList" resultMap="queryAccountNameList">
-        declare @condition bigint=#{incAuto}
+        declare @condition bigint=#{incAuto},@accountAuto bigint=#{accountAuto}
+        if(@accountAuto=0)
         begin
         select
         0 as accountAuto,'==请选择=='as accountName
         union all
         select Num,ItemName from ItemCode where ItemType=2031 and v1=@condition
+        end
+        if(@accountAuto>0)
+        begin
+        select accountAuto=Num,accountName=ItemName from ItemCode where ItemType=2031 and v1=@condition and Num=@accountAuto
         end
     </select>
 

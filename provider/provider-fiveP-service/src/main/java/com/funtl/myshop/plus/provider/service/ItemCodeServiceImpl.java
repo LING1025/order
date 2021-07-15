@@ -27,8 +27,8 @@ public class ItemCodeServiceImpl implements ItemCodeService{
     }
 
     @Override
-    public List<AccountNameList> selectAccountNameList(Long incAuto) {
-        return itemCodeMapper.selectAccountNameList(incAuto);
+    public List<AccountNameList> selectAccountNameList(Long incAuto,Long accountAuto) {
+        return itemCodeMapper.selectAccountNameList(incAuto,accountAuto);
     }
 
     @Override

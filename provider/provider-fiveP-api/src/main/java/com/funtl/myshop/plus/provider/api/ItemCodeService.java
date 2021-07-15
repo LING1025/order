@@ -24,7 +24,7 @@ public interface ItemCodeService{
      * @param incAuto
      * @return
      */
-    List<AccountNameList> selectAccountNameList(Long incAuto);
+    List<AccountNameList> selectAccountNameList(Long incAuto,Long accountAuto);
 
     /**
      * 拨款申请作业：出保单地下拉选

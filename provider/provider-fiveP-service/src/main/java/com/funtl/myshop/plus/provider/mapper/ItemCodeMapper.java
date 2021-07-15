@@ -14,7 +14,7 @@ public interface ItemCodeMapper extends MyMapper<ItemCode> {
     List<IncNameList> selectIncNameList(@Param("incName") String incName);
 
     /*根据进款公司别序号获取进款账号*/
-    List<AccountNameList> selectAccountNameList(@Param("incAuto") Long incAuto);
+    List<AccountNameList> selectAccountNameList(@Param("incAuto") Long incAuto,@Param("accountAuto") Long accountAuto);
 
     /*拨款申请作业：出保单地下拉选*/
     List<LicensePlateList> selectLicense(@Param("insureAddr") Integer insureAddr,@Param("type") Integer type);

@@ -102,10 +102,14 @@ public class PaymentController {
     }
 
     @ApiOperation(value = "根据进款公司别序号获取进款账号")
-    @ApiImplicitParam(name = "incAuto", value = "公司别序号",required = true,dataType ="long",paramType = "path")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "incAuto", value = "公司别序号",required = true,dataType ="long",paramType = "path"),
+            @ApiImplicitParam(name = "accountAuto", value = "进款账号序号",required = true,dataType ="long",paramType = "path")
+    })
     @GetMapping(value = "queryAccountNameList")
-    public ResponseResult<List<AccountNameList>> queryAccountNameList(@RequestParam(name = "incAuto",defaultValue = "0")Long incAuto){
-        List<AccountNameList> lists = itemCodeService.selectAccountNameList(incAuto);
+    public ResponseResult<List<AccountNameList>> queryAccountNameList(@RequestParam(name = "incAuto",defaultValue = "0")Long incAuto,
+                                                                      @RequestParam(name = "accountAuto",defaultValue = "0")Long accountAuto){
+        List<AccountNameList> lists = itemCodeService.selectAccountNameList(incAuto,accountAuto);
         return new ResponseResult<>(ResponseResult.CodeStatus.OK,"查询成功",lists);
     }
 
