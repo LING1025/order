@@ -886,13 +886,13 @@ End
   <!--付款日修改审核：获取需审核列表数据-->
   <resultMap id="queryOrdersPayList" type="com.funtl.myshop.plus.provider.domain.OrdersPayList">
     <result column="DepName" jdbcType="VARCHAR" property="depName" />
-    <result column="saleName" jdbcType="VARCHAR" property="saleName" />
-    <result column="cusName" jdbcType="VARCHAR" property="cusName" />
+    <result column="FName" jdbcType="VARCHAR" property="saleName" />
+    <result column="CustName" jdbcType="VARCHAR" property="cusName" />
     <result column="AppSeq" jdbcType="INTEGER" property="appSeq" />
     <result column="RoleId" jdbcType="INTEGER" property="roleId" />
     <result column="OrderType" jdbcType="INTEGER" property="orderType" />
-    <result column="creditLevelName" jdbcType="VARCHAR" property="creditLevelName" />
-    <result column="PayDay" jdbcType="TIMESTAMP" property="payDay" />
+    <result column="CreditlevleName" jdbcType="VARCHAR" property="creditLevelName" />
+    <result column="PayDay" jdbcType="INTEGER" property="payDay" />
     <result column="PayDayMemo" jdbcType="VARCHAR" property="payDayMemo" />
     <result column="CreditMain_Auto" jdbcType="BIGINT" property="creditMainAuto" />
     <result column="Orders_Auto" jdbcType="BIGINT" property="ordersAuto" />
@@ -905,80 +905,17 @@ End
     )
     }
   </select>
-  <insert id="insertPay">
-    declare
-    @Creditmain_auto bigint=#{ordersPayDto.creditMainAuto} --授信单号
-    ,@AppSeq int=#{ordersPayDto.appSeq} --等级
-    ,@CreditMemo nvarchar(200)=#{ordersPayDto.creditMemo} --签核意见
-    ,@Type int#{ordersPayDto.type} -- (UserID != LoginUserID) ? 1 : 0)--操作人类别：1别人 0本人--通过id判断给type赋值
-    ,@Status int#{ordersPayDto.status} -- 20核准 5驳回
-    ,@User_Auto bigint#{ordersPayDto.userAuto} --选择操作人
-    begin
-    if(@Status=5)
-    begin
-
-    update DocSystem.dbo.WorkFlowDoc
-    set [Status]=5,MDT=GETDATE(),MUser=@User_Auto,Memo=@CreditMemo,IsAgent=@Type
-    where DocPostID=@Creditmain_auto and AppSeq=@AppSeq and WorkFlow_Auto=82  and status=0 and InActiveList != -1
-
-    update a
-    set a.PayDayStatus = 5
-    from Credit_Order a
-    where a.CreditMain_Auto = @creditmain_auto
-
-    update DocSystem.dbo.WorkFlowDoc
-    set InActiveList=-1
-    where DocPostID=@Creditmain_auto and WorkFlow_Auto=82  and InActiveList != -1
-
-    delete DocSystem.dbo.WorkFlowDoc where DocPostID=@Creditmain_auto and WorkFlow_Auto=82  and status=0 and InActiveList != -1
-    end
-    else if(@Status=20)
-    begin
-    declare @MaxAppSeq int
-    update DocSystem.dbo.WorkFlowDoc
-    set [Status]=20,MDT=GETDATE(),MUser=@User_Auto,Memo= @CreditMemo,IsAgent= @Type
-    where DocPostID=@Creditmain_auto and AppSeq=@AppSeq and WorkFlow_Auto=82  and status=0
-
-    update DocSystem.dbo.WorkFlowDoc
-    set LevNow = @AppSeq
-    where DocPostID=@Creditmain_auto and WorkFlow_Auto=82 and InActiveList>=0
-
-    select @MaxAppSeq=isnull(MAX(AppSeq),0)
-    from DocSystem.dbo.WorkFlowDoc
-    where DocPostID=@Creditmain_auto and WorkFlow_Auto=82 and InActiveList>=0
-
-    if(@MaxAppSeq=@AppSeq)--最后一个审核--
-    begin
-    update a
-    set a.PayDayStatus = 20
-    from Credit_Order a
-    where a.CreditMain_Auto = @creditmain_auto
-
-    declare @Order_Auto bigint,@Orders_Auto bigint,@PayDay int
-
-    select @Order_Auto= b.Order_Auto,@Orders_Auto= a.Orders_Auto,@PayDay = a.PayDay
-    from Credit_Order a
-    left join [order] b on b.Orders_Auto = a.Orders_Auto
-    where a.CreditMain_Auto = @creditmain_auto
-
-    update b
-    set b.PayDay = @PayDay
-    from  [orders] b
-    where b.Orders_Auto = @Orders_Auto
-
-    if isnull(@Order_Auto,0) > 0
-    begin
-    update b
-    set b.PayDay = @PayDay
-    from [order] b
-    where b.Order_Auto = @Order_Auto
-
-    update OrderRent
-    set ARDT=dateadd(dd,@PayDay,StartDT)
-    where Order_Auto = @Order_Auto
-    end
-    end
-    end
-    end
+  <insert id="insertPay" statementType="CALLABLE" parameterType="map">
+    {
+    call dbo.s_OrdersPayDay_U1
+    (
+        #{ordersPayDto.creditMainAuto,jdbcType=BIGINT},--授信单号
+        #{ordersPayDto.appSeq,jdbcType=INTEGER},--等级
+        #{ordersPayDto.creditMemo,jdbcType=VARCHAR},--签核意见
+        #{ordersPayDto.type,jdbcType=INTEGER},-- (UserID != LoginUserID) ? 1 : 0)--操作人类别：1别人 0本人--通过id判断给type赋值
+        #{ordersPayDto.status,jdbcType=INTEGER},-- 20核准 5驳回
+        #{ordersPayDto.userAuto,jdbcType=BIGINT}--选择操作人
+    )
+    }
   </insert>
 </mapper>

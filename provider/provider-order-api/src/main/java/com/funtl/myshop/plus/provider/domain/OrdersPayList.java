@@ -41,7 +41,7 @@ public class OrdersPayList implements Serializable {
     private String creditLevelName;
 
     @ApiModelProperty(value = "付款日")
-    private Date payDay;
+    private Integer payDay;
 
     @ApiModelProperty(value = "修改说明")
     private String payDayMemo;

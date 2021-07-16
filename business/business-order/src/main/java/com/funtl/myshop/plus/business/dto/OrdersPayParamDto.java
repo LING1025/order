@@ -23,7 +23,7 @@ public class OrdersPayParamDto implements Serializable {
      * (UserID != LoginUserID) ? 1 : 0)--操作人类别：1别人 0本人--通过id判断给type赋值
      */
     @JsonIgnore
-    private int type;
+    private Integer type;
 
     @ApiModelProperty(value = "操作人")
     private Long userAuto;
@@ -32,5 +32,5 @@ public class OrdersPayParamDto implements Serializable {
     private Long loginUserAuto;
 
     @ApiModelProperty(value = "状态：20核准 5驳回")
-    private int status;
+    private Integer status;
 }
