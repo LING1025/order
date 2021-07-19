@@ -9,6 +9,9 @@ import java.io.Serializable;
 @Data
 @ApiModel(value = "付款日修改审核：选择操作人")
 public class OperatorList implements Serializable {
+    @ApiModelProperty(value = "序号")
+    private Integer num;
+
     @ApiModelProperty(value = "操作人序号")
     private Long selfUser;
 

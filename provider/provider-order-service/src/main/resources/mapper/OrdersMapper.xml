@@ -921,6 +921,7 @@ End
 
   <!--付款日修改审核：选择操作人-->
   <resultMap id="queryOperatorList" type="com.funtl.myshop.plus.provider.domain.OperatorList">
+    <result column="num" jdbcType="INTEGER" property="num" />
     <result column="SelfUserNm" jdbcType="VARCHAR" property="selfUserNm" />
     <result column="SelfUser" jdbcType="BIGINT" property="selfUser" />
   </resultMap>
