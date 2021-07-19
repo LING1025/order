@@ -82,4 +82,9 @@ public class OrdersServiceImpl implements OrdersService{
         return ordersMapper.insertPay(ordersPayDto);
     }
 
+    @Override
+    public List<OperatorList> selectOperatorList(Long loginUserId) {
+        return ordersMapper.selectOperatorList(loginUserId);
+    }
+
 }

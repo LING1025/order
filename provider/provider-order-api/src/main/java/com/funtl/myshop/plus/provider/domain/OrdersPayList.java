@@ -11,7 +11,7 @@ import java.util.Date;
 @Data
 @ApiModel(value = "付款日修改审核：列表数据")
 public class OrdersPayList implements Serializable {
-    @ApiModelProperty(value = "部分")
+    @ApiModelProperty(value = "部门")
     private String depName;
 
     @ApiModelProperty(value = "业代")

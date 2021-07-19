@@ -5,6 +5,7 @@ import com.funtl.myshop.plus.business.BusinessStatus;
 import com.funtl.myshop.plus.business.dto.OrdersPayParamDto;
 import com.funtl.myshop.plus.commons.dto.ResponseResult;
 import com.funtl.myshop.plus.provider.api.OrdersService;
+import com.funtl.myshop.plus.provider.domain.OperatorList;
 import com.funtl.myshop.plus.provider.domain.OrdersPayList;
 import com.funtl.myshop.plus.provider.dto.OrdersPayDto;
 import io.swagger.annotations.Api;
@@ -24,6 +25,14 @@ import java.util.List;
 public class OrdersPayController {
     @Reference(version = "1.0.0")
     private OrdersService ordersService;
+
+    @ApiOperation(value = "付款日修改审核：获取操作人数据")
+    @ApiImplicitParam(name = "loginUserId",value = "登录人userAuto",required = true,dataType = "long",paramType = "path")
+    @GetMapping(value = "queryOperatorList")
+    public ResponseResult<List<OperatorList>> queryOperatorList(@RequestParam(name = "loginUserId") Long loginUserId){
+        List<OperatorList> lists = ordersService.selectOperatorList(loginUserId);
+        return new ResponseResult<>(ResponseResult.CodeStatus.OK,"查询成功",lists);
+    }
 
     @ApiOperation(value = "付款日修改审核：获取需审核列表数据")
     @ApiImplicitParam(name = "userAuto",value = "操作人userAuto",required = true,dataType = "long",paramType = "path")

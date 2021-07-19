@@ -918,4 +918,18 @@ End
     )
     }
   </insert>
+
+  <!--付款日修改审核：选择操作人-->
+  <resultMap id="queryOperatorList" type="com.funtl.myshop.plus.provider.domain.OperatorList">
+    <result column="SelfUserNm" jdbcType="VARCHAR" property="selfUserNm" />
+    <result column="SelfUser" jdbcType="BIGINT" property="selfUser" />
+  </resultMap>
+  <select id="selectOperatorList" resultMap="queryOperatorList" parameterType="map" statementType="CALLABLE">
+    {
+    call dbo.S_GetAgentList
+    (
+    #{loginUserId,jdbcType=BIGINT}
+    )
+    }
+  </select>
 </mapper>

@@ -93,4 +93,11 @@ public interface OrdersService{
      * @return
      */
     Integer insertPay(OrdersPayDto ordersPayDto);
+
+    /**
+     * 付款日修改审核：选择操作人
+     * @param loginUserId
+     * @return
+     */
+    List<OperatorList> selectOperatorList(Long loginUserId);
 }
